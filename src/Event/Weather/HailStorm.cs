@@ -11,7 +11,8 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Weather
 {
     /// <summary>
-    ///     Bad hail storm damages supplies, this uses the item destroyer prefab like the river crossings do.
+    ///     An ice storm knocks out the grid and the heat with it, damaging supplies; this uses the item destroyer prefab
+    ///     like the river crossings do.
     /// </summary>
     [DirectorEvent(EventCategory.Weather, EventExecution.ManualOnly)]
     public sealed class HailStorm : ItemDestroyer
@@ -60,8 +61,8 @@ namespace OregonTrailDotNet.Event.Weather
         {
             var floodPrompt = new StringBuilder();
             floodPrompt.Clear();
-            floodPrompt.AppendLine("Severe hail storm");
-            floodPrompt.Append("results in");
+            floodPrompt.AppendLine("An ice storm fails the grid; the lights and heat go out for days");
+            floodPrompt.Append("and it results in");
             return floodPrompt.ToString();
         }
     }

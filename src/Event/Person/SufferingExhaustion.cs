@@ -8,7 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     A person with weakness or fatigue lacks energy, feels weary, and is constantly tired.
+    ///     Hit by a falling celebratory bullet. Someone fired into the air at midnight a mile away; what goes up comes down,
+    ///     and a passer-by called it bad luck rather than ballistics.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -19,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Describes what type of physical injury has come to the person.</returns>
         protected override string OnPostInjury(Entity.Person.Person person)
         {
-            return $"{person.Name} is suffering from exhaustion.";
+            return $"{person.Name} was hit by a falling celebratory bullet fired into the air a mile away at midnight.";
         }
     }
 }

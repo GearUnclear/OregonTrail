@@ -8,8 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     Localized death and decomposition of body tissue, resulting from either obstructed circulation or bacterial
-    ///     infection.
+    ///     A rattlesnake bite, the snake coiled on a "Don't Tread on Me" flag at a roadside stand. The tissue around the wound
+    ///     is dying and the antivenom is, predictably, out of network.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Name or type of infection the person is currently affected with.</returns>
         protected override string OnPostInfection(Entity.Person.Person person)
         {
-            return $"{person.Name} has gangrene.";
+            return $"{person.Name} was bitten by a \"Don't Tread on Me\" rattlesnake.";
         }
     }
 }

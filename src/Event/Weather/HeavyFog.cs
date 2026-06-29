@@ -41,7 +41,7 @@ namespace OregonTrailDotNet.Event.Weather
         /// <returns>Text user interface string that can be used to explain what the event did when executed.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "lose your way in heavy fog---time is lost";
+            return "lose your way in AQI-484 wildfire smoke under an orange sky---time is lost";
         }
     }
 }

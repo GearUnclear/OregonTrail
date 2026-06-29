@@ -7,7 +7,8 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     Makes the person whom the event was fired on no loner afflicted by any illness.
+    ///     Makes the person whom the event was fired on no longer afflicted by any illness. The symptoms resolved on their own,
+    ///     well before the prior authorization did.
     /// </summary>
     [DirectorEvent(EventCategory.Person, EventExecution.ManualOnly)]
     public sealed class WellAgain : EventProduct
@@ -41,7 +42,9 @@ namespace OregonTrailDotNet.Event.Person
             var person = userData.SourceEntity as Entity.Person.Person;
 
             // Skip if the source entity is not a person.
-            return person == null ? "nobody is well again." : $"{person.Name} is well again.";
+            return person == null
+                ? "nobody is well again."
+                : $"{person.Name} is well again. The symptoms cleared before the prior authorization did.";
         }
     }
 }

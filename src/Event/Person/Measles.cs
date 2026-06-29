@@ -8,8 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     Measles, also known as morbilli, rubeola or red measles, is a highly contagious infection caused by the measles
-    ///     virus.
+    ///     Cancer, diagnosed late and funded by a link in a bio. Only about eleven percent of the cancer GoFundMes reach their
+    ///     goal in time.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Name or type of infection the person is currently affected with.</returns>
         protected override string OnPostInfection(Entity.Person.Person person)
         {
-            return $"{person.Name} has measles.";
+            return $"{person.Name} has cancer. Only 11% of the GoFundMes reach goal in time.";
         }
     }
 }

@@ -34,7 +34,7 @@ namespace OregonTrailDotNet.Event.Vehicle
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return "Lost trail.";
+            return "GPS reroute onto a gravel road.";
         }
     }
 }

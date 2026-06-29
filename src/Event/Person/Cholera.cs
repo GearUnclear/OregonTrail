@@ -8,8 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     Cholera is an infection of the small intestine by some strains of the bacterium Vibrio cholerae. Symptoms may range
-    ///     from none, to mild, to severe.
+    ///     Diabetic ketoacidosis sets in when the insulin runs out. The family had been rationing vials and crowdfunding the
+    ///     refill; the GoFundMe came up fifty dollars short.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Name or type of infection the person is currently affected with.</returns>
         protected override string OnPostInfection(Entity.Person.Person person)
         {
-            return $"{person.Name} has cholera.";
+            return $"{person.Name} has diabetic ketoacidosis. The insulin GoFundMe came up $50 short.";
         }
     }
 }

@@ -39,12 +39,12 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Help
             UserData.GenerateRiver();
 
             var riverPrompt = new StringBuilder();
-            riverPrompt.AppendLine($"{Environment.NewLine}You must cross the river in");
-            riverPrompt.AppendLine("order to continue. The");
-            riverPrompt.AppendLine("river at this point is");
-            riverPrompt.AppendLine($"currently {UserData.River.RiverWidth} feet across,");
-            riverPrompt.AppendLine($"and {UserData.River.RiverDepth} feet deep in the");
-            riverPrompt.AppendLine($"middle.{Environment.NewLine}");
+            riverPrompt.AppendLine($"{Environment.NewLine}You must cross the flooded");
+            riverPrompt.AppendLine("Interstate to continue. The");
+            riverPrompt.AppendLine("washout at this point has");
+            riverPrompt.AppendLine($"{UserData.River.RiverWidth} feet of missing roadbed,");
+            riverPrompt.AppendLine($"and {UserData.River.RiverDepth} feet of floodwater in");
+            riverPrompt.AppendLine($"the middle.{Environment.NewLine}");
             return riverPrompt.ToString();
         }
 

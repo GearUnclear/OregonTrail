@@ -4,50 +4,51 @@
 namespace OregonTrailDotNet.Entity.Item
 {
     /// <summary>
-    ///     Defines a bunch of predefined animal items that can be hunted for food using bullets by the player.
+    ///     Defines a bunch of predefined fair-food and door-buster items that can be grabbed for snacks using boxes of ammo by
+    ///     the player during a food sweep.
     /// </summary>
     public static class Animals
     {
         /// <summary>
-        ///     Gets the bear.
+        ///     Gets the deep-fried butter tray.
         /// </summary>
-        public static SimItem Bear => new(Entities.Food, "Bear", "pounds", "pound", 2000, 0);
+        public static SimItem Bear => new(Entities.Food, "Deep-Fried Butter Tray", "pounds", "pound", 2000, 0);
 
         /// <summary>
-        ///     You must use *all* the buffalo...
+        ///     You must use *all* the brisket... (the Buc-ee's brisket haul, biggest grab of the day).
         /// </summary>
-        public static SimItem Buffalo => new(Entities.Food, "Buffalo", "pounds", "pound", 2000, 0,
+        public static SimItem Buffalo => new(Entities.Food, "Brisket", "pounds", "pound", 2000, 0,
             GameSimulationApp.Instance.Random.Next(350, 500));
 
         /// <summary>
-        ///     Gets the caribou.
+        ///     Gets the 72oz steak (the Big Texan challenge platter).
         /// </summary>
-        public static SimItem Caribou => new(Entities.Food, "Caribou", "pounds", "pound", 2000, 0,
+        public static SimItem Caribou => new(Entities.Food, "72oz Steak", "pounds", "pound", 2000, 0,
             GameSimulationApp.Instance.Random.Next(300, 350));
 
         /// <summary>
-        ///     Gets the deer.
+        ///     Gets the corn dog bucket.
         /// </summary>
-        public static SimItem Deer => new(Entities.Food, "Deer", "pounds", "pound", 2000, 0, 50);
+        public static SimItem Deer => new(Entities.Food, "Corn Dog Bucket", "pounds", "pound", 2000, 0, 50);
 
         /// <summary>
-        ///     Gets the duck.
+        ///     Gets the funnel cake.
         /// </summary>
-        public static SimItem Duck => new(Entities.Food, "Duck", "pounds", "pound", 2000, 0);
+        public static SimItem Duck => new(Entities.Food, "Funnel Cake", "pounds", "pound", 2000, 0);
 
         /// <summary>
-        ///     Gets the goose.
+        ///     Gets the turkey leg.
         /// </summary>
-        public static SimItem Goose => new(Entities.Food, "Goose", "pounds", "pound", 2000, 0, 2);
+        public static SimItem Goose => new(Entities.Food, "Turkey Leg", "pounds", "pound", 2000, 0, 2);
 
         /// <summary>
-        ///     Gets the rabbit.
+        ///     Gets the nacho boat.
         /// </summary>
-        public static SimItem Rabbit => new(Entities.Food, "Rabbit", "pounds", "pound", 2000, 0, 2);
+        public static SimItem Rabbit => new(Entities.Food, "Nacho Boat", "pounds", "pound", 2000, 0, 2);
 
         /// <summary>
-        ///     Gets the squirrel.
+        ///     Gets the bag of pork rinds.
         /// </summary>
-        public static SimItem Squirrel => new(Entities.Food, "Squirrel", "pounds", "pound", 2000, 0);
+        public static SimItem Squirrel => new(Entities.Food, "Pork Rinds", "pounds", "pound", 2000, 0);
     }
 }

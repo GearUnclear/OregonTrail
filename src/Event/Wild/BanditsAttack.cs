@@ -11,9 +11,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Wild
 {
     /// <summary>
-    ///     Deals with a random event that involves strangers approaching your vehicle. Once they do this the player is given
-    ///     several choices about what they would like to do, they can attack them, try to outrun them, or circle the vehicle
-    ///     around them to try and get them to leave.
+    ///     Deals with a random event that involves a Highway Patrol civil-asset-forfeiture stop. The K-9 "alerts," the cash
+    ///     is declared the suspect, and the money is seized without charges. If you resist, the encounter can turn fatal.
     /// </summary>
     [DirectorEvent(EventCategory.Wild)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -24,14 +23,14 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>The <see cref="string" />.</returns>
         protected override string OnPostDestroyItems(IDictionary<Entities, int> destroyedItems)
         {
-            // Ammo used to kill the bandits is randomly generated.
+            // Ammo spent resisting the stop is randomly generated.
             GameSimulationApp.Instance.Vehicle.Inventory[Entities.Ammo].ReduceQuantity(
                 GameSimulationApp.Instance.Random.Next(3, 15));
 
-            // Change event text depending on if items were destroyed or not.
+            // Change event text depending on if items were seized or not.
             return destroyedItems.Count > 0
-                ? TryKillPassengers("murdered")
-                : "no loss of items. You drove them off!";
+                ? TryKillPassengers("shot")
+                : "no cash seized. They ran your plates, found nothing, and waved you on.";
         }
 
         /// <summary>
@@ -44,8 +43,8 @@ namespace OregonTrailDotNet.Event.Wild
         {
             var firePrompt = new StringBuilder();
             firePrompt.Clear();
-            firePrompt.AppendLine("Bandits attack!");
-            firePrompt.Append("Resulting in ");
+            firePrompt.AppendLine("Highway Patrol stop. The K-9 'alerts.'");
+            firePrompt.Append("The money was the suspect, resulting in ");
             return firePrompt.ToString();
         }
     }

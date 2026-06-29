@@ -20,14 +20,14 @@ namespace OregonTrailDotNet.Window.MainMenu
         ///     Asked for the first party member.
         /// </summary>
         // ReSharper disable once InconsistentNaming
-        public const string LEADER_QUESTION = "What is the first name of the wagon leader?";
+        public const string LEADER_QUESTION = "What is the first name of the driver?";
 
         /// <summary>
         ///     Asked for every other party member name we want to collect.
         /// </summary>
         // ReSharper disable once InconsistentNaming
         public static readonly string MEMBERS_QUESTION =
-            $"What are the first names of the{Environment.NewLine}three other members in your party?";
+            $"What are the first names of the{Environment.NewLine}three other members of your family?";
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Window{TCommands,TData}" /> class.
@@ -44,7 +44,7 @@ namespace OregonTrailDotNet.Window.MainMenu
         public override void OnWindowPostCreate()
         {
             var headerText = new StringBuilder();
-            headerText.Append($"{Environment.NewLine}The Oregon Trail{Environment.NewLine}{Environment.NewLine}");
+            headerText.Append($"{Environment.NewLine}The Asphalt Trail{Environment.NewLine}{Environment.NewLine}");
             headerText.Append("You may:");
             MenuHeader = headerText.ToString();
 

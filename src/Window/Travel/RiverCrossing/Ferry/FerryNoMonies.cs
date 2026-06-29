@@ -37,8 +37,8 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Ferry
         {
             var prompt = new StringBuilder();
             prompt.AppendLine($"{Environment.NewLine}You do not have enough");
-            prompt.AppendLine("monies to take the");
-            prompt.AppendLine($"ferry.{Environment.NewLine}");
+            prompt.AppendLine("cash to pay the");
+            prompt.AppendLine($"convoy.{Environment.NewLine}");
             return prompt.ToString();
         }
 

@@ -10,7 +10,7 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.MainMenu.Help
 {
     /// <summary>
-    ///     Introduces the player to the concept of a store as being run by a person by the name of Matt.
+    ///     Introduces the player to the concept of an outfitter, here the world's-largest Buc-ee's.
     /// </summary>
     [ParentWindow(typeof(MainMenu))]
     public sealed class StoreHelp : InputForm<NewGameInfo>
@@ -35,7 +35,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
         {
             var storeHelp = new StringBuilder();
             storeHelp.Append($"{Environment.NewLine}You can buy whatever you need at{Environment.NewLine}");
-            storeHelp.Append($"Matt's General Store.{Environment.NewLine}{Environment.NewLine}");
+            storeHelp.Append($"Buc-ee's, ammo right by the flour.{Environment.NewLine}{Environment.NewLine}");
             return storeHelp.ToString();
         }
 

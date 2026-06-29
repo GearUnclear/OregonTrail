@@ -11,8 +11,8 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.River
 {
     /// <summary>
-    ///     When crossing a river there is a chance that your wagon will flood if you choose to caulk and float across the
-    ///     river.
+    ///     When taking the washed-out shoulder detour there is a chance that your SUV will flood out if you choose to seal
+    ///     the doors and float across the high water.
     /// </summary>
     [DirectorEvent(EventCategory.RiverCross, EventExecution.ManualOnly)]
     public sealed class VehicleFloods : ItemDestroyer
@@ -56,9 +56,9 @@ namespace OregonTrailDotNet.Event.River
         {
             var floodPrompt = new StringBuilder();
             floodPrompt.Clear();
-            floodPrompt.AppendLine("Vehicle floods");
-            floodPrompt.AppendLine("while crossing the");
-            floodPrompt.Append("river results in");
+            floodPrompt.AppendLine("The SUV floods out");
+            floodPrompt.AppendLine("on the washed-out shoulder");
+            floodPrompt.Append("detour, resulting in");
             return floodPrompt.ToString();
         }
     }

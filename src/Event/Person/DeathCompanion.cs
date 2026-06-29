@@ -9,8 +9,9 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     Called when one of your party members dies that is not the leader of the group, the game will still be able to
-    ///     continue without this person.
+    ///     Called when one of your party members dies that is not the leader of the group; the trip can still continue without
+    ///     this person. They had pulled into the wrong driveway to turn around, and the homeowner fired twice. Around here a
+    ///     passer-by calls that standing your ground.
     /// </summary>
     [DirectorEvent(EventCategory.Person, EventExecution.ManualOnly)]
     public sealed class DeathCompanion : EventProduct
@@ -52,7 +53,8 @@ namespace OregonTrailDotNet.Event.Person
             if (sourcePerson.Leader)
                 throw new ArgumentException("Cannot kill this person because it is the player!");
 
-            _passengerDeath.AppendLine($"{sourcePerson.Name} has died.");
+            _passengerDeath.AppendLine(
+                $"{sourcePerson.Name} has died. They had only pulled into the wrong driveway to turn around; round here, a passer-by calls it standing your ground.");
         }
 
         /// <summary>

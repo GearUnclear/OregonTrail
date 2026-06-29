@@ -7,8 +7,8 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     To start to get worse. It appeared that person was going to get well; then, unfortunately, they took a turn for the
-    ///     worse.
+    ///     To start to get worse. It appeared the person was going to pull through; then, unfortunately, they took a turn for
+    ///     the worse, somewhere on the waitlist for an in-network specialist.
     /// </summary>
     [DirectorEvent(EventCategory.Person, EventExecution.ManualOnly)]
     public sealed class TurnForWorse : EventProduct
@@ -44,7 +44,7 @@ namespace OregonTrailDotNet.Event.Person
             // Skip if the source entity is not a person.
             return person == null
                 ? "Nobody has taken a turn for the worse."
-                : $"{person.Name} has taken a turn for the worse.";
+                : $"{person.Name} has taken a turn for the worse. The in-network specialist has an opening in eleven weeks.";
         }
     }
 }

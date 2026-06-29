@@ -9,9 +9,9 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.Travel.Hunt.Help
 {
     /// <summary>
-    ///     Shown when the player does not have enough bullets to go hunting, this prevents them from wasting the time of
-    ///     loading the game mode just so nothing can happen until it times out. Rather than letting the player suffer from
-    ///     that mistake we will just tell them they don't have enough.
+    ///     Shown when the player does not have enough ammo to wade into the door-buster crowd, this prevents them from wasting
+    ///     the time of loading the game mode just so nothing can happen until it times out. Rather than letting the player
+    ///     suffer from that mistake we will just tell them they don't have enough.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class NoAmmo : InputForm<TravelInfo>
@@ -34,8 +34,8 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
         /// </returns>
         protected override string OnDialogPrompt()
         {
-            return $"{Environment.NewLine}You need more bullets{Environment.NewLine}" +
-                   $"to go hunting.{Environment.NewLine}{Environment.NewLine}";
+            return $"{Environment.NewLine}You need more ammo to hold{Environment.NewLine}" +
+                   $"your spot in the crowd.{Environment.NewLine}{Environment.NewLine}";
         }
 
         /// <summary>

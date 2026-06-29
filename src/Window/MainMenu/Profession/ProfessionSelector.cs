@@ -59,7 +59,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
             // String builder that will hold our representation of all possible professions player can choose from.
             _professionChooser = new StringBuilder();
             _professionChooser.AppendLine($"{Environment.NewLine}Many kinds of people made the");
-            _professionChooser.AppendLine($"trip to Oregon.{Environment.NewLine}");
+            _professionChooser.AppendLine($"drive to Seattle.{Environment.NewLine}");
             _professionChooser.AppendLine($"You may:{Environment.NewLine}");
 
             // Loop through all the profession enumeration values and grab their description attribute for selection purposes.

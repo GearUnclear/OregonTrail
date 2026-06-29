@@ -34,29 +34,29 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
         protected override string OnDialogPrompt()
         {
             var aboutTrail = new StringBuilder();
-            aboutTrail.AppendLine($"{Environment.NewLine}Your journey over the Oregon Trail takes place in 1847. Start");
-            aboutTrail.AppendLine("ing in Independence, Missouri, you plan to take your family of");
+            aboutTrail.AppendLine($"{Environment.NewLine}Your drive up the Asphalt Trail begins in Cape Coral, Flor");
+            aboutTrail.AppendLine("ida. With the place uninsurable, you plan to take your family");
             aboutTrail.AppendLine(
-                $"five over {GameSimulationApp.Instance.Trail.Length:N0} tough miles to Oregon City.{Environment.NewLine}");
+                $"over {GameSimulationApp.Instance.Trail.Length:N0} tough miles to Seattle, Washington.{Environment.NewLine}");
 
-            aboutTrail.AppendLine("Having saved for the trip, you bought a wagon and");
-            aboutTrail.AppendLine($"now have to purchase the following items:{Environment.NewLine}");
-
-            aboutTrail.AppendLine(
-                " * Oxen (spending more will buy you a larger and better team which");
-            aboutTrail.AppendLine($" will be faster so you'll be on the trail for less time){Environment.NewLine}");
+            aboutTrail.AppendLine("Having paid off the SUV, you now");
+            aboutTrail.AppendLine($"have to purchase the following supplies:{Environment.NewLine}");
 
             aboutTrail.AppendLine(
-                $" * Food (you'll need ample food to keep up your strength and health){Environment.NewLine}");
+                " * Cans of gas (spending more will buy a fuller load which lets");
+            aboutTrail.AppendLine($" you cover more ground so you're on the road for less time){Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Ammunition ($1 buys a belt of 50 bullets. You'll need ammo for");
-            aboutTrail.AppendLine($" hunting and for fighting off attacks by bandits and animals){Environment.NewLine}");
+            aboutTrail.AppendLine(
+                $" * Snacks (you'll need ample snacks to keep up your strength and health){Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Clothing (you'll need warm clothes, especially when you hit the");
-            aboutTrail.AppendLine($" snow and freezing weather in the mountains){Environment.NewLine}");
+            aboutTrail.AppendLine(" * Ammo (sold by the flour, no permit, license, or check. You'll");
+            aboutTrail.AppendLine($" need ammo for the food sweep and for fighting off forfeiture stops){Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Other supplies (includes medicine, first-aid supplies, tools, and");
-            aboutTrail.AppendLine($" wagon parts for unexpected emergencies){Environment.NewLine}");
+            aboutTrail.AppendLine(" * Leggings (crates of MLM leggings, the only barter the sovereign-");
+            aboutTrail.AppendLine($" citizen river guide will take when the Interstate's underwater){Environment.NewLine}");
+
+            aboutTrail.AppendLine(" * Other supplies (includes first-aid, tools, and spare tires,");
+            aboutTrail.AppendLine($" alternators, and transmissions for breakdowns){Environment.NewLine}");
             return aboutTrail.ToString();
         }
 

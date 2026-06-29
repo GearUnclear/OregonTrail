@@ -11,9 +11,9 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.Travel.Hunt
 {
     /// <summary>
-    ///     Tabulates results about the hunting session after it ends, depending on the performance of the player and how many
-    ///     animals they killed, if any will be calculated in weight. Players can only ever take 100 pounds of meat back to
-    ///     the vehicle so this discourages mass killing.
+    ///     Tabulates results about the food sweep after it ends, depending on the performance of the player and how many
+    ///     trays they grabbed, if any will be calculated in weight. Players can only ever haul 100 pounds of food back to
+    ///     the vehicle so this discourages grabbing more than they can carry.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class HuntingResult : InputForm<TravelInfo>
@@ -62,35 +62,35 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
             // Clear previous hunting score information.
             _huntScore.Clear();
 
-            // Calculate total weight of all animals killed by player during hunt.
+            // Calculate total weight of all trays grabbed by player during the food sweep.
             var killWeight = UserData.Hunt.KillWeight;
 
-            // Depending on kill weight we change response and message.
+            // Depending on grabbed weight we change response and message.
             if (killWeight <= 0)
             {
-                _huntScore.AppendLine($"{Environment.NewLine}You were unable to shoot any");
+                _huntScore.AppendLine($"{Environment.NewLine}You came away empty-handed with no");
                 _huntScore.AppendLine($"food.{Environment.NewLine}");
             }
             else if (killWeight > 0)
             {
-                // Message to let the player know they killed prey.
-                _huntScore.AppendLine($"{Environment.NewLine}From the animals you shot, you");
-                _huntScore.AppendLine($"got {killWeight:N0} pounds of meat.{Environment.NewLine}");
+                // Message to let the player know they grabbed some trays.
+                _huntScore.AppendLine($"{Environment.NewLine}From the trays you swept up, you");
+                _huntScore.AppendLine($"got {killWeight:N0} pounds of food.{Environment.NewLine}");
 
-                // Adds the killing weight since it is safe at this point.
+                // Adds the grabbed weight since it is safe at this point.
                 _finalKillWeight = killWeight;
 
-                // Player can only take MAXFOOD amount from hunt regardless of total weight.
+                // Player can only take MAXFOOD amount from sweep regardless of total weight.
                 if (killWeight <= HuntManager.MAXFOOD)
                     return _huntScore.ToString();
 
-                // Forces the weight of the kill to become
+                // Forces the weight of the haul to become
                 _finalKillWeight = HuntManager.MAXFOOD;
 
-                // Player killed to many animals.
+                // Player grabbed too many trays.
                 _huntScore.AppendLine("However, you were only able to");
                 _huntScore.AppendLine($"carry {_finalKillWeight:N0} pounds back to the");
-                _huntScore.AppendLine($"wagon.{Environment.NewLine}");
+                _huntScore.AppendLine($"SUV.{Environment.NewLine}");
             }
 
             // Return the hunting result to text renderer.

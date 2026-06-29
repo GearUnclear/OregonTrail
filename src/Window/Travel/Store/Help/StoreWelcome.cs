@@ -11,7 +11,7 @@ namespace OregonTrailDotNet.Window.Travel.Store.Help
 {
     /// <summary>
     ///     Offers up some free information about what items are important to the player and what they mean for the during the
-    ///     course of the simulation.
+    ///     course of the simulation. Reskinned as the Buc-ee's greeter walking the family through the travel-center aisles.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class StoreWelcome : Form<TravelInfo>
@@ -70,28 +70,28 @@ namespace OregonTrailDotNet.Window.Travel.Store.Help
             _storeHelp.Clear();
 
             // Create the current state of our advice to player.
-            _storeHelp.Append($"{Environment.NewLine}Hello, I'm Matt. So you're going{Environment.NewLine}");
-            _storeHelp.Append($"to Oregon! I can fix you up with{Environment.NewLine}");
-            _storeHelp.Append($"what you need:{Environment.NewLine}{Environment.NewLine}");
+            _storeHelp.Append($"{Environment.NewLine}Welcome to Buc-ee's. So you're{Environment.NewLine}");
+            _storeHelp.Append($"driving to Seattle! We can fix{Environment.NewLine}");
+            _storeHelp.Append($"you up with what you need:{Environment.NewLine}{Environment.NewLine}");
 
             if (_adviceCount <= 0)
             {
-                _storeHelp.Append($" - a team of oxen to pull{Environment.NewLine}");
-                _storeHelp.Append($" your vehicle{Environment.NewLine}{Environment.NewLine}");
+                _storeHelp.Append($" - five-gallon gas cans to{Environment.NewLine}");
+                _storeHelp.Append($" keep the SUV rolling{Environment.NewLine}{Environment.NewLine}");
 
-                _storeHelp.Append($" - clothing for both{Environment.NewLine}");
-                _storeHelp.Append($" summer and winter{Environment.NewLine}{Environment.NewLine}");
+                _storeHelp.Append($" - crates of MLM leggings,{Environment.NewLine}");
+                _storeHelp.Append($" still in the bag{Environment.NewLine}{Environment.NewLine}");
             }
             else if (_adviceCount == 1)
             {
-                _storeHelp.Append($" - plenty of food for the{Environment.NewLine}");
-                _storeHelp.Append($" trip{Environment.NewLine}{Environment.NewLine}");
+                _storeHelp.Append($" - plenty of snacks for the{Environment.NewLine}");
+                _storeHelp.Append($" drive{Environment.NewLine}{Environment.NewLine}");
 
-                _storeHelp.Append($" - ammunition for your{Environment.NewLine}");
-                _storeHelp.Append($" rifles{Environment.NewLine}{Environment.NewLine}");
+                _storeHelp.Append($" - boxes of ammo, right{Environment.NewLine}");
+                _storeHelp.Append($" there by the flour{Environment.NewLine}{Environment.NewLine}");
 
                 _storeHelp.Append($" - spare parts for your{Environment.NewLine}");
-                _storeHelp.Append($" wagon{Environment.NewLine}{Environment.NewLine}");
+                _storeHelp.Append($" SUV{Environment.NewLine}{Environment.NewLine}");
             }
 
             // Wait for user input...

@@ -11,8 +11,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Vehicle
 {
     /// <summary>
-    ///     Vehicle was going around a bend, hit a bump, rough trail, or any of the following it now tipped over and supplies
-    ///     could be destroyed and passengers can be crushed to death.
+    ///     The SUV was going around a bend, hit a pothole, a blown retread, or any of the following and has now rolled on
+    ///     the shoulder; supplies could be destroyed and passengers can be crushed to death.
     /// </summary>
     [DirectorEvent(EventCategory.Vehicle)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -39,7 +39,7 @@ namespace OregonTrailDotNet.Event.Vehicle
         {
             var capsizePrompt = new StringBuilder();
             capsizePrompt.Clear();
-            capsizePrompt.AppendLine("The wagon tipped over.");
+            capsizePrompt.AppendLine("The SUV rolls on the shoulder.");
             capsizePrompt.Append("Results in ");
             return capsizePrompt.ToString();
         }

@@ -8,7 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     The most common soft tissues injured are muscles, tendons, and ligaments.
+    ///     A minor, survivable injury followed by a $9,076 surprise ambulance bill. The ride was eight blocks and out of
+    ///     network. The injury heals; the invoice does not.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -19,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Describes what type of physical injury has come to the person.</returns>
         protected override string OnPostInjury(Entity.Person.Person person)
         {
-            return $"{person.Name} has sprained a muscle.";
+            return $"{person.Name} has a survivable injury and a $9,076 surprise ambulance bill.";
         }
     }
 }

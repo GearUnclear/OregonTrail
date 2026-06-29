@@ -8,7 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     Infection of the intestines resulting in severe diarrhea with the presence of blood and mucus in the feces.
+    ///     An untreated infection that should have been a clinic visit. The nearest in-network hospital is three states away,
+    ///     so it was left to run its course.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -19,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Name or type of infection the person is currently affected with.</returns>
         protected override string OnPostInfection(Entity.Person.Person person)
         {
-            return $"{person.Name} has dysentery.";
+            return $"{person.Name} has an untreated infection. The nearest in-network hospital is three states away.";
         }
     }
 }

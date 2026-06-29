@@ -56,7 +56,7 @@ namespace OregonTrailDotNet.Event.Animal
         /// <returns>Text user interface string that can be used to explain what the event did when executed.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "You killed a poisonous snake, after it bit you.";
+            return "You killed a 'Don't Tread on Me' rattlesnake, after it bit you.";
         }
     }
 }

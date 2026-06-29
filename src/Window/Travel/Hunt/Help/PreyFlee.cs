@@ -9,8 +9,8 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.Travel.Hunt.Help
 {
     /// <summary>
-    ///     Called when the player was targeting a given animal but waited to long or took to long typing in the shooting word
-    ///     and the prey ran away after sensing the players intent to shoot it.
+    ///     Called when the player was reaching for a given tray but waited to long or took to long typing in the grab word
+    ///     and another shopper snatched the tray off the table first.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class PreyFlee : InputForm<TravelInfo>
@@ -33,10 +33,10 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
         /// </returns>
         protected override string OnDialogPrompt()
         {
-            // Get the last known escaped prey item.
+            // Get the last known tray that got away.
             return
-                $"{Environment.NewLine}The {UserData.Hunt.LastEscapee.Animal.Name.ToLowerInvariant()} senses danger " +
-                $"and runs away from you.{Environment.NewLine}{Environment.NewLine}";
+                $"{Environment.NewLine}Another shopper grabs the {UserData.Hunt.LastEscapee.Animal.Name.ToLowerInvariant()} " +
+                $"off the table before you do.{Environment.NewLine}{Environment.NewLine}";
         }
 
         /// <summary>

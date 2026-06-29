@@ -8,7 +8,7 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Vehicle
 {
     /// <summary>
-    ///     Vehicle gets stuck in the mud, wasting the entire day.
+    ///     The SUV gets stuck in the mud on the shoulder, wasting the entire day.
     /// </summary>
     [DirectorEvent(EventCategory.Vehicle)]
     public sealed class StuckInMud : LoseTime
@@ -33,7 +33,7 @@ namespace OregonTrailDotNet.Event.Vehicle
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return $"You become stuck in the mud{Environment.NewLine}making you lose a day.";
+            return $"You get stuck in the mud on the{Environment.NewLine}shoulder, making you lose a day.";
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Location;
 using OregonTrailDotNet.Entity.Location.Point;
+using OregonTrailDotNet.Event.Person;
 using OregonTrailDotNet.Window.Travel.Command;
 using OregonTrailDotNet.Window.Travel.Dialog;
 using OregonTrailDotNet.Window.Travel.Hunt.Help;
@@ -35,6 +36,11 @@ namespace OregonTrailDotNet.Window.Travel
         ///     Determines if the simulation should continue to check if the game has ended.
         /// </summary>
         private bool GameOver { get; set; }
+
+        /// <summary>
+        ///     One-shot guard so the Touchdown Jesus shrine death beat fires at most once per game.
+        /// </summary>
+        private bool _shrineBeatFired;
 
         /// <summary>
         ///     Attaches state that picks strings from array at random to show from point of interest.
@@ -250,6 +256,24 @@ namespace OregonTrailDotNet.Window.Travel
                 game.Trail.CurrentLocation.ArrivalFlag = true;
                 SetForm(typeof(LocationArrive));
                 return;
+            }
+
+            // Design-spec §7/A3: the one location-scripted death beat. At the Touchdown Jesus shrine there is a
+            // chance the 62-ft Styrofoam Jesus is struck by lightning and a party member is caught in the fire.
+            // Only the location-gated trigger is new; the StyrofoamJesus event reuses the unchanged PersonInjure
+            // mechanic. Guarded to fire at most once per game.
+            if (!_shrineBeatFired &&
+                game.Trail.CurrentLocation is Landmark &&
+                game.Trail.CurrentLocation.Name.StartsWith("Touchdown Jesus") &&
+                game.Vehicle.Passengers.Count > 0)
+            {
+                _shrineBeatFired = true;
+                if (game.Random.Next(3) == 0)
+                {
+                    var victim = game.Vehicle.Passengers[game.Random.Next(game.Vehicle.Passengers.Count)];
+                    game.EventDirector.TriggerEvent(victim, typeof(StyrofoamJesus));
+                    return;
+                }
             }
 
             // Update menu with proper choices.

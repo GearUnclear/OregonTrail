@@ -13,17 +13,17 @@ namespace OregonTrailDotNet.Window.MainMenu
         /// <summary>
         ///     Begins data entry for starting a new game such as selecting professions, names, starting items, etc.
         /// </summary>
-        [Description("Travel the trail")] TravelTheTrail = 1,
+        [Description("Hit the road")] TravelTheTrail = 1,
 
         /// <summary>
         ///     Explains how the game works and what your goals are while playing it.
         /// </summary>
-        [Description("Learn about the trail")] LearnAboutTheTrail = 2,
+        [Description("Learn about the road")] LearnAboutTheTrail = 2,
 
         /// <summary>
         ///     Shows high score list which is top ten highest scores in the game loaded from JSON file in application directory.
         /// </summary>
-        [Description("See the Oregon Top Ten")] SeeTheOregonTopTen = 3,
+        [Description("See the Clout Leaderboard")] SeeTheOregonTopTen = 3,
 
         /// <summary>
         ///     Shows version information, ability to clear high scores, Tombstone messages, saved games

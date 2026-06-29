@@ -5,6 +5,7 @@ using System;
 using System.Text;
 using OregonTrailDotNet.Entity.Location;
 using OregonTrailDotNet.Entity.Vehicle;
+using OregonTrailDotNet.Event;
 using OregonTrailDotNet.Window.Travel.Dialog;
 using WolfCurses.Window;
 using WolfCurses.Window.Control;
@@ -150,6 +151,13 @@ namespace OregonTrailDotNet.Window.Travel.Command
 
                     // Processes the next turn in the game simulation.
                     game.TakeTurn(false);
+
+                    // The base game never rolls the Wild or Animal categories anywhere, so roadside
+                    // America (the §6 strangers and crowds) would register but never appear. Wire both
+                    // into the per-day travel tick using the same probabilistic TriggerEventByType call
+                    // the other categories use; the ~1% roll lives inside it and is left untouched.
+                    game.EventDirector.TriggerEventByType(game.Vehicle, EventCategory.Wild);
+                    game.EventDirector.TriggerEventByType(game.Vehicle, EventCategory.Animal);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

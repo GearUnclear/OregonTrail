@@ -41,7 +41,7 @@ namespace OregonTrailDotNet.Window.Travel.Command
         {
             // Create visual progress representation of the trail.
             var map = new StringBuilder();
-            map.AppendLine($"{Environment.NewLine}Trail progress{Environment.NewLine}");
+            map.AppendLine($"{Environment.NewLine}Route progress{Environment.NewLine}");
             map.AppendLine(TextProgress.DrawProgressBar(
                                 GameSimulationApp.Instance.Trail.LocationIndex + 1,
                                 GameSimulationApp.Instance.Trail.Locations.Count, 32) + Environment.NewLine);

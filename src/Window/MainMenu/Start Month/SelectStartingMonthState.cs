@@ -54,10 +54,10 @@ namespace OregonTrailDotNet.Window.MainMenu.Start_Month
 
             // Tell the user they need to make a decision.
             _startMonthQuestion = new StringBuilder();
-            _startMonthQuestion.AppendLine($"{Environment.NewLine}It is 1848. Your jumping off place");
-            _startMonthQuestion.AppendLine("for Oregon is Independence, Missouri.");
-            _startMonthQuestion.AppendLine("You must decide which month");
-            _startMonthQuestion.AppendLine($"to leave Independence{Environment.NewLine}");
+            _startMonthQuestion.AppendLine($"{Environment.NewLine}The home insurance lapsed. Your");
+            _startMonthQuestion.AppendLine("jumping off place for Seattle is");
+            _startMonthQuestion.AppendLine("Cape Coral, Florida. You must");
+            _startMonthQuestion.AppendLine($"decide which month to leave{Environment.NewLine}");
 
             // Loop through every possible starting month and list them out by their enumeration integer values along with description attribute.
             var choices = new List<StartingMonth>(Enum.GetValues(typeof(StartingMonth)).Cast<StartingMonth>());

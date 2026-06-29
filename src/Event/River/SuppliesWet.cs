@@ -34,7 +34,7 @@ namespace OregonTrailDotNet.Event.River
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return "Your supplies got wet.";
+            return "The interstate flooded out and your supplies got soaked.";
         }
     }
 }

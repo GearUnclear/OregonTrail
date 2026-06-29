@@ -35,7 +35,7 @@ namespace OregonTrailDotNet.Event.Vehicle
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return "Wrong trail.";
+            return "Wrong exit.";
         }
     }
 }

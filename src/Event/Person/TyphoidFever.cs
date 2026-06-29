@@ -8,8 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     An infectious bacterial fever with an eruption of red spots on the chest and abdomen and severe intestinal
-    ///     irritation.
+    ///     Heat exhaustion under a heat dome. It was, the locals are quick to point out, a dry heat: 110 degrees for the
+    ///     thirty-first straight day.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Name or type of infection the person is currently affected with.</returns>
         protected override string OnPostInfection(Entity.Person.Person person)
         {
-            return $"{person.Name} has typhoid fever.";
+            return $"{person.Name} has heat exhaustion. It was a dry heat: 110°F for the 31st straight day.";
         }
     }
 }

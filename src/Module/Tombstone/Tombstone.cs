@@ -6,7 +6,8 @@ using System;
 namespace OregonTrailDotNet.Module.Tombstone
 {
     /// <summary>
-    ///     Facilitates a tombstone base class that supports shallow copies of itself to be created.
+    ///     Facilitates a drive-thru open-casket headstone (with optional GoFundMe-shoulder epitaph) base class that supports
+    ///     shallow copies of itself to be created.
     /// </summary>
     public sealed class Tombstone
     {

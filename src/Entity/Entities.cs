@@ -12,47 +12,47 @@ namespace OregonTrailDotNet.Entity
     public enum Entities
     {
         /// <summary>
-        ///     Represents how much monies the player decided to spend on Oxen when purchasing initial items for the journey on the
-        ///     trail. The purpose for this is to offer up a clear distinction between a part of a vehicle and something that is
-        ///     helping to pull it along. In a manner of speaking you could treat the animal like the fuel in a vehicle, if it
-        ///     drains completely it will be considered broken and can no longer assist in pulling the vehicle along the trail.
+        ///     Represents how much monies the player decided to spend on five-gallon gas cans when purchasing initial items for the
+        ///     journey down the interstate. The purpose for this is to offer up a clear distinction between a part of the SUV and
+        ///     something that is keeping it moving. In a manner of speaking the gas is the fuel in the vehicle; if it drains
+        ///     completely the SUV will be considered disabled and can no longer roll down the road.
         /// </summary>
-        [Description("Oxen              @AMT@")] Animal = 1,
+        [Description("Gas cans          @AMT@")] Animal = 1,
 
         /// <summary>
-        ///     Food from hunting or stores. Represented in pounds of meat. Can typically take back only 250 pounds to vehicle from
-        ///     hunting. Consumed by the party members at the end of each day of the simulation. Depending on ration level the
-        ///     amount of food in pounds eaten each day can vary.
+        ///     Snacks from food sweeps or stores. Represented in pounds. Can typically take back only 250 pounds to the SUV from a
+        ///     grab. Consumed by the party members at the end of each day of the simulation. Depending on ration level the amount
+        ///     of snacks in pounds eaten each day can vary.
         /// </summary>
-        [Description("Food              @AMT@")] Food = 2,
+        [Description("Snacks            @AMT@")] Food = 2,
 
         /// <summary>
-        ///     Clothing is used by the party members to keep them warm when the climate simulation lowers the ambient temperature.
-        ///     Without proper shielding against the elements the risk for disease and critical failures increase exponentially.
+        ///     MLM leggings are hoarded by the party in unsellable crates; the only barter the sovereign-citizen river guide will
+        ///     accept. They double as the clothing slot, so running out still raises the risk of exposure on cold nights.
         /// </summary>
-        [Description("Clothing          @AMT@")] Clothes = 3,
+        [Description("MLM leggings      @AMT@")] Clothes = 3,
 
         /// <summary>
-        ///     Used in hunting and for killing wild animals, can be purchased from stores and also traded with other travelers on
-        ///     the trail.
+        ///     Boxes of ammo bought off the shelf next to the flour, no license or check required; can also be traded with other
+        ///     travelers on the road.
         /// </summary>
-        [Description("Ammunition        @AMT@")] Ammo = 4,
+        [Description("Boxes of ammo     @AMT@")] Ammo = 4,
 
         /// <summary>
-        ///     Part on vehicle that must be kept track of, if it breaks the user will have to use another one to fix it.
+        ///     Tire on the SUV that must be kept track of, if it blows the user will have to use a spare to replace it.
         /// </summary>
-        [Description("Vehicle wheels    @AMT@")] Wheel = 5,
+        [Description("Spare tires       @AMT@")] Wheel = 5,
 
         /// <summary>
-        ///     Axle that connects the vehicle to wheels, if this part is broken it must be repaired or the total possible mileage
-        ///     for the current two-week block the simulation is running.
+        ///     Alternator that keeps the SUV charged, if this part dies it must be replaced or the total possible mileage for the
+        ///     current block the simulation is running is lost.
         /// </summary>
-        [Description("Vehicle axles     @AMT@")] Axle = 6,
+        [Description("Alternators       @AMT@")] Axle = 6,
 
         /// <summary>
-        ///     Tongue for the vehicle which connects it to animals that are pulling (typically this is oxen).
+        ///     Transmission for the SUV which delivers power to the wheels.
         /// </summary>
-        [Description("Vehicle tongues   @AMT@")] Tongue = 7,
+        [Description("Transmissions     @AMT@")] Tongue = 7,
 
         /// <summary>
         ///     Defines the vessel in which the party members, their inventory, monies, hopes and dreams, and everything else

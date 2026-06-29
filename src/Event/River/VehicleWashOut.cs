@@ -11,7 +11,8 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.River
 {
     /// <summary>
-    ///     Player forded the river and it was to deep, they have been washed out by the current and some items destroyed.
+    ///     Player gunned it through the high water and it was too deep, they have been washed off the interstate by the
+    ///     current and some items destroyed.
     /// </summary>
     [DirectorEvent(EventCategory.RiverCross, EventExecution.ManualOnly)]
     public sealed class VehicleWashOut : ItemDestroyer
@@ -54,9 +55,9 @@ namespace OregonTrailDotNet.Event.River
         protected override string OnPreDestroyItems()
         {
             var eventText = new StringBuilder();
-            eventText.AppendLine("Vehicle was washed");
-            eventText.AppendLine("out when attempting to");
-            eventText.Append("ford the river results");
+            eventText.AppendLine("The SUV was washed off");
+            eventText.AppendLine("the interstate gunning it");
+            eventText.Append("through the high water, results");
             return eventText.ToString();
         }
     }

@@ -8,8 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     Fever, also known as pyrexia and febrile response, is defined as having a temperature above the normal range due to
-    ///     an increase in the body's temperature.
+    ///     Respiratory failure from days of wildfire smoke. The sky went orange and the air-quality index climbed to 484, which
+    ///     a passer-by noted is just the season now.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Name or type of infection the person is currently affected with.</returns>
         protected override string OnPostInfection(Entity.Person.Person person)
         {
-            return $"{person.Name} has dysentery.";
+            return $"{person.Name} is in respiratory failure. The sky is orange and the AQI hit 484.";
         }
     }
 }

@@ -12,7 +12,7 @@ using WolfCurses.Window.Form;
 namespace OregonTrailDotNet.Window.Travel.Store
 {
     /// <summary>
-    ///     Allows the player to purchase a number of oxen to pull their vehicle.
+    ///     Allows the player to purchase a quantity of a chosen travel-center item for their SUV.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class StorePurchase : Form<TravelInfo>

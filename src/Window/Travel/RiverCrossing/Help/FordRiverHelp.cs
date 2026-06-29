@@ -34,11 +34,11 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Help
         protected override string OnDialogPrompt()
         {
             var fordRiver = new StringBuilder();
-            fordRiver.AppendLine($"{Environment.NewLine}To ford a river means to");
-            fordRiver.AppendLine("pull your wagon across a");
-            fordRiver.AppendLine("shallow part of the river,");
-            fordRiver.AppendLine("with the oxen still");
-            fordRiver.AppendLine($"attached.{Environment.NewLine}");
+            fordRiver.AppendLine($"{Environment.NewLine}A passer-by shrugs: storm");
+            fordRiver.AppendLine("tore four miles of the");
+            fordRiver.AppendLine("Interstate into the river");
+            fordRiver.AppendLine("back in '24. FEMA says 2028.");
+            fordRiver.AppendLine($"Everybody just reroutes.{Environment.NewLine}");
             return fordRiver.ToString();
         }
 

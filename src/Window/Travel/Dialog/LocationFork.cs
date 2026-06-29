@@ -77,7 +77,7 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
         {
             // Clear the string builder and being building a new fork in the road based on current location skip choices.
             _forkPrompt.Clear();
-            _forkPrompt.AppendLine($"{Environment.NewLine}The trail divides here. You may:{Environment.NewLine}");
+            _forkPrompt.AppendLine($"{Environment.NewLine}The interstate splits here. You may:{Environment.NewLine}");
 
             foreach (var skipChoice in _skipChoices)
                 if (skipChoice.Key == _skipChoices.Last().Key)

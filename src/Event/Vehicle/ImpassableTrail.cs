@@ -35,7 +35,7 @@ namespace OregonTrailDotNet.Event.Vehicle
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return "Impassable trail--lose time going around.";
+            return "Road closed--lose time on the detour.";
         }
     }
 }

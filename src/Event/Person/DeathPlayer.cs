@@ -9,7 +9,8 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     Party leader has died! This will end the entire simulation since the others cannot go on without the leader.
+    ///     Party leader has died! This ends the entire trip, since the others cannot go on without the leader. There will be a
+    ///     drive-thru viewing and, by morning, a GoFundMe.
     /// </summary>
     [DirectorEvent(EventCategory.Person, EventExecution.ManualOnly)]
     public sealed class DeathPlayer : EventProduct
@@ -50,7 +51,8 @@ namespace OregonTrailDotNet.Event.Person
             if (!sourcePerson.Leader)
                 throw new ArgumentException("Cannot kill this person because it is not the player!");
 
-            _leaderDeath.AppendLine($"{sourcePerson.Name} has died.");
+            _leaderDeath.AppendLine(
+                $"{sourcePerson.Name} has died. The drive-thru viewing is Thursday; the GoFundMe is already live.");
         }
 
         /// <summary>

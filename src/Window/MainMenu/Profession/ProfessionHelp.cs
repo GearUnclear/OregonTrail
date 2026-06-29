@@ -33,17 +33,17 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
         {
             // Information about professions and how they work.
             var job = new StringBuilder();
-            job.Append($"{Environment.NewLine}Traveling to Oregon isn't easy!{Environment.NewLine}");
-            job.Append($"But if you're a banker, you'll{Environment.NewLine}");
-            job.Append($"have more money for supplies{Environment.NewLine}");
-            job.Append($"and services than a carpenter{Environment.NewLine}");
-            job.Append($"or a farmer.{Environment.NewLine}{Environment.NewLine}");
+            job.Append($"{Environment.NewLine}Driving to Seattle isn't easy!{Environment.NewLine}");
+            job.Append($"But if you're a crypto bro,{Environment.NewLine}");
+            job.Append($"you'll have more money for{Environment.NewLine}");
+            job.Append($"supplies and services than a{Environment.NewLine}");
+            job.Append($"DoorDash driver or streamer.{Environment.NewLine}{Environment.NewLine}");
             job.Append($"However, the harder you have{Environment.NewLine}");
             job.Append($"to try, the more points you{Environment.NewLine}");
             job.Append($"deserve! Therefore, the{Environment.NewLine}");
-            job.Append($"farmer earns the greatest{Environment.NewLine}");
+            job.Append($"streamer earns the greatest{Environment.NewLine}");
             job.Append($"number of points and the{Environment.NewLine}");
-            job.Append($"banker earns the least.{Environment.NewLine}{Environment.NewLine}");
+            job.Append($"crypto bro earns the least.{Environment.NewLine}{Environment.NewLine}");
             return job.ToString();
         }
 

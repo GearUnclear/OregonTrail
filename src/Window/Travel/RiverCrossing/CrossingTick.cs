@@ -148,9 +148,9 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
             _crossingPrompt.AppendLine(
                 $"Crossing By: {UserData.River.CrossingType}");
             _crossingPrompt.AppendLine(
-                $"River width: {UserData.River.RiverWidth:N0} feet");
+                $"Washed-out roadbed: {UserData.River.RiverWidth:N0} feet");
             _crossingPrompt.AppendLine(
-                $"River crossed: {_riverCrossingOfTotalWidth:N0} feet");
+                $"Roadbed crossed: {_riverCrossingOfTotalWidth:N0} feet");
             _crossingPrompt.AppendLine(
                 "--------------------------------");
 

@@ -8,7 +8,7 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Vehicle
 {
     /// <summary>
-    ///     The oxen wander off.
+    ///     The emotional-support alligator slips its pen and wanders off.
     /// </summary>
     [DirectorEvent(EventCategory.Vehicle)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -39,7 +39,7 @@ namespace OregonTrailDotNet.Event.Vehicle
         /// <returns>Text user interface string that can be used to explain what the event did when executed.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "ox wanders off---spend time looking for it";
+            return "your emotional-support alligator slips its pen---spend time looking for it";
         }
     }
 }

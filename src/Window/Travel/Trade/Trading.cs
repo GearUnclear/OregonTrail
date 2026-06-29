@@ -15,8 +15,8 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.Travel.Trade
 {
     /// <summary>
-    ///     Handles the interaction of the player party and another AI controlled party that offers up items for trading which
-    ///     the player can choose to accept or not.
+    ///     Handles the interaction of the player family and a parking-lot MLM "hun" who offers up crates of leggings to
+    ///     swap for the family's supplies, which the player can choose to accept or not.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class Trading : InputForm<TravelInfo>
@@ -78,25 +78,25 @@ namespace OregonTrailDotNet.Window.Travel.Trade
                     switch (item.Key)
                     {
                         case Entities.Animal:
-                            suppliesList.Add(new Tuple<string, string>("oxen", itemFormattedQuantity));
+                            suppliesList.Add(new Tuple<string, string>("gas cans", itemFormattedQuantity));
                             break;
                         case Entities.Clothes:
-                            suppliesList.Add(new Tuple<string, string>("sets of clothing", itemFormattedQuantity));
+                            suppliesList.Add(new Tuple<string, string>("crates of leggings", itemFormattedQuantity));
                             break;
                         case Entities.Ammo:
-                            suppliesList.Add(new Tuple<string, string>("bullets", itemFormattedQuantity));
+                            suppliesList.Add(new Tuple<string, string>("boxes of ammo", itemFormattedQuantity));
                             break;
                         case Entities.Wheel:
-                            suppliesList.Add(new Tuple<string, string>("wagon wheels", itemFormattedQuantity));
+                            suppliesList.Add(new Tuple<string, string>("spare tires", itemFormattedQuantity));
                             break;
                         case Entities.Axle:
-                            suppliesList.Add(new Tuple<string, string>("wagon axles", itemFormattedQuantity));
+                            suppliesList.Add(new Tuple<string, string>("alternators", itemFormattedQuantity));
                             break;
                         case Entities.Tongue:
-                            suppliesList.Add(new Tuple<string, string>("wagon tongues", itemFormattedQuantity));
+                            suppliesList.Add(new Tuple<string, string>("transmissions", itemFormattedQuantity));
                             break;
                         case Entities.Food:
-                            suppliesList.Add(new Tuple<string, string>("pounds of food",
+                            suppliesList.Add(new Tuple<string, string>("pounds of snacks",
                                 item.Value.TotalWeight.ToString("N0")));
                             break;
                         case Entities.Cash:
@@ -190,18 +190,18 @@ namespace OregonTrailDotNet.Window.Travel.Trade
             {
                 // Generates the default prompt for trading that is shown if you have items to trade back or not.
                 var wrapText =
-                    $"You meet another emigrant who wants {_trades[_tradeIndex].WantedItem.Quantity:N0} {_trades[_tradeIndex].WantedItem.Name.ToLowerInvariant()}. " +
-                    $"He will trade you {_trades[_tradeIndex].OfferedItem.Quantity:N0} {_trades[_tradeIndex].OfferedItem.Name.ToLowerInvariant()}.";
+                    $"A hun from the parking-lot MLM wants {_trades[_tradeIndex].WantedItem.Quantity:N0} {_trades[_tradeIndex].WantedItem.Name.ToLowerInvariant()}. " +
+                    $"She'll swap you {_trades[_tradeIndex].OfferedItem.Quantity:N0} {_trades[_tradeIndex].OfferedItem.Name.ToLowerInvariant()}, hon -- ground floor, only goes up from here.";
 
                 // Depending if the player has enough of what the trader wants we change up last part of message.
                 _supplyPrompt.Append(_playerCanTrade
-                    ? $"{wrapText.WordWrap()}{Environment.NewLine}Are you willing to trade? Y/N"
+                    ? $"{wrapText.WordWrap()}{Environment.NewLine}Are you willing to swap? Y/N"
                     : $"{wrapText.WordWrap()}{Environment.NewLine}You don't have this.{Environment.NewLine}{Environment.NewLine}");
             }
             else
             {
                 // Prompt is not shown if we have no traders generated.
-                _supplyPrompt.AppendLine($"Nobody wants to trade with you.{Environment.NewLine}");
+                _supplyPrompt.AppendLine($"Nobody's working their downline here right now.{Environment.NewLine}");
             }
         }
 

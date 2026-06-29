@@ -6,24 +6,25 @@ using WolfCurses.Utility;
 namespace OregonTrailDotNet.Module.Scoring
 {
     /// <summary>
-    ///     Defines a rating the player can get based on the number of points they receive during the entire course of the
-    ///     game. At the end after tabulation this enum is assigned as an overall representation of the scoring level.
+    ///     Defines a rank on the Net Worth and Clout Leaderboard the player can earn based on the number of points they
+    ///     receive during the entire course of the road trip. At the end after tabulation this enum is assigned as an
+    ///     overall representation of the clout level.
     /// </summary>
     public enum Performance
     {
         /// <summary>
         ///     Easy
         /// </summary>
-        Greenhorn = 1,
+        [Description("Tourist")] Greenhorn = 1,
 
         /// <summary>
         ///     Medium
         /// </summary>
-        Adventurer = 2,
+        [Description("Influencer")] Adventurer = 2,
 
         /// <summary>
         ///     Hard
         /// </summary>
-        [Description("Trail Guide")] TrailGuide = 3
+        [Description("Verified")] TrailGuide = 3
     }
 }

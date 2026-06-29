@@ -8,8 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     Temporary unconsciousness caused by a blow to the head. The term is also used loosely of the aftereffects such as
-    ///     confusion or temporary incapacity.
+    ///     Struck by a car while walking the shoulder of a 55-mph US highway. There was no sidewalk; there is rarely a
+    ///     sidewalk. The driver did not stop.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Describes what type of physical injury has come to the person.</returns>
         protected override string OnPostInjury(Entity.Person.Person person)
         {
-            return $"{person.Name} has a concussion.";
+            return $"{person.Name} was struck by a car walking the shoulder of a 55-mph highway. There was no sidewalk.";
         }
     }
 }

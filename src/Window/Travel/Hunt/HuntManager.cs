@@ -14,10 +14,10 @@ using WolfCurses.Utility;
 namespace OregonTrailDotNet.Window.Travel.Hunt
 {
     /// <summary>
-    ///     Represents all of the data related to a hunt where the player wants to kill the prey with bullets and then collect
-    ///     their bodies for food. This class manages the generation of prey and sorts them based on how long they should
-    ///     appear on the field in descending order. Each one is ticked and then removed from the field as they reach their
-    ///     maximum shoot time.
+    ///     Represents all of the data related to a food sweep where the player wants to grab the trays before other shoppers
+    ///     do and then haul them off for food. This class manages the generation of trays and sorts them based on how long
+    ///     they should sit on the table in descending order. Each one is ticked and then cleared from the table as they reach
+    ///     their maximum grab time.
     /// </summary>
     public sealed class HuntManager : ITick
     {
@@ -132,51 +132,51 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
 
                 // Title displays some basic info about the area.
                 huntStatus.AppendLine(game.Trail.CurrentLocation.Status != LocationStatus.Departed
-                    ? $"Hunting outside {game.Trail.CurrentLocation.Name}"
-                    : $"Hunting near {game.Trail.NextLocation.Name}");
+                    ? $"Sweeping the tables inside {game.Trail.CurrentLocation.Name}"
+                    : $"Sweeping the tables near {game.Trail.NextLocation.Name}");
 
-                // Represent seconds remaining as daylight left percentage.
+                // Represent seconds remaining as time left on the clock before the doors close.
                 var daylightPercentage = _secondsRemaining/(decimal) HUNTINGTIME;
-                huntStatus.AppendLine($"Daylight Remaining: {daylightPercentage*100:N0}%");
+                huntStatus.AppendLine($"Time Remaining: {daylightPercentage*100:N0}%");
 
                 // Current weather on the planes.
                 huntStatus.AppendLine($"Weather: {game.Trail.CurrentLocation.Weather.ToDescriptionAttribute()}");
                 huntStatus.AppendLine("--------------------------------");
 
-                // Show the player their current shooting word and target they are aiming at.
+                // Show the player their current grab word and tray they are reaching for.
                 huntStatus.AppendLine(
-                    $"{Environment.NewLine}Shooting Word: {ShootingWord.ToString().ToUpperInvariant()}");
+                    $"{Environment.NewLine}Grab Word: {ShootingWord.ToString().ToUpperInvariant()}");
 
-                // Only show the target to shoot at if there is one.
+                // Only show the tray to grab if there is one.
                 huntStatus.AppendLine(_target != null
-                    ? $"Target: {_target.Animal.Name.ToUpperInvariant()}{Environment.NewLine}"
-                    : "Target: NONE");
+                    ? $"Tray: {_target.Animal.Name.ToUpperInvariant()}{Environment.NewLine}"
+                    : "Tray: NONE");
 
-                // Targeting time is used to determine when animal will get scared and run away.
+                // Targeting time is used to determine when another shopper will snatch the tray away.
                 if (_target != null)
                 {
-                    // Represent targeting time as a percentage of total animal awareness of the hunter.
+                    // Represent targeting time as a percentage of how close the crowd is to grabbing it first.
                     var targetPercentage = _target.TargetTime/(decimal) _target.TargetTimeMax;
-                    huntStatus.AppendLine($"Awareness: {targetPercentage*100:N0}%");
+                    huntStatus.AppendLine($"Other Shoppers: {targetPercentage*100:N0}%");
                 }
 
                 // Prompt the player with information about what to do.
                 if (ShootingWord != HuntWord.None)
                 {
                     huntStatus.AppendLine($"Type the word '{ShootingWord.ToString().ToLowerInvariant()}' to");
-                    huntStatus.Append("take a shot!");
+                    huntStatus.Append("make the grab!");
                 }
                 else
                 {
-                    // Depending on number of prey change up the wording slightly.
-                    var animalText = "animals";
+                    // Depending on number of trays change up the wording slightly.
+                    var animalText = "trays";
                     if (_sortedPrey.Count == 1)
-                        animalText = "animal";
+                        animalText = "tray";
 
-                    // Prey will read out animals for multiple, and just animal for one (1), animals for zero (0).
+                    // Prey will read out trays for multiple, and just tray for one (1), trays for zero (0).
                     huntStatus.AppendLine(
-                        $"{Environment.NewLine}You sense {_sortedPrey.Count:N0} {animalText}");
-                    huntStatus.Append("in the area...");
+                        $"{Environment.NewLine}You spot {_sortedPrey.Count:N0} {animalText}");
+                    huntStatus.Append("up for grabs...");
                 }
 
                 return huntStatus.ToString();

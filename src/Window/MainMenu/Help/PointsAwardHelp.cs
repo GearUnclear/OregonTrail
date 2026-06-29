@@ -56,11 +56,11 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
         protected override string OnDialogPrompt()
         {
             var pointsItems = new StringBuilder();
-            pointsItems.Append($"{Environment.NewLine}On Arriving in Oregon{Environment.NewLine}{Environment.NewLine}");
-            pointsItems.Append($"The resources you arrive with will{Environment.NewLine}");
+            pointsItems.Append($"{Environment.NewLine}On Arriving in Seattle{Environment.NewLine}{Environment.NewLine}");
+            pointsItems.Append($"The supplies you arrive with will{Environment.NewLine}");
             pointsItems.Append($"help you get started in the new{Environment.NewLine}");
-            pointsItems.Append($"land. You receive points for each{Environment.NewLine}");
-            pointsItems.Append($"item you bring safely to Oregon.{Environment.NewLine}{Environment.NewLine}");
+            pointsItems.Append($"city. You receive points for each{Environment.NewLine}");
+            pointsItems.Append($"item you bring safely to Seattle.{Environment.NewLine}{Environment.NewLine}");
 
             // Build up the table of resource points and how they work for player.
             var partyTable = ResourcePoints.ToStringTable(

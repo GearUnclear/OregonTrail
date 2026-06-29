@@ -95,8 +95,8 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
             _riverInfo.AppendLine("--------------------------------");
             _riverInfo.AppendLine(
                 $"Weather: {riverLocation.Weather.ToDescriptionAttribute()}");
-            _riverInfo.AppendLine($"River width: {UserData.River.RiverWidth:N0} feet");
-            _riverInfo.AppendLine($"River depth: {UserData.River.RiverDepth:N0} feet");
+            _riverInfo.AppendLine($"Washed-out roadbed: {UserData.River.RiverWidth:N0} feet");
+            _riverInfo.AppendLine($"Floodwater depth: {UserData.River.RiverDepth:N0} feet");
             _riverInfo.AppendLine("--------------------------------");
             _riverInfo.AppendLine($"You may:{Environment.NewLine}");
 

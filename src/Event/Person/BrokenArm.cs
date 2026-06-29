@@ -8,7 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     One of the members of the vehicle passenger manifest broke their arm somehow.
+    ///     A member of the party went down in a Black Friday door-buster stampede. The doors opened, the crowd surged for a
+    ///     discounted television, and somebody got walked over.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -19,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Describes what type of physical injury has come to the person.</returns>
         protected override string OnPostInjury(Entity.Person.Person person)
         {
-            return $"{person.Name} has broken their arm.";
+            return $"{person.Name} was trampled in a Black Friday door-buster stampede.";
         }
     }
 }

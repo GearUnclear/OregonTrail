@@ -11,9 +11,9 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Wild
 {
     /// <summary>
-    ///     Robber who can come in the middle of the night and steal things from the vehicle inventory. He is also very
-    ///     dangerous and will do whatever it takes to get what he wants, so there is a chance some of your party members may
-    ///     get murdered.
+    ///     A porch pirate / repo agent who comes in the middle of the night and takes things from the vehicle inventory.
+    ///     The repo agent will do whatever it takes to recover the collateral, so there is a chance some of your party
+    ///     members may get shot.
     /// </summary>
     [DirectorEvent(EventCategory.Wild)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -24,13 +24,13 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>The <see cref="string" />.</returns>
         protected override string OnPostDestroyItems(IDictionary<Entities, int> destroyedItems)
         {
-            // Ammo used to kill the thief is randomly generated.
+            // Ammo spent confronting the repo agent is randomly generated.
             GameSimulationApp.Instance.Vehicle.Inventory[Entities.Ammo].ReduceQuantity(
                 GameSimulationApp.Instance.Random.Next(1, 5));
 
-            // Change event text depending on if items were destroyed or not.
+            // Change event text depending on if items were taken or not.
             return destroyedItems.Count > 0
-                ? TryKillPassengers("murdered")
+                ? TryKillPassengers("shot")
                 : "no loss of items.";
         }
 
@@ -44,8 +44,8 @@ namespace OregonTrailDotNet.Event.Wild
         {
             var theifPrompt = new StringBuilder();
             theifPrompt.Clear();
-            theifPrompt.AppendLine("Thief comes in the");
-            theifPrompt.Append("night resulting in ");
+            theifPrompt.AppendLine("A porch pirate works the");
+            theifPrompt.Append("block at night, resulting in ");
             return theifPrompt.ToString();
         }
     }

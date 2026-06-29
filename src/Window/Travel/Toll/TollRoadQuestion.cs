@@ -69,39 +69,39 @@ namespace OregonTrailDotNet.Window.Travel.Toll
             {
                 // Fork in the road sent us here.
                 tollPrompt.AppendLine(
-                    $"{Environment.NewLine}You must pay {UserData.Toll.Cost:C0} to travel the");
+                    $"{Environment.NewLine}The express lane just billed {UserData.Toll.Cost:C0} to use the");
                 tollPrompt.AppendLine($"{UserData.Toll.Road.Name}.");
             }
             else if (game.Trail.CurrentLocation != null)
             {
                 // Toll road was placed in-line on the trail, and will block player if they are broke.
                 tollPrompt.AppendLine(
-                    $"{Environment.NewLine}You must pay {UserData.Toll.Cost:C0} to travel the");
+                    $"{Environment.NewLine}The express lane just billed {UserData.Toll.Cost:C0} to use the");
                 tollPrompt.AppendLine($"{game.Trail.CurrentLocation.Name}.");
             }
             else if (game.Trail.NextLocation != null)
             {
                 tollPrompt.AppendLine(
-                    $"{Environment.NewLine}You must pay {UserData.Toll.Cost:C0} to travel the");
+                    $"{Environment.NewLine}The express lane just billed {UserData.Toll.Cost:C0} to use the");
                 tollPrompt.AppendLine($"{game.Trail.NextLocation.Name}.");
             }
             else
             {
                 tollPrompt.AppendLine(
-                    $"{Environment.NewLine}You must pay {UserData.Toll.Cost:C0} to travel the");
+                    $"{Environment.NewLine}The express lane just billed {UserData.Toll.Cost:C0} to use the");
                 tollPrompt.AppendLine("indefinable road.");
             }
 
             // Check if the player has enough money to pay for the toll road.
             if (game.Vehicle.Inventory[Entities.Cash].TotalValue >= UserData.Toll.Cost)
             {
-                tollPrompt.AppendLine($"{Environment.NewLine}Are you willing");
-                tollPrompt.Append("to do this? Y/N");
+                tollPrompt.AppendLine($"{Environment.NewLine}The price showed up only");
+                tollPrompt.Append("after you committed. Pay it? Y/N");
             }
             else
             {
                 tollPrompt.AppendLine($"{Environment.NewLine}You don't have enough");
-                tollPrompt.Append("cash for the toll road.");
+                tollPrompt.Append("cash for the express lane.");
             }
 
             return tollPrompt.ToString();
