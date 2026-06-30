@@ -3,6 +3,7 @@
 
 using System;
 using System.Text;
+using OregonTrailDotNet.Renderer;
 using WolfCurses.Utility;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
@@ -43,6 +44,9 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
         {
             // Clear out previous food sweep help messages.
             _huntHelp.Clear();
+
+            // Food-counter scene above the instructions.
+            _huntHelp.AppendLine(SceneArt.FoodSweep);
 
             // Create the prompt for explaining how the food sweep works.
             _huntHelp.AppendLine($"{Environment.NewLine}Food Sweep Instructions{Environment.NewLine}");

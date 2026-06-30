@@ -1,0 +1,33 @@
+The Asphalt Trail -- "smiling cartoon sun" logo
+(the mascot on the insurer's "uninsurable at any premium" letter; see GameIntro.cs)
+Master vector: smiling-sun.svg  |  raster proof: smiling-sun.png
+
+=== HERO (37w x 11h) ===========================================
+
+          \       |       /
+           \      |      /
+            .-"""""""-.
+       \   /           \   /
+        \ |   O     O   | /
+   ------  |     ^     |  ------
+        / |   '. _ .'   | \
+       /   \           /   \
+            '-.......-'
+           /      |      \
+          /       |       \
+
+=== COMPACT (13w x 7h) =========================================
+
+    \  |  /
+   .-"""-.
+\ /  o o  \ /
+- (   ^   ) -
+/ \ '._.' / \
+   '-...-'
+    /  |  \
+
+=== TINY STAMP (inline) ========================================
+
+  \|/
+ -(o.o)-
+  /|\

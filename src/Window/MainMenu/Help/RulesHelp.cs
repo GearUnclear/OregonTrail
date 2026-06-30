@@ -34,29 +34,29 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
         protected override string OnDialogPrompt()
         {
             var aboutTrail = new StringBuilder();
-            aboutTrail.AppendLine($"{Environment.NewLine}Your drive up the Asphalt Trail begins in Cape Coral, Flor");
-            aboutTrail.AppendLine("ida. With the place uninsurable, you plan to take your family");
             aboutTrail.AppendLine(
-                $"over {GameSimulationApp.Instance.Trail.Length:N0} tough miles to Seattle, Washington.{Environment.NewLine}");
-
-            aboutTrail.AppendLine("Having paid off the SUV, you now");
-            aboutTrail.AppendLine($"have to purchase the following supplies:{Environment.NewLine}");
-
+                $"{Environment.NewLine}Your road trip up the Asphalt Trail starts in Cape Coral,");
+            aboutTrail.AppendLine("Florida. You're driving your family to Seattle, Washington --");
             aboutTrail.AppendLine(
-                " * Cans of gas (spending more will buy a fuller load which lets");
-            aboutTrail.AppendLine($" you cover more ground so you're on the road for less time){Environment.NewLine}");
+                $"about {GameSimulationApp.Instance.Trail.Length:N0} miles of open road.{Environment.NewLine}");
 
-            aboutTrail.AppendLine(
-                $" * Snacks (you'll need ample snacks to keep up your strength and health){Environment.NewLine}");
+            aboutTrail.AppendLine("The SUV is paid off. Before you leave, stock up on supplies.");
+            aboutTrail.AppendLine($"Here's what each one is for:{Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Ammo (sold by the flour, no permit, license, or check. You'll");
-            aboutTrail.AppendLine($" need ammo for the food sweep and for fighting off forfeiture stops){Environment.NewLine}");
+            aboutTrail.AppendLine(" * Gas - fuel for the SUV. More gas means more miles");
+            aboutTrail.AppendLine($"   between fill-ups, so you reach Seattle faster.{Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Leggings (crates of MLM leggings, the only barter the sovereign-");
-            aboutTrail.AppendLine($" citizen river guide will take when the Interstate's underwater){Environment.NewLine}");
+            aboutTrail.AppendLine(" * Snacks - food for your family. Run low and everyone's");
+            aboutTrail.AppendLine($"   health drops, so always keep some on hand.{Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Other supplies (includes first-aid, tools, and spare tires,");
-            aboutTrail.AppendLine($" alternators, and transmissions for breakdowns){Environment.NewLine}");
+            aboutTrail.AppendLine(" * Ammo - used to hunt for extra food along the way and");
+            aboutTrail.AppendLine($"   to handle trouble on the road.{Environment.NewLine}");
+
+            aboutTrail.AppendLine(" * Leggings - your barter goods. River guides take these");
+            aboutTrail.AppendLine($"   as payment when a flooded crossing blocks the road.{Environment.NewLine}");
+
+            aboutTrail.AppendLine(" * Other supplies - first-aid kits, tools, and spare parts");
+            aboutTrail.AppendLine($"   (tires, alternators, transmissions) to fix breakdowns.{Environment.NewLine}");
             return aboutTrail.ToString();
         }
 

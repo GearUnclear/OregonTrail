@@ -7,6 +7,7 @@ using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Vehicle;
 using OregonTrailDotNet.Event;
 using OregonTrailDotNet.Event.River;
+using OregonTrailDotNet.Renderer;
 using WolfCurses.Core;
 using WolfCurses.Utility;
 using WolfCurses.Window;
@@ -128,8 +129,9 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
             // Clears the string buffer for this render pass.
             _crossingPrompt.Clear();
 
-            // Ping-pong progress bar to show that we are moving.
-            _crossingPrompt.AppendLine($"{Environment.NewLine}{_swayBarText}");
+            // Converted FEMA flood photo, then the ping-pong bar showing we are inching across.
+            _crossingPrompt.AppendLine($"{Environment.NewLine}{SceneArt.FloodRiver}");
+            _crossingPrompt.AppendLine(_swayBarText);
 
             // Get instance of game simulation.
             var game = GameSimulationApp.Instance;

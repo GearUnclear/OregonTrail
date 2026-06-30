@@ -98,3 +98,21 @@ The `RandomEvent` window's `EventExecutor` form runs `Execute → Render → OnP
 - Namespaces mirror folders under the `OregonTrailDotNet` root (e.g. `OregonTrailDotNet.Window.Travel.Store`).
 - "Windows" / "modes" in comments and method names mean these **state-machine windows, not the OS**.
 - Top-level Windows are a hardcoded whitelist (`AllowedWindows`); events self-register by reflection (`[DirectorEvent]`). Know which registration model applies before adding either.
+
+## Local credentials (NOT in the repo)
+
+A **Google AI (Gemini) API key** is stored locally at `~/.config/asphalt-trail/google_ai.env`
+(chmod 600, **outside** the repo — the key value is *not* committed and must never be). Load it with:
+
+```bash
+set -a; source ~/.config/asphalt-trail/google_ai.env; set +a   # exports GOOGLE_AI_API_KEY
+```
+
+- Authenticates as a standard **Gemini API key** via the `x-goog-api-key` header against
+  `generativelanguage.googleapis.com` (verified 200; `Authorization: Bearer` returns 401, so it is
+  *not* an OAuth token). For Google client libs, also export it as `GEMINI_API_KEY`/`GOOGLE_API_KEY`.
+- Image generation ("**nano banana**") models available to this key: `gemini-2.5-flash-image`
+  (nano banana) and `gemini-3-pro-image` (nano banana pro); also `gemini-3.1-flash-image` and
+  `imagen-4.0-*`. Used for experiments like generating the smiling-sun logo art.
+- The key is also visible in chat history where it was first pasted — **rotate it in Google AI
+  Studio** if anything sensitive ever rides on it.

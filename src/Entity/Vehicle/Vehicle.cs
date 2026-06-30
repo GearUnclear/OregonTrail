@@ -244,6 +244,31 @@ namespace OregonTrailDotNet.Entity.Vehicle
         }
 
         /// <summary>
+        ///     Distance multiplier applied to a single day's mileage based on the current travel pace. Steady is the
+        ///     baseline (x1.0) and MUST remain numerically identical to the original behaviour; faster paces trade health
+        ///     (see Person.ApplyPacePenalty) for extra ground covered. Tune the two non-baseline values here.
+        /// </summary>
+        private double PaceMultiplier
+        {
+            get
+            {
+                switch (Pace)
+                {
+                    case TravelPace.Strenuous:
+                        // ~12 hour days: roughly +30% distance.
+                        return 1.3d;
+                    case TravelPace.Grueling:
+                        // ~16 hour days: roughly +60% distance.
+                        return 1.6d;
+                    case TravelPace.Steady:
+                        return 1.0d;
+                    default:
+                        return 1.0d;
+                }
+            }
+        }
+
+        /// <summary>
         ///     Locates all of the parts in the vehicle that are no longer operational and require repair or replacement by the
         ///     player.
         /// </summary>
@@ -457,6 +482,11 @@ namespace OregonTrailDotNet.Entity.Vehicle
 
             // Figure out how far we need to go to reach the next point.
             Mileage = RandomMileage;
+
+            // Apply the travel pace multiplier so faster paces cover more ground each day. Steady is excluded so its
+            // result is byte-identical to the original behaviour; Strenuous/Grueling stretch the day's distance.
+            if (Pace != TravelPace.Steady)
+                Mileage = (int) (Mileage*PaceMultiplier);
 
             // Sometimes things just go slow on the trail, cut mileage in half if above zero randomly.
             if (GameSimulationApp.Instance.Random.NextBool() && (Mileage > 0))

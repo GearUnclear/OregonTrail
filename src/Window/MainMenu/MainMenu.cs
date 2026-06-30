@@ -3,6 +3,7 @@
 
 using System;
 using System.Text;
+using OregonTrailDotNet.Renderer;
 using OregonTrailDotNet.Window.MainMenu.Help;
 using OregonTrailDotNet.Window.MainMenu.Options;
 using OregonTrailDotNet.Window.MainMenu.Profession;
@@ -44,8 +45,8 @@ namespace OregonTrailDotNet.Window.MainMenu
         public override void OnWindowPostCreate()
         {
             var headerText = new StringBuilder();
-            headerText.Append($"{Environment.NewLine}The Asphalt Trail{Environment.NewLine}{Environment.NewLine}");
-            headerText.Append("You may:");
+            headerText.AppendLine(SceneArt.Title);
+            headerText.Append($"{Environment.NewLine}You may:");
             MenuHeader = headerText.ToString();
 
             AddCommand(TravelTheTrail, MainMenuCommands.TravelTheTrail);
@@ -88,11 +89,12 @@ namespace OregonTrailDotNet.Window.MainMenu
         }
 
         /// <summary>
-        ///     Start with choosing profession in the new game Windows, the others are chained together after this one.
+        ///     Start the new-game flow with the satirical preamble that sets up the 2028 roadtrip; once the player has
+        ///     read it, <see cref="GameIntro" /> hands off to profession selection and the rest of the chain.
         /// </summary>
         private void TravelTheTrail()
         {
-            SetForm(typeof(ProfessionSelector));
+            SetForm(typeof(GameIntro));
         }
     }
 }

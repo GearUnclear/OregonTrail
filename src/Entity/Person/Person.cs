@@ -257,9 +257,45 @@ namespace OregonTrailDotNet.Entity.Person
                     CheckIllness();
             }
 
+            // Pushing harder than a Steady pace costs extra health, but only on real travel days.
+            if (!skipDay)
+                ApplyPacePenalty();
+
             // Will only consume food if a whole day goes by, realtime actions won't have this penalty.
             if (!skipDay)
                 ConsumeFood();
+        }
+
+        /// <summary>
+        ///     Applies the daily health cost of pushing the party harder than a Steady pace. Faster paces cover more
+        ///     ground (see Vehicle.PaceMultiplier) but tire the party out. The drain only happens on days the vehicle is
+        ///     actually moving, so stopping to rest (which still feeds and heals) lets the party recover and prevents a
+        ///     death spiral. Steady incurs no penalty and leaves original behaviour unchanged. Tune the amounts here.
+        /// </summary>
+        private void ApplyPacePenalty()
+        {
+            // Grab instance of the game simulation to increase readability.
+            var game = GameSimulationApp.Instance;
+
+            // Penalty only applies while actually travelling; resting/stopping lets the party recover.
+            if (game.Vehicle.Status != VehicleStatus.Moving)
+                return;
+
+            switch (game.Vehicle.Pace)
+            {
+                case TravelPace.Strenuous:
+                    // 12 hour days: a modest amount of extra wear, no extra illness exposure.
+                    Damage(2, 6);
+                    break;
+                case TravelPace.Grueling:
+                    // 16 hour days: a clearly larger drain plus one extra illness roll ("your health suffers").
+                    Damage(6, 14);
+                    CheckIllness();
+                    break;
+                case TravelPace.Steady:
+                    // No penalty - identical to original behaviour.
+                    break;
+            }
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using System.Text;
 using OregonTrailDotNet.Entity.Location;
 using OregonTrailDotNet.Entity.Vehicle;
 using OregonTrailDotNet.Event;
+using OregonTrailDotNet.Renderer;
 using OregonTrailDotNet.Window.Travel.Dialog;
 using WolfCurses.Window;
 using WolfCurses.Window.Control;
@@ -36,6 +37,12 @@ namespace OregonTrailDotNet.Window.Travel.Command
         ///     Holds the text related to animated sway bar, each tick of simulation steps it.
         /// </summary>
         private string _swayBarText;
+
+        /// <summary>
+        ///     Ever-incrementing step for the scrolling roadside "driving" scene; advanced each simulation tick so
+        ///     the world parallax-scrolls past the stationary SUV.
+        /// </summary>
+        private int _animStep;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ContinueOnTrail" /> class.
@@ -89,8 +96,8 @@ namespace OregonTrailDotNet.Window.Travel.Command
             // Clear whatever was in the string builder last tick.
             _drive.Clear();
 
-            // Ping-pong progress bar to show that we are moving.
-            _drive.AppendLine($"{Environment.NewLine}{_swayBarText}");
+            // Animated roadside scene: the SUV holds still while the world scrolls past it, showing movement.
+            _drive.AppendLine($"{Environment.NewLine}{SceneArt.TravelScene(_animStep)}");
 
             // Basic information about simulation.
             _drive.AppendLine(TravelInfo.DriveStatus);
@@ -142,6 +149,7 @@ namespace OregonTrailDotNet.Window.Travel.Command
                 case VehicleStatus.Moving:
                     // Check if there is a tombstone here, if so we attach question form that asks if we stop or not.
                     _swayBarText = _marqueeBar.Step();
+                    _animStep++;
                     if (game.Tombstone.ContainsTombstone(game.Vehicle.Odometer) &&
                         !game.Trail.CurrentLocation.ArrivalFlag)
                     {
@@ -155,7 +163,7 @@ namespace OregonTrailDotNet.Window.Travel.Command
                     // The base game never rolls the Wild or Animal categories anywhere, so roadside
                     // America (the §6 strangers and crowds) would register but never appear. Wire both
                     // into the per-day travel tick using the same probabilistic TriggerEventByType call
-                    // the other categories use; the ~1% roll lives inside it and is left untouched.
+                    // the other categories use; the per-category odds live in EventDirectorModule.
                     game.EventDirector.TriggerEventByType(game.Vehicle, EventCategory.Wild);
                     game.EventDirector.TriggerEventByType(game.Vehicle, EventCategory.Animal);
                     break;

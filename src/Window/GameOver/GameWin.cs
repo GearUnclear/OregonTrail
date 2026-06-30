@@ -3,6 +3,7 @@
 
 using System;
 using System.Text;
+using OregonTrailDotNet.Renderer;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 using WolfCurses.Window.Form.Input;
@@ -39,10 +40,11 @@ namespace OregonTrailDotNet.Window.GameOver
         /// </returns>
         protected override string OnDialogPrompt()
         {
-            _gameOver.AppendLine($"{Environment.NewLine}Congratulations! You have ");
-            _gameOver.AppendLine("made it to Seattle! Let's tally ");
-            _gameOver.AppendLine("your final Net Worth and Clout ");
-            _gameOver.AppendLine($"score.{Environment.NewLine}");
+            _gameOver.AppendLine(SceneArt.SmilingSun);
+            _gameOver.AppendLine("Congratulations! You have made it to Seattle!");
+            _gameOver.AppendLine("Sunshine State Mutual regrets to inform you");
+            _gameOver.AppendLine($"your new ZIP code is also under review.{Environment.NewLine}");
+            _gameOver.AppendLine("Let's tally your final Net Worth and Clout score.");
             return _gameOver.ToString();
         }
 

@@ -94,8 +94,12 @@ namespace OregonTrailDotNet.Module.Director
 
         /// <summary>Gathers all of the events by specified type and picks one of them at random to return.</summary>
         /// <param name="eventCategory">Enum value of the type of event such as medical, person, vehicle, etc.</param>
+        /// <param name="recentlyFired">
+        ///     Event types fired most recently; the pick is biased away from these so the player does not see the
+        ///     same incident back-to-back. Ignored if avoiding them would leave no candidate in the category.
+        /// </param>
         /// <returns>Created event product based on enum value.</returns>
-        public EventProduct CreateRandomByType(EventCategory eventCategory)
+        public EventProduct CreateRandomByType(EventCategory eventCategory, ICollection<Type> recentlyFired = null)
         {
             // Query all of the reference event types that match the given enumeration value.
             var groupedEventList = new List<Type>();
@@ -107,6 +111,15 @@ namespace OregonTrailDotNet.Module.Director
             // Check to make sure there is at least one type of event of this type.
             if (groupedEventList.Count <= 0)
                 return null;
+
+            // Prefer events we have not shown in the last few rolls, but only when that still leaves a choice
+            // so small categories (e.g. Animal has just a few) are not starved down to nothing.
+            if ((recentlyFired != null) && (recentlyFired.Count > 0))
+            {
+                var freshEventList = groupedEventList.Where(type => !recentlyFired.Contains(type)).ToList();
+                if (freshEventList.Count > 0)
+                    groupedEventList = freshEventList;
+            }
 
             // Roll the dice against the event reference ceiling count to see which one we use.
             var diceRoll = GameSimulationApp.Instance.Random.Next(groupedEventList.Count);
