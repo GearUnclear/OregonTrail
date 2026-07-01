@@ -8,6 +8,7 @@ using OregonTrailDotNet.Entity.Location;
 using OregonTrailDotNet.Entity.Location.Point;
 using OregonTrailDotNet.Event.Person;
 using OregonTrailDotNet.Window.Travel.Command;
+using OregonTrailDotNet.Window.Travel.Decision;
 using OregonTrailDotNet.Window.Travel.Dialog;
 using OregonTrailDotNet.Window.Travel.Hunt.Help;
 using OregonTrailDotNet.Window.Travel.Rest;
@@ -41,6 +42,17 @@ namespace OregonTrailDotNet.Window.Travel
         ///     One-shot guard so the Touchdown Jesus shrine death beat fires at most once per game.
         /// </summary>
         private bool _shrineBeatFired;
+
+        /// <summary>
+        ///     One-shot guards so each location-scripted forking decision fires at most once per game.
+        /// </summary>
+        private bool _buceesFired;
+
+        private bool _caravanFired;
+
+        private bool _armFired;
+
+        private bool _checkpointFired;
 
         /// <summary>
         ///     Attaches state that picks strings from array at random to show from point of interest.
@@ -274,6 +286,43 @@ namespace OregonTrailDotNet.Window.Travel
                     game.EventDirector.TriggerEvent(victim, typeof(StyrofoamJesus));
                     return;
                 }
+            }
+
+            // Location-scripted forking decisions. Each fires at most once per game and hands the player a numbered
+            // choice Form; the chosen option is recorded in the ChoiceLedger for endgame scoring and epilogue recap.
+            // NOTE: the "pack" decision is deliberately NOT triggered here -- it fires from LocationDepart as the
+            // party pulls out of Cape Coral, so it cannot preempt the opening supply Store that OnWindowPostCreate
+            // attaches while the first location is still Unreached.
+            if (!_buceesFired && game.Trail.CurrentLocation.Name.StartsWith("Buc-ee's, Sevierville") &&
+                game.Vehicle.Passengers.Count > 0)
+            {
+                _buceesFired = true;
+                SetForm(typeof(BuceesHaulDecision));
+                return;
+            }
+
+            if (!_caravanFired && game.Trail.CurrentLocation.Name.StartsWith("Carhenge") &&
+                game.Vehicle.Passengers.Count > 0)
+            {
+                _caravanFired = true;
+                SetForm(typeof(CaravanDecision));
+                return;
+            }
+
+            if (!_armFired && game.Trail.CurrentLocation.Name.StartsWith("Open-Carry Walmart") &&
+                game.Vehicle.Passengers.Count > 0)
+            {
+                _armFired = true;
+                SetForm(typeof(ArmYourselfDecision));
+                return;
+            }
+
+            if (!_checkpointFired && game.Trail.CurrentLocation.Name.StartsWith("Portland") &&
+                game.Vehicle.Passengers.Count > 0)
+            {
+                _checkpointFired = true;
+                SetForm(typeof(CheckpointDecision));
+                return;
             }
 
             // Update menu with proper choices.

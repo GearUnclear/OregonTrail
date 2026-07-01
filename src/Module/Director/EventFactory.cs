@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using OregonTrailDotNet.Event;
 using WolfCurses.Utility;
 
@@ -76,14 +77,24 @@ namespace OregonTrailDotNet.Module.Director
             if (directorEventKeyValuePair.Value.GetTypeInfo().IsAbstract)
                 return null;
 
-            // Create the event product, but don't call any constructor.
+            // Create the event product WITHOUT running any constructor: events do their setup in
+            // OnEventCreate(), not in a ctor (they are deliberately allocated uninitialized).
+            //
+            // We intentionally do NOT use WolfCurses' FactoryExtensions.New<EventProduct>.GetUninitializedObject
+            // here. That helper is broken on .NET Core / .NET 6: internally it resolves
+            // "System.Runtime.Serialization.FormatterServices" by name from the wrong assembly (the type was
+            // moved out of the core assembly on .NET Core), so the lookup fails and the helper returns null for
+            // EVERY event type. That null is what made this method throw "Attempted to create instance ... but
+            // failed!" — most visibly on a deep-water Ford crossing firing VehicleWashOut, but it affected all
+            // events (VehicleFloods and every other prefab subclass too). Use the BCL primitive directly, which
+            // is exactly what that helper was meant to wrap and which works on .NET 6.
             var eventInstance =
-                FactoryExtensions.New<EventProduct>.GetUninitializedObject(directorEventKeyValuePair.Value) as
-                    EventProduct;
+                RuntimeHelpers.GetUninitializedObject(directorEventKeyValuePair.Value) as EventProduct;
 
-            // If the event instance is null then complain.
+            // If instantiation still somehow failed (e.g. the type is not really an EventProduct), skip the
+            // event gracefully instead of throwing and killing the whole process.
             if (eventInstance == null)
-                throw new ArgumentException($"Attempted to create instance of {eventType} event but failed!");
+                return null;
 
             // Fire event that acts like our own constructor for the object but only calling it when we say here.
             eventInstance.OnEventCreate();

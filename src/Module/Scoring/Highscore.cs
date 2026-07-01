@@ -29,9 +29,14 @@ namespace OregonTrailDotNet.Module.Scoring
             Points = points;
 
             // Rank the players performance based on the number of points they have.
-            if (points >= 7000)
+            // End-game score is dominated by the surviving-party health term (4 people * 500) times the
+            // leader's profession multiplier, so the realistic ceilings are ~3,700 (Banker x1), ~5,000
+            // (Carpenter x2) and ~6,900 (Farmer x3). The old 7,000 TrailGuide gate was unreachable by ANY
+            // profession (dead content); 6,000 lets an optimally-played Farmer earn the top rating while
+            // keeping it out of reach for Carpenter/Banker, preserving the profession prestige ladder.
+            if (points >= 6000)
                 _rating = Performance.TrailGuide;
-            else if ((points >= 3000) && (points < 7000))
+            else if ((points >= 3000) && (points < 6000))
                 _rating = Performance.Adventurer;
             else if (points < 3000)
                 _rating = Performance.Greenhorn;

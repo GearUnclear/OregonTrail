@@ -51,7 +51,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
 
             // Set the profession to default value in case we are retrying this.
             UserData.PlayerProfession = Entity.Person.Profession.Banker;
-            UserData.StartingMonies = 1600;
+            UserData.StartingMonies = 8000;
 
             // Pass the game data to the simulation for each new game Windows state.
             GameSimulationApp.Instance.SetStartInfo(UserData);
@@ -115,25 +115,25 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
             {
                 case Entity.Person.Profession.Banker:
                     UserData.PlayerProfession = Entity.Person.Profession.Banker;
-                    UserData.StartingMonies = 1600;
+                    UserData.StartingMonies = 8000;
                     UserData.PlayerNameIndex = 0;
                     SetForm(typeof(InputPlayerNames));
                     break;
                 case Entity.Person.Profession.Carpenter:
                     UserData.PlayerProfession = Entity.Person.Profession.Carpenter;
-                    UserData.StartingMonies = 800;
+                    UserData.StartingMonies = 4000;
                     UserData.PlayerNameIndex = 0;
                     SetForm(typeof(InputPlayerNames));
                     break;
                 case Entity.Person.Profession.Farmer:
                     UserData.PlayerProfession = Entity.Person.Profession.Farmer;
-                    UserData.StartingMonies = 400;
+                    UserData.StartingMonies = 2000;
                     UserData.PlayerNameIndex = 0;
                     SetForm(typeof(InputPlayerNames));
                     break;
                 default:
                     UserData.PlayerProfession = Entity.Person.Profession.Banker;
-                    UserData.StartingMonies = 1600;
+                    UserData.StartingMonies = 8000;
                     UserData.PlayerNameIndex = 0;
                     SetForm(typeof(ProfessionHelp));
                     break;

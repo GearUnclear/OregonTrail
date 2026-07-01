@@ -41,8 +41,9 @@ namespace OregonTrailDotNet.Event.Prefab
             // Cast the source entity as person.
             var person = userData.SourceEntity as Entity.Person.Person;
 
-            // Skip if the source entity is not a person.
-            return person == null ? string.Empty : OnPostInjury(person);
+            // Fall back to a generic non-empty message if the source is not a person: EventExecutor throws
+            // on empty/whitespace render text, so returning string.Empty here would crash the process.
+            return person == null ? "Someone was injured." : OnPostInjury(person);
         }
 
         /// <summary>Fired after the event has executed and the injury flag set on the person.</summary>

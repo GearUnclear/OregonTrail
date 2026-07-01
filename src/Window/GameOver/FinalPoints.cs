@@ -127,6 +127,9 @@ namespace OregonTrailDotNet.Window.GameOver
             foreach (var tuplePoint in tuplePoints)
                 totalPoints += tuplePoint.Item3;
 
+            // Apply the cumulative score delta from the forking decisions the player made along the trail.
+            totalPoints = System.Math.Max(0, totalPoints + game.Choices.ScoreDelta);
+
             _pointsPrompt.AppendLine($"Total: {totalPoints}");
 
             // Add the total with the bonus so player can see the difference.
@@ -165,6 +168,14 @@ namespace OregonTrailDotNet.Window.GameOver
 
             // Add the score to the current listing that will get saved.
             GameSimulationApp.Instance.Scoring.Add(new Highscore(leaderPerson.Name, totalPointsWithBonus));
+
+            // Recap the forking decisions the player made along the trail.
+            if (game.Choices.Epilogue.Count > 0)
+            {
+                _pointsPrompt.AppendLine(string.Empty);
+                _pointsPrompt.AppendLine("Along the way, you chose:");
+                foreach (var line in game.Choices.Epilogue) _pointsPrompt.AppendLine("  - " + line);
+            }
 
             return _pointsPrompt.ToString();
         }

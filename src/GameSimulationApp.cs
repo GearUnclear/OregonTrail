@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using OregonTrailDotNet.Entity.Person;
 using OregonTrailDotNet.Entity.Vehicle;
+using OregonTrailDotNet.Module.Choices;
 using OregonTrailDotNet.Module.Director;
 using OregonTrailDotNet.Module.Scoring;
 using OregonTrailDotNet.Module.Time;
@@ -77,6 +78,12 @@ namespace OregonTrailDotNet
         ///     this trail so other players can encounter them in the future.
         /// </summary>
         public TombstoneModule Tombstone { get; private set; }
+
+        /// <summary>
+        ///     Per-game ledger of the forking decisions the player made along the trail. Contributes score deltas and
+        ///     epilogue lines consumed by the endgame tabulation.
+        /// </summary>
+        public ChoiceLedger Choices { get; private set; }
 
         /// <summary>
         ///     Determines what windows the simulation will be capable of using and creating using the window managers factory.
@@ -185,6 +192,7 @@ namespace OregonTrailDotNet
             Trail = null;
             TotalTurns = 0;
             Vehicle = null;
+            Choices = null;
 
             // Destroys game simulation instance.
             Instance = null;
@@ -230,6 +238,9 @@ namespace OregonTrailDotNet
             EventDirector = new EventDirectorModule();
             Trail = new TrailModule();
             Vehicle = new Vehicle();
+
+            // Per-game ledger of forking decisions the player makes along the trail.
+            Choices = new ChoiceLedger();
 
             // Resets the window manager in the base simulation.
             base.Restart();

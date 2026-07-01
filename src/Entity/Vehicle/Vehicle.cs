@@ -233,11 +233,15 @@ namespace OregonTrailDotNet.Entity.Vehicle
         {
             get
             {
-                // Total amount of monies the player has spent on animals to pull their vehicle.
+                // Total amount of monies the player has spent on animals (gas cans) to pull their vehicle.
                 var costAnimals = Inventory[Entities.Animal].TotalValue;
 
                 // Variables that will hold the distance we should travel in the next day.
-                var totalMiles = Mileage + (costAnimals - 110)/2.5 + 10*GameSimulationApp.Instance.Random.NextDouble();
+                // The two constants below are derived from the gas-can price (see Parts.Oxen): the threshold is
+                // 5.5 cans worth of fuel (5.5 * $25 = 137.5) and the divisor is the per-can mileage slope ($25 / 8 = 3.125),
+                // so each gas can is still worth ~8 miles/day and 5.5 cans is still the break-even point — identical to the
+                // pre-2028 $20-a-can tuning, just expressed against the inflated price. Rescale both if the price changes.
+                var totalMiles = Mileage + (costAnimals - 137.5)/3.125 + 10*GameSimulationApp.Instance.Random.NextDouble();
 
                 return (int) Math.Abs(totalMiles);
             }
@@ -717,8 +721,25 @@ namespace OregonTrailDotNet.Entity.Vehicle
                 if (GameSimulationApp.Instance.Random.NextBool())
                     continue;
 
+                // Determine ceiling for how many copies we will offer of this item.
+                var amountToMake = itemPair.Value.MaxQuantity/4;
+
+                // Check if created amount goes above ceiling.
+                if (amountToMake > itemPair.Value.MaxQuantity)
+                    amountToMake = itemPair.Value.MaxQuantity;
+
+                // Check if created amount goes below floor. Small-cap items (e.g. spare parts with
+                // MaxQuantity 3) integer-divide to 0, which would make Random.Next(1, 0) throw.
+                if (amountToMake <= 0)
+                    amountToMake = 1;
+
                 // Add some random amount of the item from one to total amount.
-                var createdAmount = GameSimulationApp.Instance.Random.Next(1, itemPair.Value.MaxQuantity/4);
+                var createdAmount = GameSimulationApp.Instance.Random.Next(1, amountToMake);
+
+                // Never gift more than the item's remaining capacity.
+                var remainingCapacity = itemPair.Value.MaxQuantity - itemPair.Value.Quantity;
+                if (createdAmount > remainingCapacity)
+                    createdAmount = remainingCapacity;
 
                 // Add the amount ahead of time so we can figure out of it is above maximum.
                 var simulatedAmountAdd = itemPair.Value.Quantity + createdAmount;
