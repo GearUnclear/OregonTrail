@@ -70,6 +70,11 @@ namespace OregonTrailDotNet.Window.Travel
         ///     Using "Talk," you can talk to fellow travelers to further the story or for advice.  If you don't know what to do,
         ///     talk to someone or consult the Guide.
         /// </summary>
-        [Description("Talk to people")] TalkToPeople = 10
+        [Description("Talk to people")] TalkToPeople = 10,
+
+        /// <summary>
+        ///     Pick up a day of DoorDash delivery gigs in town for some quick cash — at the cost of your own fuel and tires.
+        /// </summary>
+        [Description("Drive for DoorDash")] DriveForDoorDash = 11
     }
 }

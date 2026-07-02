@@ -28,10 +28,10 @@ namespace OregonTrailDotNet.Entity.Location
         [Description("Low Food")] LowFood = 2,
 
         /// <summary>
-        ///     Oxen unable to graze and operate at less and peak performance.
+        ///     Gas stations in the area are dry or price-gouging, vehicle unable to fill up at peak efficiency.
         /// </summary>
         // ReSharper disable once UnusedMember.Global
-        [Description("Low Grass")] LowGrass = 3,
+        [Description("Gas Shortage")] LowGrass = 3,
 
         /// <summary>
         ///     Location is very dry and has almost no localized water sources.

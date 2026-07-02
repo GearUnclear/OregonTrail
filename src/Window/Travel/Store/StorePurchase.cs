@@ -67,6 +67,25 @@ namespace OregonTrailDotNet.Window.Travel.Store
             if (_purchaseLimit > UserData.Store.SelectedItem.MaxQuantity)
                 _purchaseLimit = UserData.Store.SelectedItem.MaxQuantity;
 
+            // Further clamp the purchase limit to how much cargo room is actually left in the vehicle. Cargo used
+            // is the vehicle's actual (already loaded) weight PLUS everything else still sitting on the pending
+            // receipt — not just the vehicle's inventory, which stays empty until the player leaves the store —
+            // excluding this item's own prior receipt entry, since we are about to replace it with a fresh quantity.
+            var vehicle = GameSimulationApp.Instance.Vehicle;
+            var otherPendingCargoWeight = UserData.Store.PendingCargoWeight -
+                                           UserData.Store.Transactions[UserData.Store.SelectedItem.Category].TotalWeight;
+            var cargoUsed = vehicle.CargoWeight + otherPendingCargoWeight;
+            var remainingCargoCapacity = vehicle.Model.CargoCapacity - cargoUsed;
+            if (remainingCargoCapacity < 0)
+                remainingCargoCapacity = 0;
+
+            if (UserData.Store.SelectedItem.Weight > 0)
+            {
+                var cargoLimitedQuantity = remainingCargoCapacity/UserData.Store.SelectedItem.Weight;
+                if (cargoLimitedQuantity < _purchaseLimit)
+                    _purchaseLimit = cargoLimitedQuantity;
+            }
+
             // Add some information about how many you can buy and total amount you can carry.
             _itemBuyText = new StringBuilder();
 
@@ -78,6 +97,9 @@ namespace OregonTrailDotNet.Window.Travel.Store
             _itemBuyText.AppendLine(pluralMatchesName
                 ? $"{Environment.NewLine}You can afford {_purchaseLimit} {UserData.Store.SelectedItem.Name.ToLowerInvariant()}."
                 : $"{Environment.NewLine}You can afford {_purchaseLimit} {UserData.Store.SelectedItem.PluralForm.ToLowerInvariant()} of {UserData.Store.SelectedItem.Name.ToLowerInvariant()}.");
+
+            // Report current cargo usage versus capacity so the player knows how much room is actually left.
+            _itemBuyText.AppendLine($"Cargo: {cargoUsed}/{vehicle.Model.CargoCapacity} lbs.");
 
             // Wait for user input...
             _itemBuyText.Append($"How many {UserData.Store.SelectedItem.PluralForm.ToLowerInvariant()} to buy?");

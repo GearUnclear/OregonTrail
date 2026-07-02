@@ -130,8 +130,12 @@ namespace OregonTrailDotNet
         /// </param>
         internal void SetStartInfo(NewGameInfo startingInfo)
         {
+            // Resolve the tuning numbers for the vehicle the player chose, and factor its price into starting cash
+            // without mutating the starting info itself (this method may run more than once per form render).
+            var vehicleModel = VehicleModels.Get(startingInfo.VehiclePick);
+
             // Clear out any data amount items, monies, people that might have been in the vehicle.
-            Vehicle.ResetVehicle(startingInfo.StartingMonies);
+            Vehicle.ResetVehicle((int) (startingInfo.StartingMonies - vehicleModel.Cost), vehicleModel);
 
             // Add all the player data we collected from attached game Windows states.
             var crewNumber = 1;
@@ -209,7 +213,7 @@ namespace OregonTrailDotNet
             tui.AppendLine($"Turns: {TotalTurns:D4}");
 
             // Vehicle and location status.
-            tui.AppendLine($"SUV: {Vehicle?.Status} - Location:{Trail?.CurrentLocation?.Status}");
+            tui.AppendLine($"{Vehicle?.Model?.Name ?? "SUV"}: {Vehicle?.Status} - Location:{Trail?.CurrentLocation?.Status}");
             return tui.ToString();
         }
 

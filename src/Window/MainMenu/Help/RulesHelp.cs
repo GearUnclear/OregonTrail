@@ -49,7 +49,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
             aboutTrail.AppendLine(" * Snacks - food for your family. Run low and everyone's");
             aboutTrail.AppendLine($"   health drops, so always keep some on hand.{Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Ammo - used to hunt for extra food along the way and");
+            aboutTrail.AppendLine(" * Ammo - used to grab extra food during sweeps along the way and");
             aboutTrail.AppendLine($"   to handle trouble on the road.{Environment.NewLine}");
 
             aboutTrail.AppendLine(" * Leggings - your barter goods. River guides take these");

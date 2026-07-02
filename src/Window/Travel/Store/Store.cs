@@ -57,7 +57,8 @@ namespace OregonTrailDotNet.Window.Travel.Store
         /// </summary>
         private void BuyOxen()
         {
-            UserData.Store.SelectedItem = Parts.Oxen;
+            // Charge the location-scaled fuel price (cheap mid-trip, dear near the end); inventory still stores $25 cans.
+            UserData.Store.SelectedItem = Parts.GasCans(FuelPricing.CurrentCost());
             SetForm(typeof(StorePurchase));
         }
 
@@ -133,11 +134,27 @@ namespace OregonTrailDotNet.Window.Travel.Store
         /// </summary>
         private void UpdateStore()
         {
+            // Re-price gas to the current location's fuel cost while preserving any pending quantity on the receipt. This
+            // keeps the displayed row, the total bill, and the affordability math on the station's curved price without
+            // touching the $25 value that gas carries once it is in the vehicle inventory (see FuelPricing / Parts.Oxen).
+            var pendingGas = UserData.Store.Transactions[Entities.Animal].Quantity;
+            var repricedGas = Parts.GasCans(FuelPricing.CurrentCost());
+            // The copy-ctor clamps quantity up to the minimum (1), so only use it when gas is actually on the receipt;
+            // otherwise keep the fresh zero-quantity item so an empty receipt stays empty.
+            UserData.Store.Transactions[Entities.Animal] =
+                pendingGas > 0 ? new SimItem(repricedGas, pendingGas) : repricedGas;
+
             // Clear previous prompt and rebuild it.
             _storePrompt.Clear();
             _storePrompt.AppendLine("--------------------------------");
             _storePrompt.AppendLine($"{GameSimulationApp.Instance.Trail.CurrentLocation?.Name} Travel Center");
             _storePrompt.AppendLine($"{GameSimulationApp.Instance.Time.Date}");
+            _storePrompt.AppendLine($"Fuel: {FuelPricing.CurrentCost():C2}/can {FuelPricing.Trend()}");
+            // Cargo used = whatever is actually loaded in the vehicle PLUS everything still sitting on the pending
+            // receipt (purchases don't reach Vehicle.Inventory until the player leaves the store).
+            var cargoUsed = GameSimulationApp.Instance.Vehicle.CargoWeight + UserData.Store.PendingCargoWeight;
+            _storePrompt.AppendLine(
+                $"Cargo: {cargoUsed}/{GameSimulationApp.Instance.Vehicle.Model.CargoCapacity} lbs");
             _storePrompt.AppendLine("--------------------------------");
 
             // Loop through all the store assets commands and print them out for the state.

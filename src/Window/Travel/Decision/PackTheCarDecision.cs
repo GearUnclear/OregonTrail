@@ -107,14 +107,26 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     break;
 
                 case 3:
-                    // Leave a seat for Mateo: an extra mouth, but an extra pair of hands.
-                    var leaderProfession = vehicle.PassengerLeader?.Profession ?? Profession.Farmer;
-                    vehicle.AddPerson(new Person(leaderProfession, "Mateo Delgado", false));
-                    GameSimulationApp.Instance.Choices.Record(
-                        "pack",
-                        "teen",
-                        300,
-                        "Mateo ate his share and then some, but he changed the tire outside Amarillo in nine minutes flat, and you never once regretted the seat you filled.");
+                    // Leave a seat for Mateo: an extra mouth, but an extra pair of hands. Only if the chosen vehicle
+                    // actually has an open seat left — the 3-seat Hybrid/EV can easily already be full.
+                    if (vehicle.Passengers.Count < vehicle.MaxPartySize)
+                    {
+                        var leaderProfession = vehicle.PassengerLeader?.Profession ?? Profession.Farmer;
+                        vehicle.AddPerson(new Person(leaderProfession, "Mateo Delgado", false));
+                        GameSimulationApp.Instance.Choices.Record(
+                            "pack",
+                            "teen",
+                            300,
+                            "Mateo ate his share and then some, but he changed the tire outside Amarillo in nine minutes flat, and you never once regretted the seat you filled.");
+                    }
+                    else
+                    {
+                        GameSimulationApp.Instance.Choices.Record(
+                            "pack",
+                            "teen_declined",
+                            0,
+                            "There wasn't a seat to give him -- the SUV was already packed to its limit with your own family, and you watched him wave from the curb as you pulled out.");
+                    }
                     // Pack fires as the party departs Cape Coral, so resume the drive rather than dropping to the menu.
                     SetForm(typeof(ContinueOnTrail));
                     break;

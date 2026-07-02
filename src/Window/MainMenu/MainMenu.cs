@@ -24,11 +24,12 @@ namespace OregonTrailDotNet.Window.MainMenu
         public const string LEADER_QUESTION = "What is the first name of the driver?";
 
         /// <summary>
-        ///     Asked for every other party member name we want to collect.
+        ///     Asked for every other party member name we want to collect. Interpolates the chosen vehicle's seating
+        ///     capacity so the question always matches how many other names are actually being asked for.
         /// </summary>
-        // ReSharper disable once InconsistentNaming
-        public static readonly string MEMBERS_QUESTION =
-            $"What are the first names of the{Environment.NewLine}three other members of your family?";
+        public static string MembersQuestion =>
+            $"What are the first names of the{Environment.NewLine}" +
+            $"{GameSimulationApp.Instance.Vehicle.MaxPartySize - 1} other members of your family?";
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Window{TCommands,TData}" /> class.

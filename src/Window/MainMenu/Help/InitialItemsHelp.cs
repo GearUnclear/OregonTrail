@@ -41,7 +41,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
             var storeHelp = new StringBuilder();
             storeHelp.AppendLine($"{Environment.NewLine}Before leaving Cape Coral you");
             storeHelp.AppendLine("should stock up on equipment and");
-            storeHelp.AppendLine($"supplies. You have {UserData.StartingMonies:C2} in");
+            storeHelp.AppendLine($"supplies. You have {GameSimulationApp.Instance.Vehicle.Balance:C2} in");
             storeHelp.AppendLine("cash, but you don't have to");
             storeHelp.AppendLine($"spend it all now.{Environment.NewLine}");
             return storeHelp.ToString();

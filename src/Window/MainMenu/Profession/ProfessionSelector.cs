@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OregonTrailDotNet.Window.MainMenu.Names;
+using OregonTrailDotNet.Window.MainMenu.VehicleSelection;
 using WolfCurses.Utility;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
@@ -117,19 +118,19 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
                     UserData.PlayerProfession = Entity.Person.Profession.Banker;
                     UserData.StartingMonies = 8000;
                     UserData.PlayerNameIndex = 0;
-                    SetForm(typeof(InputPlayerNames));
+                    SetForm(typeof(VehicleSelector));
                     break;
                 case Entity.Person.Profession.Carpenter:
                     UserData.PlayerProfession = Entity.Person.Profession.Carpenter;
                     UserData.StartingMonies = 4000;
                     UserData.PlayerNameIndex = 0;
-                    SetForm(typeof(InputPlayerNames));
+                    SetForm(typeof(VehicleSelector));
                     break;
                 case Entity.Person.Profession.Farmer:
                     UserData.PlayerProfession = Entity.Person.Profession.Farmer;
                     UserData.StartingMonies = 2000;
                     UserData.PlayerNameIndex = 0;
-                    SetForm(typeof(InputPlayerNames));
+                    SetForm(typeof(VehicleSelector));
                     break;
                 default:
                     UserData.PlayerProfession = Entity.Person.Profession.Banker;

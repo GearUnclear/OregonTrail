@@ -5,6 +5,7 @@ using System.Text;
 using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Location;
 using OregonTrailDotNet.Entity.Location.Point;
+using OregonTrailDotNet.Window.Travel.DoorDash;
 using OregonTrailDotNet.Window.Travel.Hunt;
 using OregonTrailDotNet.Window.Travel.RiverCrossing;
 using OregonTrailDotNet.Window.Travel.Store;
@@ -47,6 +48,12 @@ namespace OregonTrailDotNet.Window.Travel
         ///     will be used to maintain the state of the hunt and manage all the data related to it and scoring.
         /// </summary>
         public HuntManager Hunt { get; private set; }
+
+        /// <summary>
+        ///     Holds the state of a DoorDash gig shift while the DoorDash forms are attached. Null when the player is not
+        ///     currently Dashing.
+        /// </summary>
+        public DoorDashManager DoorDash { get; private set; }
 
         /// <summary>
         ///     Gets the current cost of the toll road that would like to be inserted into the trail, normally this is done from a
@@ -145,6 +152,28 @@ namespace OregonTrailDotNet.Window.Travel
                 return;
 
             Hunt = null;
+        }
+
+        /// <summary>
+        ///     Starts a new DoorDash gig shift for the player if one is not already underway.
+        /// </summary>
+        public void GenerateDoorDash()
+        {
+            if (DoorDash != null)
+                return;
+
+            DoorDash = new DoorDashManager();
+        }
+
+        /// <summary>
+        ///     Tears down the DoorDash shift data once the shift is over.
+        /// </summary>
+        public void DestroyDoorDash()
+        {
+            if (DoorDash == null)
+                return;
+
+            DoorDash = null;
         }
 
         /// <summary>

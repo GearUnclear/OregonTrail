@@ -8,6 +8,13 @@
 //   - Ration/clothes-driven illness (Person.OnTick / CheckIllness) at the rebalanced category odds
 //   - Pace penalty (Strenuous/Grueling)
 //   - Vehicle events 4%/day: BrokenVehiclePart (strand w/o spare), OxenDied, item-destroyers, lose-time
+//   - Dynamic fuel-price curve (FuelPricing.cs): store price = $25 base scaled 1.0x start -> 0.7x mid
+//     -> 2.0x end by journey progress. This ONLY prices fuel PAID for (mid-trip refuel + DoorDash burn);
+//     the daily mileage formula is left calibrated to $25/can and is NOT touched.
+//   - DoorDash gig mini-game (DoorDashManager.cs + DeliveryOffer.cs) behind --doordash <N>: N gig shifts
+//     spread across the journey. Each shift earns cash (insulting base pay + realized tips w/ tip-bait,
+//     unicorn and cancel skews) while burning the party's own gas cans + spare tires and costing a full
+//     day of food/health. Net is booked honestly (gross - fuel@curve - tires@$200). See RunDoorDashShift.
 //   - End-game scoring (FinalPoints) incl. profession multiplier and rating bands
 //
 // Faithfully MODELLED approximations are tagged [APPROX]; Weather/Wild events are treated as
@@ -15,7 +22,17 @@
 //
 // Usage:
 //   asphaltsim --profession Farmer --gas 10 --food 300 --ration 1 --pace 1 --trials 4000 --seed 1
-// Emits a JSON summary on stdout.
+//   asphaltsim --profession Farmer --gas 12 --food 300 --tires 3 --doordash 3 --trials 4000 --seed 1
+//   asphaltsim --profession Farmer --vehicle Minivan --gas 10 --food 300 --trials 4000 --seed 1
+// Emits a JSON summary on stdout. When --doordash is 0 (default) and --vehicle is Minivan (default,
+// the pre-choice baseline: cost/speed/fuel/cargo/party numerically identical to the original hardcoded
+// values), behavior + output are byte-for-byte identical to the pre-vehicle-choice sim.
+// --vehicle {Minivan,PickupCamper,HybridCrossover,ElectricHatchback} mirrors VehicleModels.Get: subtracts
+// Cost from starting cash (floored at $0, same as Vehicle.Balance's setter), scales the mileage formula by
+// SpeedMultiplier/FuelEfficiencyMultiplier (mirrors Vehicle.RandomMileage/PaceMultiplier), clamps the
+// cargo-weight purchase phase (clothes + food, the only two items with nonzero SimItem.Weight) to
+// CargoCapacity, and caps party size at MaxPartySize (mirrors Vehicle.MaxPartySize, itself bounded by
+// GameSimulationApp.MAXPLAYERS = 4).
 
 using System;
 using System.Collections.Generic;
@@ -35,8 +52,47 @@ internal static class Program
     // gas: awarded 4 / per 1 ; spares: awarded 2 / per 1 ; clothes: awarded 2 / per 1
     // ammo: awarded 1 / per 50 ; food: awarded 1 / per 25 ; cash: awarded 1 / per 5
 
-    const int PartySize = 4;          // GameSimulationApp.MAXPLAYERS
+    const int MaxPlayers = 4;         // GameSimulationApp.MAXPLAYERS
     const int SegMin = 32, SegMax = 164;
+
+    // ---- vehicle catalog (from VehicleModels.Get) ----
+    // Minivan is the numeric baseline (Speed 1.0, FuelEff 1.0) and, at $1200, the post-fix affordable
+    // option for every profession (Farmer's $2000 budget included).
+    struct VehicleModel { public string Name; public float Cost; public double Speed, FuelEff; public int Cargo, MaxParty; }
+    static VehicleModel VehicleData(string v) => v switch
+    {
+        "Minivan" => new VehicleModel { Name = "Beige Minivan", Cost = 1200f, Speed = 1.0, FuelEff = 1.0, Cargo = 300, MaxParty = 4 },
+        "PickupCamper" => new VehicleModel { Name = "Lifted Pickup with Camper Shell", Cost = 6500f, Speed = 0.9, FuelEff = 0.7, Cargo = 500, MaxParty = 4 },
+        "HybridCrossover" => new VehicleModel { Name = "Hybrid Crossover SUV", Cost = 4500f, Speed = 1.1, FuelEff = 1.4, Cargo = 200, MaxParty = 3 },
+        "ElectricHatchback" => new VehicleModel { Name = "Secondhand EV Hatchback", Cost = 5000f, Speed = 1.2, FuelEff = 1.6, Cargo = 150, MaxParty = 3 },
+        _ => throw new ArgumentException($"Unknown --vehicle '{v}'; expected Minivan, PickupCamper, HybridCrossover, or ElectricHatchback")
+    };
+
+    // ---- DoorDash gig mini-game constants (mirrors DoorDashManager.cs / DeliveryOffer.cs) ----
+    const int SHIFTTIME = 30;         // shift ticks per day of Dashing
+    const int MILESPERCAN = 30;       // total miles (paid+deadhead) that burn one gas can
+    const int WEARPERTIRE = 45;       // total miles that wear out one spare tire
+    const double ACCEPTRATE_FLOOR = 0.4;
+    const double CANCEL_CHANCE = 0.08;
+    // Driver accept policy (see RunDoorDashShift): a rational Dasher only sees BasePay, EstimatedTip and
+    // PaidDistance (deadhead is hidden), so we accept when shown value density clears this $/paid-mile bar.
+    // 1.75 is the common "$2/mi-ish" delivery rule of thumb; it settles acceptance ~50-65% at good quality
+    // and makes rejecting garbage correct while the acceptance-rate spiral still punishes pickiness.
+    const double ACCEPT_THRESHOLD_PER_MILE = 1.75;
+
+    // ---- fuel price curve (mirrors FuelPricing.cs) ----
+    // Multiplier by journey progress p = segIdx / (segments-1): 1.0x at start, 0.7x at mid, 2.0x at end.
+    static double FuelMult(int segIdx, int segments)
+    {
+        if (segments <= 1) return 1.0;
+        double p = (double)segIdx / (segments - 1);
+        if (p < 0) p = 0; else if (p > 1) p = 1;
+        if (p <= 0.5) return 1.0 + (0.7 - 1.0) * (p / 0.5);
+        return 0.7 + (2.0 - 0.7) * ((p - 0.5) / 0.5);
+    }
+    // Per-can store price at a given trail progress (base $25 scaled by the curve). Used ONLY to value fuel
+    // the DoorDash driver burns; the mileage formula keeps its $25 calibration (costAnimals below).
+    static double FuelPrice(int segIdx, int segments) => Math.Round(PGas * FuelMult(segIdx, segments), 2);
 
     static int StartMoney(string prof) => prof switch
     {
@@ -51,12 +107,23 @@ internal static class Program
     {
         var a = ParseArgs(argv);
         string prof = a.GetValueOrDefault("profession", "Farmer");
+        string vehicleChoice = a.GetValueOrDefault("vehicle", "Minivan");
+        var veh = VehicleData(vehicleChoice);
+        int partySize = Math.Min(veh.MaxParty, MaxPlayers);
         int gas = I(a, "gas", 8), food = I(a, "food", 200), tires = I(a, "tires", 0),
             alts = I(a, "alternators", 0), trans = I(a, "transmissions", 0),
             cloth = I(a, "clothes", 0), ammo = I(a, "ammo", 0),
             ration = I(a, "ration", 1), pace = I(a, "pace", 1),
             trials = I(a, "trials", 4000), seed = I(a, "seed", 1),
-            segments = I(a, "segments", 16);
+            segments = I(a, "segments", 16),
+            doordash = I(a, "doordash", 0);
+        if (doordash < 0) doordash = 0;
+
+        // ---- vehicle purchase: subtract Cost from starting cash, flooring at $0 (mirrors
+        // GameSimulationApp.SetStartInfo -> Vehicle.Balance's setter) ----
+        int rawBudget = (int)(StartMoney(prof) - veh.Cost);
+        bool vehicleFloored = rawBudget <= 0;
+        int budget = vehicleFloored ? 0 : rawBudget;
 
         // ---- validate purchase ----
         var clampNotes = new List<string>();
@@ -69,9 +136,18 @@ internal static class Program
         if (food > MaxFood) { clampNotes.Add($"food->{MaxFood}"); food = MaxFood; }
         if (ammo > 0 && ammo < AmmoMin) { clampNotes.Add($"ammo {ammo}->{AmmoMin} (min buy)"); ammo = AmmoMin; }
 
+        // ---- cargo capacity clamp: clothes + food are the only two items with nonzero SimItem.Weight
+        // (both weight 1/unit), so they're the only purchases CargoCapacity actually constrains. ----
+        if (cloth > veh.Cargo) { clampNotes.Add($"cloth {cloth}->{veh.Cargo} (cargo cap)"); cloth = veh.Cargo; }
+        int remainingCargo = veh.Cargo - cloth;
+        if (food > remainingCargo)
+        {
+            clampNotes.Add($"food {food}->{Math.Max(0, remainingCargo)} (cargo cap)");
+            food = Math.Max(0, remainingCargo);
+        }
+
         double cost = gas * PGas + tires * PTire + alts * PAlt + trans * PTrans
                       + cloth * PCloth + ammo * PAmmo + food * PFood;
-        int budget = StartMoney(prof);
         bool affordable = cost <= budget;
         int leftoverCash = (int)Math.Max(0, budget - cost);
 
@@ -79,7 +155,9 @@ internal static class Program
         {
             Console.WriteLine(Json(new (string, object)[]
             {
-                ("profession", prof), ("affordable", false), ("cost", Math.Round(cost)),
+                ("profession", prof), ("vehicle", veh.Name), ("vehicle_cost", veh.Cost),
+                ("vehicle_floored_cash", vehicleFloored),
+                ("affordable", false), ("cost", Math.Round(cost)),
                 ("budget", budget), ("over_by", Math.Round(cost - budget))
             }));
             return 0;
@@ -92,16 +170,22 @@ internal static class Program
         int fullPartyAlive = 0;
         var livingAtEnd = new List<int>();
 
+        // DoorDash telemetry (only populated when doordash > 0).
+        var ddShiftNets = new List<double>();   // honest net per shift, all trials
+        var ddShiftGross = new List<double>();   // gross per shift, all trials
+        var ddTotals = new long[3];              // [0]=cans burned, [1]=tires worn, [2]=shifts run
+
         for (int t = 0; t < trials; t++)
         {
             var r = new Rng(seed * 100003 + t);
-            var res = Simulate(r, prof, gas, food, tires, alts, trans, cloth, ammo, ration, pace, leftoverCash, segments);
+            var res = Simulate(r, prof, gas, food, tires, alts, trans, cloth, ammo, ration, pace, leftoverCash, segments,
+                doordash, ddShiftNets, ddShiftGross, ddTotals, partySize, veh.Speed, veh.FuelEff);
             days.Add(res.Days);
             if (res.Outcome == Outcome.Win)
             {
                 wins++; scores.Add(res.Score); endCash.Add(res.EndCash); ratings[res.Rating]++;
                 livingAtEnd.Add(res.Living);
-                if (res.Living == PartySize) fullPartyAlive++;
+                if (res.Living == partySize) fullPartyAlive++;
             }
             else
             {
@@ -120,6 +204,8 @@ internal static class Program
         var fields = new List<(string, object)>
         {
             ("profession", prof),
+            ("vehicle", veh.Name), ("vehicle_cost", veh.Cost), ("vehicle_floored_cash", vehicleFloored),
+            ("party_size", partySize), ("speed_mult", veh.Speed), ("fuel_eff_mult", veh.FuelEff), ("cargo_cap", veh.Cargo),
             ("strategy", $"gas{gas} food{food} tire{tires} alt{alts} trans{trans} cloth{cloth} ammo{ammo} ration{ration} pace{pace}"),
             ("budget", budget), ("spend", (int)Math.Round(cost)), ("leftover_cash", leftoverCash),
             ("trials", trials),
@@ -137,6 +223,18 @@ internal static class Program
             ("rating_adventurer", ratings["Adventurer"]),
             ("rating_trailguide", ratings["TrailGuide"]),
         };
+        // DoorDash fields are emitted ONLY when gigging is enabled, so --doordash 0 output is byte-identical
+        // to the pre-DoorDash sim.
+        if (doordash > 0)
+        {
+            fields.Add(("doordash_shifts", doordash));                                  // shifts scheduled per trial
+            fields.Add(("doordash_shifts_run_mean", Math.Round((double)ddTotals[2] / trials, 2))); // actually run (skips when out of gas)
+            fields.Add(("doordash_gross", MedianD(ddShiftGross)));                      // median gross $/shift
+            fields.Add(("doordash_net_median", MedianD(ddShiftNets)));                  // median honest net $/shift (gross - fuel@curve - tires@$200)
+            fields.Add(("doordash_net_mean", ddShiftNets.Count > 0 ? Math.Round(ddShiftNets.Average(), 2) : 0)); // mean net $/shift (rare $200 tire hits drag this << median)
+            fields.Add(("doordash_fuel_cans_used", Math.Round((double)ddTotals[0] / trials, 2)));  // mean cans burned per trial
+            fields.Add(("doordash_tires_used", Math.Round((double)ddTotals[1] / trials, 2)));      // mean spare tires burned per trial
+        }
         if (clampNotes.Count > 0) fields.Add(("clamped", string.Join("; ", clampNotes)));
         Console.WriteLine(Json(fields));
         return 0;
@@ -145,17 +243,32 @@ internal static class Program
     enum Outcome { Win, Death, Stranded, Starved, Timeout }
     struct Result { public Outcome Outcome; public int Days, Score, EndCash, Living; public string Rating; }
 
+    // ddTotals accumulates across ALL trials: [0]=gas cans burned, [1]=tires worn, [2]=shifts actually run.
     static Result Simulate(Rng r, string prof,
         int gas, int food, int tires, int alts, int trans, int cloth, int ammo,
-        int ration, int pace, int cash, int segments)
+        int ration, int pace, int cash, int segments,
+        int doordash, List<double> ddShiftNets, List<double> ddShiftGross, long[] ddTotals,
+        int partySize, double speedMult, double fuelEffMult)
     {
+        // ---- DoorDash schedule: spread N shifts across intermediate settlements so the fuel-price curve and
+        // acceptance-rate spiral actually vary across the journey. Shift k fires when we ARRIVE at segIdx
+        // round((k+1)*segments/(N+1)), clamped to [1, segments-1]. (No RNG; a no-op when doordash == 0.) ----
+        int[] shiftAtSeg = new int[segments + 1];
+        if (doordash > 0)
+            for (int k = 0; k < doordash; k++)
+            {
+                int seg = (int)Math.Round((k + 1) * (double)segments / (doordash + 1));
+                if (seg < 1) seg = 1; else if (seg > segments - 1) seg = segments - 1;
+                shiftAtSeg[seg]++;
+            }
+
         // ---- party ----
-        var hp = new int[PartySize];
-        var dead = new bool[PartySize];
-        var injured = new bool[PartySize];
-        var infected = new bool[PartySize];
-        for (int i = 0; i < PartySize; i++) hp[i] = 500;
-        int Living() { int c = 0; for (int i = 0; i < PartySize; i++) if (!dead[i]) c++; return c; }
+        var hp = new int[partySize];
+        var dead = new bool[partySize];
+        var injured = new bool[partySize];
+        var infected = new bool[partySize];
+        for (int i = 0; i < partySize; i++) hp[i] = 500;
+        int Living() { int c = 0; for (int i = 0; i < partySize; i++) if (!dead[i]) c++; return c; }
 
         // ---- trail: distance to traverse = sum of per-segment U[SegMin,SegMax) ----
         // (each location's TotalDistance = Random.Next(32,164); you arrive when cumulative >= seg)
@@ -175,13 +288,13 @@ internal static class Program
             if (living == 0) return Lose(Outcome.Death, day);
 
             // ----- per-passenger tick (Person.OnTick faithful order) -----
-            for (int i = 0; i < PartySize; i++)
+            for (int i = 0; i < partySize; i++)
             {
                 if (dead[i]) continue;
 
                 // ration-driven illness exposure
-                if (ration == 3) CheckIllness(r, hp, dead, injured, infected, i, ration, ref mileage);
-                else if (ration == 2 && r.Bool()) CheckIllness(r, hp, dead, injured, infected, i, ration, ref mileage);
+                if (ration == 3) CheckIllness(r, hp, dead, injured, infected, i, ration, partySize, ref mileage);
+                else if (ration == 2 && r.Bool()) CheckIllness(r, hp, dead, injured, infected, i, ration, partySize, ref mileage);
 
                 // clothes branch (Person.OnTick), FIXED: adequate clothing now LOWERS illness exposure.
                 // costClothes = crates*$75; Randomizer.Next() is [0,60) so warm threshold ~ $140 (~2 crates),
@@ -189,14 +302,14 @@ internal static class Program
                 double costClothes = cloth * PCloth;
                 if (costClothes > 22 + 4 * r.Next(0, 60))
                 {
-                    if (r.Bool() && r.Bool()) CheckIllness(r, hp, dead, injured, infected, i, ration, ref mileage);
+                    if (r.Bool() && r.Bool()) CheckIllness(r, hp, dead, injured, infected, i, ration, partySize, ref mileage);
                 }
                 else
-                    CheckIllness(r, hp, dead, injured, infected, i, ration, ref mileage);
+                    CheckIllness(r, hp, dead, injured, infected, i, ration, partySize, ref mileage);
 
                 // pace penalty (moving travel day only)
                 if (pace == 2) Damage(r, hp, dead, injured, infected, i, 2, 6);
-                else if (pace == 3) { Damage(r, hp, dead, injured, infected, i, 6, 14); CheckIllness(r, hp, dead, injured, infected, i, ration, ref mileage); }
+                else if (pace == 3) { Damage(r, hp, dead, injured, infected, i, 6, 14); CheckIllness(r, hp, dead, injured, infected, i, ration, partySize, ref mileage); }
                 if (dead[i] && i == 0) return Lose(Outcome.Death, day);
 
                 // food consumption — FAITHFUL: the game calls ConsumeFood once PER living passenger, and
@@ -217,10 +330,13 @@ internal static class Program
             if (dead[0]) return Lose(Outcome.Death, day);
 
             // ----- vehicle moves -----
-            // RandomMileage: compounding base + gas bonus + jitter
-            double totalMiles = mileage + (costAnimals - 137.5) / 3.125 + 10 * r.NextDouble();
+            // RandomMileage: compounding base + gas bonus (scaled by FuelEfficiencyMultiplier) + jitter
+            double gasMiles = (costAnimals - 137.5) / 3.125 * fuelEffMult;
+            double totalMiles = mileage + gasMiles + 10 * r.NextDouble();
             mileage = Math.Abs((int)totalMiles);
-            if (pace != 1) mileage = (int)(mileage * paceMult);
+            // PaceMultiplier = paceFactor * SpeedMultiplier; applied whenever pace isn't Steady, or the
+            // vehicle's SpeedMultiplier isn't the 1.0 baseline (mirrors Vehicle.TickTravel).
+            if (pace != 1 || !speedMult.Equals(1.0)) mileage = (int)(mileage * paceMult * speedMult);
             if (r.Bool() && mileage > 0) mileage = (int)(mileage / 2);
 
             // vehicle event 4%/day
@@ -241,16 +357,141 @@ internal static class Program
                 if (segIdx >= segments)
                 {
                     // arrived at Seattle -> WIN, tabulate score
-                    return Win(prof, hp, dead, gas, tires, alts, trans, cloth, ammo, food, cash, day);
+                    return Win(prof, hp, dead, gas, tires, alts, trans, cloth, ammo, food, cash, day, partySize);
                 }
                 segTarget = r.Next(SegMin, SegMax);
+
+                // DoorDash: run any shifts scheduled for this settlement (cities only in the real game).
+                if (doordash > 0)
+                    for (int s = 0; s < shiftAtSeg[segIdx]; s++)
+                    {
+                        if (gas <= 0) break;   // no fuel -> can't Dash (ShouldEndShift immediately)
+                        var dd = RunDoorDashShift(r, segIdx, segments, ref gas, ref tires, ref cash,
+                            hp, dead, injured, infected, ration, cloth, ref food, ref mileage, ref day,
+                            ddShiftNets, ddShiftGross, ddTotals, partySize);
+                        if (dd.HasValue) return Lose(dd.Value, day);
+                    }
             }
         }
         return Lose(Outcome.Timeout, day);
     }
 
+    // ---- DoorDash: run ONE shift (a full day). Mirrors DoorDashManager + DeliveryOffer. ----
+    // Surfaces offers, a rational driver accepts/rejects them (ACCEPT_THRESHOLD_PER_MILE), burns the party's
+    // OWN gas cans + spare tires on total (paid+deadhead) miles, and banks cash. Then the shift day passes:
+    // party eats + health rolls (mirrors DoorDashResult.OnFormPostCreate -> TakeTurn(false)); no trail
+    // movement, no travel pace penalty. Net is booked honestly: gross - fuel@curve-price - tires@$200.
+    // Returns null if the leader survives the day, else the death Outcome.
+    static Outcome? RunDoorDashShift(Rng r, int segIdx, int segments,
+        ref int gas, ref int tires, ref int cash,
+        int[] hp, bool[] dead, bool[] inj, bool[] inf, int ration, int cloth,
+        ref int food, ref double mileage, ref int day,
+        List<double> nets, List<double> gross, long[] totals, int partySize)
+    {
+        int secondsRemaining = SHIFTTIME;
+        int milesDriven = 0, wearMiles = 0;
+        int offersSeen = 0, accepted = 0, cansBurned = 0, tiresWorn = 0;
+        double grossEarned = 0;
+
+        // Gig loop: one iteration == one shift tick (DoorDashManager.OnTick). [APPROX] A rational driver
+        // decides the instant an offer surfaces (never dithers), so offers never expire; the acceptance-rate
+        // spiral is still driven by rejects (OfferQuality = 0.4 + 0.6*acceptRate), so pickiness is punished.
+        while (secondsRemaining > 0 && gas > 0)
+        {
+            secondsRemaining--;
+
+            // TrySurfaceOffer: offers do not arrive every tick (~50% NextBool).
+            if (r.Bool()) continue;
+
+            double acceptRate = offersSeen <= 0 ? 1.0 : accepted / (double)offersSeen;
+            double quality = ACCEPTRATE_FLOOR + (1.0 - ACCEPTRATE_FLOOR) * acceptRate;
+            offersSeen++;
+
+            // DeliveryOffer ctor (cosmetic restaurant/dropoff draws + unused DecideTicksMax omitted).
+            double basePay = 2.0 + r.NextDouble() * 1.5;
+            double estTip = r.NextDouble() * 12.0 * (0.5 + 0.5 * quality);
+            int paidDist = r.Next(2, 9);
+            int deadhead = r.Next(1, 6) + (quality < 0.6 ? r.Next(0, 4) : 0);
+            int waitTicks = r.Next(0, 5);
+            int totalMiles = paidDist + deadhead;
+
+            // Accept policy: the driver only sees base + estimated tip over the PAID distance (deadhead is
+            // hidden), and accepts when that shown $/paid-mile clears the threshold — like a real Dasher.
+            double shownDensity = (basePay + estTip) / Math.Max(1, paidDist);
+            if (shownDensity < ACCEPT_THRESHOLD_PER_MILE)
+                continue; // Reject: no earnings, acceptance rate drops -> worse future offers.
+
+            // ---- Accept ----
+            accepted++;
+            milesDriven += totalMiles;
+            wearMiles += totalMiles;
+            secondsRemaining -= waitTicks;
+            if (secondsRemaining < 0) secondsRemaining = 0;
+
+            // Burn fuel + wear tires from the ACTUAL inventory (this is the whole tradeoff).
+            while (milesDriven >= MILESPERCAN) { milesDriven -= MILESPERCAN; if (gas <= 0) break; gas--; cansBurned++; }
+            while (wearMiles >= WEARPERTIRE) { wearMiles -= WEARPERTIRE; if (tires <= 0) break; tires--; tiresWorn++; }
+
+            // Collect pay: 8% cancelled-after-pickup -> base pay only; else base + realized (usually-worse) tip.
+            double pay = r.NextDouble() < CANCEL_CHANCE ? basePay : basePay + RealizedTip(r, estTip);
+            grossEarned += pay;
+            cash += (int)Math.Round(pay); // mirrors AddQuantity((int)Math.Round(pay))
+        }
+
+        // Honest net: fuel valued at the current curve price, tires at $200 flat.
+        double net = grossEarned - cansBurned * FuelPrice(segIdx, segments) - tiresWorn * PTire;
+        nets.Add(net);
+        gross.Add(grossEarned);
+        totals[0] += cansBurned; totals[1] += tiresWorn; totals[2] += 1;
+
+        // ---- The shift consumes a full day: party eats + health rolls; no travel, no pace penalty. ----
+        day++;
+        int living = 0; for (int i = 0; i < partySize; i++) if (!dead[i]) living++;
+        if (living == 0) return Outcome.Death;
+
+        for (int i = 0; i < partySize; i++)
+        {
+            if (dead[i]) continue;
+
+            if (ration == 3) CheckIllness(r, hp, dead, inj, inf, i, ration, partySize, ref mileage);
+            else if (ration == 2 && r.Bool()) CheckIllness(r, hp, dead, inj, inf, i, ration, partySize, ref mileage);
+
+            double costClothes = cloth * PCloth;
+            if (costClothes > 22 + 4 * r.Next(0, 60))
+            {
+                if (r.Bool() && r.Bool()) CheckIllness(r, hp, dead, inj, inf, i, ration, partySize, ref mileage);
+            }
+            else
+                CheckIllness(r, hp, dead, inj, inf, i, ration, partySize, ref mileage);
+
+            if (dead[0]) return Outcome.Death;
+
+            if (food > 0)
+            {
+                int liveNow = 0; for (int j = 0; j < partySize; j++) if (!dead[j]) liveNow++;
+                food = Math.Max(0, food - (4 - ration) * liveNow);
+                Heal(r, hp, dead, i);
+            }
+            else
+            {
+                Damage(r, hp, dead, inj, inf, i, 10, 50);
+                if (dead[0]) return Outcome.Starved;
+            }
+        }
+        return dead[0] ? Outcome.Death : (Outcome?)null;
+    }
+
+    // ---- DeliveryOffer.RealizedTip (faithful): tip-bait 15% / unicorn 10% / else ~55-70% of the estimate. ----
+    static double RealizedTip(Rng r, double estTip)
+    {
+        double roll = r.NextDouble();
+        if (roll < 0.15) return r.NextDouble() * 1.0;       // tip-bait: collapses to loose change
+        if (roll < 0.25) return 8.0 + r.NextDouble() * 7.0; // unicorn: a genuinely generous tip
+        return estTip * (0.55 + r.NextDouble() * 0.15);     // common case: lands below the estimate
+    }
+
     // ---- Person.CheckIllness (faithful) ----
-    static void CheckIllness(Rng r, int[] hp, bool[] dead, bool[] inj, bool[] inf, int i, int ration, ref double mileage)
+    static void CheckIllness(Rng r, int[] hp, bool[] dead, bool[] inj, bool[] inf, int i, int ration, int partySize, ref double mileage)
     {
         if (dead[i]) return;
         if (r.Bool()) return; // 50% no-op
@@ -260,7 +501,7 @@ internal static class Program
             ReduceMileage(ref mileage, 5);
             Damage(r, hp, dead, inj, inf, i, 10, 50);
         }
-        else if (r.Next(100) <= 5 - 40 / PartySize * (ration - 1))
+        else if (r.Next(100) <= 5 - 40 / partySize * (ration - 1))
         {
             ReduceMileage(ref mileage, 15);
             Damage(r, hp, dead, inj, inf, i, 10, 50);
@@ -344,10 +585,10 @@ internal static class Program
 
     // ---- end-game scoring (FinalPoints faithful) ----
     static Result Win(string prof, int[] hp, bool[] dead,
-        int gas, int tires, int alts, int trans, int cloth, int ammo, int food, int cash, int day)
+        int gas, int tires, int alts, int trans, int cloth, int ammo, int food, int cash, int day, int partySize)
     {
         var livingHealth = new List<int>();
-        for (int i = 0; i < PartySize; i++) if (!dead[i]) livingHealth.Add(Band(hp[i]));
+        for (int i = 0; i < partySize; i++) if (!dead[i]) livingHealth.Add(Band(hp[i]));
         int living = livingHealth.Count;
         if (living == 0) return Lose(Outcome.Death, day);
         int avg = (int)livingHealth.Average();
@@ -404,6 +645,12 @@ internal static class Program
         if (xs.Count == 0) return 0;
         var s = xs.OrderBy(x => x).ToList();
         return s[s.Count / 2];
+    }
+    static double MedianD(List<double> xs)
+    {
+        if (xs.Count == 0) return 0;
+        var s = xs.OrderBy(x => x).ToList();
+        return Math.Round(s[s.Count / 2], 2);
     }
     static string Json(IEnumerable<(string, object)> fields)
     {

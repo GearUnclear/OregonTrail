@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using OregonTrailDotNet.Entity.Item;
+using OregonTrailDotNet.Entity.Vehicle;
 using OregonTrailDotNet.Module.Time;
 using WolfCurses.Window;
 
@@ -26,6 +27,7 @@ namespace OregonTrailDotNet.Window.MainMenu
             StartingInventory = new List<SimItem>();
             StartingMonies = 0;
             StartingMonth = Month.March;
+            VehiclePick = VehicleChoice.Minivan;
         }
 
         /// <summary>
@@ -61,5 +63,11 @@ namespace OregonTrailDotNet.Window.MainMenu
         ///     failure or random event, etc.
         /// </summary>
         public Month StartingMonth { get; set; }
+
+        /// <summary>
+        ///     Which vehicle the player chose to make the drive in. Named "VehiclePick" rather than "VehicleChoice" to
+        ///     avoid any ambiguity with the <see cref="VehicleChoice" /> enum type name.
+        /// </summary>
+        public VehicleChoice VehiclePick { get; set; }
     }
 }

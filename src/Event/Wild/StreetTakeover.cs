@@ -8,7 +8,7 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Wild
 {
     /// <summary>
-    ///     One streamer walks into the intersection and it becomes donuts, lowriders, and fireworks. The wagon stalls in
+    ///     One streamer walks into the intersection and it becomes donuts, lowriders, and fireworks. The SUV stalls in
     ///     the smoke until the crowd clears, costing the party time on the trail.
     /// </summary>
     [DirectorEvent(EventCategory.Wild)]
@@ -33,7 +33,7 @@ namespace OregonTrailDotNet.Event.Wild
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return "A streamer walks into the intersection and it becomes donuts, lowriders, and fireworks. The wagon stalls in the smoke.";
+            return "A streamer walks into the intersection and it becomes donuts, lowriders, and fireworks. The SUV stalls in the smoke.";
         }
     }
 }

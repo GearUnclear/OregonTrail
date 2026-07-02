@@ -10,6 +10,7 @@ using OregonTrailDotNet.Event.Person;
 using OregonTrailDotNet.Window.Travel.Command;
 using OregonTrailDotNet.Window.Travel.Decision;
 using OregonTrailDotNet.Window.Travel.Dialog;
+using OregonTrailDotNet.Window.Travel.DoorDash.Help;
 using OregonTrailDotNet.Window.Travel.Hunt.Help;
 using OregonTrailDotNet.Window.Travel.Rest;
 using OregonTrailDotNet.Window.Travel.RiverCrossing.Help;
@@ -156,6 +157,14 @@ namespace OregonTrailDotNet.Window.Travel
         }
 
         /// <summary>
+        ///     Attaches the DoorDash gig prompt so the player can spend a day running deliveries in town for cash.
+        /// </summary>
+        private void DriveForDoorDash()
+        {
+            SetForm(typeof(DoorDashPrompt));
+        }
+
+        /// <summary>
         ///     Determines if there is a store, people to get advice from, and a place to rest, what options are available, etc.
         /// </summary>
         private void UpdateLocation()
@@ -191,7 +200,12 @@ namespace OregonTrailDotNet.Window.Travel
                         AddCommand(TalkToPeople, TravelCommands.TalkToPeople);
 
                     if (location.ShoppingAllowed)
+                    {
                         AddCommand(BuySupplies, TravelCommands.BuySupplies);
+
+                        // DoorDash only operates in the towns big enough to shop in.
+                        AddCommand(DriveForDoorDash, TravelCommands.DriveForDoorDash);
+                    }
                     break;
                 case LocationStatus.Departed:
                     AddCommand(AttemptToTrade, TravelCommands.AttemptToTrade);
