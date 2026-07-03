@@ -79,7 +79,6 @@ namespace OregonTrailDotNet
 
             for (var index = 0; index < Console.WindowHeight - 1; index++)
             {
-                Console.CursorLeft = 0;
                 Console.SetCursorPosition(0, index);
 
                 var emptyStringData = new string(' ', Console.WindowWidth);
