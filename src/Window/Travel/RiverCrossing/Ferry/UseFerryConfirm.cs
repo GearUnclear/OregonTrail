@@ -45,8 +45,8 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Ferry
         protected override string OnDialogPrompt()
         {
             var prompt = new StringBuilder();
-            prompt.AppendLine($"{Environment.NewLine}The ferry operator says that");
-            prompt.AppendLine($"he will charge you {UserData.River.FerryCost:C2} and");
+            prompt.AppendLine($"{Environment.NewLine}The National Guard convoy says");
+            prompt.AppendLine($"the high-water haul runs {UserData.River.FerryCost:C2} and");
             prompt.AppendLine($"that you will have to wait {UserData.River.FerryDelayInDays}");
             prompt.Append("days. Are you willing to do this?");
             return prompt.ToString();

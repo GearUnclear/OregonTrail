@@ -8,8 +8,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Person
 {
     /// <summary>
-    ///     If you have sprained your acromioclavicular joint (the joint at the top of your shoulder), you may be advised to
-    ///     avoid activities that involve moving your arm.
+    ///     Shot for ringing the wrong doorbell. A kid was picking up his younger brothers, rang the wrong bell, and the
+    ///     homeowner fired through the glass. He lived. A passer-by called it a misunderstanding.
     /// </summary>
     [DirectorEvent(EventCategory.Person)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Describes what type of physical injury has come to the person.</returns>
         protected override string OnPostInjury(Entity.Person.Person person)
         {
-            return $"{person.Name} has a sprained shoulder.";
+            return $"{person.Name} was shot for ringing the wrong doorbell, but lived.";
         }
     }
 }

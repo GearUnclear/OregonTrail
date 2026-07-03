@@ -11,7 +11,8 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Weather
 {
     /// <summary>
-    ///     Bad hail storm damages supplies, this uses the item destroyer prefab like the river crossings do.
+    ///     An ice storm knocks out the grid and the heat with it, damaging supplies; this uses the item destroyer prefab
+    ///     like the river crossings do.
     /// </summary>
     [DirectorEvent(EventCategory.Weather, EventExecution.ManualOnly)]
     public sealed class HailStorm : ItemDestroyer
@@ -25,8 +26,10 @@ namespace OregonTrailDotNet.Event.Weather
             var game = GameSimulationApp.Instance;
 
             // Check if there are enough clothes to keep people warm, need two sets of clothes for every person.
-            return (game.Vehicle.Inventory[Entities.Clothes].Quantity >= game.Vehicle.PassengerLivingCount*2) &&
-                   (destroyedItems.Count < 0)
+            // Adequate clothing prevents anyone from freezing. (The old extra "&& destroyedItems.Count < 0"
+            // clause was always false — a count is never negative — so this event always froze someone
+            // regardless of clothing; the clothing check alone is the intended protection.)
+            return game.Vehicle.Inventory[Entities.Clothes].Quantity >= game.Vehicle.PassengerLivingCount*2
                 ? "no loss of items."
                 : TryKillPassengers("frozen");
         }
@@ -60,8 +63,8 @@ namespace OregonTrailDotNet.Event.Weather
         {
             var floodPrompt = new StringBuilder();
             floodPrompt.Clear();
-            floodPrompt.AppendLine("Severe hail storm");
-            floodPrompt.Append("results in");
+            floodPrompt.AppendLine("An ice storm fails the grid; the lights and heat go out for days");
+            floodPrompt.Append("and it results in");
             return floodPrompt.ToString();
         }
     }

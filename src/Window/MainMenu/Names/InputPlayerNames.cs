@@ -56,17 +56,17 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
                     break;
                 case 1:
                     _inputNamesHelp.Append(Environment.NewLine +
-                                           $"{MainMenu.MEMBERS_QUESTION}" +
+                                           $"{MainMenu.MembersQuestion}" +
                                            $"{Environment.NewLine}{Environment.NewLine}");
                     break;
                 case 2:
                     _inputNamesHelp.Append(Environment.NewLine +
-                                           $"{MainMenu.MEMBERS_QUESTION}" +
+                                           $"{MainMenu.MembersQuestion}" +
                                            $"{Environment.NewLine}{Environment.NewLine}");
                     break;
                 case 3:
                     _inputNamesHelp.Append(Environment.NewLine +
-                                           $"{MainMenu.MEMBERS_QUESTION}" +
+                                           $"{MainMenu.MembersQuestion}" +
                                            $"{Environment.NewLine}{Environment.NewLine}");
                     break;
             }
@@ -78,7 +78,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
                 var crewNumber = 1;
 
                 // Loop through every player and print their name.
-                for (var index = 0; index < GameSimulationApp.MAXPLAYERS; index++)
+                for (var index = 0; index < GameSimulationApp.Instance.Vehicle.MaxPartySize; index++)
                 {
                     var name = string.Empty;
                     if (index < UserData.PlayerNames.Count)
@@ -117,7 +117,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
             if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
             {
                 // Only fill out names for slots that are empty.
-                for (var i = 0; i < GameSimulationApp.MAXPLAYERS - UserData.PlayerNameIndex; i++)
+                for (var i = 0; i < GameSimulationApp.Instance.Vehicle.MaxPartySize - UserData.PlayerNameIndex; i++)
                     UserData.PlayerNames.Insert(UserData.PlayerNameIndex, GetPlayerName());
 
                 // Attach state to confirm randomized name selection, skipping manual entry with the return.
@@ -130,7 +130,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
             UserData.PlayerNameIndex++;
 
             // Change the state to either confirm or input the next name based on index of name we are entering.
-            SetForm(UserData.PlayerNameIndex < GameSimulationApp.MAXPLAYERS
+            SetForm(UserData.PlayerNameIndex < GameSimulationApp.Instance.Vehicle.MaxPartySize
                 ? typeof(InputPlayerNames)
                 : typeof(ConfirmPlayerNames));
         }

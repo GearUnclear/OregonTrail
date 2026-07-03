@@ -34,29 +34,29 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
         protected override string OnDialogPrompt()
         {
             var aboutTrail = new StringBuilder();
-            aboutTrail.AppendLine($"{Environment.NewLine}Your journey over the Oregon Trail takes place in 1847. Start");
-            aboutTrail.AppendLine("ing in Independence, Missouri, you plan to take your family of");
             aboutTrail.AppendLine(
-                $"five over {GameSimulationApp.Instance.Trail.Length:N0} tough miles to Oregon City.{Environment.NewLine}");
-
-            aboutTrail.AppendLine("Having saved for the trip, you bought a wagon and");
-            aboutTrail.AppendLine($"now have to purchase the following items:{Environment.NewLine}");
-
+                $"{Environment.NewLine}Your road trip up the Asphalt Trail starts in Cape Coral,");
+            aboutTrail.AppendLine("Florida. You're driving your family to Seattle, Washington --");
             aboutTrail.AppendLine(
-                " * Oxen (spending more will buy you a larger and better team which");
-            aboutTrail.AppendLine($" will be faster so you'll be on the trail for less time){Environment.NewLine}");
+                $"about {GameSimulationApp.Instance.Trail.Length:N0} miles of open road.{Environment.NewLine}");
 
-            aboutTrail.AppendLine(
-                $" * Food (you'll need ample food to keep up your strength and health){Environment.NewLine}");
+            aboutTrail.AppendLine("The SUV is paid off. Before you leave, stock up on supplies.");
+            aboutTrail.AppendLine($"Here's what each one is for:{Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Ammunition ($1 buys a belt of 50 bullets. You'll need ammo for");
-            aboutTrail.AppendLine($" hunting and for fighting off attacks by bandits and animals){Environment.NewLine}");
+            aboutTrail.AppendLine(" * Gas - fuel for the SUV. More gas means more miles");
+            aboutTrail.AppendLine($"   between fill-ups, so you reach Seattle faster.{Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Clothing (you'll need warm clothes, especially when you hit the");
-            aboutTrail.AppendLine($" snow and freezing weather in the mountains){Environment.NewLine}");
+            aboutTrail.AppendLine(" * Snacks - food for your family. Run low and everyone's");
+            aboutTrail.AppendLine($"   health drops, so always keep some on hand.{Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Other supplies (includes medicine, first-aid supplies, tools, and");
-            aboutTrail.AppendLine($" wagon parts for unexpected emergencies){Environment.NewLine}");
+            aboutTrail.AppendLine(" * Ammo - used to grab extra food during sweeps along the way and");
+            aboutTrail.AppendLine($"   to handle trouble on the road.{Environment.NewLine}");
+
+            aboutTrail.AppendLine(" * Leggings - your barter goods. River guides take these");
+            aboutTrail.AppendLine($"   as payment when a flooded crossing blocks the road.{Environment.NewLine}");
+
+            aboutTrail.AppendLine(" * Other supplies - first-aid kits, tools, and spare parts");
+            aboutTrail.AppendLine($"   (tires, alternators, transmissions) to fix breakdowns.{Environment.NewLine}");
             return aboutTrail.ToString();
         }
 

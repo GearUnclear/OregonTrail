@@ -118,11 +118,11 @@ namespace OregonTrailDotNet.Window.Travel.Rest
             if (GameSimulationApp.Instance.Trail.CurrentLocation is ForkInRoad)
             {
                 if (_daysRested > 1)
-                    _restMessage.AppendLine($"{Environment.NewLine}You camp near the river for {_daysRested} days.");
+                    _restMessage.AppendLine($"{Environment.NewLine}You wait out the floodwater for {_daysRested} days.");
                 else if (_daysRested == 1)
-                    _restMessage.AppendLine($"{Environment.NewLine}You camp near the river for a day.");
+                    _restMessage.AppendLine($"{Environment.NewLine}You wait out the floodwater for a day.");
                 else if (_daysRested <= 0)
-                    _restMessage.AppendLine($"{Environment.NewLine}Preparing to camp near the river...");
+                    _restMessage.AppendLine($"{Environment.NewLine}Preparing to wait out the floodwater...");
             }
             else
             {

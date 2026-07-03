@@ -4,6 +4,7 @@
 using System;
 using System.Text;
 using OregonTrailDotNet.Entity.Vehicle;
+using OregonTrailDotNet.Renderer;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 using WolfCurses.Window.Form.Input;
@@ -64,15 +65,26 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
             // Build up representation of arrival to new location, depending on location it can change.
             if (game.Trail.IsFirstLocation)
             {
-                // First point of interest has slightly different message about time travel.
+                // First point of interest has slightly different message about pulling out.
                 pointReached.AppendLine(
-                    $"{Environment.NewLine}Going back to {game.Time.CurrentYear}...{Environment.NewLine}");
+                    $"{Environment.NewLine}Pulling out of the driveway in {game.Time.CurrentYear}...{Environment.NewLine}");
             }
             else if (game.Trail.LocationIndex < game.Trail.Locations.Count)
             {
+                // Show scene art for landmarks/settlements that have it, so each place feels distinct.
+                var locationArt = SceneArt.ForLocation(game.Trail.CurrentLocation.Name);
+                if (locationArt != null)
+                    pointReached.AppendLine($"{Environment.NewLine}{locationArt}");
+
                 // Build up message about location the player is arriving at.
                 pointReached.AppendLine(
                     $"{Environment.NewLine}You are now at the {game.Trail.CurrentLocation.Name}.");
+
+                // A line of flavor gives each place character beyond its name.
+                var flavor = ArrivalFlavor(game.Trail.CurrentLocation.Name);
+                if (flavor != null)
+                    pointReached.AppendLine(flavor);
+
                 pointReached.Append("Would you like to look around? Y/N");
             }
 
@@ -113,6 +125,41 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
                 default:
                     throw new ArgumentOutOfRangeException(nameof(reponse), reponse, null);
             }
+        }
+
+        /// <summary>
+        ///     A one-line flavor blurb for arriving at a named location, giving each place character beyond its
+        ///     name. Returns null for locations without a blurb (rivers, forks, and the start are handled elsewhere).
+        /// </summary>
+        /// <param name="locationName">Name of the location being arrived at.</param>
+        /// <returns>Flavor text, or null.</returns>
+        private static string ArrivalFlavor(string locationName)
+        {
+            if (string.IsNullOrEmpty(locationName))
+                return null;
+            if (locationName.Contains("Buc-ee"))
+                return "120 fuel pumps, a wall of brisket, and ammo by the register. Bladder relief at last.";
+            if (locationName.Contains("Touchdown Jesus"))
+                return "Sixty-odd feet of fiberglass Savior, both arms up like He just scored.";
+            if (locationName.Contains("Wall Drug"))
+                return "Free ice water and five-cent coffee, advertised on billboards for 500 miles.";
+            if (locationName.Contains("Carhenge"))
+                return "Detroit steel stood on end in a prairie circle. The druids would not understand.";
+            if (locationName.Contains("Cadillac"))
+                return "Ten Caddies planted nose-down and repainted daily. Spray cans encouraged.";
+            if (locationName.Contains("Big Texan"))
+                return "The 72-ounce steak is free if you finish it in an hour. Most do not.";
+            if (locationName.Contains("Butter Cow"))
+                return "A life-size cow sculpted from 600 pounds of butter, kept in a chilled case.";
+            if (locationName.Contains("Walmart"))
+                return "Rollback prices, open carry, and a greeter who has seen absolutely everything.";
+            if (locationName.Contains("Portland"))
+                return "Rain, espresso, and bumper stickers. Everyone is very calm about everything.";
+            if (locationName.Contains("Tacoma"))
+                return "Hand-lettered signs to the horizon. Honking means solidarity here.";
+            if (locationName.Contains("Seattle"))
+                return "Rain, espresso, and a 600-foot Needle. You have reached the far edge of the map.";
+            return null;
         }
     }
 }

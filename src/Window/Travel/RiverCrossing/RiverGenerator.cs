@@ -73,9 +73,10 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
         public RiverCrossChoice CrossingType { get; set; }
 
         /// <summary>
-        ///     Determines how deep the river is in feet.
+        ///     Determines how deep the river is in feet. Settable so that waiting for the water to recede can
+        ///     actually lower it over successive days (see the WaitForWeather option in RiverCross).
         /// </summary>
-        public int RiverDepth { get; }
+        public int RiverDepth { get; set; }
 
         /// <summary>
         ///     Determines how much the ferry operator will charge to cross the river.

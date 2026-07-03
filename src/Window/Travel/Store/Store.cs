@@ -17,7 +17,8 @@ using WolfCurses.Window.Form;
 namespace OregonTrailDotNet.Window.Travel.Store
 {
     /// <summary>
-    ///     Manages a general store where the player can buy food, clothes, bullets, and parts for their vehicle.
+    ///     Manages a Buc-ee's travel center where the player can buy snacks, MLM leggings, ammo (by the flour), and spare
+    ///     parts for their SUV. Florida is permitless-carry, so the firearms sit in the cart next to everything else.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class Store : Form<TravelInfo>
@@ -52,16 +53,17 @@ namespace OregonTrailDotNet.Window.Travel.Store
         }
 
         /// <summary>
-        ///     Offers chance to purchase a special vehicle part that is also an animal that eats grass and can die if it starves.
+        ///     Offers chance to top off the five-gallon gas cans that keep the SUV rolling; run them dry and the trip stalls.
         /// </summary>
         private void BuyOxen()
         {
-            UserData.Store.SelectedItem = Parts.Oxen;
+            // Charge the location-scaled fuel price (cheap mid-trip, dear near the end); inventory still stores $25 cans.
+            UserData.Store.SelectedItem = Parts.GasCans(FuelPricing.CurrentCost());
             SetForm(typeof(StorePurchase));
         }
 
         /// <summary>
-        ///     Offers the chance to buy some food for the players to eat everyday.
+        ///     Offers the chance to load up on snacks for the family to eat everyday on the road.
         /// </summary>
         private void BuyFood()
         {
@@ -70,7 +72,7 @@ namespace OregonTrailDotNet.Window.Travel.Store
         }
 
         /// <summary>
-        ///     Offers chance to buy some clothing to protect the players party in harsh climates.
+        ///     Offers chance to buy crates of MLM leggings; useless as clothing, but the only barter a roadside guide will take.
         /// </summary>
         private void BuyClothing()
         {
@@ -79,7 +81,7 @@ namespace OregonTrailDotNet.Window.Travel.Store
         }
 
         /// <summary>
-        ///     Offers chance to buy bullets for hunting animals and killing them for food.
+        ///     Offers chance to grab boxes of ammo off the shelf by the flour. No license, no training, no background check.
         /// </summary>
         private void BuyAmmunition()
         {
@@ -88,7 +90,7 @@ namespace OregonTrailDotNet.Window.Travel.Store
         }
 
         /// <summary>
-        ///     Offers a chance to purchase some spare wheels for the vehicle.
+        ///     Offers a chance to purchase some spare tires for the SUV.
         /// </summary>
         private void BuySpareWheels()
         {
@@ -97,7 +99,7 @@ namespace OregonTrailDotNet.Window.Travel.Store
         }
 
         /// <summary>
-        ///     Offers a chance to purchase some spare axles for the vehicle.
+        ///     Offers a chance to purchase a spare alternator for the SUV.
         /// </summary>
         private void BuySpareAxles()
         {
@@ -106,7 +108,7 @@ namespace OregonTrailDotNet.Window.Travel.Store
         }
 
         /// <summary>
-        ///     Offers a chance to purchase some spare vehicle tongues.
+        ///     Offers a chance to purchase a spare transmission for the SUV.
         /// </summary>
         private void BuySpareTongues()
         {
@@ -132,11 +134,27 @@ namespace OregonTrailDotNet.Window.Travel.Store
         /// </summary>
         private void UpdateStore()
         {
+            // Re-price gas to the current location's fuel cost while preserving any pending quantity on the receipt. This
+            // keeps the displayed row, the total bill, and the affordability math on the station's curved price without
+            // touching the $25 value that gas carries once it is in the vehicle inventory (see FuelPricing / Parts.Oxen).
+            var pendingGas = UserData.Store.Transactions[Entities.Animal].Quantity;
+            var repricedGas = Parts.GasCans(FuelPricing.CurrentCost());
+            // The copy-ctor clamps quantity up to the minimum (1), so only use it when gas is actually on the receipt;
+            // otherwise keep the fresh zero-quantity item so an empty receipt stays empty.
+            UserData.Store.Transactions[Entities.Animal] =
+                pendingGas > 0 ? new SimItem(repricedGas, pendingGas) : repricedGas;
+
             // Clear previous prompt and rebuild it.
             _storePrompt.Clear();
             _storePrompt.AppendLine("--------------------------------");
-            _storePrompt.AppendLine($"{GameSimulationApp.Instance.Trail.CurrentLocation?.Name} General Store");
+            _storePrompt.AppendLine($"{GameSimulationApp.Instance.Trail.CurrentLocation?.Name} Travel Center");
             _storePrompt.AppendLine($"{GameSimulationApp.Instance.Time.Date}");
+            _storePrompt.AppendLine($"Fuel: {FuelPricing.CurrentCost():C2}/can {FuelPricing.Trend()}");
+            // Cargo used = whatever is actually loaded in the vehicle PLUS everything still sitting on the pending
+            // receipt (purchases don't reach Vehicle.Inventory until the player leaves the store).
+            var cargoUsed = GameSimulationApp.Instance.Vehicle.CargoWeight + UserData.Store.PendingCargoWeight;
+            _storePrompt.AppendLine(
+                $"Cargo: {cargoUsed}/{GameSimulationApp.Instance.Vehicle.Model.CargoCapacity} lbs");
             _storePrompt.AppendLine("--------------------------------");
 
             // Loop through all the store assets commands and print them out for the state.
@@ -234,12 +252,12 @@ namespace OregonTrailDotNet.Window.Travel.Store
         }
 
         /// <summary>
-        ///     Attempts to leave the store state, if the player does not have enough oxen to pull the vehicle then it will
-        ///     complain.
+        ///     Attempts to leave the store state, if the player does not have enough gas in the cans to keep the SUV moving then
+        ///     it will complain.
         /// </summary>
         private void LeaveStore()
         {
-            // Complain if user doesn't have enough animals to pull their vehicle.
+            // Complain if user doesn't have enough gas cans to keep their SUV moving.
             if (UserData.Store.MissingImportantItems)
             {
                 UserData.Store.SelectedItem = Parts.Oxen;

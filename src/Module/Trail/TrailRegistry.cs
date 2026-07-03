@@ -15,44 +15,47 @@ namespace OregonTrailDotNet.Module.Trail
     public static class TrailRegistry
     {
         /// <summary>
-        ///     Original Oregon trail which was in the 1986 Apple II version of the game.
+        ///     The Asphalt Trail (2028 American Roadtrip): a family flees a climate-uninsurable Cape Coral, Florida
+        ///     and drives a paid-off SUV to Seattle, fording flooded Interstates and collapsing toll bridges along the
+        ///     way. The Oregon Trail's settlements, landmarks, river fords, forks, and toll road are reskinned 1:1 onto
+        ///     2028 roadside America; the location types, climates (overloaded by region), and ordering are preserved.
         /// </summary>
-        public static Trail OregonTrail
+        public static Trail AsphaltTrail
         {
             get
             {
-                var oregonTrail = new Location[]
+                var asphaltTrail = new Location[]
                 {
-                    new Settlement("Independence", Climate.Moderate),
-                    new RiverCrossing("Kansas River Crossing", Climate.Continental, RiverOption.FerryOperator),
-                    new RiverCrossing("Big Blue River Crossing", Climate.Continental),
-                    new Settlement("Fort Kearney", Climate.Continental),
-                    new Landmark("Chimney Rock", Climate.Moderate),
-                    new Settlement("Fort Laramie", Climate.Moderate),
-                    new Landmark("Independence Rock", Climate.Moderate),
-                    new ForkInRoad("South Pass", Climate.Dry, new List<Location>
+                    new Settlement("Cape Coral, FL", Climate.Moderate),
+                    new RiverCrossing("I-40 Pigeon River Gorge Washout", Climate.Continental, RiverOption.FerryOperator),
+                    new RiverCrossing("I-10 Francine Flood Crossing", Climate.Continental),
+                    new Settlement("Buc-ee's, Sevierville TN", Climate.Continental),
+                    new Landmark("Touchdown Jesus, Monroe OH", Climate.Moderate),
+                    new Settlement("Wall Drug, SD", Climate.Moderate),
+                    new Landmark("Carhenge, Alliance NE", Climate.Moderate),
+                    new ForkInRoad("The I-44 Texas Detour", Climate.Dry, new List<Location>
                     {
-                        new Settlement("Fort Bridger", Climate.Dry),
-                        new Landmark("Green River Shortcut", Climate.Dry)
+                        new Settlement("Big Texan Steak Ranch", Climate.Dry),
+                        new Landmark("Cadillac Ranch", Climate.Dry)
                     }),
-                    new RiverCrossing("Green River Crossing", Climate.Dry),
-                    new Landmark("Soda Springs", Climate.Dry),
-                    new Settlement("Fort Hall", Climate.Moderate),
-                    new RiverCrossing("Snake River Crossing", Climate.Moderate, RiverOption.IndianGuide),
-                    new Settlement("Fort Boise", Climate.Polar),
-                    new ForkInRoad("Blue Mountains", Climate.Polar, new List<Location>
+                    new RiverCrossing("Great Salt Lake Causeway Flood Crossing", Climate.Dry),
+                    new Landmark("Iowa State Fair Butter Cow", Climate.Dry),
+                    new Settlement("Open-Carry Walmart, Springfield MO", Climate.Moderate),
+                    new RiverCrossing("Columbia/Snake 'Sovereign Citizen' Crossing", Climate.Moderate, RiverOption.IndianGuide),
+                    new Settlement("Portland, OR", Climate.Polar),
+                    new ForkInRoad("The Cascades: I-90 vs Highway 1 Fork", Climate.Polar, new List<Location>
                     {
-                        new Settlement("Fort Walla Walla", Climate.Polar),
-                        new ForkInRoad("The Dalles", Climate.Polar, new List<Location>
+                        new Settlement("Tacoma 'No Kings' Rally Town", Climate.Polar),
+                        new ForkInRoad("The Gorge Fork", Climate.Polar, new List<Location>
                         {
-                            new RiverCrossing("Columbia River", Climate.Moderate),
-                            new TollRoad("Barlow Toll Road", Climate.Moderate)
+                            new RiverCrossing("Columbia I-5 Bridge", Climate.Moderate),
+                            new TollRoad("I-405 Express Toll Lanes", Climate.Moderate)
                         })
                     }),
-                    new Settlement("Oregon City", Climate.Moderate)
+                    new Settlement("Seattle, WA", Climate.Moderate)
                 };
 
-                return new Trail(oregonTrail, 32, 164);
+                return new Trail(asphaltTrail, 32, 164);
             }
         }
 

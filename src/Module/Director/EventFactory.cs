@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using OregonTrailDotNet.Event;
 using WolfCurses.Utility;
 
@@ -76,14 +77,24 @@ namespace OregonTrailDotNet.Module.Director
             if (directorEventKeyValuePair.Value.GetTypeInfo().IsAbstract)
                 return null;
 
-            // Create the event product, but don't call any constructor.
+            // Create the event product WITHOUT running any constructor: events do their setup in
+            // OnEventCreate(), not in a ctor (they are deliberately allocated uninitialized).
+            //
+            // We intentionally do NOT use WolfCurses' FactoryExtensions.New<EventProduct>.GetUninitializedObject
+            // here. That helper is broken on .NET Core / .NET 6: internally it resolves
+            // "System.Runtime.Serialization.FormatterServices" by name from the wrong assembly (the type was
+            // moved out of the core assembly on .NET Core), so the lookup fails and the helper returns null for
+            // EVERY event type. That null is what made this method throw "Attempted to create instance ... but
+            // failed!" — most visibly on a deep-water Ford crossing firing VehicleWashOut, but it affected all
+            // events (VehicleFloods and every other prefab subclass too). Use the BCL primitive directly, which
+            // is exactly what that helper was meant to wrap and which works on .NET 6.
             var eventInstance =
-                FactoryExtensions.New<EventProduct>.GetUninitializedObject(directorEventKeyValuePair.Value) as
-                    EventProduct;
+                RuntimeHelpers.GetUninitializedObject(directorEventKeyValuePair.Value) as EventProduct;
 
-            // If the event instance is null then complain.
+            // If instantiation still somehow failed (e.g. the type is not really an EventProduct), skip the
+            // event gracefully instead of throwing and killing the whole process.
             if (eventInstance == null)
-                throw new ArgumentException($"Attempted to create instance of {eventType} event but failed!");
+                return null;
 
             // Fire event that acts like our own constructor for the object but only calling it when we say here.
             eventInstance.OnEventCreate();
@@ -94,8 +105,12 @@ namespace OregonTrailDotNet.Module.Director
 
         /// <summary>Gathers all of the events by specified type and picks one of them at random to return.</summary>
         /// <param name="eventCategory">Enum value of the type of event such as medical, person, vehicle, etc.</param>
+        /// <param name="recentlyFired">
+        ///     Event types fired most recently; the pick is biased away from these so the player does not see the
+        ///     same incident back-to-back. Ignored if avoiding them would leave no candidate in the category.
+        /// </param>
         /// <returns>Created event product based on enum value.</returns>
-        public EventProduct CreateRandomByType(EventCategory eventCategory)
+        public EventProduct CreateRandomByType(EventCategory eventCategory, ICollection<Type> recentlyFired = null)
         {
             // Query all of the reference event types that match the given enumeration value.
             var groupedEventList = new List<Type>();
@@ -107,6 +122,15 @@ namespace OregonTrailDotNet.Module.Director
             // Check to make sure there is at least one type of event of this type.
             if (groupedEventList.Count <= 0)
                 return null;
+
+            // Prefer events we have not shown in the last few rolls, but only when that still leaves a choice
+            // so small categories (e.g. Animal has just a few) are not starved down to nothing.
+            if ((recentlyFired != null) && (recentlyFired.Count > 0))
+            {
+                var freshEventList = groupedEventList.Where(type => !recentlyFired.Contains(type)).ToList();
+                if (freshEventList.Count > 0)
+                    groupedEventList = freshEventList;
+            }
 
             // Roll the dice against the event reference ceiling count to see which one we use.
             var diceRoll = GameSimulationApp.Instance.Random.Next(groupedEventList.Count);

@@ -18,38 +18,37 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
         None = 0,
 
         /// <summary>
-        ///     Rides directly into the river without any special precautions, if it is greater than three feet of water the
-        ///     vehicle will be submerged and highly damaged.
+        ///     Drives straight into the flooded Interstate without any special precautions, if it is greater than three feet of
+        ///     floodwater the SUV will be submerged and highly damaged.
         /// </summary>
-        [Description("attempt to ford the river")] Ford = 1,
+        [Description("GUN IT THROUGH THE HIGH WATER (free & fast - deep water can total the SUV)")] Ford = 1,
 
         /// <summary>
-        ///     Attempts to float the vehicle over the river to the other side, there is a much higher chance for bad things to
-        ///     happen.
+        ///     Attempts to seal the SUV's doors and take the washed-out shoulder detour to the other side, there is a much higher
+        ///     chance for bad things to happen.
         /// </summary>
-        [Description("caulk the wagon and float it across")] Float = 2,
+        [Description("SEAL THE DOORS, TAKE THE WASHED-OUT SHOULDER DETOUR (free, slow, can soak supplies)")] Float = 2,
 
         /// <summary>
-        ///     Prompts to pay monies for a ferry operator that will take the vehicle across the river without the danger of user
-        ///     trying it themselves.
+        ///     Prompts to pay for a National Guard high-water convoy that will haul the SUV across the flooded stretch without the
+        ///     danger of the family trying it themselves.
         /// </summary>
-        [Description("take a ferry across")] Ferry = 3,
+        [Description("PAY FOR THE NATIONAL GUARD HIGH-WATER CONVOY (costs cash, safe)")] Ferry = 3,
 
         /// <summary>
-        ///     Prompts to play in sets of clothing for Indian guide that will take you across a the river, he acts like ferry
-        ///     operator but depending on how many animals you killed hunting his price will change and go up the more animals
-        ///     killed.
+        ///     Prompts to pay in crates of MLM leggings (the clothing slot) for a sovereign-citizen local who will guide the SUV
+        ///     across, his price changes and goes up the more food you hauled in.
         /// </summary>
-        [Description("hire an Indian to help")] Indian = 4,
+        [Description("HIRE A SOVEREIGN-CITIZEN LOCAL (costs leggings, safe)")] Indian = 4,
 
         /// <summary>
-        ///     Waits for a day still ticking events but waiting to see if weather will improve and make crossing easier.
+        ///     Waits for a day still ticking events but waiting to see if the floodwater recedes and FEMA reopens the road.
         /// </summary>
-        [Description("wait to see if conditions improve")] WaitForWeather = 5,
+        [Description("WAIT FOR THE WATER TO RECEDE / FEMA TO REOPEN (costs a day, the water drops)")] WaitForWeather = 5,
 
         /// <summary>
         ///     Attached a state on top of the river crossing Windows to explain what the different options mean and how they work.
         /// </summary>
-        [Description("get more information")] GetMoreInformation = 6
+        [Description("ASK A PASSER-BY WHY THE INTERSTATE IS IN THE RIVER")] GetMoreInformation = 6
     }
 }

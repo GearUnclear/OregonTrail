@@ -32,17 +32,17 @@ namespace OregonTrailDotNet.Window.MainMenu.Start_Month
         {
             // Inform the user about a decision they need to make.
             var startMonthHelp = new StringBuilder();
-            startMonthHelp.Append($"{Environment.NewLine}You attend a public meeting held{Environment.NewLine}");
-            startMonthHelp.Append($"for \"folks with the California -{Environment.NewLine}");
-            startMonthHelp.Append($"Oregon fever.\" You're told:{Environment.NewLine}{Environment.NewLine}");
-            startMonthHelp.Append($"If you leave too early, there{Environment.NewLine}");
-            startMonthHelp.Append($"won't be any grass for your{Environment.NewLine}");
-            startMonthHelp.Append($"oxen to eat. If you leave too{Environment.NewLine}");
-            startMonthHelp.Append($"late, you may not get to Oregon{Environment.NewLine}");
-            startMonthHelp.Append($"before winter comes. If you{Environment.NewLine}");
-            startMonthHelp.Append($"leave at just the right time,{Environment.NewLine}");
-            startMonthHelp.Append($"there will be green grass and{Environment.NewLine}");
-            startMonthHelp.Append($"the weather will still be cool.{Environment.NewLine}{Environment.NewLine}");
+            startMonthHelp.Append($"{Environment.NewLine}You sit through a gas-station{Environment.NewLine}");
+            startMonthHelp.Append($"meeting for \"folks with the{Environment.NewLine}");
+            startMonthHelp.Append($"climate-refugee itch.\" You're told:{Environment.NewLine}{Environment.NewLine}");
+            startMonthHelp.Append($"If you leave too early, the heat{Environment.NewLine}");
+            startMonthHelp.Append($"domes haven't broken and gas is{Environment.NewLine}");
+            startMonthHelp.Append($"scarce. If you leave too late,{Environment.NewLine}");
+            startMonthHelp.Append($"you may not reach Seattle before{Environment.NewLine}");
+            startMonthHelp.Append($"the mountain passes ice over. If{Environment.NewLine}");
+            startMonthHelp.Append($"you leave at just the right time,{Environment.NewLine}");
+            startMonthHelp.Append($"the roads are clear and the{Environment.NewLine}");
+            startMonthHelp.Append($"weather will still be cool.{Environment.NewLine}{Environment.NewLine}");
             return startMonthHelp.ToString();
         }
 

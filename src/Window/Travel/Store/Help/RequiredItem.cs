@@ -11,7 +11,7 @@ namespace OregonTrailDotNet.Window.Travel.Store.Help
 {
     /// <summary>
     ///     Informs the player they need to purchase at least a single one of the specified SimItem in order to
-    ///     continue. This is used in the new game Windows to force the player to have at least one oxen to pull their vehicle
+    ///     continue. This is used in the new game Windows to force the player to have at least one gas can for their SUV
     ///     in
     ///     order to start the simulation.
     /// </summary>

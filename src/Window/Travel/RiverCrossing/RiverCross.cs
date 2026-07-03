@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OregonTrailDotNet.Renderer;
 using OregonTrailDotNet.Window.Travel.Rest;
 using OregonTrailDotNet.Window.Travel.RiverCrossing.Ferry;
 using OregonTrailDotNet.Window.Travel.RiverCrossing.Help;
@@ -88,6 +89,9 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
             _riverActions = new Dictionary<RiverCrossChoice, Action>();
             _riverInfo = new StringBuilder();
 
+            // Flooded-interstate banner above the crossing menu.
+            _riverInfo.AppendLine(SceneArt.FloodRiverBanner);
+
             // Header text for above menu comes from river crossing info object.
             _riverInfo.AppendLine("--------------------------------");
             _riverInfo.AppendLine($"{riverLocation.Name}");
@@ -95,8 +99,10 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
             _riverInfo.AppendLine("--------------------------------");
             _riverInfo.AppendLine(
                 $"Weather: {riverLocation.Weather.ToDescriptionAttribute()}");
-            _riverInfo.AppendLine($"River width: {UserData.River.RiverWidth:N0} feet");
-            _riverInfo.AppendLine($"River depth: {UserData.River.RiverDepth:N0} feet");
+            _riverInfo.AppendLine($"Washed-out roadbed: {UserData.River.RiverWidth:N0} feet");
+            _riverInfo.AppendLine($"Floodwater depth: {UserData.River.RiverDepth:N0} feet");
+            if (UserData.River.RiverDepth > 3)
+                _riverInfo.AppendLine("** Water is DEEP -- gunning it or the detour risks disaster. **");
             _riverInfo.AppendLine("--------------------------------");
             _riverInfo.AppendLine($"You may:{Environment.NewLine}");
 
@@ -203,6 +209,12 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                 case RiverCrossChoice.WaitForWeather:
                     _riverActions.Add(riverChoice, delegate
                     {
+                        // Waiting a day lets the floodwater actually recede a little, so "wait" is a real
+                        // (if slow) option instead of a no-op: a deep crossing becomes safely fordable over
+                        // several days. River data persists until the crossing finishes, so this sticks.
+                        UserData.River.RiverDepth = Math.Max(1,
+                            UserData.River.RiverDepth - GameSimulationApp.Instance.Random.Next(1, 4));
+
                         // Resting by a river only increments a single day at a time.
                         UserData.DaysToRest = 1;
                         UserData.River.CrossingType = RiverCrossChoice.WaitForWeather;

@@ -11,7 +11,7 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Animal
 {
     /// <summary>
-    ///     The buffalo stampede by the vehicle and can destroy items and trample people to death.
+    ///     A Black Friday door-buster crowd stampedes past the vehicle and can destroy items and trample people to death.
     /// </summary>
     [DirectorEvent(EventCategory.Animal)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -38,8 +38,8 @@ namespace OregonTrailDotNet.Event.Animal
         {
             var firePrompt = new StringBuilder();
             firePrompt.Clear();
-            firePrompt.AppendLine("Buffalo stampede!");
-            firePrompt.Append("Resulting in ");
+            firePrompt.AppendLine("Black Friday door-buster stampede!");
+            firePrompt.Append("The doors open and the crowd goes over the top, resulting in ");
             return firePrompt.ToString();
         }
     }

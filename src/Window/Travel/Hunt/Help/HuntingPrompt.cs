@@ -3,6 +3,7 @@
 
 using System;
 using System.Text;
+using OregonTrailDotNet.Renderer;
 using WolfCurses.Utility;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
@@ -11,14 +12,14 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.Travel.Hunt.Help
 {
     /// <summary>
-    ///     Prompt that proceeds the hunting mode when accessed from the travel menu. Explains to the player how the controls
+    ///     Prompt that proceeds the food sweep when accessed from the travel menu. Explains to the player how the controls
     ///     work and what is expected of them in regards to how the game mode operates.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class HuntingPrompt : InputForm<TravelInfo>
     {
         /// <summary>
-        ///     References the message we show to the user that explains how hunting works.
+        ///     References the message we show to the user that explains how the food sweep works.
         /// </summary>
         private readonly StringBuilder _huntHelp;
 
@@ -41,23 +42,26 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
         /// </returns>
         protected override string OnDialogPrompt()
         {
-            // Clear out previous hunting help messages.
+            // Clear out previous food sweep help messages.
             _huntHelp.Clear();
 
-            // Create the prompt for explaining how hunting works.
-            _huntHelp.AppendLine($"{Environment.NewLine}Hunting Instructions{Environment.NewLine}");
+            // Food-counter scene above the instructions.
+            _huntHelp.AppendLine(SceneArt.FoodSweep);
 
-            // Explain how timer works, how killing works and animal weight limits.
+            // Create the prompt for explaining how the food sweep works.
+            _huntHelp.AppendLine($"{Environment.NewLine}Food Sweep Instructions{Environment.NewLine}");
+
+            // Explain how timer works, how grabbing works and food weight limits.
             const string huntTextTop =
-                "Hunting has a timer which represents the total daylight remaining. When the timer reaches zero the hunt is over. " +
-                "You can only take 100 pounds of food back to the wagon, don't kill more than you keep since you just waste bullets.";
+                "The food sweep has a timer which represents how long until the doors close. When the timer reaches zero the sweep is over. " +
+                "You can only haul 100 pounds of food back to the SUV, don't grab more than you keep since you just burn ammo holding your spot.";
 
-            // Explain how shooting works, how player has limited window of opportunity to shoot the animal.
+            // Explain how grabbing works, how player has limited window of opportunity to snag the tray.
             const string huntTextBottom =
-                "When animal appears you have until it disappears to type the shooting word shown. " +
-                "If you don't type fast enough you risk missing your shot and bullet on nothing!";
+                "When a tray hits the table you have until another shopper grabs it to type the grab word shown. " +
+                "If you don't type fast enough you risk fumbling the grab and burning ammo on nothing!";
 
-            // Add the top and bottom hunting text on their own lines.
+            // Add the top and bottom food sweep text on their own lines.
             _huntHelp.AppendLine(huntTextTop.WordWrap());
             _huntHelp.AppendLine(huntTextBottom.WordWrap());
 
@@ -72,7 +76,7 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
         /// <param name="reponse">The response the dialog parsed from simulation input buffer.</param>
         protected override void OnDialogResponse(DialogResponse reponse)
         {
-            // Creates a new hunt with animals for the player to kill.
+            // Creates a new food sweep with trays for the player to grab.
             UserData.GenerateHunt();
 
             // Attaches the form that lets us manipulate and view this data.

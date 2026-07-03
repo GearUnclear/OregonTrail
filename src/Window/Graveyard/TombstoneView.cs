@@ -3,6 +3,7 @@
 
 using System;
 using System.Text;
+using OregonTrailDotNet.Renderer;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 using WolfCurses.Window.Form.Input;
@@ -36,6 +37,9 @@ namespace OregonTrailDotNet.Window.Graveyard
         {
             // Check if the tombstone manager returned anything, if not then check for user data it's player death then.
             var tombstone = new StringBuilder();
+
+            // Headstone art frames the epitaph for either branch below.
+            tombstone.AppendLine(SceneArt.Tombstone);
 
             // Finding a tombstone at the current vehicle odometer means we use that reference.
             if (GameSimulationApp.Instance.Vehicle.PassengerLivingCount > 0)

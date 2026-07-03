@@ -11,18 +11,18 @@ namespace OregonTrailDotNet.Entity.Person
     public enum Profession
     {
         /// <summary>
-        ///     The banker.
+        ///     The crypto bro (reskin of the original banker; identifier and value preserved for scoring/hunting math).
         /// </summary>
-        [Description("Be a banker from Boston")] Banker = 1,
+        [Description("Be a crypto bro from Miami Beach")] Banker = 1,
 
         /// <summary>
-        ///     The carpenter.
+        ///     The DoorDash driver (reskin of the original carpenter; identifier and value preserved for scoring/hunting math).
         /// </summary>
-        [Description("Be a carpenter from Ohio")] Carpenter = 2,
+        [Description("Be a DoorDash driver from Ohio")] Carpenter = 2,
 
         /// <summary>
-        ///     The farmer.
+        ///     The faith-walk streamer (reskin of the original farmer; identifier and value preserved for scoring/hunting math).
         /// </summary>
-        [Description("Be a farmer from Illinois")] Farmer = 3
+        [Description("Be a faith-walk streamer from Illinois")] Farmer = 3
     }
 }

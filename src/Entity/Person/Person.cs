@@ -244,22 +244,64 @@ namespace OregonTrailDotNet.Entity.Person
                      game.Random.NextBool())
                 CheckIllness();
 
-            // More change for illness if you have no clothes.
+            // More chance for illness if you have no clothes (i.e. underdressed for the climate). The
+            // comparison value is the dollar value of leggings carried; Random.Next() is [0,60), so the
+            // warmth threshold sits around $140 (≈ 2 crates) and reliably "warm" is ≈ 4 crates ($300).
+            // NOTE: this used to be inverted — the warm branch ran CheckIllness unconditionally, so more
+            // clothing made you SICKER (and the $10→$75 crate price hike amplified it). Branches swapped so
+            // adequate clothing now LOWERS illness exposure, matching the intent and making leggings worth buying.
             var costClothes = game.Vehicle.Inventory[Entities.Clothes].TotalValue;
             if (costClothes > 22 + 4*game.Random.Next())
             {
-                CheckIllness();
-            }
-            else
-            {
-                // Random chance for illness in general, even with nice clothes but much lower.
+                // Adequately clothed: warmth keeps illness exposure low.
                 if (game.Random.NextBool() && game.Random.NextBool())
                     CheckIllness();
             }
+            else
+            {
+                // Underdressed for the climate: high chance of illness.
+                CheckIllness();
+            }
+
+            // Pushing harder than a Steady pace costs extra health, but only on real travel days.
+            if (!skipDay)
+                ApplyPacePenalty();
 
             // Will only consume food if a whole day goes by, realtime actions won't have this penalty.
             if (!skipDay)
                 ConsumeFood();
+        }
+
+        /// <summary>
+        ///     Applies the daily health cost of pushing the party harder than a Steady pace. Faster paces cover more
+        ///     ground (see Vehicle.PaceMultiplier) but tire the party out. The drain only happens on days the vehicle is
+        ///     actually moving, so stopping to rest (which still feeds and heals) lets the party recover and prevents a
+        ///     death spiral. Steady incurs no penalty and leaves original behaviour unchanged. Tune the amounts here.
+        /// </summary>
+        private void ApplyPacePenalty()
+        {
+            // Grab instance of the game simulation to increase readability.
+            var game = GameSimulationApp.Instance;
+
+            // Penalty only applies while actually travelling; resting/stopping lets the party recover.
+            if (game.Vehicle.Status != VehicleStatus.Moving)
+                return;
+
+            switch (game.Vehicle.Pace)
+            {
+                case TravelPace.Strenuous:
+                    // 12 hour days: a modest amount of extra wear, no extra illness exposure.
+                    Damage(2, 6);
+                    break;
+                case TravelPace.Grueling:
+                    // 16 hour days: a clearly larger drain plus one extra illness roll ("your health suffers").
+                    Damage(6, 14);
+                    CheckIllness();
+                    break;
+                case TravelPace.Steady:
+                    // No penalty - identical to original behaviour.
+                    break;
+            }
         }
 
         /// <summary>
@@ -277,8 +319,13 @@ namespace OregonTrailDotNet.Entity.Person
             // Check if player has any food to eat.
             if (game.Vehicle.Inventory[Entities.Food].Quantity > 0)
             {
-                // Consume some food based on ration level, then update the cost to check against.
-                game.Vehicle.Inventory[Entities.Food].ReduceQuantity((int) game.Vehicle.Ration*
+                // Consume food based on ration level. The food multiplier is INVERTED relative to the
+                // RationLevel int (Filling=1, Meager=2, BareBones=3) so that generous meals eat the MOST and
+                // bare-bones meals eat the LEAST — Filling=3, Meager=2, BareBones=1 lb/person/day. Previously
+                // it used the raw int, so "rationing" (BareBones) ate 3x the food, making the survival lever
+                // self-defeating. Now BareBones genuinely stretches a small food supply, traded against the
+                // higher illness exposure that the ration int still drives in OnTick/CheckIllness.
+                game.Vehicle.Inventory[Entities.Food].ReduceQuantity((4 - (int) game.Vehicle.Ration)*
                                                                      game.Vehicle.PassengerLivingCount);
 
                 // Change to get better when eating well.

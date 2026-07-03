@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using OregonTrailDotNet.Entity.Person;
 using OregonTrailDotNet.Entity.Vehicle;
+using OregonTrailDotNet.Module.Choices;
 using OregonTrailDotNet.Module.Director;
 using OregonTrailDotNet.Module.Scoring;
 using OregonTrailDotNet.Module.Time;
@@ -79,6 +80,12 @@ namespace OregonTrailDotNet
         public TombstoneModule Tombstone { get; private set; }
 
         /// <summary>
+        ///     Per-game ledger of the forking decisions the player made along the trail. Contributes score deltas and
+        ///     epilogue lines consumed by the endgame tabulation.
+        /// </summary>
+        public ChoiceLedger Choices { get; private set; }
+
+        /// <summary>
         ///     Determines what windows the simulation will be capable of using and creating using the window managers factory.
         /// </summary>
         public override IEnumerable<Type> AllowedWindows
@@ -123,8 +130,12 @@ namespace OregonTrailDotNet
         /// </param>
         internal void SetStartInfo(NewGameInfo startingInfo)
         {
+            // Resolve the tuning numbers for the vehicle the player chose, and factor its price into starting cash
+            // without mutating the starting info itself (this method may run more than once per form render).
+            var vehicleModel = VehicleModels.Get(startingInfo.VehiclePick);
+
             // Clear out any data amount items, monies, people that might have been in the vehicle.
-            Vehicle.ResetVehicle(startingInfo.StartingMonies);
+            Vehicle.ResetVehicle((int) (startingInfo.StartingMonies - vehicleModel.Cost), vehicleModel);
 
             // Add all the player data we collected from attached game Windows states.
             var crewNumber = 1;
@@ -185,6 +196,7 @@ namespace OregonTrailDotNet
             Trail = null;
             TotalTurns = 0;
             Vehicle = null;
+            Choices = null;
 
             // Destroys game simulation instance.
             Instance = null;
@@ -201,7 +213,7 @@ namespace OregonTrailDotNet
             tui.AppendLine($"Turns: {TotalTurns:D4}");
 
             // Vehicle and location status.
-            tui.AppendLine($"Vehicle: {Vehicle?.Status} - Location:{Trail?.CurrentLocation?.Status}");
+            tui.AppendLine($"{Vehicle?.Model?.Name ?? "SUV"}: {Vehicle?.Status} - Location:{Trail?.CurrentLocation?.Status}");
             return tui.ToString();
         }
 
@@ -230,6 +242,9 @@ namespace OregonTrailDotNet
             EventDirector = new EventDirectorModule();
             Trail = new TrailModule();
             Vehicle = new Vehicle();
+
+            // Per-game ledger of forking decisions the player makes along the trail.
+            Choices = new ChoiceLedger();
 
             // Resets the window manager in the base simulation.
             base.Restart();

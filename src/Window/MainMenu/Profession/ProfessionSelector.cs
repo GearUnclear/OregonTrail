@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OregonTrailDotNet.Window.MainMenu.Names;
+using OregonTrailDotNet.Window.MainMenu.VehicleSelection;
 using WolfCurses.Utility;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
@@ -51,7 +52,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
 
             // Set the profession to default value in case we are retrying this.
             UserData.PlayerProfession = Entity.Person.Profession.Banker;
-            UserData.StartingMonies = 1600;
+            UserData.StartingMonies = 8000;
 
             // Pass the game data to the simulation for each new game Windows state.
             GameSimulationApp.Instance.SetStartInfo(UserData);
@@ -59,7 +60,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
             // String builder that will hold our representation of all possible professions player can choose from.
             _professionChooser = new StringBuilder();
             _professionChooser.AppendLine($"{Environment.NewLine}Many kinds of people made the");
-            _professionChooser.AppendLine($"trip to Oregon.{Environment.NewLine}");
+            _professionChooser.AppendLine($"drive to Seattle.{Environment.NewLine}");
             _professionChooser.AppendLine($"You may:{Environment.NewLine}");
 
             // Loop through all the profession enumeration values and grab their description attribute for selection purposes.
@@ -115,25 +116,25 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
             {
                 case Entity.Person.Profession.Banker:
                     UserData.PlayerProfession = Entity.Person.Profession.Banker;
-                    UserData.StartingMonies = 1600;
+                    UserData.StartingMonies = 8000;
                     UserData.PlayerNameIndex = 0;
-                    SetForm(typeof(InputPlayerNames));
+                    SetForm(typeof(VehicleSelector));
                     break;
                 case Entity.Person.Profession.Carpenter:
                     UserData.PlayerProfession = Entity.Person.Profession.Carpenter;
-                    UserData.StartingMonies = 800;
+                    UserData.StartingMonies = 4000;
                     UserData.PlayerNameIndex = 0;
-                    SetForm(typeof(InputPlayerNames));
+                    SetForm(typeof(VehicleSelector));
                     break;
                 case Entity.Person.Profession.Farmer:
                     UserData.PlayerProfession = Entity.Person.Profession.Farmer;
-                    UserData.StartingMonies = 400;
+                    UserData.StartingMonies = 2000;
                     UserData.PlayerNameIndex = 0;
-                    SetForm(typeof(InputPlayerNames));
+                    SetForm(typeof(VehicleSelector));
                     break;
                 default:
                     UserData.PlayerProfession = Entity.Person.Profession.Banker;
-                    UserData.StartingMonies = 1600;
+                    UserData.StartingMonies = 8000;
                     UserData.PlayerNameIndex = 0;
                     SetForm(typeof(ProfessionHelp));
                     break;

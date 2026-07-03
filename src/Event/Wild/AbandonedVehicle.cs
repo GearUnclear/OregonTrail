@@ -12,8 +12,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Wild
 {
     /// <summary>
-    ///     Discover a vehicle on the side of the road that might have some items inside of it that will be added to the
-    ///     players inventory.
+    ///     Discover a broken-down SUV abandoned on the shoulder that might have some items inside of it that will be added
+    ///     to the players inventory.
     /// </summary>
     [DirectorEvent(EventCategory.Wild)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -36,7 +36,7 @@ namespace OregonTrailDotNet.Event.Wild
         protected override string OnPreCreateItems()
         {
             var eventText = new StringBuilder();
-            eventText.AppendLine("You find an abandoned wagon,");
+            eventText.AppendLine("You find an SUV abandoned on the shoulder,");
             return eventText.ToString();
         }
     }

@@ -9,7 +9,7 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Wild
 {
     /// <summary>
-    ///     Similar to wild berries, but with fruit there will be more to go around.
+    ///     Similar to the roadside peanut stand, but a u-pick orange grove yields more to go around.
     /// </summary>
     [DirectorEvent(EventCategory.Wild)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -39,7 +39,7 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>Text user interface string that can be used to explain what the event did when executed.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "Find wild fruit.";
+            return "Find a u-pick orange grove.";
         }
     }
 }

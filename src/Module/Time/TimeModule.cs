@@ -16,7 +16,7 @@ namespace OregonTrailDotNet.Module.Time
         public TimeModule()
         {
             // Create a new time object for our simulation.
-            CurrentYear = 1848;
+            CurrentYear = 2028;
             CurrentMonth = Month.March;
             CurrentDay = 1;
 

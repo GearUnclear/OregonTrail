@@ -34,12 +34,12 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Ferry
         protected override string OnDialogPrompt()
         {
             var prompt = new StringBuilder();
-            prompt.AppendLine($"{Environment.NewLine}To use a ferry means to put");
-            prompt.AppendLine("your wagon on top of a flat");
-            prompt.AppendLine("boat that belongs to someone");
-            prompt.AppendLine("else. The owner of the");
-            prompt.AppendLine("ferry will take your wagon");
-            prompt.AppendLine($"across the river.{Environment.NewLine}");
+            prompt.AppendLine($"{Environment.NewLine}A National Guard convoy means");
+            prompt.AppendLine("loading your SUV onto a high-");
+            prompt.AppendLine("water military hauler run by");
+            prompt.AppendLine("the Guard. The crew will");
+            prompt.AppendLine("ferry your SUV across the");
+            prompt.AppendLine($"flooded Interstate.{Environment.NewLine}");
             return prompt.ToString();
         }
 

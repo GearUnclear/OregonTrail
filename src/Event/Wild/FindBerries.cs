@@ -9,7 +9,7 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Wild
 {
     /// <summary>
-    ///     Vehicle comes across some wild berries which the party picks up to eat.
+    ///     The party comes across a roadside boiled-peanut stand and picks up a little something to eat.
     /// </summary>
     [DirectorEvent(EventCategory.Wild)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -28,7 +28,7 @@ namespace OregonTrailDotNet.Event.Wild
             // Cast the source entity as vehicle.
             var vehicle = eventExecutor.SourceEntity as Entity.Vehicle.Vehicle;
 
-            // Add the berries to vehicle food stores.
+            // Add the roadside snacks to vehicle food stores.
             vehicle?.Inventory[Entities.Food].AddQuantity(5);
         }
 
@@ -40,7 +40,7 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>Text user interface string that can be used to explain what the event did when executed.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "Find wild berries";
+            return "Find a roadside boiled-peanut stand";
         }
     }
 }

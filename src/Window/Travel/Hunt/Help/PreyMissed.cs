@@ -9,7 +9,7 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.Travel.Hunt.Help
 {
     /// <summary>
-    ///     Called when the player fires a shot and it misses the intended target.
+    ///     Called when the player lunges for a tray and fumbles it before getting a grip.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class PreyMissed : InputForm<TravelInfo>
@@ -33,8 +33,8 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
         protected override string OnDialogPrompt()
         {
             return
-                $"{Environment.NewLine}You missed, and the {UserData.Hunt.LastEscapee.Animal.Name.ToLowerInvariant()} " +
-                $"got away!{Environment.NewLine}{Environment.NewLine}";
+                $"{Environment.NewLine}You fumbled it, and the {UserData.Hunt.LastEscapee.Animal.Name.ToLowerInvariant()} " +
+                $"got swept away!{Environment.NewLine}{Environment.NewLine}";
         }
 
         /// <summary>

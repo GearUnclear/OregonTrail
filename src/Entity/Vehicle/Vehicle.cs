@@ -91,6 +91,25 @@ namespace OregonTrailDotNet.Entity.Vehicle
         public ReadOnlyCollection<Person.Person> Passengers => _passengers.AsReadOnly();
 
         /// <summary>
+        ///     The vehicle the party chose to make the drive in, and every tuning number (speed, fuel efficiency, cargo
+        ///     capacity, max party size) that choice locks in for the rest of the game.
+        /// </summary>
+        public VehicleModel Model { get; private set; }
+
+        /// <summary>
+        ///     Total pounds of cargo currently loaded into the vehicle, summed across every inventory category. Given
+        ///     that gas cans, spare parts, and cash all weigh zero pounds today this is effectively just food and
+        ///     clothes weight, which is intentional — no category is special-cased here.
+        /// </summary>
+        public int CargoWeight => Inventory.Values.Sum(item => item.TotalWeight);
+
+        /// <summary>
+        ///     Maximum number of passengers this vehicle can seat, bounded by both the chosen <see cref="Model" /> and
+        ///     the absolute <see cref="GameSimulationApp.MAXPLAYERS" /> ceiling.
+        /// </summary>
+        public int MaxPartySize => Math.Min(Model.MaxPartySize, GameSimulationApp.MAXPLAYERS);
+
+        /// <summary>
         ///     Current ration level, determines the amount food that will be consumed each day of the simulation.
         /// </summary>
         public RationLevel Ration { get; private set; }
@@ -226,20 +245,62 @@ namespace OregonTrailDotNet.Entity.Vehicle
         /// <summary>
         ///     In general, you will travel 200 miles plus some additional distance which depends upon the quality of your team of
         ///     oxen. This mileage figure is an ideal, assuming nothing goes wrong. If you run into problems, mileage is subtracted
-        ///     from this ideal figure; the revised total is printed at the start of the next trip segment.
+        ///     from this ideal figure; the revised total is printed at the start of the next trip segment. The gas-derived portion
+        ///     of the total is further scaled by <see cref="Model" />.FuelEfficiencyMultiplier, so the chosen vehicle stretches or
+        ///     shrinks how far each can of gas actually carries the party.
         /// </summary>
         /// <returns>The expected mileage over the next two week segment.</returns>
         private int RandomMileage
         {
             get
             {
-                // Total amount of monies the player has spent on animals to pull their vehicle.
+                // Total amount of monies the player has spent on animals (gas cans) to pull their vehicle.
                 var costAnimals = Inventory[Entities.Animal].TotalValue;
 
                 // Variables that will hold the distance we should travel in the next day.
-                var totalMiles = Mileage + (costAnimals - 110)/2.5 + 10*GameSimulationApp.Instance.Random.NextDouble();
+                // The two constants below are derived from the gas-can price (see Parts.Oxen): the threshold is
+                // 5.5 cans worth of fuel (5.5 * $25 = 137.5) and the divisor is the per-can mileage slope ($25 / 8 = 3.125),
+                // so each gas can is still worth ~8 miles/day and 5.5 cans is still the break-even point — identical to the
+                // pre-2028 $20-a-can tuning, just expressed against the inflated price. Rescale both if the price changes.
+                // Fuel efficiency scales just the gas-derived term, so a thirstier vehicle needs more cans to cover
+                // the same ground while a fuel-sipper stretches every can further.
+                var gasMiles = (costAnimals - 137.5)/3.125*Model.FuelEfficiencyMultiplier;
+                var totalMiles = Mileage + gasMiles + 10*GameSimulationApp.Instance.Random.NextDouble();
 
                 return (int) Math.Abs(totalMiles);
+            }
+        }
+
+        /// <summary>
+        ///     Distance multiplier applied to a single day's mileage based on the current travel pace. Steady is the
+        ///     baseline (x1.0) and MUST remain numerically identical to the original behaviour; faster paces trade health
+        ///     (see Person.ApplyPacePenalty) for extra ground covered. Tune the two non-baseline values here. The result
+        ///     is further scaled by the chosen vehicle's <see cref="Model" />.SpeedMultiplier before being returned.
+        /// </summary>
+        private double PaceMultiplier
+        {
+            get
+            {
+                double paceFactor;
+                switch (Pace)
+                {
+                    case TravelPace.Strenuous:
+                        // ~12 hour days: roughly +30% distance.
+                        paceFactor = 1.3d;
+                        break;
+                    case TravelPace.Grueling:
+                        // ~16 hour days: roughly +60% distance.
+                        paceFactor = 1.6d;
+                        break;
+                    case TravelPace.Steady:
+                        paceFactor = 1.0d;
+                        break;
+                    default:
+                        paceFactor = 1.0d;
+                        break;
+                }
+
+                return paceFactor*Model.SpeedMultiplier;
             }
         }
 
@@ -458,6 +519,13 @@ namespace OregonTrailDotNet.Entity.Vehicle
             // Figure out how far we need to go to reach the next point.
             Mileage = RandomMileage;
 
+            // Apply the travel pace multiplier so faster paces cover more ground each day. Steady is excluded so its
+            // result is byte-identical to the original behaviour for the default Minivan (SpeedMultiplier 1.0);
+            // Strenuous/Grueling stretch the day's distance regardless of vehicle, and any vehicle whose
+            // SpeedMultiplier is not exactly 1.0 also applies PaceMultiplier at Steady pace so its speed always matters.
+            if ((Pace != TravelPace.Steady) || !Model.SpeedMultiplier.Equals(1.0d))
+                Mileage = (int) (Mileage*PaceMultiplier);
+
             // Sometimes things just go slow on the trail, cut mileage in half if above zero randomly.
             if (GameSimulationApp.Instance.Random.NextBool() && (Mileage > 0))
                 Mileage = Mileage/2;
@@ -570,8 +638,15 @@ namespace OregonTrailDotNet.Entity.Vehicle
 
         /// <summary>Resets the vehicle status to the defaults.</summary>
         /// <param name="startingMonies">Amount of money the vehicle should have to work with.</param>
-        public void ResetVehicle(int startingMonies = 0)
+        /// <param name="model">
+        ///     The vehicle the party chose to make the drive in. Defaults to <see cref="VehicleModels.Default" /> (the
+        ///     Minivan) if not specified.
+        /// </param>
+        public void ResetVehicle(int startingMonies = 0, VehicleModel model = null)
         {
+            // The vehicle the party chose to make the drive in, and the tuning numbers that come with it.
+            Model = model ?? VehicleModels.Default;
+
             // Parts for the vehicle to keep it in working order and moving.
             _parts = new List<SimItem>(DefaultParts);
 
@@ -687,8 +762,25 @@ namespace OregonTrailDotNet.Entity.Vehicle
                 if (GameSimulationApp.Instance.Random.NextBool())
                     continue;
 
+                // Determine ceiling for how many copies we will offer of this item.
+                var amountToMake = itemPair.Value.MaxQuantity/4;
+
+                // Check if created amount goes above ceiling.
+                if (amountToMake > itemPair.Value.MaxQuantity)
+                    amountToMake = itemPair.Value.MaxQuantity;
+
+                // Check if created amount goes below floor. Small-cap items (e.g. spare parts with
+                // MaxQuantity 3) integer-divide to 0, which would make Random.Next(1, 0) throw.
+                if (amountToMake <= 0)
+                    amountToMake = 1;
+
                 // Add some random amount of the item from one to total amount.
-                var createdAmount = GameSimulationApp.Instance.Random.Next(1, itemPair.Value.MaxQuantity/4);
+                var createdAmount = GameSimulationApp.Instance.Random.Next(1, amountToMake);
+
+                // Never gift more than the item's remaining capacity.
+                var remainingCapacity = itemPair.Value.MaxQuantity - itemPair.Value.Quantity;
+                if (createdAmount > remainingCapacity)
+                    createdAmount = remainingCapacity;
 
                 // Add the amount ahead of time so we can figure out of it is above maximum.
                 var simulatedAmountAdd = itemPair.Value.Quantity + createdAmount;

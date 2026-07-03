@@ -10,7 +10,7 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Weather
 {
     /// <summary>
-    ///     Severe weather will cause destruction of items and waste your time, but nobody will get killed.
+    ///     A derecho will cause destruction of items and waste your time, but nobody will get killed.
     /// </summary>
     [DirectorEvent(EventCategory.Weather, EventExecution.ManualOnly)]
     public sealed class SevereWeather : ItemDestroyer
@@ -33,7 +33,7 @@ namespace OregonTrailDotNet.Event.Weather
         /// </returns>
         protected override string OnPreDestroyItems()
         {
-            return "heavy rains---";
+            return "a derecho---";
         }
     }
 }

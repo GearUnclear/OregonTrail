@@ -55,25 +55,25 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Indian
         /// </returns>
         protected override string OnDialogPrompt()
         {
-            // Builds up the first part about the Indian guide for river crossing.
+            // Builds up the first part about the sovereign-citizen local for the flooded crossing.
             var prompt = new StringBuilder();
-            prompt.AppendLine($"{Environment.NewLine}A Shoshoni guide says that he");
-            prompt.AppendLine("will take your wagon across");
-            prompt.AppendLine($"the river in exchange for {UserData.River.IndianCost:N0}");
-            prompt.AppendLine($"sets of clothing.{Environment.NewLine}");
+            prompt.AppendLine($"{Environment.NewLine}A local says he isn't driving,");
+            prompt.AppendLine("he's traveling, and will guide");
+            prompt.AppendLine($"your SUV across for {UserData.River.IndianCost:N0}");
+            prompt.AppendLine($"crates of MLM leggings.{Environment.NewLine}");
 
-            // Change up the message based on if the player has enough clothing, they won't be able to get more if they don't here.
+            // Change up the message based on if the player has enough leggings, they won't be able to get more if they don't here.
             if (HasEnoughClothingToTrade)
             {
-                // Player has enough clothing to satisfy the Indians cost.
+                // Player has enough leggings to satisfy the local's cost.
                 prompt.AppendLine("Will you accept this");
                 prompt.Append("offer? Y/N");
             }
             else
             {
-                // Player does not have enough clothing to satisfy the Indian cost.
-                prompt.AppendLine($"You don't have {UserData.River.IndianCost:N0} sets of");
-                prompt.AppendLine($"clothing.{Environment.NewLine}");
+                // Player does not have enough leggings to satisfy the local's cost.
+                prompt.AppendLine($"You don't have {UserData.River.IndianCost:N0} crates of");
+                prompt.AppendLine($"leggings.{Environment.NewLine}");
             }
 
             // Renders out the Indian guide river crossing confirmation and or denial.

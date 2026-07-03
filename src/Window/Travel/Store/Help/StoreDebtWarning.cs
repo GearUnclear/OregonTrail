@@ -41,11 +41,11 @@ namespace OregonTrailDotNet.Window.Travel.Store.Help
         protected override string OnDialogPrompt()
         {
             _storeDebt.Clear();
-            _storeDebt.AppendLine($"{Environment.NewLine}Whoa there partner!");
+            _storeDebt.AppendLine($"{Environment.NewLine}Hold up there, friend!");
             _storeDebt.AppendLine(
                 $"I see you got {UserData.Store.Transactions.Count} items worth {UserData.Store.TotalTransactionCost:C2}.");
             _storeDebt.AppendLine($"You only got {GameSimulationApp.Instance.Vehicle.Balance:C2}!");
-            _storeDebt.AppendLine($"Put some items back in order to leave the store...{Environment.NewLine}");
+            _storeDebt.AppendLine($"Put some items back in order to leave Buc-ee's...{Environment.NewLine}");
             return _storeDebt.ToString();
         }
 

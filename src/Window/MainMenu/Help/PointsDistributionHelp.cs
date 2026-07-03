@@ -39,7 +39,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
         {
             // Build up string of help about points for people.
             var pointsHealth = new StringBuilder();
-            pointsHealth.AppendLine($"{Environment.NewLine}On Arriving in Oregon{Environment.NewLine}");
+            pointsHealth.AppendLine($"{Environment.NewLine}On Arriving in Seattle{Environment.NewLine}");
             pointsHealth.AppendLine("Your most important resource is the");
             pointsHealth.AppendLine("people you have with you. You");
             pointsHealth.AppendLine("receive points for each member of");

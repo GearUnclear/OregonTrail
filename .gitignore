@@ -288,3 +288,9 @@ __pycache__/
 *.xsd.cs
 
 data
+
+# Packaged release artifacts (built locally)
+/dist/
+
+# Agent harness raw stdout dumps (large, regenerable)
+agent/*.out

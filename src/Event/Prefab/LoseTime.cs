@@ -35,7 +35,10 @@ namespace OregonTrailDotNet.Event.Prefab
             base.OnPostExecute(eventExecutor);
 
             // Check what we should do with the random event form now that the user is done with this part of it.
-            if (eventExecutor.UserData.DaysToSkip > 0)
+            // Execute() always adds a positive DaysToSkip, so the guard must skip attaching the countdown form
+            // only when there is nothing to count down (<= 0). The old "> 0" was inverted, so EventSkipDay never
+            // attached and these events cost the player zero days.
+            if (eventExecutor.UserData.DaysToSkip <= 0)
                 return false;
 
             // Attaches a new form that will skip over the required number of days we have detected.

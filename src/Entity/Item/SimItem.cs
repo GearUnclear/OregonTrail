@@ -164,7 +164,7 @@ namespace OregonTrailDotNet.Entity.Item
         ///     Weight of a single SimItem of this type, the original game used pounds so that is roughly what this should
         ///     represent.
         /// </summary>
-        private int Weight { get; }
+        public int Weight { get; }
 
         /// <summary>
         ///     Total number of items this SimItem represents.

@@ -1,0 +1,14 @@
+Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+## Playtest Feedback: The Asphalt Trail
+
+**1. Overall impression:** The game is narratively engaging so far. The intro pages nail the grim satire — climate insurance collapse, forced migration, a family in denial that this is a vacation — and the 2028 re-skin (Buc-ee's, gas cans, DoorDash drivers) feels thematically coherent and funny in the right way. However, I'm only at the store screen, so I haven't experienced actual gameplay yet. The pacing through menus is reasonable, though somewhat linear.
+
+**2. Most confusing moment:** The store screen itself. I'm looking at a list of items with $0.00 prices and no indication of how to actually buy anything. Do I select an option and then enter a quantity? Do prices appear after I pick? Is there a per-unit cost shown elsewhere? The flow from "here's what you can buy" to "actually transacting" is not obvious. This is the critical moment where I need to spend strategy on fuel and food, and the UX doesn't make it clear how to proceed.
+
+**3. Bugs/unfairness:** Minor: vehicle selection text is truncated ("the least room for peopl"). More puzzling: the store shows I have $6,800, but I chose a vehicle that cost $1,200 — either the deduction wasn't applied, or it's already baked into the starting budget. This should be explained because it affects how much I think I can spend.
+
+**4. Content variety:** Too early to judge. The intro had good variety across five pages with distinct narrative beats. The store shows different item categories, which is promising, but I can't assess whether events, encounters, or flavor text repeat until I play further.
+
+**5. Difficulty/balance:** Unclear at this stage. I understand the goal is to buy fuel and food, but without knowing the unit economy (how many cans of gas do I need for ~2,000 miles at what consumption rate? how much does food cost per day?), I can't tell if $6,800 is generous or tight. The balance will only be testable once I'm on the road and resources start depleting.
+
+**6. One change:** Redesign the store UX to make purchasing explicit and immediate. Show a quantity input next to each item, or prompt "How many gas cans? (You have $6,800)" when selected. Make it visually clear what my total spend is and what I have left to allocate. Right now it feels like I'm staring at a menu that hasn't loaded.

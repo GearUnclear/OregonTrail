@@ -9,27 +9,30 @@ namespace OregonTrailDotNet.Entity.Item
     public static class Resources
     {
         /// <summary>
-        ///     Worn by the vehicle party members to keep them warm when it is cold outside from climate simulation, without them
-        ///     the players risk Person and death.
+        ///     Crates of MLM leggings the party hauls around; they double as the clothing that keeps party members warm when it is
+        ///     cold outside from the climate simulation, and as the only barter the river guide accepts.
         /// </summary>
-        public static SimItem Clothing => new SimItem(Entities.Clothes, "Clothing", "sets", "set", 50, 10, 1, 1, 0, 2);
+        // Price: ~$75 a crate — a case of fast-fashion athleisure leggings at 2028 retail.
+        public static SimItem Clothing => new SimItem(Entities.Clothes, "MLM Leggings", "crates", "crate", 50, 75, 1, 1, 0, 2);
 
         /// <summary>
-        ///     Ammunition used in hunting game Windows so the players can acquire food by hunting animals.
+        ///     Boxes of ammo used in the food-sweep minigame so the players can grab snacks by clearing out the fair food.
         /// </summary>
-        public static SimItem Bullets => new SimItem(Entities.Ammo, "Ammunition", "boxes", "box", 99, 2, 0, 20, 0, 1, 50);
+        // Price: ~$30 a box — a box of range ammo at 2028 prices (minimum buy is 20 boxes, so stocking up is a real ~$600 commitment).
+        public static SimItem Bullets => new SimItem(Entities.Ammo, "Ammunition", "boxes", "box", 99, 30, 0, 20, 0, 1, 50);
 
         /// <summary>
-        ///     Serves as a generic reference item that represents a given amount of food. This could be from any animal or known
-        ///     game resource marked as such.
+        ///     Serves as a generic reference item that represents a given amount of snacks. This could be from any food sweep or
+        ///     known fair-food resource marked as such.
         /// </summary>
-        public static SimItem Food => new SimItem(Entities.Food, "Food", "pounds", "pound", 2000, 0.20f, 1, 1, 0, 1, 25);
+        // Price: $1.50 a pound — bulk gas-station/road-trip snack food at 2028 prices.
+        public static SimItem Food => new SimItem(Entities.Food, "Snacks", "pounds", "pound", 2000, 1.50f, 1, 1, 0, 1, 25);
 
         /// <summary>
-        ///     Represents a vehicle entity, this is not used as actual vehicle the people travel in but rather a reference to a
+        ///     Represents the SUV entity, this is not used as the actual vehicle the people travel in but rather a reference to a
         ///     vehicle in the collection of simulation entities.
         /// </summary>
-        public static SimItem Vehicle => new SimItem(Entities.Vehicle, "Vehicle", "vehicles", "vehicle", 2000, 50, 500, 1, 0, 50);
+        public static SimItem Vehicle => new SimItem(Entities.Vehicle, "SUV", "SUVs", "SUV", 2000, 50, 500, 1, 0, 50);
 
         /// <summary>
         ///     Represents a person entity, this is not used as actual person but rather a reference to a person object in the

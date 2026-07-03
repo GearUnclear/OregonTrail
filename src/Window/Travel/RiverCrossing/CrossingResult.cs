@@ -54,9 +54,9 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                     if (GameSimulationApp.Instance.Random.NextBool())
                     {
                         // No loss in time, but warning to let the player know it's dangerous.
-                        _crossingResult.AppendLine($"{Environment.NewLine}It was a muddy crossing,");
+                        _crossingResult.AppendLine($"{Environment.NewLine}The current shoved the SUV,");
                         _crossingResult.AppendLine("but you did not get");
-                        _crossingResult.AppendLine($"stuck.{Environment.NewLine}");
+                        _crossingResult.AppendLine($"swept off the road.{Environment.NewLine}");
                     }
                     else
                     {
@@ -70,43 +70,43 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                 case RiverCrossChoice.Float:
                     if (UserData.River.DisasterHappened)
                     {
-                        _crossingResult.AppendLine($"{Environment.NewLine}Your party relieved");
-                        _crossingResult.AppendLine("to reach other side after");
-                        _crossingResult.AppendLine($"trouble floating across.{Environment.NewLine}");
+                        _crossingResult.AppendLine($"{Environment.NewLine}Your family relieved");
+                        _crossingResult.AppendLine("to reach the far on-ramp after");
+                        _crossingResult.AppendLine($"the detour nearly drowned you.{Environment.NewLine}");
                     }
                     else
                     {
                         _crossingResult.AppendLine($"{Environment.NewLine}You had no trouble");
-                        _crossingResult.AppendLine("floating the wagon");
-                        _crossingResult.AppendLine($"across.{Environment.NewLine}");
+                        _crossingResult.AppendLine("taking the washed-out");
+                        _crossingResult.AppendLine($"shoulder detour.{Environment.NewLine}");
                     }
 
                     break;
                 case RiverCrossChoice.Ferry:
                     if (UserData.River.DisasterHappened)
                     {
-                        _crossingResult.AppendLine($"{Environment.NewLine}The ferry operator");
+                        _crossingResult.AppendLine($"{Environment.NewLine}The Guard convoy crew");
                         _crossingResult.AppendLine("apologizes for the");
-                        _crossingResult.AppendLine($"rough ride.{Environment.NewLine}");
+                        _crossingResult.AppendLine($"rough high-water haul.{Environment.NewLine}");
                     }
                     else
                     {
-                        _crossingResult.AppendLine($"{Environment.NewLine}The ferry got your party");
-                        _crossingResult.AppendLine($"and wagon safely across.{Environment.NewLine}");
+                        _crossingResult.AppendLine($"{Environment.NewLine}The convoy got your family");
+                        _crossingResult.AppendLine($"and SUV safely across.{Environment.NewLine}");
                     }
 
                     break;
                 case RiverCrossChoice.Indian:
                     if (UserData.River.DisasterHappened)
                     {
-                        _crossingResult.AppendLine($"{Environment.NewLine}The Indian runs away");
+                        _crossingResult.AppendLine($"{Environment.NewLine}The local drives off");
                         _crossingResult.AppendLine("as soon as you");
-                        _crossingResult.AppendLine($"reach the shore.{Environment.NewLine}");
+                        _crossingResult.AppendLine($"reach the far shoulder.{Environment.NewLine}");
                     }
                     else
                     {
-                        _crossingResult.AppendLine($"{Environment.NewLine}The Indian helped your");
-                        _crossingResult.AppendLine($"wagon safely across.{Environment.NewLine}");
+                        _crossingResult.AppendLine($"{Environment.NewLine}The local guided your");
+                        _crossingResult.AppendLine($"SUV safely across.{Environment.NewLine}");
                     }
 
                     break;

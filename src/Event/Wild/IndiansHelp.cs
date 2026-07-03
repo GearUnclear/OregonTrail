@@ -9,8 +9,8 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Wild
 {
     /// <summary>
-    ///     Indians help you find some free food, this event will be called manually more often if you are low on food to
-    ///     simulate the effect of them noticing you need help.
+    ///     A roadside produce-stand family takes you in and gives you food, refusing any payment. This event will be called
+    ///     manually more often if you are low on food to simulate them noticing you need help.
     /// </summary>
     [DirectorEvent(EventCategory.Wild)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -29,7 +29,7 @@ namespace OregonTrailDotNet.Event.Wild
             // Cast the source entity as vehicle.
             var vehicle = eventExecutor.SourceEntity as Entity.Vehicle.Vehicle;
 
-            // Indians hook you up with free food, what nice guys.
+            // The produce-stand family loads you up with food and refuses payment, what nice folks.
             vehicle?.Inventory[Entities.Food].AddQuantity(14);
         }
 
@@ -41,7 +41,7 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>Text user interface string that can be used to explain what the event did when executed.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "helpful Indians show you where to find more food";
+            return "a roadside produce-stand family takes you in and sends you off with more food, refusing payment";
         }
     }
 }

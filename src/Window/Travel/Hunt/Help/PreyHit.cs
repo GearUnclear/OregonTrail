@@ -10,14 +10,14 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.Travel.Hunt.Help
 {
     /// <summary>
-    ///     Called when the player successfully hits an animal with the bullet and the animal was added to growing list of
-    ///     animals they have killed this hunting session.
+    ///     Called when the player successfully grabs a tray before the crowd and the tray was added to growing list of
+    ///     trays they have bagged this food sweep.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class PreyHit : InputForm<TravelInfo>
     {
         /// <summary>
-        ///     Holds the string data about what we hit with our bullets.
+        ///     Holds the string data about what tray we grabbed off the table.
         /// </summary>
         private readonly StringBuilder _hitPrompt;
 
@@ -40,21 +40,21 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
         /// </returns>
         protected override string OnDialogPrompt()
         {
-            // Get the last known target.
+            // Get the last known tray.
             var target = UserData.Hunt.LastTarget;
 
-            // Prompt for hitting an animal.
+            // Prompt for grabbing a tray.
             if (target.Animal.TotalWeight > 100)
             {
-                // Compliment the player on killing big game.
-                _hitPrompt.AppendLine($"{Environment.NewLine}You shot a giant {target.Animal.Name.ToLowerInvariant()}.");
+                // Compliment the player on hauling off a door-buster haul.
+                _hitPrompt.AppendLine($"{Environment.NewLine}You grabbed a whole {target.Animal.Name.ToLowerInvariant()}.");
                 _hitPrompt.AppendLine($"Full bellies tonight!{Environment.NewLine}");
             }
             else
             {
-                // Laugh at tiny creatures below one hundred pounds.
+                // Shrug at the smaller trays below one hundred pounds.
                 _hitPrompt.AppendLine(
-                    $"{Environment.NewLine}You shot a {target.Animal.Name.ToLowerInvariant()}.{Environment.NewLine}");
+                    $"{Environment.NewLine}You grabbed a {target.Animal.Name.ToLowerInvariant()}.{Environment.NewLine}");
             }
 
             // Returns the hit message to the text renderer.

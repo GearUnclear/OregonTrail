@@ -10,8 +10,8 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.MainMenu.Help
 {
     /// <summary>
-    ///     Third and final panel on point information, explains how players profession selection affects final scoring as a
-    ///     multiplier since starting as a banker is a handicap.
+    ///     Third and final panel on clout information, explains how the player's profession selection affects final scoring as
+    ///     a multiplier since starting as a crypto bro is a handicap.
     /// </summary>
     [ParentWindow(typeof(MainMenu))]
     public sealed class PointsMultiplyerHelp : InputForm<NewGameInfo>
@@ -36,15 +36,15 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
         {
             var pointsProfession = new StringBuilder();
             pointsProfession.Append(
-                $"{Environment.NewLine}On Arriving in Oregon{Environment.NewLine}{Environment.NewLine}");
-            pointsProfession.AppendLine("You receive points for your");
-            pointsProfession.AppendLine("occupation in the new land.");
-            pointsProfession.AppendLine("Because more farmers and");
-            pointsProfession.AppendLine("carpenters were needed than");
-            pointsProfession.AppendLine("bankers, you receive double");
-            pointsProfession.AppendLine("points upon arriving in Oregon");
-            pointsProfession.AppendLine("as a carpenter, and triple");
-            pointsProfession.AppendLine($"points for arriving as a farmer.{Environment.NewLine}");
+                $"{Environment.NewLine}On Arriving in Seattle{Environment.NewLine}{Environment.NewLine}");
+            pointsProfession.AppendLine("You receive a clout multiplier");
+            pointsProfession.AppendLine("for your hustle. Because the");
+            pointsProfession.AppendLine("less you start with the more");
+            pointsProfession.AppendLine("you have to prove, you receive");
+            pointsProfession.AppendLine("double clout upon arriving in");
+            pointsProfession.AppendLine("Seattle as a DoorDash driver,");
+            pointsProfession.AppendLine("and triple clout for arriving");
+            pointsProfession.AppendLine($"as a faith-walk streamer.{Environment.NewLine}");
             return pointsProfession.ToString();
         }
 

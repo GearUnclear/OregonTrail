@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Item;
 using OregonTrailDotNet.Entity.Location;
@@ -57,6 +58,14 @@ namespace OregonTrailDotNet.Window.Travel.Store
                 return totalCost;
             }
         }
+
+        /// <summary>
+        ///     Total weight of every item still sitting on the pending receipt (not yet loaded into the vehicle's actual
+        ///     inventory). Used to enforce the vehicle's cargo cap during the pre-departure shopping pass, where
+        ///     purchases stay on the receipt until the player leaves the store rather than landing in
+        ///     <see cref="Entity.Vehicle.Vehicle.CargoWeight" /> immediately.
+        /// </summary>
+        public int PendingCargoWeight => _totalTransactions.Values.Sum(item => item.TotalWeight);
 
         /// <summary>
         ///     Checks if the player has enough animals to pull their vehicle.

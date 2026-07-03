@@ -9,8 +9,8 @@ using OregonTrailDotNet.Window.RandomEvent;
 namespace OregonTrailDotNet.Event.Vehicle
 {
     /// <summary>
-    ///     Oxen is damaged, which decreases the ability for the vehicle to be pulled forward. It is possible for this event to
-    ///     make the vehicle stuck, unable to continue until the player acquires another oxen via trading.
+    ///     A gas can ruptures, which decreases the ability for the vehicle to keep moving forward. It is possible for this
+    ///     event to make the vehicle stuck, unable to continue until the player acquires more fuel via trading.
     /// </summary>
     [DirectorEvent(EventCategory.Vehicle)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -33,7 +33,7 @@ namespace OregonTrailDotNet.Event.Vehicle
             if (vehicle == null)
                 return;
 
-            // Damages the oxen, could make vehicle stuck.
+            // Loses a gas can, could make vehicle stuck.
             vehicle.Inventory[Entities.Animal].ReduceQuantity(1);
 
             // Reduce the total possible mileage of the vehicle this turn.
@@ -48,7 +48,7 @@ namespace OregonTrailDotNet.Event.Vehicle
         /// <returns>Text user interface string that can be used to explain what the event did when executed.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "ox injures leg---you have to put it down";
+            return "a gas can ruptures---you have to ditch it";
         }
     }
 }

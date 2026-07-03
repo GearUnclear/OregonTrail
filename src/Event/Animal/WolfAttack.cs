@@ -11,8 +11,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Animal
 {
     /// <summary>
-    ///     A pack of wolves is attacking the vehicle party! If there are not enough bullets to stop them then they will
-    ///     overwhelm the people and kill them!
+    ///     A sounder of feral hogs is rushing the vehicle party! If there are not enough bullets to stop them then they
+    ///     will overwhelm the people and kill them!
     /// </summary>
     [DirectorEvent(EventCategory.Animal)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -39,7 +39,7 @@ namespace OregonTrailDotNet.Event.Animal
         {
             var firePrompt = new StringBuilder();
             firePrompt.Clear();
-            firePrompt.AppendLine("A pack of wolves attack you in the night!");
+            firePrompt.AppendLine("A sounder of feral hogs rushes the SUV in the night!");
             firePrompt.Append("Resulting in ");
             return firePrompt.ToString();
         }

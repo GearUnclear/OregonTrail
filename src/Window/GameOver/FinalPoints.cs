@@ -17,9 +17,9 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.GameOver
 {
     /// <summary>
-    ///     Shows point tabulation based on current simulation statistics. This way if the player dies or finishes the game we
-    ///     just attach this state to the travel mode and it will show the final score and reset the game and return to main
-    ///     menu when the player is done.
+    ///     Shows the Net Worth and Clout tabulation based on current simulation statistics. This way if the player dies or
+    ///     finishes the road trip we just attach this state to the travel mode and it will show the final score and reset the
+    ///     game and return to main menu when the player is done.
     /// </summary>
     [ParentWindow(typeof(GameOver))]
     public sealed class FinalPoints : InputForm<GameOverInfo>
@@ -49,7 +49,7 @@ namespace OregonTrailDotNet.Window.GameOver
         protected override string OnDialogPrompt()
         {
             // Build up a representation of the current points the player has.
-            _pointsPrompt.AppendLine($"{Environment.NewLine}Points for arriving in Oregon{Environment.NewLine}");
+            _pointsPrompt.AppendLine($"{Environment.NewLine}Net Worth & Clout for reaching Seattle{Environment.NewLine}");
 
             // Shortcut to the game simulation instance to make code easier to read.
             var game = GameSimulationApp.Instance;
@@ -72,7 +72,7 @@ namespace OregonTrailDotNet.Window.GameOver
 
             var spareParts = new Tuple<int, string, int>(
                 spareAxles.Item1 + spareTongues.Item1 + spareWheels.Item1,
-                "spare wagon parts",
+                "spare auto parts",
                 spareAxles.Item3 + spareTongues.Item3 + spareWheels.Item3);
 
             // Calculates the average health just once because we need it many times.
@@ -89,23 +89,23 @@ namespace OregonTrailDotNet.Window.GameOver
                     game.Vehicle.PassengerLivingCount,
                     $"people in {avgHealth.ToDescriptionAttribute().ToLowerInvariant()} health",
                     game.Vehicle.PassengerLivingCount*(int) avgHealth),
-                new Tuple<int, string, int>(1, "wagon", Resources.Vehicle.Points),
+                new Tuple<int, string, int>(1, "SUV", Resources.Vehicle.Points),
                 new Tuple<int, string, int>(
                     game.Vehicle.Inventory[Entities.Animal].Quantity,
-                    "oxen",
+                    "cans of gas",
                     game.Vehicle.Inventory[Entities.Animal].Points),
                 spareParts,
                 new Tuple<int, string, int>(
                     game.Vehicle.Inventory[Entities.Clothes].Quantity,
-                    "sets of clothing",
+                    "crates of leggings",
                     game.Vehicle.Inventory[Entities.Clothes].Points),
                 new Tuple<int, string, int>(
                     game.Vehicle.Inventory[Entities.Ammo].Quantity,
-                    "bullets",
+                    "boxes of ammo",
                     game.Vehicle.Inventory[Entities.Ammo].Points),
                 new Tuple<int, string, int>(
                     game.Vehicle.Inventory[Entities.Food].Quantity,
-                    "pounds of food",
+                    "pounds of snacks",
                     game.Vehicle.Inventory[Entities.Food].Points),
                 new Tuple<int, string, int>(
                     game.Vehicle.Inventory[Entities.Cash].Quantity,
@@ -126,6 +126,9 @@ namespace OregonTrailDotNet.Window.GameOver
             var totalPoints = 0;
             foreach (var tuplePoint in tuplePoints)
                 totalPoints += tuplePoint.Item3;
+
+            // Apply the cumulative score delta from the forking decisions the player made along the trail.
+            totalPoints = System.Math.Max(0, totalPoints + game.Choices.ScoreDelta);
 
             _pointsPrompt.AppendLine($"Total: {totalPoints}");
 
@@ -151,13 +154,13 @@ namespace OregonTrailDotNet.Window.GameOver
             switch (leaderPerson.Profession)
             {
                 case Profession.Banker:
-                    _pointsPrompt.AppendLine($"points are normal, no bonus!{Environment.NewLine}");
+                    _pointsPrompt.AppendLine($"clout is normal, no bonus!{Environment.NewLine}");
                     break;
                 case Profession.Carpenter:
-                    _pointsPrompt.AppendLine($"points are doubled.{Environment.NewLine}");
+                    _pointsPrompt.AppendLine($"clout is doubled.{Environment.NewLine}");
                     break;
                 case Profession.Farmer:
-                    _pointsPrompt.AppendLine($"points are tripled.{Environment.NewLine}");
+                    _pointsPrompt.AppendLine($"clout is tripled.{Environment.NewLine}");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -165,6 +168,14 @@ namespace OregonTrailDotNet.Window.GameOver
 
             // Add the score to the current listing that will get saved.
             GameSimulationApp.Instance.Scoring.Add(new Highscore(leaderPerson.Name, totalPointsWithBonus));
+
+            // Recap the forking decisions the player made along the trail.
+            if (game.Choices.Epilogue.Count > 0)
+            {
+                _pointsPrompt.AppendLine(string.Empty);
+                _pointsPrompt.AppendLine("Along the way, you chose:");
+                foreach (var line in game.Choices.Epilogue) _pointsPrompt.AppendLine("  - " + line);
+            }
 
             return _pointsPrompt.ToString();
         }

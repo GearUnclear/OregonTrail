@@ -58,25 +58,25 @@ namespace OregonTrailDotNet.Window.Travel.Command
                 switch (item.Key)
                 {
                     case Entities.Animal:
-                        suppliesList.Add(new Tuple<string, string>("oxen", itemFormattedQuantity));
+                        suppliesList.Add(new Tuple<string, string>("gas cans", itemFormattedQuantity));
                         break;
                     case Entities.Clothes:
-                        suppliesList.Add(new Tuple<string, string>("sets of clothing", itemFormattedQuantity));
+                        suppliesList.Add(new Tuple<string, string>("crates of leggings", itemFormattedQuantity));
                         break;
                     case Entities.Ammo:
-                        suppliesList.Add(new Tuple<string, string>("bullets", itemFormattedQuantity));
+                        suppliesList.Add(new Tuple<string, string>("boxes of ammo", itemFormattedQuantity));
                         break;
                     case Entities.Wheel:
-                        suppliesList.Add(new Tuple<string, string>("wagon wheels", itemFormattedQuantity));
+                        suppliesList.Add(new Tuple<string, string>("spare tires", itemFormattedQuantity));
                         break;
                     case Entities.Axle:
-                        suppliesList.Add(new Tuple<string, string>("wagon axles", itemFormattedQuantity));
+                        suppliesList.Add(new Tuple<string, string>("alternators", itemFormattedQuantity));
                         break;
                     case Entities.Tongue:
-                        suppliesList.Add(new Tuple<string, string>("wagon tongues", itemFormattedQuantity));
+                        suppliesList.Add(new Tuple<string, string>("transmissions", itemFormattedQuantity));
                         break;
                     case Entities.Food:
-                        suppliesList.Add(new Tuple<string, string>("pounds of food",
+                        suppliesList.Add(new Tuple<string, string>("pounds of snacks",
                             item.Value.TotalWeight.ToString("N0")));
                         break;
                     case Entities.Cash:

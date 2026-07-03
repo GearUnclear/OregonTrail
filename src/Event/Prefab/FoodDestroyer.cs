@@ -38,11 +38,15 @@ namespace OregonTrailDotNet.Event.Prefab
             if (vehicle.Inventory[Entities.Food].Quantity < 4)
                 return;
 
-            // Determine the amount of food we will destroy up to.
+            // Determine the amount of food we will destroy up to (about a quarter of the stock).
             var spoiledFood = vehicle.Inventory[Entities.Food].Quantity/4;
 
-            // Remove some random amount of food, the minimum being three pieces.
-            vehicle.Inventory[Entities.Food].ReduceQuantity(GameSimulationApp.Instance.Random.Next(3, spoiledFood));
+            // Minimum spoilage is three, but a small stock (quantity 4-11) only quarters to 1-2, and
+            // Random.Next(min, max) throws when min > max, so clamp the floor to never exceed the ceiling.
+            // Upper bound is spoiledFood + 1 so the destroyed amount is inclusive of a full quarter.
+            var minSpoiled = spoiledFood < 3 ? spoiledFood : 3;
+            vehicle.Inventory[Entities.Food].ReduceQuantity(
+                GameSimulationApp.Instance.Random.Next(minSpoiled, spoiledFood + 1));
         }
 
         /// <summary>

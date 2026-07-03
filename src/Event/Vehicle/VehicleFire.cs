@@ -11,7 +11,8 @@ using OregonTrailDotNet.Module.Director;
 namespace OregonTrailDotNet.Event.Vehicle
 {
     /// <summary>
-    ///     Fire in the vehicle occurs, there is a chance that some of the inventory items or people were burned to death.
+    ///     An engine fire on the shoulder occurs, there is a chance that some of the inventory items or people were burned
+    ///     to death.
     /// </summary>
     [DirectorEvent(EventCategory.Vehicle)]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -38,7 +39,7 @@ namespace OregonTrailDotNet.Event.Vehicle
         {
             var firePrompt = new StringBuilder();
             firePrompt.Clear();
-            firePrompt.AppendLine("Fire in the wagon!");
+            firePrompt.AppendLine("Engine fire on the shoulder!");
             firePrompt.Append("Resulting in ");
             return firePrompt.ToString();
         }

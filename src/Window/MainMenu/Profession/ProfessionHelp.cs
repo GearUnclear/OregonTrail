@@ -31,19 +31,31 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
         /// </returns>
         protected override string OnDialogPrompt()
         {
-            // Information about professions and how they work.
+            // Information about professions, the life each one represents, and how that life scores.
             var job = new StringBuilder();
-            job.Append($"{Environment.NewLine}Traveling to Oregon isn't easy!{Environment.NewLine}");
-            job.Append($"But if you're a banker, you'll{Environment.NewLine}");
-            job.Append($"have more money for supplies{Environment.NewLine}");
-            job.Append($"and services than a carpenter{Environment.NewLine}");
-            job.Append($"or a farmer.{Environment.NewLine}{Environment.NewLine}");
-            job.Append($"However, the harder you have{Environment.NewLine}");
-            job.Append($"to try, the more points you{Environment.NewLine}");
-            job.Append($"deserve! Therefore, the{Environment.NewLine}");
-            job.Append($"farmer earns the greatest{Environment.NewLine}");
-            job.Append($"number of points and the{Environment.NewLine}");
-            job.Append($"banker earns the least.{Environment.NewLine}{Environment.NewLine}");
+            job.AppendLine($"{Environment.NewLine}Three kinds of people are fleeing");
+            job.AppendLine("to Seattle this year. Each starts");
+            job.AppendLine($"the drive with a different life:{Environment.NewLine}");
+
+            job.AppendLine("The CRYPTO BRO from Miami Beach has");
+            job.AppendLine("liquidity, a ring light, and a wallet");
+            job.AppendLine("seed phrase tattooed where his mother");
+            job.AppendLine("can't see it. He starts richest and so");
+            job.AppendLine($"has the easiest road -- and the least glory.{Environment.NewLine}");
+
+            job.AppendLine("The DOORDASH DRIVER from Ohio knows every");
+            job.AppendLine("gas station between here and the coast by");
+            job.AppendLine("its bathroom. Middling funds, iron nerves,");
+            job.AppendLine($"a tolerance for traffic bordering on holy.{Environment.NewLine}");
+
+            job.AppendLine("The FAITH-WALK STREAMER from Illinois has");
+            job.AppendLine("followers, forty dollars, and the serene");
+            job.AppendLine("confidence of someone livestreaming their");
+            job.AppendLine("own pilgrimage. Poorest start, hardest");
+            job.AppendLine($"road -- and the greatest points if you live.{Environment.NewLine}");
+
+            job.AppendLine("The harder the life, the bigger the legend.");
+            job.AppendLine($"History is graded on a curve.{Environment.NewLine}");
             return job.ToString();
         }
 

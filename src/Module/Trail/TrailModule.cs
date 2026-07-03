@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Module.Trail
         public TrailModule()
         {
             // Load a trail from file or prefab.
-            Trail = TrailRegistry.OregonTrail;
+            Trail = TrailRegistry.AsphaltTrail;
 
             // Startup location on the trail and distance to next point so it triggers immediately when we tick the first day.
             LocationIndex = 0;

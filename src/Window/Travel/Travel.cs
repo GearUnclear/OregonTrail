@@ -6,8 +6,11 @@ using System.Text;
 using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Location;
 using OregonTrailDotNet.Entity.Location.Point;
+using OregonTrailDotNet.Event.Person;
 using OregonTrailDotNet.Window.Travel.Command;
+using OregonTrailDotNet.Window.Travel.Decision;
 using OregonTrailDotNet.Window.Travel.Dialog;
+using OregonTrailDotNet.Window.Travel.DoorDash.Help;
 using OregonTrailDotNet.Window.Travel.Hunt.Help;
 using OregonTrailDotNet.Window.Travel.Rest;
 using OregonTrailDotNet.Window.Travel.RiverCrossing.Help;
@@ -35,6 +38,22 @@ namespace OregonTrailDotNet.Window.Travel
         ///     Determines if the simulation should continue to check if the game has ended.
         /// </summary>
         private bool GameOver { get; set; }
+
+        /// <summary>
+        ///     One-shot guard so the Touchdown Jesus shrine death beat fires at most once per game.
+        /// </summary>
+        private bool _shrineBeatFired;
+
+        /// <summary>
+        ///     One-shot guards so each location-scripted forking decision fires at most once per game.
+        /// </summary>
+        private bool _buceesFired;
+
+        private bool _caravanFired;
+
+        private bool _armFired;
+
+        private bool _checkpointFired;
 
         /// <summary>
         ///     Attaches state that picks strings from array at random to show from point of interest.
@@ -138,6 +157,14 @@ namespace OregonTrailDotNet.Window.Travel
         }
 
         /// <summary>
+        ///     Attaches the DoorDash gig prompt so the player can spend a day running deliveries in town for cash.
+        /// </summary>
+        private void DriveForDoorDash()
+        {
+            SetForm(typeof(DoorDashPrompt));
+        }
+
+        /// <summary>
         ///     Determines if there is a store, people to get advice from, and a place to rest, what options are available, etc.
         /// </summary>
         private void UpdateLocation()
@@ -173,7 +200,12 @@ namespace OregonTrailDotNet.Window.Travel
                         AddCommand(TalkToPeople, TravelCommands.TalkToPeople);
 
                     if (location.ShoppingAllowed)
+                    {
                         AddCommand(BuySupplies, TravelCommands.BuySupplies);
+
+                        // DoorDash only operates in the towns big enough to shop in.
+                        AddCommand(DriveForDoorDash, TravelCommands.DriveForDoorDash);
+                    }
                     break;
                 case LocationStatus.Departed:
                     AddCommand(AttemptToTrade, TravelCommands.AttemptToTrade);
@@ -249,6 +281,61 @@ namespace OregonTrailDotNet.Window.Travel
             {
                 game.Trail.CurrentLocation.ArrivalFlag = true;
                 SetForm(typeof(LocationArrive));
+                return;
+            }
+
+            // Design-spec §7/A3: the one location-scripted death beat. At the Touchdown Jesus shrine there is a
+            // chance the 62-ft Styrofoam Jesus is struck by lightning and a party member is caught in the fire.
+            // Only the location-gated trigger is new; the StyrofoamJesus event reuses the unchanged PersonInjure
+            // mechanic. Guarded to fire at most once per game.
+            if (!_shrineBeatFired &&
+                game.Trail.CurrentLocation is Landmark &&
+                game.Trail.CurrentLocation.Name.StartsWith("Touchdown Jesus") &&
+                game.Vehicle.Passengers.Count > 0)
+            {
+                _shrineBeatFired = true;
+                if (game.Random.Next(3) == 0)
+                {
+                    var victim = game.Vehicle.Passengers[game.Random.Next(game.Vehicle.Passengers.Count)];
+                    game.EventDirector.TriggerEvent(victim, typeof(StyrofoamJesus));
+                    return;
+                }
+            }
+
+            // Location-scripted forking decisions. Each fires at most once per game and hands the player a numbered
+            // choice Form; the chosen option is recorded in the ChoiceLedger for endgame scoring and epilogue recap.
+            // NOTE: the "pack" decision is deliberately NOT triggered here -- it fires from LocationDepart as the
+            // party pulls out of Cape Coral, so it cannot preempt the opening supply Store that OnWindowPostCreate
+            // attaches while the first location is still Unreached.
+            if (!_buceesFired && game.Trail.CurrentLocation.Name.StartsWith("Buc-ee's, Sevierville") &&
+                game.Vehicle.Passengers.Count > 0)
+            {
+                _buceesFired = true;
+                SetForm(typeof(BuceesHaulDecision));
+                return;
+            }
+
+            if (!_caravanFired && game.Trail.CurrentLocation.Name.StartsWith("Carhenge") &&
+                game.Vehicle.Passengers.Count > 0)
+            {
+                _caravanFired = true;
+                SetForm(typeof(CaravanDecision));
+                return;
+            }
+
+            if (!_armFired && game.Trail.CurrentLocation.Name.StartsWith("Open-Carry Walmart") &&
+                game.Vehicle.Passengers.Count > 0)
+            {
+                _armFired = true;
+                SetForm(typeof(ArmYourselfDecision));
+                return;
+            }
+
+            if (!_checkpointFired && game.Trail.CurrentLocation.Name.StartsWith("Portland") &&
+                game.Vehicle.Passengers.Count > 0)
+            {
+                _checkpointFired = true;
+                SetForm(typeof(CheckpointDecision));
                 return;
             }
 
