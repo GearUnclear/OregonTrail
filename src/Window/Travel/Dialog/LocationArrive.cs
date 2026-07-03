@@ -2,9 +2,11 @@
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using OregonTrailDotNet.Entity.Vehicle;
 using OregonTrailDotNet.Renderer;
+using OregonTrailDotNet.UI;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 using WolfCurses.Window.Form.Input;
@@ -39,6 +41,17 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
             : DialogType.YesNo;
 
         /// <summary>
+        ///     Tracks the arrow-key highlighted line between the Yes/No options when a look-around choice is offered.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
+
+        /// <summary>
+        ///     Cached result of <see cref="OnDialogPrompt" />, computed once (mirroring the base InputForm's own
+        ///     call-once-then-cache contract) rather than every render tick.
+        /// </summary>
+        private string _promptText;
+
+        /// <summary>
         ///     Fired after the state has been completely attached to the simulation letting the state know it can browse the user
         ///     data and other properties below it.
         /// </summary>
@@ -48,6 +61,29 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
 
             // Vehicle is stopped when you are looking around.
             GameSimulationApp.Instance.Vehicle.Status = VehicleStatus.Stopped;
+
+            _promptText = OnDialogPrompt();
+        }
+
+        /// <summary>
+        ///     Returns a text only representation of the current game Windows state. When the dialog is a real Yes/No
+        ///     choice (not the first-location prompt-only message) an arrow-navigable menu is appended below the text.
+        /// </summary>
+        public override string OnRenderForm()
+        {
+            var text = _promptText;
+
+            if (GameSimulationApp.Instance.Trail.IsFirstLocation)
+                return text;
+
+            var menu = new List<ArrowMenuOption>
+            {
+                new ArrowMenuOption("1. Yes", "y"),
+                new ArrowMenuOption("2. No", "n")
+            };
+            _menu.SetOptions(menu);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            return text + Environment.NewLine + _menu.Render();
         }
 
         /// <summary>

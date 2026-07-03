@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using OregonTrailDotNet.Entity;
+using OregonTrailDotNet.UI;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 
@@ -21,6 +22,11 @@ namespace OregonTrailDotNet.Window.Travel.Decision
         ///     Holds representation of the checkpoint decision as text presented to the player.
         /// </summary>
         private readonly StringBuilder _decisionPrompt;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the three checkpoint options.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CheckpointDecision" /> class.
@@ -77,9 +83,15 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _decisionPrompt.AppendLine("five minutes was decided a thousand miles ago.");
 
             _decisionPrompt.AppendLine(string.Empty);
-            _decisionPrompt.AppendLine("  1. Comply — papers out, trunk open, submit to the search");
-            _decisionPrompt.AppendLine("  2. Assert — stand on your rights and demand passage");
-            _decisionPrompt.Append("  3. Run the backroad around the line");
+
+            _menu.SetOptions(new[]
+            {
+                new ArrowMenuOption("1. Comply — papers out, trunk open, submit to the search", "1"),
+                new ArrowMenuOption("2. Assert — stand on your rights and demand passage", "2"),
+                new ArrowMenuOption("3. Run the backroad around the line", "3")
+            });
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            _decisionPrompt.Append(_menu.Render());
 
             return _decisionPrompt.ToString();
         }

@@ -2,8 +2,10 @@
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using OregonTrailDotNet.Entity.Person;
+using OregonTrailDotNet.UI;
 using WolfCurses.Utility;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
@@ -24,6 +26,11 @@ namespace OregonTrailDotNet.Window.Travel.Command
         private StringBuilder _ration;
 
         /// <summary>
+        ///     Tracks the arrow-key highlighted line among the ration choices.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="ChangeRations" /> class.
         ///     This constructor will be used by the other one
         /// </summary>
@@ -42,18 +49,6 @@ namespace OregonTrailDotNet.Window.Travel.Command
             base.OnFormPostCreate();
 
             _ration = new StringBuilder();
-            _ration.AppendLine($"{Environment.NewLine}Change food rations");
-            _ration.AppendLine(
-                $"(currently \"{GameSimulationApp.Instance.Vehicle.Ration.ToDescriptionAttribute()}\"){Environment.NewLine}");
-            _ration.AppendLine("The amount of food the people in");
-            _ration.AppendLine("your family eat each day can");
-            _ration.AppendLine($"change. These amounts are:{Environment.NewLine}");
-            _ration.AppendLine("1. filling - meals are large and");
-            _ration.AppendLine($"   generous.{Environment.NewLine}");
-            _ration.AppendLine("2. meager - meals are small, but");
-            _ration.AppendLine($"   adequate.{Environment.NewLine}");
-            _ration.AppendLine("3. bare bones - meals are very");
-            _ration.Append("   small, everyone stays hungry.");
         }
 
         /// <summary>
@@ -65,6 +60,26 @@ namespace OregonTrailDotNet.Window.Travel.Command
         /// </returns>
         public override string OnRenderForm()
         {
+            // Rebuilt every render pass (not just on form creation) so the arrow-key highlight stays current.
+            _ration.Clear();
+            _ration.AppendLine($"{Environment.NewLine}Change food rations");
+            _ration.AppendLine(
+                $"(currently \"{GameSimulationApp.Instance.Vehicle.Ration.ToDescriptionAttribute()}\"){Environment.NewLine}");
+            _ration.AppendLine("The amount of food the people in");
+            _ration.AppendLine("your family eat each day can");
+            _ration.AppendLine($"change. These amounts are:{Environment.NewLine}");
+
+            var options = new List<ArrowMenuOption>
+            {
+                new ArrowMenuOption("1. filling - meals are large and generous.", "1"),
+                new ArrowMenuOption("2. meager - meals are small, but adequate.", "2"),
+                new ArrowMenuOption("3. bare bones - meals are very small, everyone stays hungry.", "3")
+            };
+
+            _menu.SetOptions(options);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            _ration.Append(_menu.Render());
+
             return _ration.ToString();
         }
 

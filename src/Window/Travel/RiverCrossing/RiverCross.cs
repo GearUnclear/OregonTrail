@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OregonTrailDotNet.Renderer;
+using OregonTrailDotNet.UI;
 using OregonTrailDotNet.Window.Travel.Rest;
 using OregonTrailDotNet.Window.Travel.RiverCrossing.Ferry;
 using OregonTrailDotNet.Window.Travel.RiverCrossing.Help;
@@ -44,15 +45,14 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
         private List<RiverCrossChoice> _riverChoices;
 
         /// <summary>
-        ///     Holds all the information about the river and crossing decisions so it only needs to be constructed once at
-        ///     startup.
-        /// </summary>
-        private StringBuilder _riverInfo;
-
-        /// <summary>
         ///     Keeps track of the total number of river options that have been configured to display for this crossing.
         /// </summary>
         private int _riverOptionsCount;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the river crossing choices.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RiverCross" /> class.
@@ -81,32 +81,15 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                 throw new InvalidCastException(
                     "Unable to cast location as river crossing even though it returns as one!");
 
-            // Re-create the mappings and text information on post create each time.
+            // Re-create the mappings on post create each time.
             _riverOptionsCount = 0;
             _riverChoices =
                 new List<RiverCrossChoice>(Enum.GetValues(typeof(RiverCrossChoice)).Cast<RiverCrossChoice>());
             _choiceMappings = new Dictionary<string, RiverCrossChoice>();
             _riverActions = new Dictionary<RiverCrossChoice, Action>();
-            _riverInfo = new StringBuilder();
 
-            // Flooded-interstate banner above the crossing menu.
-            _riverInfo.AppendLine(SceneArt.FloodRiverBanner);
-
-            // Header text for above menu comes from river crossing info object.
-            _riverInfo.AppendLine("--------------------------------");
-            _riverInfo.AppendLine($"{riverLocation.Name}");
-            _riverInfo.AppendLine($"{game.Time.Date}");
-            _riverInfo.AppendLine("--------------------------------");
-            _riverInfo.AppendLine(
-                $"Weather: {riverLocation.Weather.ToDescriptionAttribute()}");
-            _riverInfo.AppendLine($"Washed-out roadbed: {UserData.River.RiverWidth:N0} feet");
-            _riverInfo.AppendLine($"Floodwater depth: {UserData.River.RiverDepth:N0} feet");
-            if (UserData.River.RiverDepth > 3)
-                _riverInfo.AppendLine("** Water is DEEP -- gunning it or the detour risks disaster. **");
-            _riverInfo.AppendLine("--------------------------------");
-            _riverInfo.AppendLine($"You may:{Environment.NewLine}");
-
-            // Loop through all the river choice commands and print them out for the state.
+            // Loop through all the river choice commands and map them for the state (text rendering happens fresh
+            // every OnRenderForm call so the arrow-key highlight stays current).
             for (var index = 1; index < _riverChoices.Count; index++)
             {
                 // Get the current river choice enumeration value we casted into list.
@@ -164,12 +147,6 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
 
             // Add the mapping for text user interface mapping to enumeration value for action invoking below.
             _choiceMappings.Add(_riverOptionsCount.ToString(), riverChoice);
-
-            // Last line should not print new line.
-            if (_riverChoices.Last() == riverChoice)
-                _riverInfo.Append(_riverOptionsCount + ". " + riverChoice.ToDescriptionAttribute());
-            else
-                _riverInfo.AppendLine(_riverOptionsCount + ". " + riverChoice.ToDescriptionAttribute());
 
             // Depending on selection made we will decide on what to do.
             switch (riverChoice)
@@ -242,11 +219,51 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
         ///     waiting input, etc.
         /// </summary>
         /// <returns>
-        ///     The river crossing text user interface.<see cref="_riverInfo" />.
+        ///     The river crossing text user interface.
         /// </returns>
         public override string OnRenderForm()
         {
-            return _riverInfo.ToString();
+            // Rebuilt every render pass (not just on form creation) so the arrow-key highlight stays current.
+            var game = GameSimulationApp.Instance;
+
+            // Cast the current location as river crossing.
+            var riverLocation = game.Trail.CurrentLocation as Entity.Location.Point.RiverCrossing;
+            if (riverLocation == null)
+                throw new InvalidCastException(
+                    "Unable to cast location as river crossing even though it returns as one!");
+
+            var riverInfo = new StringBuilder();
+
+            // Flooded-interstate banner above the crossing menu.
+            riverInfo.AppendLine(SceneArt.FloodRiverBanner);
+
+            // Header text for above menu comes from river crossing info object.
+            riverInfo.AppendLine("--------------------------------");
+            riverInfo.AppendLine($"{riverLocation.Name}");
+            riverInfo.AppendLine($"{game.Time.Date}");
+            riverInfo.AppendLine("--------------------------------");
+            riverInfo.AppendLine(
+                $"Weather: {riverLocation.Weather.ToDescriptionAttribute()}");
+            riverInfo.AppendLine($"Washed-out roadbed: {UserData.River.RiverWidth:N0} feet");
+            riverInfo.AppendLine($"Floodwater depth: {UserData.River.RiverDepth:N0} feet");
+            if (UserData.River.RiverDepth > 3)
+                riverInfo.AppendLine("** Water is DEEP -- gunning it or the detour risks disaster. **");
+            riverInfo.AppendLine("--------------------------------");
+            riverInfo.AppendLine($"You may:{Environment.NewLine}");
+
+            // Build arrow-navigable options from the choice mappings computed in OnFormPostCreate; values match
+            // exactly the string keys OnInputBufferReturned already looks up in _choiceMappings/_riverActions.
+            var options = _choiceMappings
+                .OrderBy(mapping => int.Parse(mapping.Key))
+                .Select(mapping =>
+                    new ArrowMenuOption($"{mapping.Key}. {mapping.Value.ToDescriptionAttribute()}", mapping.Key))
+                .ToList();
+
+            _menu.SetOptions(options);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            riverInfo.Append(_menu.Render());
+
+            return riverInfo.ToString();
         }
 
         /// <summary>Fired when the game Windows current state is not null and input buffer does not match any known command.</summary>

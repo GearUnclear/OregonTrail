@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using OregonTrailDotNet.Entity;
+using OregonTrailDotNet.UI;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 
@@ -18,6 +19,11 @@ namespace OregonTrailDotNet.Window.Travel.Decision
         ///     Holds the rendered decision prompt and numbered menu.
         /// </summary>
         private readonly StringBuilder _prompt;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the three haul options.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="BuceesHaulDecision" /> class.
@@ -50,9 +56,15 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _prompt.AppendLine(
                 "A man in a vest is hiring drivers to run unmarked pallets to Knoxville, cash same-day, no questions. Your wallet, your pantry, and your calendar can each afford to win exactly once here.");
             _prompt.AppendLine(string.Empty);
-            _prompt.AppendLine("  1. Blow the budget on a mega-haul — brisket, water, the good jerky");
-            _prompt.AppendLine("  2. Stay disciplined — top off the tank, grab a little, keep the powder dry");
-            _prompt.Append("  3. Take the pallet gig — haul freight to Knoxville and back");
+
+            _menu.SetOptions(new[]
+            {
+                new ArrowMenuOption("1. Blow the budget on a mega-haul — brisket, water, the good jerky", "1"),
+                new ArrowMenuOption("2. Stay disciplined — top off the tank, grab a little, keep the powder dry", "2"),
+                new ArrowMenuOption("3. Take the pallet gig — haul freight to Knoxville and back", "3")
+            });
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            _prompt.Append(_menu.Render());
             return _prompt.ToString();
         }
 

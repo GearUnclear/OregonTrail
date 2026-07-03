@@ -116,3 +116,18 @@ set -a; source ~/.config/asphalt-trail/google_ai.env; set +a   # exports GOOGLE_
   `imagen-4.0-*`. Used for experiments like generating the smiling-sun logo art.
 - The key is also visible in chat history where it was first pasted — **rotate it in Google AI
   Studio** if anything sensitive ever rides on it.
+
+## Web deployment (NOT in the repo)
+
+The game is live at `https://wagenhoffer.dev/oregon` as a public, **single-player-at-a-time**
+web terminal (ttyd streams the real console binary over WebSocket into a browser xterm.js
+instance — no rewrite of `Program.cs`'s TTY dependency). Every file involved — the systemd
+unit, the Apache reverse-proxy rules, the deployed binaries under `/opt/oregon-trail-web/`,
+the dedicated low-priv `oregon` system user — lives on the host, **outside this repo**.
+
+**Full writeup, architecture diagram, redeploy steps, and security rationale: [`DEPLOYMENT.md`](./DEPLOYMENT.md).**
+
+TL;DR: a non-blocking `flock` in `/opt/oregon-trail-web/play.sh` means the first WebSocket
+connection gets the game, any concurrent one gets a "someone else is playing, refresh to
+retry" message and is dropped. To redeploy after a code change, rebuild and copy the four
+output files into `/opt/oregon-trail-web/bin/` — see `DEPLOYMENT.md` for the exact command.

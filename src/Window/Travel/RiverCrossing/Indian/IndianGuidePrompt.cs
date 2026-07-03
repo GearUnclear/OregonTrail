@@ -2,8 +2,10 @@
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using OregonTrailDotNet.Entity;
+using OregonTrailDotNet.UI;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 using WolfCurses.Window.Form.Input;
@@ -46,6 +48,48 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Indian
         ///     treat this as a prompt only and no input.
         /// </summary>
         public override bool InputFillsBuffer => HasEnoughClothingToTrade;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line between the Yes/No options when the trade can be made.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
+
+        /// <summary>
+        ///     Cached result of <see cref="OnDialogPrompt" />, computed once (mirroring the base InputForm's own
+        ///     call-once-then-cache contract) rather than every render tick.
+        /// </summary>
+        private string _promptText;
+
+        /// <summary>
+        ///     Fired after the state has been completely attached to the simulation letting the state know it can browse the user
+        ///     data and other properties below it.
+        /// </summary>
+        public override void OnFormPostCreate()
+        {
+            base.OnFormPostCreate();
+            _promptText = OnDialogPrompt();
+        }
+
+        /// <summary>
+        ///     Returns a text only representation of the current game Windows state. When the player has enough clothing
+        ///     to trade this is a real Yes/No choice and gets an arrow-navigable menu; otherwise it's a plain message.
+        /// </summary>
+        public override string OnRenderForm()
+        {
+            var text = _promptText;
+
+            if (!HasEnoughClothingToTrade)
+                return text;
+
+            var menu = new List<ArrowMenuOption>
+            {
+                new ArrowMenuOption("1. Yes", "y"),
+                new ArrowMenuOption("2. No", "n")
+            };
+            _menu.SetOptions(menu);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            return text + Environment.NewLine + _menu.Render();
+        }
 
         /// <summary>
         ///     Fired when dialog prompt is attached to active game Windows and would like to have a string returned.

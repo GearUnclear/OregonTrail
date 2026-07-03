@@ -2,6 +2,7 @@
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using OregonTrailDotNet.Renderer;
 using OregonTrailDotNet.Window.MainMenu.Help;
@@ -41,20 +42,52 @@ namespace OregonTrailDotNet.Window.MainMenu
         }
 
         /// <summary>
-        ///     Called after the Windows has been added to list of modes and made active.
+        ///     Called after the Windows has been added to list of modes and made active. WolfCurses' bare-window
+        ///     AddCommand menu has no rendering hook we can highlight, so the menu is shown through
+        ///     <see cref="MainMenuScreen" />, a normal Form, instead.
         /// </summary>
         public override void OnWindowPostCreate()
         {
+            SetForm(typeof(MainMenuScreen));
+        }
+
+        /// <summary>
+        ///     Header text shown above the main menu (title art + "You may:").
+        /// </summary>
+        internal static string BuildMenuHeader()
+        {
             var headerText = new StringBuilder();
             headerText.AppendLine(SceneArt.Title);
-            headerText.Append($"{Environment.NewLine}You may:");
-            MenuHeader = headerText.ToString();
+            headerText.AppendLine($"{Environment.NewLine}You may:");
+            return headerText.ToString();
+        }
 
-            AddCommand(TravelTheTrail, MainMenuCommands.TravelTheTrail);
-            AddCommand(LearnAboutTrail, MainMenuCommands.LearnAboutTheTrail);
-            AddCommand(SeeTopTen, MainMenuCommands.SeeTheOregonTopTen);
-            AddCommand(ChooseManagementOptions, MainMenuCommands.ChooseManagementOptions);
-            AddCommand(CloseSimulation, MainMenuCommands.CloseSimulation);
+        /// <summary>
+        ///     The main menu's commands and the handler each one invokes, in display order. Consumed by
+        ///     <see cref="MainMenuScreen" /> to build its arrow-navigable option list every render pass.
+        /// </summary>
+        internal IEnumerable<(MainMenuCommands Command, Action Handler)> GetMenuCommands()
+        {
+            return new List<(MainMenuCommands, Action)>
+            {
+                (MainMenuCommands.TravelTheTrail, TravelTheTrail),
+                (MainMenuCommands.LearnAboutTheTrail, LearnAboutTrail),
+                (MainMenuCommands.SeeTheOregonTopTen, SeeTopTen),
+                (MainMenuCommands.ChooseManagementOptions, ChooseManagementOptions),
+                (MainMenuCommands.CloseSimulation, CloseSimulation)
+            };
+        }
+
+        /// <summary>
+        ///     Fired when the game Windows changes its internal state; whenever nothing else claims the form slot,
+        ///     re-attach the main menu (mirrors the equivalent guard in <c>Travel.OnFormChange</c>).
+        /// </summary>
+        protected override void OnFormChange()
+        {
+            base.OnFormChange();
+
+            if (CurrentForm == null)
+                SetForm(typeof(MainMenuScreen));
         }
 
         /// <summary>

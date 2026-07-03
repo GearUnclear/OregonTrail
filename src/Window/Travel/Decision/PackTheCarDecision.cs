@@ -5,6 +5,7 @@ using System;
 using System.Text;
 using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Person;
+using OregonTrailDotNet.UI;
 using OregonTrailDotNet.Window.Travel.Command;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
@@ -25,6 +26,11 @@ namespace OregonTrailDotNet.Window.Travel.Decision
         ///     Holds the rendered representation of the decision as a numbered menu for the player.
         /// </summary>
         private readonly StringBuilder _decisionPrompt;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the three packing options.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="PackTheCarDecision" /> class.
@@ -58,12 +64,19 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _decisionPrompt.AppendLine(
                 "Mrs. Delgado two doors down didn't make the last convoy. Her boy Mateo is on your lawn with a duffel and no plan.");
             _decisionPrompt.AppendLine(string.Empty);
-            _decisionPrompt.AppendLine(
-                "  1. Cram it with resellables - the flatscreen, the good copper, Grandpa's flatware to flip for gas money");
-            _decisionPrompt.AppendLine(
-                "  2. Travel light - insulin, the kids' inhalers, birth certificates, the deed nobody will honor");
-            _decisionPrompt.Append(
-                "  3. Leave a seat for the Delgado kid - take Mateo");
+
+            _menu.SetOptions(new[]
+            {
+                new ArrowMenuOption(
+                    "1. Cram it with resellables - the flatscreen, the good copper, Grandpa's flatware to flip for gas money",
+                    "1"),
+                new ArrowMenuOption(
+                    "2. Travel light - insulin, the kids' inhalers, birth certificates, the deed nobody will honor",
+                    "2"),
+                new ArrowMenuOption("3. Leave a seat for the Delgado kid - take Mateo", "3")
+            });
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            _decisionPrompt.Append(_menu.Render());
 
             return _decisionPrompt.ToString();
         }

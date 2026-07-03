@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using OregonTrailDotNet.Entity;
+using OregonTrailDotNet.UI;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 
@@ -18,6 +19,11 @@ namespace OregonTrailDotNet.Window.Travel.Decision
         ///     Holds representation of the caravan decision as text presented to the player.
         /// </summary>
         private readonly StringBuilder _decisionPrompt;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the two caravan options.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CaravanDecision" /> class.
@@ -70,8 +76,14 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             }
 
             _decisionPrompt.AppendLine(string.Empty);
-            _decisionPrompt.AppendLine("  1. Join the caravan");
-            _decisionPrompt.Append("  2. Break off and go solo — faster, exposed");
+
+            _menu.SetOptions(new[]
+            {
+                new ArrowMenuOption("1. Join the caravan", "1"),
+                new ArrowMenuOption("2. Break off and go solo — faster, exposed", "2")
+            });
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            _decisionPrompt.Append(_menu.Render());
 
             return _decisionPrompt.ToString();
         }

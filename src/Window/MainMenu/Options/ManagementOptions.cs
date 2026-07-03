@@ -2,8 +2,10 @@
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using OregonTrailDotNet.UI;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 
@@ -20,6 +22,11 @@ namespace OregonTrailDotNet.Window.MainMenu.Options
         ///     Holds options menu so it will only be created once and then rendered out.
         /// </summary>
         private readonly StringBuilder _optionsPrompt;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the management options.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ManagementOptions" /> class.
@@ -44,11 +51,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Options
             _optionsPrompt.AppendLine(
                 $"Version: {Assembly.GetEntryAssembly().GetName().Version}{Environment.NewLine}");
             _optionsPrompt.AppendLine($"Management Options{Environment.NewLine}");
-            _optionsPrompt.AppendLine("You may:");
-            _optionsPrompt.AppendLine("1. See the original Top Ten list");
-            _optionsPrompt.AppendLine("2. Erase the current Top Ten list");
-            _optionsPrompt.AppendLine("3. Erase the Tombstone messages");
-            _optionsPrompt.Append("4. Return to the main menu");
+            _optionsPrompt.Append("You may:");
         }
 
         /// <summary>
@@ -60,7 +63,19 @@ namespace OregonTrailDotNet.Window.MainMenu.Options
         /// </returns>
         public override string OnRenderForm()
         {
-            return _optionsPrompt.ToString();
+            // Rebuilt every render pass so the arrow-key highlight stays current.
+            var options = new List<ArrowMenuOption>
+            {
+                new ArrowMenuOption("1. See the original Top Ten list", "1"),
+                new ArrowMenuOption("2. Erase the current Top Ten list", "2"),
+                new ArrowMenuOption("3. Erase the Tombstone messages", "3"),
+                new ArrowMenuOption("4. Return to the main menu", "4")
+            };
+
+            _menu.SetOptions(options);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+
+            return _optionsPrompt + Environment.NewLine + _menu.Render();
         }
 
         /// <summary>Fired when the game Windows current state is not null and input buffer does not match any known command.</summary>

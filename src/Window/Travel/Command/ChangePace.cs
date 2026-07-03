@@ -2,8 +2,10 @@
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using OregonTrailDotNet.Entity.Vehicle;
+using OregonTrailDotNet.UI;
 using OregonTrailDotNet.Window.Travel.Dialog;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
@@ -24,6 +26,11 @@ namespace OregonTrailDotNet.Window.Travel.Command
         private StringBuilder _pace;
 
         /// <summary>
+        ///     Tracks the arrow-key highlighted line among the pace choices.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="ChangePace" /> class.
         ///     This constructor will be used by the other one
         /// </summary>
@@ -42,16 +49,6 @@ namespace OregonTrailDotNet.Window.Travel.Command
             base.OnFormPostCreate();
 
             _pace = new StringBuilder();
-            _pace.Append($"{Environment.NewLine}Change pace{Environment.NewLine}");
-            _pace.Append(
-                $"(currently \"{GameSimulationApp.Instance.Vehicle.Pace}\"){Environment.NewLine}{Environment.NewLine}");
-            _pace.Append($"The pace at which you travel{Environment.NewLine}");
-            _pace.Append($"can change. Your choices are:{Environment.NewLine}{Environment.NewLine}");
-            _pace.Append($"1. a steady pace{Environment.NewLine}");
-            _pace.Append($"2. a strenuous pace{Environment.NewLine}");
-            _pace.Append($"3. a grueling pace{Environment.NewLine}");
-            _pace.Append($"4. find out what these{Environment.NewLine}");
-            _pace.Append("   different paces mean");
         }
 
         /// <summary>
@@ -63,6 +60,26 @@ namespace OregonTrailDotNet.Window.Travel.Command
         /// </returns>
         public override string OnRenderForm()
         {
+            // Rebuilt every render pass (not just on form creation) so the arrow-key highlight stays current.
+            _pace.Clear();
+            _pace.Append($"{Environment.NewLine}Change pace{Environment.NewLine}");
+            _pace.Append(
+                $"(currently \"{GameSimulationApp.Instance.Vehicle.Pace}\"){Environment.NewLine}{Environment.NewLine}");
+            _pace.Append($"The pace at which you travel{Environment.NewLine}");
+            _pace.Append($"can change. Your choices are:{Environment.NewLine}{Environment.NewLine}");
+
+            var options = new List<ArrowMenuOption>
+            {
+                new ArrowMenuOption("1. a steady pace", "1"),
+                new ArrowMenuOption("2. a strenuous pace", "2"),
+                new ArrowMenuOption("3. a grueling pace", "3"),
+                new ArrowMenuOption("4. find out what these different paces mean", "4")
+            };
+
+            _menu.SetOptions(options);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            _pace.Append(_menu.Render());
+
             return _pace.ToString();
         }
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OregonTrailDotNet.Entity.Vehicle;
+using OregonTrailDotNet.UI;
 using OregonTrailDotNet.Window.MainMenu.Names;
 using WolfCurses.Utility;
 using WolfCurses.Window;
@@ -30,6 +31,11 @@ namespace OregonTrailDotNet.Window.MainMenu.VehicleSelection
         ///     warning until they pick something affordable.
         /// </summary>
         private string _blockedMessage;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the vehicle choices.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="VehicleSelector" /> class.
@@ -65,33 +71,7 @@ namespace OregonTrailDotNet.Window.MainMenu.VehicleSelection
             _vehicleChooser = new StringBuilder();
             _vehicleChooser.AppendLine($"{Environment.NewLine}Every ride left in the driveway made");
             _vehicleChooser.AppendLine($"the drive to Seattle differently.{Environment.NewLine}");
-            _vehicleChooser.AppendLine($"You may:{Environment.NewLine}");
-
-            // Loop through all the vehicle enumeration values and grab their description attribute for selection purposes.
-            var vehicles =
-                new List<VehicleChoice>(Enum.GetValues(typeof(VehicleChoice)).Cast<VehicleChoice>());
-            for (var index = 0; index < vehicles.Count; index++)
-            {
-                // Get the current vehicle choice enumeration value we casted into list, and its tuning numbers.
-                var vehicleChoice = vehicles[index];
-                var vehicleModel = VehicleModels.Get(vehicleChoice);
-
-                _vehicleChooser.AppendLine(
-                    $"  {(int) vehicleChoice}. {vehicleChoice.ToDescriptionAttribute()}");
-                _vehicleChooser.AppendLine($"     {vehicleModel.FlavorText}");
-                _vehicleChooser.Append(
-                    $"     Price: {vehicleModel.Cost:C0} | Seats: {vehicleModel.MaxPartySize} | Cargo: {vehicleModel.CargoCapacity} lbs");
-
-                // Warn the player if this vehicle would wipe out their starting cash.
-                if (vehicleModel.Cost >= UserData.StartingMonies)
-                    _vehicleChooser.Append(" (wipes out your starting cash)");
-
-                _vehicleChooser.AppendLine();
-                _vehicleChooser.AppendLine();
-            }
-
-            _vehicleChooser.AppendLine($"  {vehicles.Count + 1}. Find out the differences");
-            _vehicleChooser.Append("     between these rides");
+            _vehicleChooser.Append("You may:");
         }
 
         /// <summary>
@@ -103,9 +83,40 @@ namespace OregonTrailDotNet.Window.MainMenu.VehicleSelection
         /// </returns>
         public override string OnRenderForm()
         {
+            // Rebuilt every render pass (not just on form creation) so the arrow-key highlight stays current.
+            var vehicles =
+                new List<VehicleChoice>(Enum.GetValues(typeof(VehicleChoice)).Cast<VehicleChoice>());
+
+            var options = new List<ArrowMenuOption>();
+            foreach (var vehicleChoice in vehicles)
+            {
+                // Get the tuning numbers for this vehicle choice.
+                var vehicleModel = VehicleModels.Get(vehicleChoice);
+
+                var optionText = new StringBuilder();
+                optionText.AppendLine($"{(int) vehicleChoice}. {vehicleChoice.ToDescriptionAttribute()}");
+                optionText.AppendLine($"     {vehicleModel.FlavorText}");
+                optionText.Append(
+                    $"     Price: {vehicleModel.Cost:C0} | Seats: {vehicleModel.MaxPartySize} | Cargo: {vehicleModel.CargoCapacity} lbs");
+
+                // Warn the player if this vehicle would wipe out their starting cash.
+                if (vehicleModel.Cost >= UserData.StartingMonies)
+                    optionText.Append(" (wipes out your starting cash)");
+
+                options.Add(new ArrowMenuOption(optionText.ToString(), ((int) vehicleChoice).ToString()));
+            }
+
+            options.Add(new ArrowMenuOption(
+                $"{vehicles.Count + 1}. Find out the differences between these rides",
+                (vehicles.Count + 1).ToString()));
+
+            _menu.SetOptions(options);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+
+            var rendered = _vehicleChooser + Environment.NewLine + Environment.NewLine + _menu.Render();
             return string.IsNullOrEmpty(_blockedMessage)
-                ? _vehicleChooser.ToString()
-                : _vehicleChooser + Environment.NewLine + _blockedMessage;
+                ? rendered
+                : rendered + Environment.NewLine + _blockedMessage;
         }
 
         /// <summary>

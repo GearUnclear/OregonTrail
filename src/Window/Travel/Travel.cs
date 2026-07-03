@@ -2,6 +2,7 @@
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Location;
@@ -58,7 +59,7 @@ namespace OregonTrailDotNet.Window.Travel
         /// <summary>
         ///     Attaches state that picks strings from array at random to show from point of interest.
         /// </summary>
-        private void TalkToPeople()
+        internal void TalkToPeople()
         {
             SetForm(typeof(TalkToPeople.TalkToPeople));
         }
@@ -66,7 +67,7 @@ namespace OregonTrailDotNet.Window.Travel
         /// <summary>
         ///     Attached store game Windows on top of existing game Windows for purchasing items from this location.
         /// </summary>
-        private void BuySupplies()
+        internal void BuySupplies()
         {
             SetForm(typeof(Store.Store));
         }
@@ -97,7 +98,7 @@ namespace OregonTrailDotNet.Window.Travel
         /// <summary>
         ///     Shows current load out for vehicle and player inventory items.
         /// </summary>
-        private void CheckSupplies()
+        internal void CheckSupplies()
         {
             SetForm(typeof(CheckSupplies));
         }
@@ -106,7 +107,7 @@ namespace OregonTrailDotNet.Window.Travel
         ///     Shows players current position on the total trail along with progress indicators so they know how much more they
         ///     have and what they have accomplished.
         /// </summary>
-        private void LookAtMap()
+        internal void LookAtMap()
         {
             SetForm(typeof(LookAtMap));
         }
@@ -114,7 +115,7 @@ namespace OregonTrailDotNet.Window.Travel
         /// <summary>
         ///     Changes the number of miles the vehicle will attempt to move in a single day.
         /// </summary>
-        private void ChangePace()
+        internal void ChangePace()
         {
             SetForm(typeof(ChangePace));
         }
@@ -122,7 +123,7 @@ namespace OregonTrailDotNet.Window.Travel
         /// <summary>
         ///     Changes the amount of food in pounds the vehicle party members will consume each day of the simulation.
         /// </summary>
-        private void ChangeFoodRations()
+        internal void ChangeFoodRations()
         {
             SetForm(typeof(ChangeRations));
         }
@@ -131,7 +132,7 @@ namespace OregonTrailDotNet.Window.Travel
         ///     Attaches state that will ask how many days should be ticked while sitting still, if zero is entered then nothing
         ///     happens.
         /// </summary>
-        private void StopToRest()
+        internal void StopToRest()
         {
             SetForm(typeof(RestAmount));
         }
@@ -139,7 +140,7 @@ namespace OregonTrailDotNet.Window.Travel
         /// <summary>
         ///     Looks through the traveling information data for any pending trades that people might want to make with you.
         /// </summary>
-        private void AttemptToTrade()
+        internal void AttemptToTrade()
         {
             SetForm(typeof(Trading));
         }
@@ -148,7 +149,7 @@ namespace OregonTrailDotNet.Window.Travel
         ///     Attaches a new Windows on top of this one that allows the player to hunt for animals and kill them using bullets
         ///     for a specified time limit.
         /// </summary>
-        private void HuntForFood()
+        internal void HuntForFood()
         {
             // Check if the player even has enough bullets to go hunting.
             SetForm(GameSimulationApp.Instance.Vehicle.Inventory[Entities.Ammo].Quantity > 0
@@ -159,33 +160,41 @@ namespace OregonTrailDotNet.Window.Travel
         /// <summary>
         ///     Attaches the DoorDash gig prompt so the player can spend a day running deliveries in town for cash.
         /// </summary>
-        private void DriveForDoorDash()
+        internal void DriveForDoorDash()
         {
             SetForm(typeof(DoorDashPrompt));
         }
 
         /// <summary>
-        ///     Determines if there is a store, people to get advice from, and a place to rest, what options are available, etc.
+        ///     Header text shown above the base travel menu (distance/location status + "You may:").
         /// </summary>
-        private void UpdateLocation()
+        internal static string BuildMenuHeader()
         {
-            // Header text for above menu comes from travel info object.
             var headerText = new StringBuilder();
             headerText.Append(TravelInfo.TravelStatus);
-            headerText.Append("You may:");
-            MenuHeader = headerText.ToString();
+            headerText.AppendLine("You may:");
+            return headerText.ToString();
+        }
+
+        /// <summary>
+        ///     Determines if there is a store, people to get advice from, and a place to rest, what options are available at
+        ///     this point of interest on the trail, and which handler each one invokes. Consumed by <see cref="TravelMenu" />
+        ///     to build its arrow-navigable option list every render pass.
+        /// </summary>
+        internal IEnumerable<(TravelCommands Command, Action Handler)> GetMenuCommands()
+        {
+            var commands = new List<(TravelCommands, Action)>
+            {
+                (TravelCommands.ContinueOnTrail, ContinueOnTrail),
+                (TravelCommands.CheckSupplies, CheckSupplies),
+                (TravelCommands.LookAtMap, LookAtMap),
+                (TravelCommands.ChangePace, ChangePace),
+                (TravelCommands.ChangeFoodRations, ChangeFoodRations),
+                (TravelCommands.StopToRest, StopToRest)
+            };
 
             // Get a reference to current location on the trail so we can query it to build our menu.
             var location = GameSimulationApp.Instance.Trail.CurrentLocation;
-
-            // Reset and calculate what commands are allowed at this current point of interest on the trail.
-            ClearCommands();
-            AddCommand(ContinueOnTrail, TravelCommands.ContinueOnTrail);
-            AddCommand(CheckSupplies, TravelCommands.CheckSupplies);
-            AddCommand(LookAtMap, TravelCommands.LookAtMap);
-            AddCommand(ChangePace, TravelCommands.ChangePace);
-            AddCommand(ChangeFoodRations, TravelCommands.ChangeFoodRations);
-            AddCommand(StopToRest, TravelCommands.StopToRest);
 
             // Depending on where you are at on the trail the last few available commands change.
             switch (location.Status)
@@ -193,39 +202,43 @@ namespace OregonTrailDotNet.Window.Travel
                 case LocationStatus.Unreached:
                     break;
                 case LocationStatus.Arrived:
-                    AddCommand(AttemptToTrade, TravelCommands.AttemptToTrade);
+                    commands.Add((TravelCommands.AttemptToTrade, AttemptToTrade));
 
                     // Some commands are optional and change depending on location category.
                     if (location.ChattingAllowed)
-                        AddCommand(TalkToPeople, TravelCommands.TalkToPeople);
+                        commands.Add((TravelCommands.TalkToPeople, TalkToPeople));
 
                     if (location.ShoppingAllowed)
                     {
-                        AddCommand(BuySupplies, TravelCommands.BuySupplies);
+                        commands.Add((TravelCommands.BuySupplies, BuySupplies));
 
                         // DoorDash only operates in the towns big enough to shop in.
-                        AddCommand(DriveForDoorDash, TravelCommands.DriveForDoorDash);
+                        commands.Add((TravelCommands.DriveForDoorDash, DriveForDoorDash));
                     }
                     break;
                 case LocationStatus.Departed:
-                    AddCommand(AttemptToTrade, TravelCommands.AttemptToTrade);
-                    AddCommand(HuntForFood, TravelCommands.HuntForFood);
+                    commands.Add((TravelCommands.AttemptToTrade, AttemptToTrade));
+                    commands.Add((TravelCommands.HuntForFood, HuntForFood));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            return commands;
         }
 
         /// <summary>
         ///     Fired when the game Windows changes it's internal state. Allows the attached Windows to do special behaviors when
-        ///     it realizes a state is set or removed and act on it.
+        ///     it realizes a state is set or removed and act on it. WolfCurses' own bare-window command menu (AddCommand) has
+        ///     no rendering hook we can inject arrow-key highlighting into, so the base travel menu is instead always shown
+        ///     through <see cref="TravelMenu" />, a normal Form. Whenever nothing else claims the form slot, re-attach it here.
         /// </summary>
         protected override void OnFormChange()
         {
             base.OnFormChange();
 
-            // Update menu with proper choices.
-            UpdateLocation();
+            if (CurrentForm == null)
+                SetForm(typeof(TravelMenu));
         }
 
         /// <summary>
@@ -233,13 +246,12 @@ namespace OregonTrailDotNet.Window.Travel
         /// </summary>
         public override void OnWindowPostCreate()
         {
-            // Update menu with proper choices.
-            UpdateLocation();
-
             // Starting store that is shown after setting up player names, profession, and starting month.
             if (GameSimulationApp.Instance.Trail.IsFirstLocation &&
                 (GameSimulationApp.Instance.Trail.CurrentLocation?.Status == LocationStatus.Unreached))
                 SetForm(typeof(StoreWelcome));
+            else
+                SetForm(typeof(TravelMenu));
         }
 
         /// <summary>
@@ -339,8 +351,11 @@ namespace OregonTrailDotNet.Window.Travel
                 return;
             }
 
-            // Update menu with proper choices.
-            UpdateLocation();
+            // Nothing else claimed the form slot this pass; show the base travel menu, but only if some other
+            // form (e.g. StoreWelcome, set back in OnWindowPostCreate) isn't already active - this fallback
+            // used to just refresh the command list, which was safe to call unconditionally, but SetForm is not.
+            if (CurrentForm == null)
+                SetForm(typeof(TravelMenu));
         }
 
         /// <summary>

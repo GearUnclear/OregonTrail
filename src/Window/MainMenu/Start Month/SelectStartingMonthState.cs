@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OregonTrailDotNet.Module.Time;
+using OregonTrailDotNet.UI;
 using OregonTrailDotNet.Window.MainMenu.Help;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
@@ -24,6 +25,11 @@ namespace OregonTrailDotNet.Window.MainMenu.Start_Month
         ///     state is active.
         /// </summary>
         private StringBuilder _startMonthQuestion;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the starting month choices.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SelectStartingMonthState" /> class.
@@ -57,26 +63,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Start_Month
             _startMonthQuestion.AppendLine($"{Environment.NewLine}The home insurance lapsed. Your");
             _startMonthQuestion.AppendLine("jumping off place for Seattle is");
             _startMonthQuestion.AppendLine("Cape Coral, Florida. You must");
-            _startMonthQuestion.AppendLine($"decide which month to leave{Environment.NewLine}");
-
-            // Loop through every possible starting month and list them out by their enumeration integer values along with description attribute.
-            var choices = new List<StartingMonth>(Enum.GetValues(typeof(StartingMonth)).Cast<StartingMonth>());
-            for (var index = 0; index < choices.Count; index++)
-            {
-                // Get the current river choice enumeration value we casted into list.
-                var monthValue = choices[index];
-
-                // Last line should not print new line.
-                if (index == choices.Count - 1)
-                {
-                    _startMonthQuestion.AppendLine($"  {(int) monthValue}. {monthValue}");
-                    _startMonthQuestion.Append($"  {choices.Count + 1}. Ask for advice");
-                }
-                else
-                {
-                    _startMonthQuestion.AppendLine($"  {(int) monthValue}. {monthValue}");
-                }
-            }
+            _startMonthQuestion.Append("decide which month to leave");
         }
 
         /// <summary>
@@ -88,7 +75,21 @@ namespace OregonTrailDotNet.Window.MainMenu.Start_Month
         /// </returns>
         public override string OnRenderForm()
         {
-            return _startMonthQuestion.ToString();
+            // Rebuilt every render pass so the arrow-key highlight stays current.
+            var choices = new List<StartingMonth>(Enum.GetValues(typeof(StartingMonth)).Cast<StartingMonth>());
+
+            var options = new List<ArrowMenuOption>();
+            foreach (var monthValue in choices)
+            {
+                options.Add(new ArrowMenuOption($"{(int) monthValue}. {monthValue}", ((int) monthValue).ToString()));
+            }
+
+            options.Add(new ArrowMenuOption($"{choices.Count + 1}. Ask for advice", (choices.Count + 1).ToString()));
+
+            _menu.SetOptions(options);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+
+            return _startMonthQuestion + Environment.NewLine + _menu.Render();
         }
 
         /// <summary>Fired when the game Windows current state is not null and input buffer does not match any known command.</summary>

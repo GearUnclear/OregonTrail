@@ -48,10 +48,37 @@ namespace OregonTrailDotNet
                     switch (key.Key)
                     {
                         case ConsoleKey.Enter:
+                            // If the player hasn't typed anything and the active screen has an arrow menu,
+                            // submit the highlighted option exactly as if its number had been typed - this
+                            // keeps every screen's existing input parsing untouched.
+                            var activeMenu = GameSimulationApp.Instance.ActiveMenu;
+                            if (string.IsNullOrEmpty(GameSimulationApp.Instance.InputManager.InputBuffer))
+                            {
+                                // On a bare Enter, inject the highlighted option's value so it flows through the
+                                // screen's existing text-input parser exactly as if the player had typed it.
+                                if (activeMenu?.HasOptions ?? false)
+                                {
+                                    foreach (var selectedChar in activeMenu.SelectedValue)
+                                        GameSimulationApp.Instance.InputManager.AddCharToInputBuffer(selectedChar);
+                                }
+                            }
+
                             GameSimulationApp.Instance.InputManager.SendInputBufferAsCommand();
                             break;
                         case ConsoleKey.Backspace:
                             GameSimulationApp.Instance.InputManager.RemoveLastCharOfInputBuffer();
+                            break;
+                        case ConsoleKey.UpArrow:
+                            GameSimulationApp.Instance.ActiveMenu?.MoveUp();
+                            break;
+                        case ConsoleKey.DownArrow:
+                            GameSimulationApp.Instance.ActiveMenu?.MoveDown();
+                            break;
+                        case ConsoleKey.LeftArrow:
+                            GameSimulationApp.Instance.OnLeftPressed?.Invoke();
+                            break;
+                        case ConsoleKey.RightArrow:
+                            GameSimulationApp.Instance.OnRightPressed?.Invoke();
                             break;
                         default:
                             GameSimulationApp.Instance.InputManager.AddCharToInputBuffer(key.KeyChar);

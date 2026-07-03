@@ -2,7 +2,9 @@
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
+using System.Collections.Generic;
 using System.Text;
+using OregonTrailDotNet.UI;
 using OregonTrailDotNet.Window.MainMenu.Start_Month;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
@@ -29,10 +31,53 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
         }
 
         /// <summary>
+        ///     Tracks the arrow-key highlighted line between the Yes/No options.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
+
+        /// <summary>
+        ///     Cached result of <see cref="OnDialogPrompt" />, computed once (mirroring the base InputForm's own
+        ///     call-once-then-cache contract) rather than every render tick. This one matters more than most:
+        ///     OnDialogPrompt() below calls GameSimulationApp.Instance.SetStartInfo(UserData), which appends a
+        ///     Person to the vehicle for every party name - calling it every render tick instead of once would
+        ///     have flooded the vehicle's passenger list with duplicates for as long as this screen stayed on screen.
+        /// </summary>
+        private string _promptText;
+
+        /// <summary>
         ///     Defines what type of dialog this will act like depending on this enumeration value. Up to implementation to define
         ///     desired behavior.
         /// </summary>
         protected override DialogType DialogType => DialogType.Custom;
+
+        /// <summary>
+        ///     Fired after the state has been completely attached to the simulation letting the state know it can browse the user
+        ///     data and other properties below it.
+        /// </summary>
+        public override void OnFormPostCreate()
+        {
+            base.OnFormPostCreate();
+            _promptText = OnDialogPrompt();
+        }
+
+        /// <summary>
+        ///     Returns a text only representation of the current game Windows state, with an arrow-navigable Yes/No menu
+        ///     appended below the dialog prompt.
+        /// </summary>
+        public override string OnRenderForm()
+        {
+            // Unlike DialogType.YesNo (which accepts numeric "1"/"2"), this dialog's DialogType.Custom only
+            // recognizes the letter-based "y"/"n" - confirmed live: typing "1" fell through to the same
+            // Custom/RestartNameInput branch as "No" instead of confirming Yes.
+            var menu = new List<ArrowMenuOption>
+            {
+                new ArrowMenuOption("1. Yes", "y"),
+                new ArrowMenuOption("2. No", "n")
+            };
+            _menu.SetOptions(menu);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            return _promptText + Environment.NewLine + _menu.Render();
+        }
 
         /// <summary>
         ///     Fired when dialog prompt is attached to active game Windows and would like to have a string returned.

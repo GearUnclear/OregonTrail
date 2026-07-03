@@ -12,6 +12,7 @@ using OregonTrailDotNet.Module.Scoring;
 using OregonTrailDotNet.Module.Time;
 using OregonTrailDotNet.Module.Tombstone;
 using OregonTrailDotNet.Module.Trail;
+using OregonTrailDotNet.UI;
 using OregonTrailDotNet.Window.GameOver;
 using OregonTrailDotNet.Window.Graveyard;
 using OregonTrailDotNet.Window.MainMenu;
@@ -84,6 +85,29 @@ namespace OregonTrailDotNet
         ///     epilogue lines consumed by the endgame tabulation.
         /// </summary>
         public ChoiceLedger Choices { get; private set; }
+
+        /// <summary>
+        ///     The currently-visible screen's arrow-navigable option list, if it has one. Screens without a menu
+        ///     (free-text input, dialogs mid-render, etc.) must set this to <c>null</c> so stale highlighting/Enter
+        ///     behavior from a previous screen doesn't bleed through. Set every render pass by whichever
+        ///     Window/Form is currently on top; consumed by <see cref="Program" />'s key-handling loop.
+        /// </summary>
+        public ArrowMenu ActiveMenu { get; set; }
+
+        /// <summary>
+        ///     Invoked when the player presses the Left arrow, if the currently-visible screen wants to handle it (e.g.
+        ///     the Store decrements the highlighted item's pending quantity). Set every render pass by whichever
+        ///     Window/Form is on top and nulled otherwise so stale handlers never bleed through; consumed by
+        ///     <see cref="Program" />'s key-handling loop.
+        /// </summary>
+        public Action OnLeftPressed { get; set; }
+
+        /// <summary>
+        ///     Invoked when the player presses the Right arrow. Counterpart to <see cref="OnLeftPressed" /> (e.g. the
+        ///     Store increments the highlighted item's pending quantity). Nulled every render pass so stale handlers
+        ///     never bleed through.
+        /// </summary>
+        public Action OnRightPressed { get; set; }
 
         /// <summary>
         ///     Determines what windows the simulation will be capable of using and creating using the window managers factory.
@@ -208,6 +232,13 @@ namespace OregonTrailDotNet
         /// </summary>
         public override string OnPreRender()
         {
+            // Cleared before every render pass so a screen with no arrow menu never inherits a stale one left
+            // behind by whatever was on screen before it. Whichever Form/Window renders this tick re-sets this
+            // if it has a menu of its own (see ArrowMenu / TravelMenu / MainMenuScreen / Store).
+            ActiveMenu = null;
+            OnLeftPressed = null;
+            OnRightPressed = null;
+
             // Total number of turns that have passed in the simulation.
             var tui = new StringBuilder();
             tui.AppendLine($"Turns: {TotalTurns:D4}");
@@ -245,6 +276,11 @@ namespace OregonTrailDotNet
 
             // Per-game ledger of forking decisions the player makes along the trail.
             Choices = new ChoiceLedger();
+
+            // Clear any arrow-menu state left over from the previous game/window.
+            ActiveMenu = null;
+            OnLeftPressed = null;
+            OnRightPressed = null;
 
             // Resets the window manager in the base simulation.
             base.Restart();

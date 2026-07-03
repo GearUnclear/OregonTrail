@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OregonTrailDotNet.UI;
 using OregonTrailDotNet.Window.MainMenu.Names;
 using OregonTrailDotNet.Window.MainMenu.VehicleSelection;
 using WolfCurses.Utility;
@@ -25,6 +26,11 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
         ///     References the string for the profession selection so it is only constructed once.
         /// </summary>
         private StringBuilder _professionChooser;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the profession choices.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProfessionSelector" /> class.
@@ -61,31 +67,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
             _professionChooser = new StringBuilder();
             _professionChooser.AppendLine($"{Environment.NewLine}Many kinds of people made the");
             _professionChooser.AppendLine($"drive to Seattle.{Environment.NewLine}");
-            _professionChooser.AppendLine($"You may:{Environment.NewLine}");
-
-            // Loop through all the profession enumeration values and grab their description attribute for selection purposes.
-            var professions =
-                new List<Entity.Person.Profession>(
-                    Enum.GetValues(typeof(Entity.Person.Profession)).Cast<Entity.Person.Profession>());
-            for (var index = 0; index < professions.Count; index++)
-            {
-                // Get the current profession choice enumeration value we casted into list.
-                var professionChoice = professions[index];
-
-                // Last line should not print new line.
-                if (index == professions.Count - 1)
-                {
-                    _professionChooser.AppendLine(
-                        $"  {(int) professionChoice}. {professionChoice.ToDescriptionAttribute()}");
-                    _professionChooser.AppendLine($"  {professions.Count + 1}. Find out the differences");
-                    _professionChooser.Append("     between these choices");
-                }
-                else
-                {
-                    _professionChooser.AppendLine(
-                        $"  {(int) professionChoice}. {professionChoice.ToDescriptionAttribute()}");
-                }
-            }
+            _professionChooser.Append("You may:");
         }
 
         /// <summary>
@@ -97,7 +79,27 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
         /// </returns>
         public override string OnRenderForm()
         {
-            return _professionChooser.ToString();
+            // Rebuilt every render pass so the arrow-key highlight stays current.
+            var professions =
+                new List<Entity.Person.Profession>(
+                    Enum.GetValues(typeof(Entity.Person.Profession)).Cast<Entity.Person.Profession>());
+
+            var options = new List<ArrowMenuOption>();
+            foreach (var professionChoice in professions)
+            {
+                options.Add(new ArrowMenuOption(
+                    $"{(int) professionChoice}. {professionChoice.ToDescriptionAttribute()}",
+                    ((int) professionChoice).ToString()));
+            }
+
+            options.Add(new ArrowMenuOption(
+                $"{professions.Count + 1}. Find out the differences between these choices",
+                (professions.Count + 1).ToString()));
+
+            _menu.SetOptions(options);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+
+            return _professionChooser + Environment.NewLine + _menu.Render();
         }
 
         /// <summary>Fired when the game Windows current state is not null and input buffer does not match any known command.</summary>

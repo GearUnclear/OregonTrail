@@ -1,4 +1,4 @@
-﻿// Created by Ron 'Maxwolf' McDowell (ron.mcdowell@gmail.com) 
+// Created by Ron 'Maxwolf' McDowell (ron.mcdowell@gmail.com)
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
@@ -8,9 +8,9 @@ using System.Text;
 using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Item;
 using OregonTrailDotNet.Entity.Location;
+using OregonTrailDotNet.UI;
 using OregonTrailDotNet.Window.Travel.Dialog;
 using OregonTrailDotNet.Window.Travel.Store.Help;
-using WolfCurses.Utility;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 
@@ -19,14 +19,42 @@ namespace OregonTrailDotNet.Window.Travel.Store
     /// <summary>
     ///     Manages a Buc-ee's travel center where the player can buy snacks, MLM leggings, ammo (by the flour), and spare
     ///     parts for their SUV. Florida is permitless-carry, so the firearms sit in the cart next to everything else.
+    ///     Quantity for the highlighted item is adjusted right here with Left/Right (or by typing a number) rather than
+    ///     on a separate screen, so the player never has to leave the aisle to change how many they're buying.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class Store : Form<TravelInfo>
     {
         /// <summary>
+        ///     Every item category the store actually sells, in display order.
+        /// </summary>
+        private static readonly Entities[] PurchasableItems =
+        {
+            Entities.Animal, Entities.Food, Entities.Clothes, Entities.Ammo,
+            Entities.Wheel, Entities.Axle, Entities.Tongue
+        };
+
+        /// <summary>
+        ///     Sentinel value for the "Leave store" row's <see cref="ArrowMenuOption" />, distinct from any item's enum
+        ///     name and from any typed number so <see cref="OnInputBufferReturned" /> can tell them apart.
+        /// </summary>
+        private const string LeaveStoreValue = "leave";
+
+        /// <summary>
         ///     String builder that will hold all the generated data about store inventory and selections for player to make.
         /// </summary>
         private StringBuilder _storePrompt;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the store's purchasable items and the "Leave store" option.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
+
+        /// <summary>
+        ///     Which item the highlighted row corresponds to, synced from <see cref="_menu" /> every render. Null when
+        ///     "Leave store" is highlighted (nothing to adjust quantity on).
+        /// </summary>
+        private Entities? _highlightedItem;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Store" /> class.
@@ -47,73 +75,81 @@ namespace OregonTrailDotNet.Window.Travel.Store
 
             // Will hold representation of this store for rendering.
             _storePrompt = new StringBuilder();
-
-            // Builds up the store in the string builder we created above for rendering.
-            UpdateStore();
         }
 
         /// <summary>
-        ///     Offers chance to top off the five-gallon gas cans that keep the SUV rolling; run them dry and the trip stalls.
+        ///     Returns the current, freshly-priced template <see cref="SimItem" /> for a purchasable category - the same
+        ///     items each Buy* method used to hand off to the retired StorePurchase screen.
         /// </summary>
-        private void BuyOxen()
+        private static SimItem GetTemplate(Entities item)
         {
-            // Charge the location-scaled fuel price (cheap mid-trip, dear near the end); inventory still stores $25 cans.
-            UserData.Store.SelectedItem = Parts.GasCans(FuelPricing.CurrentCost());
-            SetForm(typeof(StorePurchase));
+            switch (item)
+            {
+                case Entities.Animal:
+                    // Location-scaled fuel price (cheap mid-trip, dear near the end); inventory still stores $25 cans.
+                    return Parts.GasCans(FuelPricing.CurrentCost());
+                case Entities.Food:
+                    return Resources.Food;
+                case Entities.Clothes:
+                    return Resources.Clothing;
+                case Entities.Ammo:
+                    return Resources.Bullets;
+                case Entities.Wheel:
+                    return Parts.Wheel;
+                case Entities.Axle:
+                    return Parts.Axle;
+                case Entities.Tongue:
+                    return Parts.Tongue;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(item), item, "Item is not purchasable in the store.");
+            }
         }
 
         /// <summary>
-        ///     Offers the chance to load up on snacks for the family to eat everyday on the road.
+        ///     The absolute quantity of <paramref name="item" /> the player could hold given current cash and cargo room,
+        ///     including whatever of it is already pending - so this is a total, not "headroom beyond what's pending".
         /// </summary>
-        private void BuyFood()
+        private int ComputeMaxQuantity(Entities item, SimItem template)
         {
-            UserData.Store.SelectedItem = Resources.Food;
-            SetForm(typeof(StorePurchase));
+            var vehicle = GameSimulationApp.Instance.Vehicle;
+            var currentQuantity = UserData.Store.Transactions[item].Quantity;
+
+            // Money available for this item if its own pending cost were backed out of the running total first.
+            var balanceExcludingThis = vehicle.Balance - UserData.Store.TotalTransactionCost + currentQuantity*template.Cost;
+            var maxByMoney = template.Cost > 0 ? (int) (balanceExcludingThis/template.Cost) : int.MaxValue;
+
+            // Cargo room available for this item if its own pending weight were backed out first.
+            var cargoExcludingThis = vehicle.CargoWeight + UserData.Store.PendingCargoWeight - currentQuantity*template.Weight;
+            var remainingCargo = vehicle.Model.CargoCapacity - cargoExcludingThis;
+            var maxByCargo = template.Weight > 0 ? remainingCargo/template.Weight : int.MaxValue;
+
+            var max = Math.Min(maxByMoney, Math.Min(maxByCargo, template.MaxQuantity));
+            return max < 0 ? 0 : max;
         }
 
         /// <summary>
-        ///     Offers chance to buy crates of MLM leggings; useless as clothing, but the only barter a roadside guide will take.
+        ///     Sets an item's pending quantity to an absolute value, clamped to what's actually affordable/carryable.
+        ///     Quantities of zero remove the item from the receipt entirely (SimItem's quantity floor is
+        ///     <c>MinQuantity</c>, not zero, so zero has to go through <see cref="StoreGenerator.RemoveItem" />).
         /// </summary>
-        private void BuyClothing()
+        private void SetQuantity(Entities item, int desiredQuantity)
         {
-            UserData.Store.SelectedItem = Resources.Clothing;
-            SetForm(typeof(StorePurchase));
+            var template = GetTemplate(item);
+            var max = ComputeMaxQuantity(item, template);
+            var next = Math.Min(Math.Max(desiredQuantity, 0), max);
+
+            if (next <= 0)
+                UserData.Store.RemoveItem(template);
+            else
+                UserData.Store.AddItem(template, next);
         }
 
         /// <summary>
-        ///     Offers chance to grab boxes of ammo off the shelf by the flour. No license, no training, no background check.
+        ///     Adjusts an item's pending quantity by a relative amount (used by Left/Right and by a bare Enter).
         /// </summary>
-        private void BuyAmmunition()
+        private void AdjustQuantity(Entities item, int delta)
         {
-            UserData.Store.SelectedItem = Resources.Bullets;
-            SetForm(typeof(StorePurchase));
-        }
-
-        /// <summary>
-        ///     Offers a chance to purchase some spare tires for the SUV.
-        /// </summary>
-        private void BuySpareWheels()
-        {
-            UserData.Store.SelectedItem = Parts.Wheel;
-            SetForm(typeof(StorePurchase));
-        }
-
-        /// <summary>
-        ///     Offers a chance to purchase a spare alternator for the SUV.
-        /// </summary>
-        private void BuySpareAxles()
-        {
-            UserData.Store.SelectedItem = Parts.Axle;
-            SetForm(typeof(StorePurchase));
-        }
-
-        /// <summary>
-        ///     Offers a chance to purchase a spare transmission for the SUV.
-        /// </summary>
-        private void BuySpareTongues()
-        {
-            UserData.Store.SelectedItem = Parts.Tongue;
-            SetForm(typeof(StorePurchase));
+            SetQuantity(item, UserData.Store.Transactions[item].Quantity + delta);
         }
 
         /// <summary>
@@ -125,6 +161,9 @@ namespace OregonTrailDotNet.Window.Travel.Store
         /// </returns>
         public override string OnRenderForm()
         {
+            // Rebuilt every render pass (not just on form creation) so the arrow-key highlight - and the fuel
+            // price/cargo/bill figures, which already depended on rebuilding - stays current.
+            UpdateStore();
             return _storePrompt.ToString();
         }
 
@@ -157,38 +196,43 @@ namespace OregonTrailDotNet.Window.Travel.Store
                 $"Cargo: {cargoUsed}/{GameSimulationApp.Instance.Vehicle.Model.CargoCapacity} lbs");
             _storePrompt.AppendLine("--------------------------------");
 
-            // Loop through all the store assets commands and print them out for the state.
-            var storeAssets = new List<Entities>(Enum.GetValues(typeof(Entities)).Cast<Entities>());
-            for (var index = 0; index < storeAssets.Count; index++)
+            // Build the purchasable items into arrow-navigable options. Each item's Value is its own enum name -
+            // unique per row (so ArrowMenu.SetOptions keeps the highlight on the same row across renders) and never
+            // parseable as a number (so OnInputBufferReturned can always tell a typed quantity apart from the
+            // Enter-injected "buy one more of the highlighted item" sentinel).
+            var options = new List<ArrowMenuOption>();
+            var itemsInOrder = new List<Entities?>();
+
+            foreach (var item in PurchasableItems)
             {
-                // Get the current entity enumeration value we casted into list.
-                var storeItem = storeAssets[index];
+                var template = GetTemplate(item);
+                var transaction = UserData.Store.Transactions[item];
+                var label = transaction.Quantity > 0
+                    ? $"{template.Name.PadRight(18)}x{transaction.Quantity}  {(transaction.Quantity*transaction.Cost):C2}"
+                    : $"{template.Name.PadRight(18)}$0.00";
 
-                // Skip if store item is cash, person, or vehicle.
-                if ((storeItem == Entities.Cash) ||
-                    (storeItem == Entities.Person) ||
-                    (storeItem == Entities.Vehicle) ||
-                    (storeItem == Entities.Location))
-                    continue;
-
-                // Creates a store price tag that shows the user how much the item is and or how much the store has.
-                var storeTag = storeItem.ToDescriptionAttribute()
-                    .Replace("@AMT@",
-                        UserData.Store.Transactions[storeItem].ToString(
-                            GameSimulationApp.Instance.Trail.IsFirstLocation &&
-                            (GameSimulationApp.Instance.Trail.CurrentLocation?.Status == LocationStatus.Unreached)));
-
-                // Last line should not print new line.
-                if (index == storeAssets.Count - 5)
-                {
-                    _storePrompt.AppendLine($"  {(int) storeItem}. {storeTag}");
-                    _storePrompt.AppendLine($"  {storeAssets.Count - 3}. Leave store");
-                }
-                else
-                {
-                    _storePrompt.AppendLine($"  {(int) storeItem}. {storeTag}");
-                }
+                options.Add(new ArrowMenuOption($"{itemsInOrder.Count + 1}. {label}", item.ToString()));
+                itemsInOrder.Add(item);
             }
+
+            options.Add(new ArrowMenuOption($"{itemsInOrder.Count + 1}. Leave store", LeaveStoreValue));
+            itemsInOrder.Add(null);
+
+            _menu.SetOptions(options);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            _highlightedItem = itemsInOrder[_menu.SelectedIndex];
+
+            // Left/Right adjust whichever item is currently highlighted; harmless no-op while "Leave store" is
+            // highlighted since there's nothing to adjust there.
+            if (_highlightedItem.HasValue)
+            {
+                var item = _highlightedItem.Value;
+                GameSimulationApp.Instance.OnLeftPressed = () => AdjustQuantity(item, -1);
+                GameSimulationApp.Instance.OnRightPressed = () => AdjustQuantity(item, +1);
+            }
+
+            _storePrompt.Append(_menu.Render());
+            _storePrompt.AppendLine("(Left/Right to change quantity, or type a number)");
 
             // Footer text for below menu.
             _storePrompt.AppendLine("--------------------------------");
@@ -213,42 +257,26 @@ namespace OregonTrailDotNet.Window.Travel.Store
             if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
                 return;
 
-            // Attempt to cast string to enum value, can be characters or integer.
-            Enum.TryParse(input, out Entities selectedItem);
-
-            // Figure out what to do based on selection.
-            switch (selectedItem)
+            if (input == LeaveStoreValue)
             {
-                case Entities.Animal:
-                    BuyOxen();
-                    break;
-                case Entities.Food:
-                    BuyFood();
-                    break;
-                case Entities.Clothes:
-                    BuyClothing();
-                    break;
-                case Entities.Ammo:
-                    BuyAmmunition();
-                    break;
-                case Entities.Wheel:
-                    BuySpareWheels();
-                    break;
-                case Entities.Axle:
-                    BuySpareAxles();
-                    break;
-                case Entities.Tongue:
-                    BuySpareTongues();
-                    break;
-                case Entities.Vehicle:
-                case Entities.Person:
-                case Entities.Cash:
-                    LeaveStore();
-                    break;
-                default:
-                    LeaveStore();
-                    break;
+                LeaveStore();
+                return;
             }
+
+            // A real typed number always means "set the highlighted item's quantity to this many" - checked before
+            // the enum-name sentinel below since Enum.TryParse also accepts numeric strings, which would otherwise
+            // misread a typed quantity as a direct hit on that item's underlying enum value.
+            if (int.TryParse(input, out var typedQuantity))
+            {
+                if (_highlightedItem.HasValue)
+                    SetQuantity(_highlightedItem.Value, typedQuantity);
+                return;
+            }
+
+            // Otherwise this is the Enter-injected sentinel (the highlighted item's enum name) meaning "buy one
+            // more of it" - the same convenience Right already offers, for players who reach for Enter out of habit.
+            if (Enum.TryParse(input, out Entities selectedItem) && PurchasableItems.Contains(selectedItem))
+                AdjustQuantity(selectedItem, +1);
         }
 
         /// <summary>
@@ -273,13 +301,14 @@ namespace OregonTrailDotNet.Window.Travel.Store
                 return;
             }
 
+            // Quantities only ever sit on the pending receipt until the player actually leaves - true for the
+            // pre-departure shopping trip and for a mid-trip restock alike, so commit here either way.
+            UserData.Store.PurchaseItems();
+
             // Travel Windows waits until it is by itself on first location and first turn.
             if (GameSimulationApp.Instance.Trail.IsFirstLocation &&
                 (GameSimulationApp.Instance.Trail.CurrentLocation?.Status == LocationStatus.Unreached))
             {
-                // First location and store prompt buys items when you leave the store.
-                UserData.Store.PurchaseItems();
-
                 // Sets up vehicle, location, and all other needed variables for simulation.
                 GameSimulationApp.Instance.Trail.ArriveAtNextLocation();
 

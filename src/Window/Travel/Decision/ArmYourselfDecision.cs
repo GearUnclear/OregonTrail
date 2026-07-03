@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using OregonTrailDotNet.Entity;
+using OregonTrailDotNet.UI;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 
@@ -19,6 +20,11 @@ namespace OregonTrailDotNet.Window.Travel.Decision
         ///     Holds the rendered representation of the decision prompt and its numbered options.
         /// </summary>
         private readonly StringBuilder _armPrompt;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the three arm-yourself options.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ArmYourselfDecision" /> class.
@@ -56,9 +62,15 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _armPrompt.AppendLine(
                 "Whatever you carry into the Cascades, the people at the checkpoints will notice - and remember. No option here is clean, and everyone in line knows it.");
             _armPrompt.AppendLine(string.Empty);
-            _armPrompt.AppendLine("  1. Buy the pistol and a box of shells");
-            _armPrompt.AppendLine("  2. Refuse on principle - walk out empty-handed");
-            _armPrompt.Append("  3. Buy the trauma kit and a vest instead - split the difference");
+
+            _menu.SetOptions(new[]
+            {
+                new ArrowMenuOption("1. Buy the pistol and a box of shells", "1"),
+                new ArrowMenuOption("2. Refuse on principle - walk out empty-handed", "2"),
+                new ArrowMenuOption("3. Buy the trauma kit and a vest instead - split the difference", "3")
+            });
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            _armPrompt.Append(_menu.Render());
             return _armPrompt.ToString();
         }
 

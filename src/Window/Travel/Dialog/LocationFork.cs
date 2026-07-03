@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using OregonTrailDotNet.Entity.Location;
 using OregonTrailDotNet.Entity.Location.Point;
+using OregonTrailDotNet.UI;
 using OregonTrailDotNet.Window.Travel.Command;
 using OregonTrailDotNet.Window.Travel.Toll;
 using WolfCurses.Window;
@@ -32,6 +33,11 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
         ///     index for selecting them to start at one not zero.
         /// </summary>
         private Dictionary<int, Location> _skipChoices;
+
+        /// <summary>
+        ///     Tracks the arrow-key highlighted line among the fork choices and the "see the map" option.
+        /// </summary>
+        private readonly ArrowMenu _menu = new ArrowMenu();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="LocationFork" /> class.
@@ -79,18 +85,19 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
             _forkPrompt.Clear();
             _forkPrompt.AppendLine($"{Environment.NewLine}The interstate splits here. You may:{Environment.NewLine}");
 
+            // Build arrow-navigable options for each skip choice plus the trailing "see the map" option. Values
+            // match exactly what OnInputBufferReturned already parses (the skip choice's key, or key+1 for map).
+            var options = new List<ArrowMenuOption>();
             foreach (var skipChoice in _skipChoices)
-                if (skipChoice.Key == _skipChoices.Last().Key)
-                {
-                    // Final skip choice and special option normally done when sizing up situation.
-                    _forkPrompt.AppendLine($"  {skipChoice.Key}. head for {skipChoice.Value.Name}");
-                    _forkPrompt.Append($"  {skipChoice.Key + 1}. see the map");
-                }
-                else
-                {
-                    // Standard skip location entry for the list.
-                    _forkPrompt.AppendLine($"  {skipChoice.Key}. head for {skipChoice.Value.Name}");
-                }
+                options.Add(new ArrowMenuOption($"{skipChoice.Key}. head for {skipChoice.Value.Name}",
+                    skipChoice.Key.ToString()));
+
+            var mapChoiceNumber = _skipChoices.Last().Key + 1;
+            options.Add(new ArrowMenuOption($"{mapChoiceNumber}. see the map", mapChoiceNumber.ToString()));
+
+            _menu.SetOptions(options);
+            GameSimulationApp.Instance.ActiveMenu = _menu;
+            _forkPrompt.Append(_menu.Render());
 
             // Rendering of the fork in the road as text user interface.
             return _forkPrompt.ToString();
