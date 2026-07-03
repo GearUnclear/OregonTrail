@@ -18,8 +18,8 @@ namespace OregonTrailDotNet.Entity.Item
         /// <summary>
         ///     Boxes of ammo used in the food-sweep minigame so the players can grab snacks by clearing out the fair food.
         /// </summary>
-        // Price: ~$30 a box — a box of range ammo at 2028 prices (minimum buy is 20 boxes, so stocking up is a real ~$600 commitment).
-        public static SimItem Bullets => new SimItem(Entities.Ammo, "Ammunition", "boxes", "box", 99, 30, 0, 20, 0, 1, 50);
+        // Price: ~$30 a box — a box of range ammo at 2028 prices (buy as few as 1 box).
+        public static SimItem Bullets => new SimItem(Entities.Ammo, "Ammunition", "boxes", "box", 99, 30, 0, 1, 0, 1, 50);
 
         /// <summary>
         ///     Serves as a generic reference item that represents a given amount of snacks. This could be from any food sweep or
