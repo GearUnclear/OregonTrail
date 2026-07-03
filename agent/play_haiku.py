@@ -15,9 +15,9 @@ Usage:
 """
 import argparse, subprocess, sys, time, re, os, datetime
 
-SESSION = "asphalt"
 REPO = "/root/mobile-dev/OregonTrail"
 GAME_CMD = f"cd {REPO} && /root/.dotnet/dotnet bin/OregonTrailDotNet.dll"
+SESSION = "asphalt"  # overwritten in main() when --tag is given
 
 SYSTEM = """You are playing a text adventure called "The Asphalt Trail" (a re-skin of \
 The Oregon Trail). You control the game by typing input at each screen.
@@ -58,7 +58,7 @@ def tmux(*args, check=False):
 def capture():
     return tmux("capture-pane", "-t", SESSION, "-p").stdout.rstrip("\n")
 
-RAW = os.path.join(REPO, "agent", "game_raw.out")
+RAW = os.path.join(REPO, "agent", "game_raw.out")  # overwritten in main() when --tag is given
 
 def start_game(width, height):
     tmux("kill-session", "-t", SESSION)
@@ -130,12 +130,19 @@ def main():
     ap.add_argument("--model", default="haiku")
     ap.add_argument("--width", type=int, default=110)
     ap.add_argument("--height", type=int, default=42)
+    ap.add_argument("--tag", default="", help="suffix for tmux session/log/raw files, for running multiple in parallel")
     args = ap.parse_args()
+
+    global SESSION, RAW
+    if args.tag:
+        SESSION = f"asphalt-{args.tag}"
+        RAW = os.path.join(REPO, "agent", f"game_raw-{args.tag}.out")
 
     import uuid
     session = str(uuid.uuid4())
     ts = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    log_path = os.path.join(REPO, "agent", f"playthrough-{ts}.log")
+    suffix = f"-{args.tag}" if args.tag else ""
+    log_path = os.path.join(REPO, "agent", f"playthrough-{ts}{suffix}.log")
     log = open(log_path, "w")
     def emit(s):
         print(s, flush=True)
