@@ -1,4 +1,4 @@
-// Created for the 2028 Asphalt Trail re-skin — DoorDash gig mini-game.
+// Created for the 2028 Asphalt Trail re-skin -- DoorDash gig mini-game.
 
 using System;
 using System.Text;
@@ -11,7 +11,7 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.Travel.DoorDash.Help
 {
     /// <summary>
-    ///     Prompt that precedes a DoorDash shift when accessed from the travel menu. Explains — honestly — how the gig works
+    ///     Prompt that precedes a DoorDash shift when accessed from the travel menu. Explains -- honestly -- how the gig works
     ///     before the player commits a day to it. Refuses to start the shift if the SUV has no fuel to drive on.
     /// </summary>
     [ParentWindow(typeof(Travel))]
@@ -52,11 +52,11 @@ namespace OregonTrailDotNet.Window.Travel.DoorDash.Help
 
             const string dashTop =
                 "A shift takes the whole day. Offers roll in one at a time; type ACCEPT to take one or REJECT to skip it. " +
-                "Base pay is a couple of dollars — the money is supposed to be in the tips, but the tip you see is only an " +
+                "Base pay is a couple of dollars -- the money is supposed to be in the tips, but the tip you see is only an " +
                 "estimate and customers can (and do) yank it back after delivery.";
 
             const string dashBottom =
-                "Every mile you drive — including the unpaid miles out to the restaurant — burns your own gas and wears out " +
+                "Every mile you drive -- including the unpaid miles out to the restaurant -- burns your own gas and wears out " +
                 "your tires. Reject too many offers and the app starts feeding you worse ones. Type QUIT any time to clock out.";
 
             _dashHelp.AppendLine(dashTop.WordWrap());

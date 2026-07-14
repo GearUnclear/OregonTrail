@@ -1,4 +1,4 @@
-// Created for the 2028 Asphalt Trail re-skin — dynamic fuel pricing.
+// Created for the 2028 Asphalt Trail re-skin -- dynamic fuel pricing.
 
 using System;
 
@@ -6,7 +6,7 @@ namespace OregonTrailDotNet.Entity.Item
 {
     /// <summary>
     ///     Computes the location-scaled price of gas cans. Gas is normal at the start of the journey, cheapest in the middle,
-    ///     and most expensive at the end — turning "buy fuel" into a timing decision. This affects the price the player PAYS at
+    ///     and most expensive at the end -- turning "buy fuel" into a timing decision. This affects the price the player PAYS at
     ///     the store only; the gas cans that land in the vehicle inventory keep <see cref="Parts.GasBaseCost" /> so the daily
     ///     mileage formula (calibrated to that figure) is untouched.
     /// </summary>
@@ -19,7 +19,7 @@ namespace OregonTrailDotNet.Entity.Item
         private const float LowMult = 0.7f;
 
         /// <summary>
-        ///     Price multiplier at the very end of the trip — the most expensive fuel of the whole journey.
+        ///     Price multiplier at the very end of the trip -- the most expensive fuel of the whole journey.
         /// </summary>
         private const float HighMult = 2.0f;
 

@@ -40,10 +40,10 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
             aboutTrail.AppendLine(
                 $"about {GameSimulationApp.Instance.Trail.Length:N0} miles of open road.{Environment.NewLine}");
 
-            aboutTrail.AppendLine("The SUV is paid off. Before you leave, stock up on supplies.");
+            aboutTrail.AppendLine("The car is paid off. Before you leave, stock up on supplies.");
             aboutTrail.AppendLine($"Here's what each one is for:{Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Gas - fuel for the SUV. More gas means more miles");
+            aboutTrail.AppendLine(" * Gas - fuel for the car. More gas means more miles");
             aboutTrail.AppendLine($"   between fill-ups, so you reach Seattle faster.{Environment.NewLine}");
 
             aboutTrail.AppendLine(" * Snacks - food for your family. Run low and everyone's");

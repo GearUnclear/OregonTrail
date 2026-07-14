@@ -1,4 +1,4 @@
-// Created for the 2028 Asphalt Trail re-skin — DoorDash gig mini-game.
+// Created for the 2028 Asphalt Trail re-skin -- DoorDash gig mini-game.
 
 using System;
 
@@ -66,7 +66,7 @@ namespace OregonTrailDotNet.Window.Travel.DoorDash
         /// <summary>Fixed platform base pay in dollars (small on purpose).</summary>
         public double BasePay { get; }
 
-        /// <summary>Tip estimate shown to the player. The realized tip is usually lower — see <see cref="RealizedTip" />.</summary>
+        /// <summary>Tip estimate shown to the player. The realized tip is usually lower -- see <see cref="RealizedTip" />.</summary>
         public double EstimatedTip { get; }
 
         /// <summary>Paid distance in miles to the customer.</summary>
@@ -97,7 +97,7 @@ namespace OregonTrailDotNet.Window.Travel.DoorDash
         }
 
         /// <summary>
-        ///     Rolls the tip you actually collect on delivery — which is usually NOT the estimate. ~15% of the time the customer
+        ///     Rolls the tip you actually collect on delivery -- which is usually NOT the estimate. ~15% of the time the customer
         ///     tip-baits you down to loose change, ~10% is a genuine windfall, and the rest lands well below the estimate.
         /// </summary>
         /// <returns>Realized tip in dollars.</returns>

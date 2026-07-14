@@ -17,7 +17,7 @@ namespace OregonTrailDotNet.Window.Graveyard
     ///     for other travelers on this section of the trail to see.
     /// </summary>
     [ParentWindow(typeof(Graveyard))]
-    public sealed class EpitaphConfirm : InputForm<TombstoneInfo>
+    public sealed class EpitaphConfirm : NumberedYesNoInputForm<TombstoneInfo>
     {
         /// <summary>
         ///     The _confirm prompt.

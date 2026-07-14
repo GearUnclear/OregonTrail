@@ -8,7 +8,7 @@ using WolfCurses.Window.Form;
 namespace OregonTrailDotNet.Window.Travel.Decision
 {
     /// <summary>
-    ///     "The Cascadia Line" — the party reaches the improvised Portland/Seattle border checkpoint. This is the LATE
+    ///     "The Cascadia Line" -- the party reaches the improvised Portland/Seattle border checkpoint. This is the LATE
     ///     payoff decision and carries the largest score swing in the game. It reads BOTH the earlier "arm" and "caravan"
     ///     decisions (and the "pack" documented flag) to resolve its outcomes: the Assert option pays out on the
     ///     armed/unarmed x join/solo combination, ranging from a stripped-and-detained -1500 up to a barrier-lifting +2500.
@@ -86,8 +86,8 @@ namespace OregonTrailDotNet.Window.Travel.Decision
 
             _menu.SetOptions(new[]
             {
-                new ArrowMenuOption("1. Comply — papers out, trunk open, submit to the search", "1"),
-                new ArrowMenuOption("2. Assert — stand on your rights and demand passage", "2"),
+                new ArrowMenuOption("1. Comply -- papers out, trunk open, submit to the search", "1"),
+                new ArrowMenuOption("2. Assert -- stand on your rights and demand passage", "2"),
                 new ArrowMenuOption("3. Run the backroad around the line", "3")
             });
             GameSimulationApp.Instance.ActiveMenu = _menu;
@@ -143,7 +143,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                         // An armed forty-strong caravan is not searched; the militia lifts the barrier.
                         assertDelta = 2500;
                         assertEpilogue =
-                            "Forty families and one rifle apiece — the checkpoint captain found urgent reasons to lift the barrier himself.";
+                            "Forty families and one rifle apiece -- the checkpoint captain found urgent reasons to lift the barrier himself.";
                     }
                     else if (join)
                     {
@@ -159,7 +159,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             passenger.Damage(40);
                         assertDelta = 300;
                         assertEpilogue =
-                            "A lone armed stranger at the barrier — you passed, barely, and never learned how close the orange vests came to firing.";
+                            "A lone armed stranger at the barrier -- you passed, barely, and never learned how close the orange vests came to firing.";
                     }
                     else
                     {

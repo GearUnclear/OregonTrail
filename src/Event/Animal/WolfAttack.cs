@@ -39,7 +39,8 @@ namespace OregonTrailDotNet.Event.Animal
         {
             var firePrompt = new StringBuilder();
             firePrompt.Clear();
-            firePrompt.AppendLine("A sounder of feral hogs rushes the SUV in the night!");
+            firePrompt.AppendLine(
+                $"A sounder of feral hogs rushes your {GameSimulationApp.Instance.Vehicle?.Model?.Name ?? "vehicle"} in the night!");
             firePrompt.Append("Resulting in ");
             return firePrompt.ToString();
         }

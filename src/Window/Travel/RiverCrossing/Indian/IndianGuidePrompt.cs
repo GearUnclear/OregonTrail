@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Indian
     ///     animals killed while hunting.
     /// </summary>
     [ParentWindow(typeof(Travel))]
-    public sealed class IndianGuidePrompt : InputForm<TravelInfo>
+    public sealed class IndianGuidePrompt : NumberedYesNoInputForm<TravelInfo>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="IndianGuidePrompt" /> class.
@@ -103,7 +103,7 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Indian
             var prompt = new StringBuilder();
             prompt.AppendLine($"{Environment.NewLine}A local says he isn't driving,");
             prompt.AppendLine("he's traveling, and will guide");
-            prompt.AppendLine($"your SUV across for {UserData.River.IndianCost:N0}");
+            prompt.AppendLine($"your car across for {UserData.River.IndianCost:N0}");
             prompt.AppendLine($"crates of MLM leggings.{Environment.NewLine}");
 
             // Change up the message based on if the player has enough leggings, they won't be able to get more if they don't here.

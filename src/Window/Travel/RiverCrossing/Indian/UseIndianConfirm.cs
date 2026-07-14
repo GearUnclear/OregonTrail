@@ -37,7 +37,7 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Indian
         {
             var prompt = new StringBuilder();
             prompt.AppendLine($"{Environment.NewLine}The local will guide");
-            prompt.AppendLine($"your SUV across the high water.{Environment.NewLine}");
+            prompt.AppendLine($"your car across the high water.{Environment.NewLine}");
             return prompt.ToString();
         }
 

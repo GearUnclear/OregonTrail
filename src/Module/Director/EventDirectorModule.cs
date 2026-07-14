@@ -93,7 +93,7 @@ namespace OregonTrailDotNet.Module.Director
         ///     Percent chance (0-100) per roll that a category fires when <see cref="TriggerEventByType" /> is
         ///     called. The base game used a flat 1% for everything; these are weighted so flavorful, low-stakes
         ///     categories surface often while lethal ones stay rare. Crucially, Person is rolled once PER
-        ///     passenger every travel day, so its odds compound — keep it low or the party gets sick constantly.
+        ///     passenger every travel day, so its odds compound -- keep it low or the party gets sick constantly.
         /// </summary>
         /// <param name="eventCategory">Category about to be rolled.</param>
         /// <returns>Percent chance the roll should pass.</returns>
@@ -121,6 +121,13 @@ namespace OregonTrailDotNet.Module.Director
                 case EventCategory.RiverCross:
                     // A river crossing is already a discrete, tense moment; leave it at the original odds.
                     return 1;
+                case EventCategory.ModernHazard:
+                    // The 2028 re-skin's headline difficulty lever: a satirical modern death/catastrophe roll,
+                    // once per moving travel day. Tuned in the headless balance sim (sim/Program.cs --hazard) so
+                    // that competent play (max fuel, big food, filling ration) wins only ~half the time; the
+                    // weighted outcome spread (whole-party wipe / one-off death / maim / supply drain) lives in
+                    // the src/Event/Modern/ prefab bases. 22 => 22%/day. Lower this to make the game easier.
+                    return 22;
                 default:
                     return 1;
             }

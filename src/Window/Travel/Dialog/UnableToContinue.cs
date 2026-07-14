@@ -58,7 +58,7 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
             {
                 stuckPrompt.AppendLine($"{Environment.NewLine}You are unable to continue");
                 stuckPrompt.AppendLine("your journey. You have no");
-                stuckPrompt.AppendLine($"gas to move your SUV.{Environment.NewLine}");
+                stuckPrompt.AppendLine($"gas to move your car.{Environment.NewLine}");
             }
 
             return stuckPrompt.ToString();

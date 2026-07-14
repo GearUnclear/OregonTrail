@@ -18,7 +18,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
     ///     pressing enter.
     /// </summary>
     [ParentWindow(typeof(MainMenu))]
-    public sealed class ConfirmPlayerNames : InputForm<NewGameInfo>
+    public sealed class ConfirmPlayerNames : NumberedYesNoInputForm<NewGameInfo>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfirmPlayerNames" /> class.
@@ -66,9 +66,12 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
         /// </summary>
         public override string OnRenderForm()
         {
-            // Unlike DialogType.YesNo (which accepts numeric "1"/"2"), this dialog's DialogType.Custom only
-            // recognizes the letter-based "y"/"n" - confirmed live: typing "1" fell through to the same
-            // Custom/RestartNameInput branch as "No" instead of confirming Yes.
+            // This screen renders a numbered "1. Yes / 2. No" menu, so the numbers a player types MUST
+            // work. The base InputForm's DialogType.Custom parser only understands the letter/word forms
+            // (Y/YES/TRUE and N/NO/FALSE) -- typing "1" used to fall through to the Custom branch, which
+            // quietly wiped the whole party back to the first-name prompt. The shared
+            // NumberedYesNoInputForm base now remaps "1"/"2" to those letters so digit, letter, and
+            // arrow-select all agree.
             var menu = new List<ArrowMenuOption>
             {
                 new ArrowMenuOption("1. Yes", "y"),

@@ -10,9 +10,10 @@ using WolfCurses.Window.Form.Input;
 namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Help
 {
     /// <summary>
-    ///     Shown to the user the first time they cross a river, this way it can be explained to them they must cross it in
-    ///     order to continue and there is no going around. We tell them how deep the water is and how many feed across the
-    ///     river is they will need to travel.
+    ///     Shown when the player reaches a flooded crossing, explaining that they must cross it in order to continue and
+    ///     there is no going around. We tell them how deep the water is and how many feet across the washout is they will
+    ///     need to travel. This is a read-only preview: pressing ENTER simply advances to the crossing-options menu where
+    ///     the actual choice is made, so the help never acts on its own.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class RiverCrossHelp : InputForm<TravelInfo>
@@ -45,6 +46,8 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Help
             riverPrompt.AppendLine($"{UserData.River.RiverWidth} feet of missing roadbed,");
             riverPrompt.AppendLine($"and {UserData.River.RiverDepth} feet of floodwater in");
             riverPrompt.AppendLine($"the middle.{Environment.NewLine}");
+            riverPrompt.AppendLine("Press ENTER to see your");
+            riverPrompt.AppendLine($"crossing options.{Environment.NewLine}");
             return riverPrompt.ToString();
         }
 

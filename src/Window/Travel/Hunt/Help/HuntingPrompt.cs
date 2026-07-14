@@ -54,7 +54,7 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
             // Explain how timer works, how grabbing works and food weight limits.
             const string huntTextTop =
                 "The food sweep has a timer which represents how long until the doors close. When the timer reaches zero the sweep is over. " +
-                "You can only haul 100 pounds of food back to the SUV, don't grab more than you keep since you just burn ammo holding your spot.";
+                "You can only haul 100 pounds of food back to the car, don't grab more than you keep since you just burn ammo holding your spot.";
 
             // Explain how grabbing works, how player has limited window of opportunity to snag the tray.
             const string huntTextBottom =

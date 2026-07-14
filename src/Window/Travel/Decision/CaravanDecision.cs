@@ -8,7 +8,7 @@ using WolfCurses.Window.Form;
 namespace OregonTrailDotNet.Window.Travel.Decision
 {
     /// <summary>
-    ///     "The Others at Carhenge" — the party arrives at the junked-sedan monument and meets Reyes' caravan. The player
+    ///     "The Others at Carhenge" -- the party arrives at the junked-sedan monument and meets Reyes' caravan. The player
     ///     chooses whether to join the convoy (slower, shared food buy-in, safety and the best endgame) or break off and go
     ///     solo (faster, keeps all food, exposed). Reads the earlier "pack" decision to scale the buy-in and penalties.
     /// </summary>
@@ -58,14 +58,14 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                 "already failed. Camped in their shadow: forty families who read the same weather app you did.");
             _decisionPrompt.AppendLine(string.Empty);
             _decisionPrompt.AppendLine(
-                "A woman named Reyes runs the caravan — shared fuel, shared watch, shared food pot, half the speed.");
+                "A woman named Reyes runs the caravan -- shared fuel, shared watch, shared food pot, half the speed.");
             _decisionPrompt.AppendLine("Nobody crosses the empty middle alone.");
 
             if (pack == "heavy")
             {
                 _decisionPrompt.AppendLine(string.Empty);
                 _decisionPrompt.AppendLine(
-                    "They clock your overloaded rig and the copper poking out the back — a rolling yard sale, and every");
+                    "They clock your overloaded rig and the copper poking out the back -- a rolling yard sale, and every");
                 _decisionPrompt.AppendLine("pound of it their problem if you throw a rod. The price of admission goes up.");
             }
             else if (pack == "teen")
@@ -80,7 +80,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _menu.SetOptions(new[]
             {
                 new ArrowMenuOption("1. Join the caravan", "1"),
-                new ArrowMenuOption("2. Break off and go solo — faster, exposed", "2")
+                new ArrowMenuOption("2. Break off and go solo -- faster, exposed", "2")
             });
             GameSimulationApp.Instance.ActiveMenu = _menu;
             _decisionPrompt.Append(_menu.Render());
@@ -112,12 +112,12 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             passenger.HealEntirely();
 
                     game.Choices.Record("caravan", "join", 600,
-                        "You gave the pool your surplus and your speed, and when the axle finally snapped in Wyoming there were forty strangers who stopped — a debt the hoarders behind you never got to call in.");
+                        "You gave the pool your surplus and your speed, and when the axle finally snapped in Wyoming there were forty strangers who stopped -- a debt the hoarders behind you never got to call in.");
                     ClearForm();
                     break;
 
                 case 2:
-                    // Break off and go solo: keep all food, but no lookout and no safety net — one ambush costs
+                    // Break off and go solo: keep all food, but no lookout and no safety net -- one ambush costs
                     // the party health. The overloaded rig was always a caravan liability, so a heavy pack is spared.
                     if (pack != "heavy")
                         foreach (var passenger in vehicle.Passengers)

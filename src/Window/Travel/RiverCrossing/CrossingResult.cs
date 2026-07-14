@@ -54,7 +54,7 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                     if (GameSimulationApp.Instance.Random.NextBool())
                     {
                         // No loss in time, but warning to let the player know it's dangerous.
-                        _crossingResult.AppendLine($"{Environment.NewLine}The current shoved the SUV,");
+                        _crossingResult.AppendLine($"{Environment.NewLine}The current shoved the car,");
                         _crossingResult.AppendLine("but you did not get");
                         _crossingResult.AppendLine($"swept off the road.{Environment.NewLine}");
                     }
@@ -92,7 +92,7 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                     else
                     {
                         _crossingResult.AppendLine($"{Environment.NewLine}The convoy got your family");
-                        _crossingResult.AppendLine($"and SUV safely across.{Environment.NewLine}");
+                        _crossingResult.AppendLine($"and car safely across.{Environment.NewLine}");
                     }
 
                     break;
@@ -106,7 +106,7 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                     else
                     {
                         _crossingResult.AppendLine($"{Environment.NewLine}The local guided your");
-                        _crossingResult.AppendLine($"SUV safely across.{Environment.NewLine}");
+                        _crossingResult.AppendLine($"car safely across.{Environment.NewLine}");
                     }
 
                     break;

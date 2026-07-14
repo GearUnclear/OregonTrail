@@ -16,7 +16,7 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
     ///     Asks the player if they would like to stop and check out a tombstone that is on this particular mile marker.
     /// </summary>
     [ParentWindow(typeof(Travel))]
-    public sealed class TombstoneQuestion : InputForm<TravelInfo>
+    public sealed class TombstoneQuestion : NumberedYesNoInputForm<TravelInfo>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="TombstoneQuestion" /> class.

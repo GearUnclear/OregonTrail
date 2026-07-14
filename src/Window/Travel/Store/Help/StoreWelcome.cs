@@ -77,7 +77,7 @@ namespace OregonTrailDotNet.Window.Travel.Store.Help
             if (_adviceCount <= 0)
             {
                 _storeHelp.Append($" - five-gallon gas cans to{Environment.NewLine}");
-                _storeHelp.Append($" keep the SUV rolling{Environment.NewLine}{Environment.NewLine}");
+                _storeHelp.Append($" keep the car rolling{Environment.NewLine}{Environment.NewLine}");
 
                 _storeHelp.Append($" - crates of MLM leggings,{Environment.NewLine}");
                 _storeHelp.Append($" still in the bag{Environment.NewLine}{Environment.NewLine}");
@@ -91,7 +91,7 @@ namespace OregonTrailDotNet.Window.Travel.Store.Help
                 _storeHelp.Append($" there by the flour{Environment.NewLine}{Environment.NewLine}");
 
                 _storeHelp.Append($" - spare parts for your{Environment.NewLine}");
-                _storeHelp.Append($" SUV{Environment.NewLine}{Environment.NewLine}");
+                _storeHelp.Append($" car{Environment.NewLine}{Environment.NewLine}");
             }
 
             // Wait for user input...

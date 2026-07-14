@@ -18,7 +18,7 @@ namespace OregonTrailDotNet.Window.MainMenu
     ///     default hard-coded by players have the chance to save their own scores to the list if they beat the default values.
     /// </summary>
     [ParentWindow(typeof(MainMenu))]
-    public sealed class CurrentTopTen : InputForm<NewGameInfo>
+    public sealed class CurrentTopTen : NumberedYesNoInputForm<NewGameInfo>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="CurrentTopTen" /> class.

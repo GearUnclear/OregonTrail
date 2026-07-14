@@ -1,4 +1,4 @@
-// Created for the 2028 Asphalt Trail re-skin — DoorDash gig mini-game.
+// Created for the 2028 Asphalt Trail re-skin -- DoorDash gig mini-game.
 
 using System;
 using System.Text;
@@ -8,8 +8,8 @@ using WolfCurses;
 namespace OregonTrailDotNet.Window.Travel.DoorDash
 {
     /// <summary>
-    ///     Runs a single DoorDash shift: surfaces delivery offers the player accepts or rejects, tracks the cash earned, and —
-    ///     critically — burns the player's own gas cans and spare tires to do it. Rejecting offers is not free either: the
+    ///     Runs a single DoorDash shift: surfaces delivery offers the player accepts or rejects, tracks the cash earned, and --
+    ///     critically -- burns the player's own gas cans and spare tires to do it. Rejecting offers is not free either: the
     ///     acceptance-rate algorithm quietly hands a picky driver worse and worse offers. The whole thing is designed to feel
     ///     productive while usually being a wash once fuel and wear are honestly subtracted (see <see cref="DoorDashResult" />).
     /// </summary>
@@ -27,7 +27,7 @@ namespace OregonTrailDotNet.Window.Travel.DoorDash
         /// <summary>Worst-case offer quality when acceptance rate has cratered.</summary>
         private const double ACCEPTRATE_FLOOR = 0.4;
 
-        /// <summary>Chance an accepted order is cancelled after pickup — you drove for it but collect only base pay.</summary>
+        /// <summary>Chance an accepted order is cancelled after pickup -- you drove for it but collect only base pay.</summary>
         private const double CANCEL_CHANCE = 0.08;
 
         private DeliveryOffer _currentOffer;
@@ -172,7 +172,7 @@ namespace OregonTrailDotNet.Window.Travel.DoorDash
 
         /// <summary>
         ///     Accepts the current offer: drives it (burning fuel and tires on the total miles, losing shift time to the wait),
-        ///     then collects base pay plus whatever tip actually materializes — unless the order gets cancelled on you.
+        ///     then collects base pay plus whatever tip actually materializes -- unless the order gets cancelled on you.
         /// </summary>
         public void Accept()
         {
@@ -182,7 +182,7 @@ namespace OregonTrailDotNet.Window.Travel.DoorDash
 
             var game = GameSimulationApp.Instance;
 
-            // Every mile — paid or unpaid deadhead — costs you fuel and tire life; the wait eats your clock.
+            // Every mile -- paid or unpaid deadhead -- costs you fuel and tire life; the wait eats your clock.
             _milesDriven += offer.TotalMiles;
             _wearMiles += offer.TotalMiles;
             _secondsRemaining -= offer.WaitTicks;

@@ -12,7 +12,7 @@ namespace OregonTrailDotNet.Entity.Item
         ///     Base pump price of a five-gallon gas can before any location price curve. The daily-mileage formula in
         ///     <see cref="OregonTrailDotNet.Entity.Vehicle.Vehicle" /> is calibrated to this exact figure, so the gas cans that
         ///     actually sit in the vehicle inventory MUST be valued at this cost. The station price the player *pays* is scaled
-        ///     by <see cref="FuelPricing" /> at the store layer only — never bake the curve into inventory or the mileage math.
+        ///     by <see cref="FuelPricing" /> at the store layer only -- never bake the curve into inventory or the mileage math.
         /// </summary>
         public const float GasBaseCost = 25f;
 
@@ -40,7 +40,7 @@ namespace OregonTrailDotNet.Entity.Item
 
         /// <summary>
         ///     Required to keep the SUV running, if the transmission goes then the player will have to fix or replace it before
-        ///     they can continue on the journey again. Price: $1,200 — the single most expensive thing in the store on purpose;
+        ///     they can continue on the journey again. Price: $1,200 -- the single most expensive thing in the store on purpose;
         ///     a blown transmission with no spare is a budget catastrophe, just like real life.
         /// </summary>
         public static SimItem Tongue => new SimItem(Entities.Tongue, "Transmission", "transmissions", "transmission", 3, 1200, 0, 1, 0, 2);

@@ -39,7 +39,8 @@ namespace OregonTrailDotNet.Event.Vehicle
         {
             var capsizePrompt = new StringBuilder();
             capsizePrompt.Clear();
-            capsizePrompt.AppendLine("The SUV rolls on the shoulder.");
+            capsizePrompt.AppendLine(
+                $"Your {GameSimulationApp.Instance.Vehicle?.Model?.Name ?? "vehicle"} rolls on the shoulder.");
             capsizePrompt.Append("Results in ");
             return capsizePrompt.ToString();
         }

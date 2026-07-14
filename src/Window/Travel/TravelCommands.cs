@@ -61,19 +61,19 @@ namespace OregonTrailDotNet.Window.Travel
         [Description("Grab some food")] HuntForFood = 8,
 
         /// <summary>
-        ///     You can only buy items at Buc-ee's and big-box stops along the road.  If you're at one, pick "Buy" to see what is
-        ///     in stock.  Prices increase the farther along the road you go.
-        /// </summary>
-        [Description("Buy supplies")] BuySupplies = 9,
-
-        /// <summary>
         ///     Using "Talk," you can talk to fellow travelers to further the story or for advice.  If you don't know what to do,
         ///     talk to someone or consult the Guide.
         /// </summary>
-        [Description("Talk to people")] TalkToPeople = 10,
+        [Description("Talk to people")] TalkToPeople = 9,
 
         /// <summary>
-        ///     Pick up a day of DoorDash delivery gigs in town for some quick cash — at the cost of your own fuel and tires.
+        ///     You can only buy items at Buc-ee's and big-box stops along the road.  If you're at one, pick "Buy" to see what is
+        ///     in stock.  Prices increase the farther along the road you go.
+        /// </summary>
+        [Description("Buy supplies")] BuySupplies = 10,
+
+        /// <summary>
+        ///     Pick up a day of DoorDash delivery gigs in town for some quick cash -- at the cost of your own fuel and tires.
         /// </summary>
         [Description("Drive for DoorDash")] DriveForDoorDash = 11
     }

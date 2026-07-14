@@ -99,7 +99,7 @@ namespace OregonTrailDotNet.Entity.Vehicle
         /// <summary>
         ///     Total pounds of cargo currently loaded into the vehicle, summed across every inventory category. Given
         ///     that gas cans, spare parts, and cash all weigh zero pounds today this is effectively just food and
-        ///     clothes weight, which is intentional — no category is special-cased here.
+        ///     clothes weight, which is intentional -- no category is special-cased here.
         /// </summary>
         public int CargoWeight => Inventory.Values.Sum(item => item.TotalWeight);
 
@@ -260,7 +260,7 @@ namespace OregonTrailDotNet.Entity.Vehicle
                 // Variables that will hold the distance we should travel in the next day.
                 // The two constants below are derived from the gas-can price (see Parts.Oxen): the threshold is
                 // 5.5 cans worth of fuel (5.5 * $25 = 137.5) and the divisor is the per-can mileage slope ($25 / 8 = 3.125),
-                // so each gas can is still worth ~8 miles/day and 5.5 cans is still the break-even point — identical to the
+                // so each gas can is still worth ~8 miles/day and 5.5 cans is still the break-even point -- identical to the
                 // pre-2028 $20-a-can tuning, just expressed against the inflated price. Rescale both if the price changes.
                 // Fuel efficiency scales just the gas-derived term, so a thirstier vehicle needs more cans to cover
                 // the same ground while a fuel-sipper stretches every can further.

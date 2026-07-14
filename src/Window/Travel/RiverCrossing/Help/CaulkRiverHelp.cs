@@ -36,7 +36,7 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Help
         {
             var caulkWagon = new StringBuilder();
             caulkWagon.AppendLine($"{Environment.NewLine}Sealing the doors means");
-            caulkWagon.AppendLine("taping the SUV up so no flood-");
+            caulkWagon.AppendLine("taping the car up so no flood-");
             caulkWagon.AppendLine("water can get in. You then");
             caulkWagon.AppendLine("creep along the washed-out");
             caulkWagon.AppendLine($"shoulder detour.{Environment.NewLine}");

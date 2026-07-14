@@ -116,8 +116,10 @@ internal static class Program
             ration = I(a, "ration", 1), pace = I(a, "pace", 1),
             trials = I(a, "trials", 4000), seed = I(a, "seed", 1),
             segments = I(a, "segments", 16),
-            doordash = I(a, "doordash", 0);
+            doordash = I(a, "doordash", 0),
+            hazardPerMille = I(a, "hazard", 0);   // per-day modern-hazard chance * 1000 (0 = disabled)
         if (doordash < 0) doordash = 0;
+        if (hazardPerMille < 0) hazardPerMille = 0;
 
         // ---- vehicle purchase: subtract Cost from starting cash, flooring at $0 (mirrors
         // GameSimulationApp.SetStartInfo -> Vehicle.Balance's setter) ----
@@ -179,7 +181,7 @@ internal static class Program
         {
             var r = new Rng(seed * 100003 + t);
             var res = Simulate(r, prof, gas, food, tires, alts, trans, cloth, ammo, ration, pace, leftoverCash, segments,
-                doordash, ddShiftNets, ddShiftGross, ddTotals, partySize, veh.Speed, veh.FuelEff);
+                doordash, ddShiftNets, ddShiftGross, ddTotals, partySize, veh.Speed, veh.FuelEff, hazardPerMille);
             days.Add(res.Days);
             if (res.Outcome == Outcome.Win)
             {
@@ -248,7 +250,7 @@ internal static class Program
         int gas, int food, int tires, int alts, int trans, int cloth, int ammo,
         int ration, int pace, int cash, int segments,
         int doordash, List<double> ddShiftNets, List<double> ddShiftGross, long[] ddTotals,
-        int partySize, double speedMult, double fuelEffMult)
+        int partySize, double speedMult, double fuelEffMult, int hazardPerMille)
     {
         // ---- DoorDash schedule: spread N shifts across intermediate settlements so the fuel-price curve and
         // acceptance-rate spiral actually vary across the journey. Shift k fires when we ARRIVE at segIdx
@@ -288,6 +290,11 @@ internal static class Program
             if (living == 0) return Lose(Outcome.Death, day);
 
             // ----- per-passenger tick (Person.OnTick faithful order) -----
+            // FAITHFUL LOSS RULE: the live game only ends in defeat when EVERY passenger is dead
+            // (Vehicle.PassengersDead) — the leader is NOT special (Travel.cs / GameOver.cs). The old sim
+            // instant-lost on leader death (dead[0]); that overstated losses and could not model whole-party
+            // catastrophes. We now lose only when Living()==0, tagging the wipe by its most recent cause.
+            Outcome causeOfWipe = Outcome.Death;
             for (int i = 0; i < partySize; i++)
             {
                 if (dead[i]) continue;
@@ -310,7 +317,6 @@ internal static class Program
                 // pace penalty (moving travel day only)
                 if (pace == 2) Damage(r, hp, dead, injured, infected, i, 2, 6);
                 else if (pace == 3) { Damage(r, hp, dead, injured, infected, i, 6, 14); CheckIllness(r, hp, dead, injured, infected, i, ration, partySize, ref mileage); }
-                if (dead[i] && i == 0) return Lose(Outcome.Death, day);
 
                 // food consumption — FAITHFUL: the game calls ConsumeFood once PER living passenger, and
                 // each call reduces food by mult*livingCount, so whole-party daily burn is quadratic:
@@ -323,11 +329,10 @@ internal static class Program
                 else
                 {
                     Damage(r, hp, dead, injured, infected, i, 10, 50);
-                    if (dead[i] && i == 0) return Lose(Outcome.Starved, day);
+                    if (dead[i]) causeOfWipe = Outcome.Starved;
                 }
             }
-            if (Living() == 0) return Lose(Outcome.Starved, day);
-            if (dead[0]) return Lose(Outcome.Death, day);
+            if (Living() == 0) return Lose(causeOfWipe, day);
 
             // ----- vehicle moves -----
             // RandomMileage: compounding base + gas bonus (scaled by FuelEfficiencyMultiplier) + jitter
@@ -346,6 +351,12 @@ internal static class Program
                 if (v == VehOut.Stranded) return Lose(Outcome.Stranded, day);
             }
             if (gas <= 0) return Lose(Outcome.Stranded, day); // no fuel -> disabled
+
+            // modern-hazard roll (satirical modern deaths / catastrophes) — the main new difficulty lever.
+            if (ModernHazard(r, hp, dead, injured, infected, partySize,
+                    ref gas, ref food, ref cash, ref mileage, hazardPerMille))
+                return Lose(Outcome.Death, day);
+            if (gas <= 0) return Lose(Outcome.Stranded, day);
 
             if (mileage <= 0) mileage = 10;
 
@@ -464,7 +475,7 @@ internal static class Program
             else
                 CheckIllness(r, hp, dead, inj, inf, i, ration, partySize, ref mileage);
 
-            if (dead[0]) return Outcome.Death;
+            if (Living2(dead, partySize) == 0) return Outcome.Death;
 
             if (food > 0)
             {
@@ -475,10 +486,10 @@ internal static class Program
             else
             {
                 Damage(r, hp, dead, inj, inf, i, 10, 50);
-                if (dead[0]) return Outcome.Starved;
+                if (Living2(dead, partySize) == 0) return Outcome.Starved;
             }
         }
-        return dead[0] ? Outcome.Death : (Outcome?)null;
+        return Living2(dead, partySize) == 0 ? (Outcome?)Outcome.Death : (Outcome?)null;
     }
 
     // ---- DeliveryOffer.RealizedTip (faithful): tip-bait 15% / unicorn 10% / else ~55-70% of the estimate. ----
@@ -609,6 +620,76 @@ internal static class Program
     }
 
     static Result Lose(Outcome o, int day) => new Result { Outcome = o, Days = day, Score = 0, EndCash = 0, Living = 0, Rating = "Dead" };
+
+    static int Living2(bool[] dead, int partySize) { int c = 0; for (int i = 0; i < partySize; i++) if (!dead[i]) c++; return c; }
+
+    // ---- Modern-hazard model (mirrors the per-travel-day "modern hazard" roll wired into ContinueOnTrail).
+    // Called once per moving travel day when enabled. With probability hazardPerMille/1000 a hazard fires; a
+    // weighted table then applies one satirical-death effect profile. The GAME authors many flavor events, but
+    // every one maps onto ONE of these five numeric profiles, and the game rolls this exact table, so this is a
+    // faithful numeric mirror. Returns true if the party was wiped (Living()==0).
+    // Weights (out of 100): CARNAGE 7, PILEUP 18, SOLO_KILL 24, SOLO_MAIM 27, SUPPLY_DRAIN 24.
+    // All losses here route through party death (all-dead) or downstream starvation — a clean GameFail screen
+    // in the live game — rather than fuel-stranding (which soft-locks the real game into a stuck Disabled state).
+    static bool ModernHazard(Rng r, int[] hp, bool[] dead, bool[] inj, bool[] inf, int partySize,
+        ref int gas, ref int food, ref int cash, ref double mileage, int hazardPerMille)
+    {
+        if (hazardPerMille <= 0) return false;
+        if (r.Next(1000) >= hazardPerMille) return false;
+
+        int living = Living2(dead, partySize);
+        if (living == 0) return true;
+
+        int roll = r.Next(100);
+        if (roll < 7)
+        {
+            // CARNAGE — a total-loss catastrophe that kills EVERYONE in the car: Cybertruck door-lock fire,
+            // off the gorge overlook, wrong-way on the interstate, bridge collapse into the river. Instant
+            // all-dead loss with a proper death screen. The sharp fatal edge modern life keeps handy.
+            for (int i = 0; i < partySize; i++) if (!dead[i]) { hp[i] = 0; dead[i] = true; }
+        }
+        else if (roll < 25)
+        {
+            // PILEUP — a genuinely fatal multi-car catastrophe: every caught passenger has a real chance of
+            // dying outright, the rest are badly hurt. Can wipe even a healthy convoy (rarely) and reliably
+            // finishes a thinned one (40-car fog pileup, street-takeover, gender-reveal wildfire, heat-dome).
+            for (int i = 0; i < partySize; i++)
+                if (!dead[i])
+                {
+                    if (r.Next(100) < 35) { hp[i] = 0; dead[i] = true; }
+                    else Damage(r, hp, dead, inj, inf, i, 50, 170);
+                }
+        }
+        else if (roll < 49)
+        {
+            // SOLO_KILL — one random living passenger dies in a signature satirical death (attrition; a
+            // thinned party is one bad pileup from a wipe).
+            int idx = NthLiving(dead, partySize, r.Next(living));
+            if (idx >= 0) { hp[idx] = 0; dead[idx] = true; }
+        }
+        else if (roll < 76)
+        {
+            // SOLO_MAIM — one random passenger is badly hurt + injured; convoy loses road speed.
+            int idx = NthLiving(dead, partySize, r.Next(living));
+            if (idx >= 0) { Damage(r, hp, dead, inj, inf, idx, 60, 200); inj[idx] = true; ReduceMileage(ref mileage, 15); }
+        }
+        else
+        {
+            // SUPPLY_DRAIN — food spoiled/stolen or cash extracted (impound, scam, shakedown). Food loss
+            // pushes the party toward starvation (a downstream all-dead loss).
+            if (r.Next(100) < 55) food = Math.Max(0, food - r.Next(30, 140));
+            else cash = Math.Max(0, cash - r.Next(80, 280));
+        }
+
+        return Living2(dead, partySize) == 0;
+    }
+
+    static int NthLiving(bool[] dead, int partySize, int n)
+    {
+        for (int i = 0; i < partySize; i++)
+            if (!dead[i]) { if (n == 0) return i; n--; }
+        return -1;
+    }
 
     static int Band(int h) => h > 400 ? 500 : h > 300 ? 400 : h > 200 ? 300 : h > 0 ? 200 : 0;
     static int ClosestBand(int v)

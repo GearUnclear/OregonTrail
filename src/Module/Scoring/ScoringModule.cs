@@ -41,16 +41,16 @@ namespace OregonTrailDotNet.Module.Scoring
         /// </summary>
         public static IEnumerable<Highscore> DefaultTopTen => new List<Highscore>
         {
-            new Highscore("Stephen Meek", 7650),
-            new Highscore("Celinda Hines", 5694),
-            new Highscore("Andrew Sublette", 4138),
-            new Highscore("David Hastings", 2945),
-            new Highscore("Ezra Meeker", 2052),
-            new Highscore("Willian Vaughn", 1401),
-            new Highscore("Mary Bartlett", 937),
-            new Highscore("Willian Wiggins", 615),
-            new Highscore("Charles Hopper", 396),
-            new Highscore("Elijah White", 250)
+            new Highscore("Brayden Kessler", 7650),
+            new Highscore("Ashleigh Vandermeer", 5694),
+            new Highscore("Pastor Dax Holloway", 4138),
+            new Highscore("Tanner Whitlock", 2945),
+            new Highscore("Kayleigh Brubaker", 2052),
+            new Highscore("Hunter Delacroix", 1401),
+            new Highscore("Braylynn Ostrander", 937),
+            new Highscore("Colton Reinhardt", 615),
+            new Highscore("Madisyn Tran-Buckley", 396),
+            new Highscore("Chip Vandergrift", 250)
         };
 
         /// <summary>Adds a new high-score to the list.</summary>

@@ -56,11 +56,12 @@ namespace OregonTrailDotNet.Window.Travel.Decision
         public override string OnRenderForm()
         {
             _decisionPrompt.Clear();
-            _decisionPrompt.AppendLine($"{Environment.NewLine}What Fits in the SUV{Environment.NewLine}");
+            var vehicleName = GameSimulationApp.Instance.Vehicle.Model.Name;
+            _decisionPrompt.AppendLine($"{Environment.NewLine}What Fits in the {vehicleName}{Environment.NewLine}");
             _decisionPrompt.AppendLine(
-                "The county's drone already tagged the house UNINSURABLE / CONDEMNED and moved on down the flooded cul-de-sac; the driveway is a boat ramp now and the water is at the third porch step.");
+                "This is your own house in Cape Coral -- the one the form letter condemned -- on the morning you leave it for good. The county's drone already tagged it UNINSURABLE / CONDEMNED and moved on down your flooded cul-de-sac; your driveway is a boat ramp now and the water is at your third porch step.");
             _decisionPrompt.AppendLine(
-                "One SUV with a bad rear axle, forty minutes before the tide and the repo truck. Whatever you leave, someone with a crowbar inherits by Tuesday.");
+                $"Your {vehicleName} sits in that driveway with a bad rear axle, forty minutes before the tide and the repo truck. Whatever you leave behind in the house you're walking out of, someone with a crowbar inherits by Tuesday.");
             _decisionPrompt.AppendLine(
                 "Mrs. Delgado two doors down didn't make the last convoy. Her boy Mateo is on your lawn with a duffel and no plan.");
             _decisionPrompt.AppendLine(string.Empty);
@@ -121,7 +122,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
 
                 case 3:
                     // Leave a seat for Mateo: an extra mouth, but an extra pair of hands. Only if the chosen vehicle
-                    // actually has an open seat left — the 3-seat Hybrid/EV can easily already be full.
+                    // actually has an open seat left -- the 3-seat Hybrid/EV can easily already be full.
                     if (vehicle.Passengers.Count < vehicle.MaxPartySize)
                     {
                         var leaderProfession = vehicle.PassengerLeader?.Profession ?? Profession.Farmer;
@@ -138,7 +139,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             "pack",
                             "teen_declined",
                             0,
-                            "There wasn't a seat to give him -- the SUV was already packed to its limit with your own family, and you watched him wave from the curb as you pulled out.");
+                            $"There wasn't a seat to give him -- the {vehicle.Model.Name} was already packed to its limit with your own family, and you watched him wave from the curb as you pulled out of your driveway for the last time.");
                     }
                     // Pack fires as the party departs Cape Coral, so resume the drive rather than dropping to the menu.
                     SetForm(typeof(ContinueOnTrail));

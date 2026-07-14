@@ -6,6 +6,7 @@ using System.Text;
 using OregonTrailDotNet.Entity.Location;
 using OregonTrailDotNet.Entity.Vehicle;
 using OregonTrailDotNet.Event;
+using OregonTrailDotNet.Event.Modern;
 using OregonTrailDotNet.Renderer;
 using OregonTrailDotNet.Window.Travel.Dialog;
 using WolfCurses.Window;
@@ -166,6 +167,18 @@ namespace OregonTrailDotNet.Window.Travel.Command
                     // the other categories use; the per-category odds live in EventDirectorModule.
                     game.EventDirector.TriggerEventByType(game.Vehicle, EventCategory.Wild);
                     game.EventDirector.TriggerEventByType(game.Vehicle, EventCategory.Animal);
+
+                    // The 2028 re-skin's headline difficulty lever: a satirical, allegorical "modern American
+                    // road-trip" death or catastrophe, rolled once per moving travel day. The per-day odds live
+                    // in EventDirectorModule.CategoryChance(ModernHazard); the weighted outcome spread (whole-party
+                    // wipe / one-off death / maiming / supply drain) lives in the src/Event/Modern/ prefabs. Tuned
+                    // in the headless balance sim so competent play wins only about half the time.
+                    game.EventDirector.TriggerEventByType(game.Vehicle, EventCategory.ModernHazard);
+
+                    // Scripted flavor: a 0.02%/turn chance (1 in 5000) that Red Dead Redemption 3 drops mid-trip
+                    // and every living passenger has, without discussion, pre-ordered the $80 edition.
+                    if (game.Random.Next(5000) == 0)
+                        game.EventDirector.TriggerEvent(game.Vehicle, typeof(RedDeadRedemption3));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

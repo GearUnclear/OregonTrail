@@ -46,14 +46,14 @@ namespace OregonTrailDotNet.Window.MainMenu
                 "emergency meeting about it and voted to repaint the",
                 "clubhouse.",
                 "",
-                "So you decided to drive to Seattle."
+                "So you are leaving for Seattle."
             },
 
             // 2. The player's life: who you are and what you are leaving behind.
             new[]
             {
                 "You are not pioneers. You are a family with a paid-off",
-                "SUV, a folder of important documents, and a group chat",
+                "car, a folder of important documents, and a group chat",
                 "full of relatives who think you are overreacting.",
                 "",
                 "Behind you: a screened lanai, a thirty-year mortgage on",
@@ -61,9 +61,9 @@ namespace OregonTrailDotNet.Window.MainMenu
                 "that became \"fully remote, indefinitely,\" and a favorite",
                 "diner that is currently, in the legal sense, a reef.",
                 "",
-                "You packed what fit. You sold what didn't. A neighbor's",
-                "kid gave you forty dollars and a firm handshake for the",
-                "patio furniture.",
+                "What fits in the car goes with you. What doesn't gets",
+                "left for the tide. A neighbor's kid already gave you",
+                "forty dollars and a firm handshake for the patio set.",
                 "",
                 "The children believe this is a vacation. You have",
                 "elected not to correct them."
@@ -98,7 +98,7 @@ namespace OregonTrailDotNet.Window.MainMenu
                 "",
                 "That is the entire pitch.",
                 "",
-                "The road will test your SUV, your snack reserve, and",
+                "The road will test your car, your snack reserve, and",
                 "the patience of everyone strapped into it. Keep fuel in",
                 "the tank, food in the cooler, and at least one",
                 "functioning adult at the wheel.",

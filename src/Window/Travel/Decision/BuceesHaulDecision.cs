@@ -8,7 +8,7 @@ using WolfCurses.Window.Form;
 namespace OregonTrailDotNet.Window.Travel.Decision
 {
     /// <summary>
-    ///     Buc-ee's, Sevierville — "The Cathedral of Snacks." A pure money/food/time triangle: blow the budget on a
+    ///     Buc-ee's, Sevierville -- "The Cathedral of Snacks." A pure money/food/time triangle: blow the budget on a
     ///     mega-haul, stay disciplined, or take a shady pallet gig. No option dominates. Fires once when the party arrives
     ///     at the location; records the outcome in the per-game <see cref="Module.Choices.ChoiceLedger" />.
     /// </summary>
@@ -59,9 +59,9 @@ namespace OregonTrailDotNet.Window.Travel.Decision
 
             _menu.SetOptions(new[]
             {
-                new ArrowMenuOption("1. Blow the budget on a mega-haul — brisket, water, the good jerky", "1"),
-                new ArrowMenuOption("2. Stay disciplined — top off the tank, grab a little, keep the powder dry", "2"),
-                new ArrowMenuOption("3. Take the pallet gig — haul freight to Knoxville and back", "3")
+                new ArrowMenuOption("1. Blow the budget on a mega-haul -- brisket, water, the good jerky", "1"),
+                new ArrowMenuOption("2. Stay disciplined -- top off the tank, grab a little, keep the powder dry", "2"),
+                new ArrowMenuOption("3. Take the pallet gig -- haul freight to Knoxville and back", "3")
             });
             GameSimulationApp.Instance.ActiveMenu = _menu;
             _prompt.Append(_menu.Render());

@@ -1,4 +1,4 @@
-// Created for the 2028 Asphalt Trail re-skin — vehicle selection.
+// Created for the 2028 Asphalt Trail re-skin -- vehicle selection.
 
 using WolfCurses.Utility;
 
@@ -6,7 +6,7 @@ namespace OregonTrailDotNet.Entity.Vehicle
 {
     /// <summary>
     ///     The vehicle the party will be making the drive to Seattle in. Selected once at the start of the game and
-    ///     locked in for its duration — it determines travel speed, fuel efficiency, cargo capacity, and the maximum
+    ///     locked in for its duration -- it determines travel speed, fuel efficiency, cargo capacity, and the maximum
     ///     number of people who can be crammed inside.
     /// </summary>
     public enum VehicleChoice

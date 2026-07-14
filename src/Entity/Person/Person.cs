@@ -247,7 +247,7 @@ namespace OregonTrailDotNet.Entity.Person
             // More chance for illness if you have no clothes (i.e. underdressed for the climate). The
             // comparison value is the dollar value of leggings carried; Random.Next() is [0,60), so the
             // warmth threshold sits around $140 (≈ 2 crates) and reliably "warm" is ≈ 4 crates ($300).
-            // NOTE: this used to be inverted — the warm branch ran CheckIllness unconditionally, so more
+            // NOTE: this used to be inverted -- the warm branch ran CheckIllness unconditionally, so more
             // clothing made you SICKER (and the $10→$75 crate price hike amplified it). Branches swapped so
             // adequate clothing now LOWERS illness exposure, matching the intent and making leggings worth buying.
             var costClothes = game.Vehicle.Inventory[Entities.Clothes].TotalValue;
@@ -321,7 +321,7 @@ namespace OregonTrailDotNet.Entity.Person
             {
                 // Consume food based on ration level. The food multiplier is INVERTED relative to the
                 // RationLevel int (Filling=1, Meager=2, BareBones=3) so that generous meals eat the MOST and
-                // bare-bones meals eat the LEAST — Filling=3, Meager=2, BareBones=1 lb/person/day. Previously
+                // bare-bones meals eat the LEAST -- Filling=3, Meager=2, BareBones=1 lb/person/day. Previously
                 // it used the raw int, so "rationing" (BareBones) ate 3x the food, making the survival lever
                 // self-defeating. Now BareBones genuinely stretches a small food supply, traded against the
                 // higher illness exposure that the ration int still drives in OnTick/CheckIllness.

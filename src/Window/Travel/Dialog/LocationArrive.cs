@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
     ///     occur without player consent.
     /// </summary>
     [ParentWindow(typeof(Travel))]
-    public sealed class LocationArrive : InputForm<TravelInfo>
+    public sealed class LocationArrive : NumberedYesNoInputForm<TravelInfo>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="LocationArrive" /> class.

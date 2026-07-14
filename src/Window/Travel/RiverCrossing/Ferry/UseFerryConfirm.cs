@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Ferry
     ///     next state accordingly.
     /// </summary>
     [ParentWindow(typeof(Travel))]
-    public sealed class UseFerryConfirm : InputForm<TravelInfo>
+    public sealed class UseFerryConfirm : NumberedYesNoInputForm<TravelInfo>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="UseFerryConfirm" /> class.
@@ -83,11 +83,14 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Ferry
         /// </returns>
         protected override string OnDialogPrompt()
         {
+            var delay = UserData.River.FerryDelayInDays;
+            var dayWord = delay == 1 ? "day" : "days";
+
             var prompt = new StringBuilder();
             prompt.AppendLine($"{Environment.NewLine}The National Guard convoy says");
             prompt.AppendLine($"the high-water haul runs {UserData.River.FerryCost:C2} and");
-            prompt.AppendLine($"that you will have to wait {UserData.River.FerryDelayInDays}");
-            prompt.Append("days. Are you willing to do this?");
+            prompt.AppendLine($"that you will have to wait {delay}");
+            prompt.Append($"{dayWord}. Are you willing to do this?");
             return prompt.ToString();
         }
 

@@ -33,7 +33,8 @@ namespace OregonTrailDotNet.Event.Wild
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return "A streamer walks into the intersection and it becomes donuts, lowriders, and fireworks. The SUV stalls in the smoke.";
+            return
+                $"A streamer walks into the intersection and it becomes donuts, lowriders, and fireworks. Your {GameSimulationApp.Instance.Vehicle?.Model?.Name ?? "vehicle"} stalls in the smoke.";
         }
     }
 }

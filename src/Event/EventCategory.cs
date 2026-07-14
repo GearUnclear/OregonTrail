@@ -37,6 +37,14 @@ namespace OregonTrailDotNet.Event
         /// <summary>
         ///     Crossing a river has many dangers regardless of transport mode. Flooding, capsizing, hitting rocks, etc.
         /// </summary>
-        RiverCross
+        RiverCross,
+
+        /// <summary>
+        ///     Satirical, allegorical "modern American road-trip" deaths and catastrophes (the 2028 re-skin's main
+        ///     difficulty lever). Rolled once per moving travel day from ContinueOnTrail. A weighted spread of
+        ///     whole-party wipes, one-off deaths, maimings, and supply drains, each grounded in a real 2020s
+        ///     phenomenon. See the src/Event/Modern/ prefabs for the five mechanical profiles.
+        /// </summary>
+        ModernHazard
     }
 }

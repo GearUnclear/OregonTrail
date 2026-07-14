@@ -16,7 +16,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Options
     ///     be created then.
     /// </summary>
     [ParentWindow(typeof(MainMenu))]
-    public sealed class EraseTombstone : InputForm<NewGameInfo>
+    public sealed class EraseTombstone : NumberedYesNoInputForm<NewGameInfo>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="EraseTombstone" /> class.

@@ -48,11 +48,16 @@ namespace OregonTrailDotNet.Window.GameOver
         /// </returns>
         protected override string OnDialogPrompt()
         {
-            // Build up a representation of the current points the player has.
-            _pointsPrompt.AppendLine($"{Environment.NewLine}Net Worth & Clout for reaching Seattle{Environment.NewLine}");
-
             // Shortcut to the game simulation instance to make code easier to read.
             var game = GameSimulationApp.Instance;
+
+            // A total wipe reaches this tally too now; reword the header so it does not congratulate a dead party.
+            var partyWiped = !game.Trail.CurrentLocation.LastLocation && game.Vehicle.PassengersDead;
+
+            // Build up a representation of the current points the player has.
+            _pointsPrompt.AppendLine(partyWiped
+                ? $"{Environment.NewLine}Net Worth & Clout for a road trip that ended early{Environment.NewLine}"
+                : $"{Environment.NewLine}Net Worth & Clout for reaching Seattle{Environment.NewLine}");
 
             // Calculate the total points of all spare parts for the tuple list below ahead of time.
             var spareAxles = new Tuple<int, string, int>(
@@ -89,7 +94,7 @@ namespace OregonTrailDotNet.Window.GameOver
                     game.Vehicle.PassengerLivingCount,
                     $"people in {avgHealth.ToDescriptionAttribute().ToLowerInvariant()} health",
                     game.Vehicle.PassengerLivingCount*(int) avgHealth),
-                new Tuple<int, string, int>(1, "SUV", Resources.Vehicle.Points),
+                new Tuple<int, string, int>(1, game.Vehicle?.Model?.Name ?? "vehicle", Resources.Vehicle.Points),
                 new Tuple<int, string, int>(
                     game.Vehicle.Inventory[Entities.Animal].Quantity,
                     "cans of gas",
@@ -167,7 +172,11 @@ namespace OregonTrailDotNet.Window.GameOver
             }
 
             // Add the score to the current listing that will get saved.
-            GameSimulationApp.Instance.Scoring.Add(new Highscore(leaderPerson.Name, totalPointsWithBonus));
+            var finalScore = new Highscore(leaderPerson.Name, totalPointsWithBonus);
+            GameSimulationApp.Instance.Scoring.Add(finalScore);
+
+            // Surface the clout rank (Tourist/Influencer/Verified) the run just earned on the leaderboard.
+            _pointsPrompt.AppendLine($"{Environment.NewLine}Clout Rank: {finalScore.Rating}");
 
             // Recap the forking decisions the player made along the trail.
             if (game.Choices.Epilogue.Count > 0)
@@ -187,8 +196,18 @@ namespace OregonTrailDotNet.Window.GameOver
         /// <param name="reponse">The response the dialog parsed from simulation input buffer.</param>
         protected override void OnDialogResponse(DialogResponse reponse)
         {
+            var game = GameSimulationApp.Instance;
+
+            // On a total wipe, hand off to the graveyard so the player can still leave a GoFundMe epitaph
+            // headstone; that flow resets the game itself when finished. A win just resets straight to menu.
+            if (!game.Trail.CurrentLocation.LastLocation && game.Vehicle.PassengersDead)
+            {
+                game.WindowManager.Add(typeof(Graveyard.Graveyard));
+                return;
+            }
+
             // Completely resets the game to default state it was in when it first started.
-            GameSimulationApp.Instance.Restart();
+            game.Restart();
         }
     }
 }

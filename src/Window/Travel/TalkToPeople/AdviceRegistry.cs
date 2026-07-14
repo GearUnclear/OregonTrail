@@ -28,7 +28,7 @@ namespace OregonTrailDotNet.Window.Travel.TalkToPeople
                     new Advice("A guy at the pump",
                         "Some folks think one five-gallon can of gas'll get 'em out of Florida. Stations are dark half the time when the grid drops, and you can't roll out of this lot on empty. I wouldn't leave with less than a full rack of cans -- they go missing the second your back's turned."),
                     new Advice("A woman in line",
-                        "Interstate's in the river again, so everybody's waiting on the National Guard high-water convoy. Could be stranded here days. They'll run you across, but the bill shows up later like a $9,000 ambulance ride. I'd rather wait for FEMA to reopen it than gun it through the high water in a paid-off SUV.")
+                        "Interstate's in the river again, so everybody's waiting on the National Guard high-water convoy. Could be stranded here days. They'll run you across, but the bill shows up later like a $9,000 ambulance ride. I'd rather wait for FEMA to reopen it than gun it through the high water in a paid-off car.")
                 };
                 return startingAdvice;
             }
@@ -46,19 +46,19 @@ namespace OregonTrailDotNet.Window.Travel.TalkToPeople
                     new Advice("Sam from the next car over",
                         "Can't afford the convoy fee. We're sealing the doors with tape and taking the washed-out shoulder detour. Move the snacks up high and hope it don't rain more -- Francine already put I-10 under water once. Floodline's halfway up the doors as it is."),
                     new Advice("A National Guard driver",
-                        "Don't try to gun it through anything deeper than the door sills -- about two and a half feet. You'll float the SUV and lose every supply in it. You can seal the doors and take the detour -- or be smart and pay for the high-water convoy and let us haul you over."),
+                        "Don't try to gun it through anything deeper than the door sills -- about two and a half feet. You'll float the car and lose every supply in it. You can seal the doors and take the detour -- or be smart and pay for the high-water convoy and let us haul you over."),
                     new Advice("A family heading back south",
                         "We've had enough. Helene took I-40 into the Pigeon River back in '24, fix won't be done till '28, and now this stretch is gone too. Baking heat all day, oceans of floodwater all night. Whole interstate system's coming apart and everybody just reroutes."),
                     new Advice("A tired mom",
                         "This valley's pretty enough with the water glittering over the road. But there's too much of it -- the whole roadbed's just gone. I miss a town with a real grid, lights that stay on, a hospital that's in-network. I wonder how many days till the next one."),
                     new Advice("A guy with a winch",
-                        "Careful you don't redline that engine through the flood. Keep it rolling but easy. Push it too hard in the water and you'll cook the transmission, and a dead transmission's about as much use to you out here as no SUV at all."),
+                        "Careful you don't redline that engine through the flood. Keep it rolling but easy. Push it too hard in the water and you'll cook the transmission, and a dead transmission's about as much use to you out here as no car at all."),
                     new Advice("A FEMA volunteer",
                         "The detours from all the closed interstates -- I-75, I-40, the toll bridges -- funnel down to this one crossing. We staged here after the last atmospheric river to get folks across the washouts headed north and west."),
                     new Advice("A trucker",
                         "Once you're past the floodline this stretch runs natural and easy alongside the river clear to the next fuel stop. Everybody bound for the coast takes this road. Could be the smoothest miles of the whole trip -- long as the roadbed holds."),
                     new Advice("A salvage diver",
-                        "Plenty of cars still down in this water, but they're getting harder to reach. With this many washouts a year I don't expect the road to last more'n a few seasons. Folks just drive their SUVs in, grab what floats, and leave the rest to rust in the sun."),
+                        "Plenty of cars still down in this water, but they're getting harder to reach. With this many washouts a year I don't expect the road to last more'n a few seasons. Folks just drive their cars in, grab what floats, and leave the rest to rust in the sun."),
                     new Advice("A woman with kids in the back",
                         "I hear terrible stories of families running out of snacks before the coast -- whole party going hungry on a closed interstate. We check our supplies often; the reroutes take longer than the map says. Always plan for the worst, I say.")
                 };
@@ -128,7 +128,7 @@ namespace OregonTrailDotNet.Window.Travel.TalkToPeople
                     new Advice("A man with a phone live",
                         "Whole crowd here is dumping their savings into a dying mall store's stock to stick it to the hedge funds -- diamond hands, they call it. Could moon, could go to zero. Either way I've heard taking the shortcut's worth the risk!"),
                     new Advice("A woman in a folding chair",
-                        "My, this Wall Drug's something -- free ice water and three thousand billboards just to get you in the door. Felt good to rest and not be jostled all day. When I get to Seattle I'll sleep in a real bed and never sleep in this SUV again!"),
+                        "My, this Wall Drug's something -- free ice water and three thousand billboards just to get you in the door. Felt good to rest and not be jostled all day. When I get to Seattle I'll sleep in a real bed and never sleep in this car again!"),
                     new Advice("A boy with a livestream",
                         "My job every day's keeping the cans full. Stations go dark when the grid drops, so I hoard extra five-gallon cans in a box under the back seat. Back in Florida I siphoned what I could whenever a pump still worked."),
                     new Advice("A man shouldering a rifle",
@@ -159,7 +159,7 @@ namespace OregonTrailDotNet.Window.Travel.TalkToPeople
                     new Advice("A guy at a pull-off",
                         "See that orange haze over the pass? Wildfire smoke -- AQI hit four-eighty-four over New York the year the sky went orange. Sky looks like that here now most of the summer. We'll be breathing it over the Cascades. Take care up top."),
                     new Advice("A tow operator with a flatbed",
-                        "You'll not get that SUV over these passes on bald tires, mister. Pieces of breakdowns litter the shoulder -- 55-mph, no sidewalk, left by folks who didn't carry a spare. Get yerself a real tire and an alternator before you try it."),
+                        "You'll not get that car over these passes on bald tires, mister. Pieces of breakdowns litter the shoulder -- 55-mph, no sidewalk, left by folks who didn't carry a spare. Get yerself a real tire and an alternator before you try it."),
                     new Advice("A woman with a receipt roll",
                         "Every toll's been higher than the last, and they only show you after you've committed -- dynamic pricing, surprise ambulance billing, the works. It's outrageous. If I had it to do again, I'd have stocked up at the Buc-ee's."),
                     new Advice("A faith-walk streamer",

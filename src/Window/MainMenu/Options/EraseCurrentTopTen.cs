@@ -16,7 +16,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Options
     ///     values.
     /// </summary>
     [ParentWindow(typeof(MainMenu))]
-    public sealed class EraseCurrentTopTen : InputForm<NewGameInfo>
+    public sealed class EraseCurrentTopTen : NumberedYesNoInputForm<NewGameInfo>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="EraseCurrentTopTen" /> class.

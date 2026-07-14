@@ -27,7 +27,7 @@ namespace OregonTrailDotNet.Event.Weather
 
             // Check if there are enough clothes to keep people warm, need two sets of clothes for every person.
             // Adequate clothing prevents anyone from freezing. (The old extra "&& destroyedItems.Count < 0"
-            // clause was always false — a count is never negative — so this event always froze someone
+            // clause was always false -- a count is never negative -- so this event always froze someone
             // regardless of clothing; the clothing check alone is the intended protection.)
             return game.Vehicle.Inventory[Entities.Clothes].Quantity >= game.Vehicle.PassengerLivingCount*2
                 ? "no loss of items."

@@ -1,4 +1,4 @@
-// Created for the 2028 Asphalt Trail re-skin — vehicle selection.
+// Created for the 2028 Asphalt Trail re-skin -- vehicle selection.
 
 using System;
 
@@ -6,7 +6,7 @@ namespace OregonTrailDotNet.Entity.Vehicle
 {
     /// <summary>
     ///     Static catalog of the four vehicles a player may choose to make the drive to Seattle in. The Minivan is the
-    ///     numeric baseline (SpeedMultiplier 1.0, FuelEfficiencyMultiplier 1.0) — picking it reproduces the pre-choice
+    ///     numeric baseline (SpeedMultiplier 1.0, FuelEfficiencyMultiplier 1.0) -- picking it reproduces the pre-choice
     ///     default behavior exactly.
     /// </summary>
     public static class VehicleModels

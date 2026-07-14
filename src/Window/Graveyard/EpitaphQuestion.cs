@@ -16,7 +16,7 @@ namespace OregonTrailDotNet.Window.Graveyard
     ///     come across this part of the trail in the future.
     /// </summary>
     [ParentWindow(typeof(Graveyard))]
-    public sealed class EpitaphQuestion : InputForm<TombstoneInfo>
+    public sealed class EpitaphQuestion : NumberedYesNoInputForm<TombstoneInfo>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="EpitaphQuestion" /> class.

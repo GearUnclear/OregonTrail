@@ -27,6 +27,10 @@ INPUT RULES -- your reply must be ONLY the literal keystrokes to send, nothing e
     that number, e.g. 2
   * Some screens ask for free text (a traveler's name, an amount/quantity to buy).
     Reply with just that text or number, e.g. Dane  or  300
+  * When a screen asks for a QUANTITY or AMOUNT, reply with ONLY a single plain whole
+    number like 20 or 300. NEVER a range ("1-100"), a symbol ("+"), or words.
+  * In the store, after you have bought fuel and food, pick the numbered "Leave store"
+    option to get on the road. Do not linger buying the same item over and over.
   * Many screens just say to press ENTER / RETURN to continue, or show a message
     with no menu. In that case reply with the single word: ENTER
   * Never explain. Never use punctuation or quotes around your answer. Output one
@@ -163,7 +167,10 @@ def main():
         emit("\n" + "=" * 70)
         emit(f"TURN {turn}  [window: {win}]")
         emit(screen)
-        if win in ("GameOver", "Graveyard") and endgame_budget < 0:
+        # ONLY the GameOver window ends the game. The Graveyard window is a COMPANION-death
+        # tombstone that fires mid-trip (frequently, now that modern hazards kill people), and is
+        # NOT the end of the run -- treating it as endgame truncated every run at the first death.
+        if win == "GameOver" and endgame_budget < 0:
             emit(f"\n[reached {win} -- playing through final screens]")
             endgame_budget = 6
         if endgame_budget >= 0:
@@ -175,6 +182,16 @@ def main():
             send("ENTER")
             prev_acted = screen
             time.sleep(0.6)
+            continue
+        # Auto-dismiss a mid-trip tombstone (decline the GoFundMe epitaph so we don't loop in the
+        # free-text editor) and keep driving toward a real outcome. No LLM call needed.
+        if win == "Graveyard":
+            if re.search(r"Y\s*/\s*N", screen) or "2. No" in screen:
+                send("2")
+            else:
+                send("ENTER")
+            prev_acted = screen
+            time.sleep(0.5)
             continue
         decision = ask_haiku(screen, args.model, session, first=(turn == 1))
         emit(f">>> HAIKU TYPES: {decision!r}")

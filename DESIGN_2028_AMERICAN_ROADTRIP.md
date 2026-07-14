@@ -272,3 +272,40 @@ commune recruitment mid-stream (Sportskeeda, 2022); 80-yr-old Japanese cyclist h
 by car on US-40 (NBC10, 2026); IShowSpeed street-takeover hijack (Dexerto, 2025-26).
 
 *Full URLs preserved in the workflow research output; available on request.*
+
+---
+
+## 11. Modern-hazard difficulty system (post-spec rebalance — "win only ~half the time")
+
+**Why:** the finished re-skin was too easy — competent play (max fuel, big food, filling
+ration) won ~92–96% of the time, because the game only registers a **loss when the *entire*
+party is dead** (`Vehicle.PassengersDead`) or a win at the last location; the leader is not
+special and one-off deaths barely dent the win rate. This is a deliberate **mechanic change**
+(explicitly out of the original "strings only" scope) to bring competent-play win rate to ~50%.
+
+**Mechanic:** a new `EventCategory.ModernHazard`, rolled once per moving travel day from
+`ContinueOnTrail.OnTick` at **22%/day** (`EventDirectorModule.CategoryChance` — the single
+difficulty dial; lower it to make the game easier). The category is a weighted spread of five
+**effect profiles**, implemented as prefab bases in `src/Event/Prefab/` and skinned by
+16 satirical, allegorical death events in `src/Event/Modern/`:
+
+| Profile | Prefab base | Effect | ~Weight | Example skins |
+|---|---|---|---|---|
+| CARNAGE | `ModernCarnage` | kills the **whole party** (clean GameFail) | ~6% | Cybertruck door-lock fire |
+| PILEUP | `ModernPileup` | per passenger: 35% die, else Damage(50,170) | ~19% | tule-fog 40-car pileup, heat-dome AC death, fracture-critical bridge |
+| SOLO_KILL | `ModernSoloDeath` | kills one random passenger | ~25% | ledge selfie, charged lemonade, Astroworld crush, feral-hog sounder |
+| SOLO_MAIM | `ModernSoloMaim` | Damage(60,200) + Injure + −15 mi on one | ~25% | distracted driving, e-scooter, "hold my beer" stunt, cold plunge |
+| SUPPLY_DRAIN | `ModernSupplyDrain` | −30..140 food *or* −$80..280 cash | ~25% | Ozempic appetite collapse, MLM trailer, gender-reveal settlement, predatory tow |
+
+Whole-party deaths (CARNAGE / PILEUP wipes) and downstream starvation are the run-ending
+modes — all route through a proper GameFail screen rather than the soft-lock a fuel strand
+would cause. Losses are now death-dominated and even most *winners* bury someone en route.
+
+**Also:** `RedDeadRedemption3` (ManualOnly) — a 0.02%/turn roll (`Random.Next(5000)==0`) in
+`ContinueOnTrail` deducts **$80 per living passenger** when everyone pre-orders it mid-drive.
+
+**Tuning:** calibrated in the headless balance sim (`sim/Program.cs`), which was first corrected
+to model the real all-party-dead loss rule and given a faithful `--hazard <permille>` mirror of
+the weighted table. At `--hazard 220` competent play wins ~52% (loss mix: death ~35%, starve
+~8%, strand ~4%). The live game is a touch harder still, since the sim ignores the pre-existing
+Wild/Animal daily rolls.

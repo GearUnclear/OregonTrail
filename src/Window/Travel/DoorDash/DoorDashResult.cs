@@ -1,4 +1,4 @@
-// Created for the 2028 Asphalt Trail re-skin — DoorDash gig mini-game.
+// Created for the 2028 Asphalt Trail re-skin -- DoorDash gig mini-game.
 
 using System;
 using System.Text;
@@ -12,7 +12,7 @@ namespace OregonTrailDotNet.Window.Travel.DoorDash
     /// <summary>
     ///     Tallies a finished DoorDash shift and shows the player the honest net: gross pay minus the fuel and tire life they
     ///     spent to earn it, valued at real replacement prices. The whole shift also cost a full day. More often than not the
-    ///     number at the bottom makes the player wonder why they bothered — which is the point.
+    ///     number at the bottom makes the player wonder why they bothered -- which is the point.
     /// </summary>
     [ParentWindow(typeof(Travel))]
     public sealed class DoorDashResult : InputForm<TravelInfo>
@@ -60,7 +60,7 @@ namespace OregonTrailDotNet.Window.Travel.DoorDash
             _shiftScore.AppendLine($"Tires worn:  {dash.TiresWorn} tire(s) -{wearCost:C2}");
 
             if (dash.DroveOnWornTires)
-                _shiftScore.AppendLine("  (out of spares — you finished on bald tires)");
+                _shiftScore.AppendLine("  (out of spares -- you finished on bald tires)");
 
             _shiftScore.AppendLine($"{Environment.NewLine}Net for the day: {net:C2}");
             _shiftScore.AppendLine(net < 0

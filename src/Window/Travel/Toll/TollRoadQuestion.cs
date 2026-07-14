@@ -22,7 +22,7 @@ namespace OregonTrailDotNet.Window.Travel.Toll
     ///     proceed to toll road location.
     /// </summary>
     [ParentWindow(typeof(Travel))]
-    public sealed class TollRoadQuestion : InputForm<TravelInfo>
+    public sealed class TollRoadQuestion : NumberedYesNoInputForm<TravelInfo>
     {
         /// <summary>
         ///     Figures out of the vehicle has enough cash to use the toll road, this is generally used as a check for the dialog.

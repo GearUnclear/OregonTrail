@@ -90,7 +90,7 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
                 // Player grabbed too many trays.
                 _huntScore.AppendLine("However, you were only able to");
                 _huntScore.AppendLine($"carry {_finalKillWeight:N0} pounds back to the");
-                _huntScore.AppendLine($"SUV.{Environment.NewLine}");
+                _huntScore.AppendLine($"car.{Environment.NewLine}");
             }
 
             // Return the hunting result to text renderer.

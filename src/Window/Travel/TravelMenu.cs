@@ -33,10 +33,23 @@ namespace OregonTrailDotNet.Window.Travel
             var travel = (Travel) ParentWindow;
             var commands = travel.GetMenuCommands().ToList();
 
-            _handlersByValue = commands.ToDictionary(c => ((int) c.Command).ToString(), c => c.Handler);
-            _menu.SetOptions(commands.Select(c =>
-                new ArrowMenuOption($"{(int) c.Command}. {c.Command.ToDescriptionAttribute()}",
-                    ((int) c.Command).ToString())));
+            // The on-screen number is the option's 1-based position in the list, NOT the enum's underlying
+            // integer value. The set of available commands (and therefore which enum values appear) changes
+            // with location status, so keying the visible number to the enum value rendered the menu out of
+            // order and with gaps (e.g. "1-7, 10, 9, 11"). Numbering by position keeps the list a clean
+            // ascending 1, 2, 3, ... in every location state, and the value we hand each option matches its
+            // displayed number so arrow-selecting and typing the number stay equivalent.
+            _handlersByValue = new Dictionary<string, Action>();
+            var options = new List<ArrowMenuOption>();
+            for (var i = 0; i < commands.Count; i++)
+            {
+                var displayNumber = (i + 1).ToString();
+                _handlersByValue[displayNumber] = commands[i].Handler;
+                options.Add(new ArrowMenuOption(
+                    $"{displayNumber}. {commands[i].Command.ToDescriptionAttribute()}", displayNumber));
+            }
+
+            _menu.SetOptions(options);
 
             GameSimulationApp.Instance.ActiveMenu = _menu;
 

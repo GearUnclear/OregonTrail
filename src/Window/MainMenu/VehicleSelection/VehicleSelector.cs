@@ -1,4 +1,4 @@
-// Created for the 2028 Asphalt Trail re-skin — vehicle selection.
+// Created for the 2028 Asphalt Trail re-skin -- vehicle selection.
 
 using System;
 using System.Collections.Generic;

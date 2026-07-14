@@ -1,4 +1,4 @@
-// Created for the 2028 Asphalt Trail re-skin — DoorDash gig mini-game.
+// Created for the 2028 Asphalt Trail re-skin -- DoorDash gig mini-game.
 
 using System;
 using WolfCurses.Window;

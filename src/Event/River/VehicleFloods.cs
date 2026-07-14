@@ -56,7 +56,7 @@ namespace OregonTrailDotNet.Event.River
         {
             var floodPrompt = new StringBuilder();
             floodPrompt.Clear();
-            floodPrompt.AppendLine("The SUV floods out");
+            floodPrompt.AppendLine("The car floods out");
             floodPrompt.AppendLine("on the washed-out shoulder");
             floodPrompt.Append("detour, resulting in");
             return floodPrompt.ToString();

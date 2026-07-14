@@ -35,11 +35,13 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing.Ferry
         {
             var prompt = new StringBuilder();
             prompt.AppendLine($"{Environment.NewLine}A National Guard convoy means");
-            prompt.AppendLine("loading your SUV onto a high-");
+            prompt.AppendLine("loading your car onto a high-");
             prompt.AppendLine("water military hauler run by");
             prompt.AppendLine("the Guard. The crew will");
-            prompt.AppendLine("ferry your SUV across the");
+            prompt.AppendLine("ferry your car across the");
             prompt.AppendLine($"flooded Interstate.{Environment.NewLine}");
+            prompt.AppendLine("Press ENTER to return to");
+            prompt.AppendLine($"your crossing options.{Environment.NewLine}");
             return prompt.ToString();
         }
 

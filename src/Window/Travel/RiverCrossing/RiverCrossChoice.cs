@@ -21,7 +21,7 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
         ///     Drives straight into the flooded Interstate without any special precautions, if it is greater than three feet of
         ///     floodwater the SUV will be submerged and highly damaged.
         /// </summary>
-        [Description("GUN IT THROUGH THE HIGH WATER (free & fast - deep water can total the SUV)")] Ford = 1,
+        [Description("GUN IT THROUGH THE HIGH WATER (free & fast - deep water can total the car)")] Ford = 1,
 
         /// <summary>
         ///     Attempts to seal the SUV's doors and take the washed-out shoulder detour to the other side, there is a much higher

@@ -17,7 +17,7 @@ namespace OregonTrailDotNet.Window.RandomEvent
     ///     to repair or replace the broken part which has been selected prior to this.
     /// </summary>
     [ParentWindow(typeof(RandomEvent))]
-    public sealed class VehicleBrokenPrompt : InputForm<RandomEventInfo>
+    public sealed class VehicleBrokenPrompt : NumberedYesNoInputForm<RandomEventInfo>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="InputForm{T}" /> class.

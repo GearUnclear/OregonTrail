@@ -85,7 +85,7 @@ namespace OregonTrailDotNet.Module.Director
             // "System.Runtime.Serialization.FormatterServices" by name from the wrong assembly (the type was
             // moved out of the core assembly on .NET Core), so the lookup fails and the helper returns null for
             // EVERY event type. That null is what made this method throw "Attempted to create instance ... but
-            // failed!" — most visibly on a deep-water Ford crossing firing VehicleWashOut, but it affected all
+            // failed!" -- most visibly on a deep-water Ford crossing firing VehicleWashOut, but it affected all
             // events (VehicleFloods and every other prefab subclass too). Use the BCL primitive directly, which
             // is exactly what that helper was meant to wrap and which works on .NET 6.
             var eventInstance =
