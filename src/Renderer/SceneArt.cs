@@ -297,6 +297,51 @@ namespace OregonTrailDotNet.Renderer
      @@@*+--+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#++*@@@@
        .+*##*.                                  -+*+-";
 
+        /// <summary>
+        ///     A gruff, chain-smoking celebrity cornering the party at a rest stop to push cans of his
+        ///     non-alcoholic beer. Frame A of a two-frame loop (cigarette smouldering, can held low); pairs with
+        ///     <see cref="TomHollandB" /> to make him take a drag and thrust the can. Hand-authored.
+        /// </summary>
+        public const string TomHollandA =
+@"                 (
+                  )     ' ' '
+                 (          ' ' '
+          .-------.
+         / .-   -. \
+        |  (o) (o)  |
+        |     <     |___
+        |   \___/   |   ) <- cig
+         \  \___/  /
+          '-.___.-'
+         ___|   |___
+        /   |   |   \       .-----.
+       / /| |   | |\ \      | BERO|
+      |_/ | |   | | \_|     |=====|
+          | |___| |         | 0.0%|
+          |_|   |_|         '-----'";
+
+        /// <summary>
+        ///     The same encounter mid-lunge: a fresh drag glowing, more smoke, and the can thrust right at the
+        ///     viewer. Frame B of the two-frame loop paired with <see cref="TomHollandA" />.
+        /// </summary>
+        public const string TomHollandB =
+@"              ( ' )
+               ) ' (    ' ' ' '
+              ( ' )        ' ' ' '
+          .-------.
+         / .-   -. \
+        |  (O) (O)  |
+        |     v     |___
+        |   .---.   |###) <- drag
+         \  '---'  /
+          '-.___.-'      .-----.
+         ___|   |___     | BERO|
+        /   |   |   \===>|=====|  <- ""just try it""
+       / /| |   | |\ \   | 0.0%|
+      |_/ | |   | | \_|  '-----'
+          | |___| |
+          |_|   |_|";
+
         public static string ForLocation(string locationName)
         {
             if (string.IsNullOrEmpty(locationName))

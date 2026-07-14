@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OregonTrailDotNet.Entity.Location;
 using OregonTrailDotNet.UI;
 using WolfCurses.Utility;
 using WolfCurses.Window;
@@ -46,7 +47,7 @@ namespace OregonTrailDotNet.Window.Travel
                 var displayNumber = (i + 1).ToString();
                 _handlersByValue[displayNumber] = commands[i].Handler;
                 options.Add(new ArrowMenuOption(
-                    $"{displayNumber}. {commands[i].Command.ToDescriptionAttribute()}", displayNumber));
+                    $"{displayNumber}. {GetCommandLabel(commands[i].Command)}", displayNumber));
             }
 
             _menu.SetOptions(options);
@@ -57,6 +58,22 @@ namespace OregonTrailDotNet.Window.Travel
             text.Append(Travel.BuildMenuHeader());
             text.Append(_menu.Render());
             return text.ToString();
+        }
+
+        /// <summary>
+        ///     Resolves the on-screen label for a travel command. Almost every command just uses its enum
+        ///     [Description], but the first option's static "Keep driving" text is wrong while the party is
+        ///     still parked at a location (Arrived/Unreached) -- you haven't started driving yet. Swap in a
+        ///     "set off" phrasing until the location's status flips to Departed, at which point "Keep driving"
+        ///     is accurate again. Only the displayed text changes; the command handler routing is untouched.
+        /// </summary>
+        private static string GetCommandLabel(TravelCommands command)
+        {
+            if (command == TravelCommands.ContinueOnTrail &&
+                GameSimulationApp.Instance.Trail.CurrentLocation.Status != LocationStatus.Departed)
+                return "Get back on the road";
+
+            return command.ToDescriptionAttribute();
         }
 
         public override void OnInputBufferReturned(string input)
