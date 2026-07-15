@@ -319,14 +319,13 @@ namespace OregonTrailDotNet.Entity.Person
             // Check if player has any food to eat.
             if (game.Vehicle.Inventory[Entities.Food].Quantity > 0)
             {
-                // Consume food based on ration level. The food multiplier is INVERTED relative to the
-                // RationLevel int (Filling=1, Meager=2, BareBones=3) so that generous meals eat the MOST and
-                // bare-bones meals eat the LEAST -- Filling=3, Meager=2, BareBones=1 lb/person/day. Previously
-                // it used the raw int, so "rationing" (BareBones) ate 3x the food, making the survival lever
-                // self-defeating. Now BareBones genuinely stretches a small food supply, traded against the
-                // higher illness exposure that the ration int still drives in OnTick/CheckIllness.
-                game.Vehicle.Inventory[Entities.Food].ReduceQuantity((4 - (int) game.Vehicle.Ration)*
-                                                                     game.Vehicle.PassengerLivingCount);
+                // Consume this person's individual share of food for the day. The food multiplier is INVERTED
+                // relative to the RationLevel int (Filling=1, Meager=2, BareBones=3) so that generous meals eat the
+                // MOST and bare-bones meals eat the LEAST -- Filling=3, Meager=2, BareBones=1 lb/person/day. This
+                // method runs once per living passenger each traveling day, so the party-wide daily burn already
+                // scales with the living count; multiplying by PassengerLivingCount here as well made a party of N
+                // eat ration * N^2 pounds per day, starving larger parties far faster than intended.
+                game.Vehicle.Inventory[Entities.Food].ReduceQuantity(4 - (int) game.Vehicle.Ration);
 
                 // Change to get better when eating well.
                 Heal();
@@ -410,7 +409,7 @@ namespace OregonTrailDotNet.Entity.Person
                 game.Vehicle.ReduceMileage(5);
                 Damage(10, 50);
             }
-            else if (game.Random.Next(100) <= 5 -
+            else if (game.Random.Next(100) <= 5 +
                      40/game.Vehicle.Passengers.Count*
                      ((int) game.Vehicle.Ration - 1))
             {

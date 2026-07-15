@@ -154,8 +154,11 @@ namespace OregonTrailDotNet.Entity.Vehicle
                 if (value <= 0)
                     _inventory[Entities.Cash].Reset();
                 else
+                    // Round to the nearest whole dollar rather than truncating. Truncation always floored the
+                    // balance, so a fractional total silently overcharged the player by up to $0.99 on every
+                    // transaction.
                     _inventory[Entities.Cash] = new SimItem(_inventory[Entities.Cash],
-                        (int) value);
+                        (int) Math.Round(value, MidpointRounding.AwayFromZero));
             }
         }
 
@@ -754,6 +757,19 @@ namespace OregonTrailDotNet.Entity.Vehicle
             // Loop through the inventory and decide which items to give free copies of.
             foreach (var itemPair in copiedInventory)
             {
+                // Never loot cash (or any other non-physical bookkeeping entity). Cash has a MaxQuantity of
+                // int.MaxValue, so the amountToMake = MaxQuantity/4 roll below would hand the player up to ~536
+                // million dollars from a single abandoned-wagon find, inflating the end-of-game score into the
+                // hundreds of millions.
+                switch (itemPair.Value.Category)
+                {
+                    case Entities.Cash:
+                    case Entities.Vehicle:
+                    case Entities.Person:
+                    case Entities.Location:
+                        continue;
+                }
+
                 // Skip item if quantity is at maximum.
                 if (itemPair.Value.Quantity >= itemPair.Value.MaxQuantity)
                     continue;

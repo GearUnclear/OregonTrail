@@ -137,11 +137,15 @@ namespace OregonTrailDotNet.Entity.Location.Weather
             }
             else
             {
-                // It was a bad day outside!
-                if (possibleClimate.Rainfall > game.Random.NextDouble())
-                    RainyDay();
-                else
+                // It was a bad day outside! At or below freezing the cold-weather system takes over (snow, sleet,
+                // hail); above freezing a bad day is simply wet and rainy. The old check compared the climate's
+                // rainfall in millimetres (always >= 1) against a 0-1 roll, so it was always true and the cold
+                // branch never ran - meaning snow, sleet, hail and the HailStorm event could never occur in any
+                // climate.
+                if (possibleTemperature <= 0)
                     ColdDay();
+                else
+                    RainyDay();
 
                 // If temp is above 10 and there is snow convert it to rain.
                 ConvertSnowIntoRain();
@@ -194,8 +198,9 @@ namespace OregonTrailDotNet.Entity.Location.Weather
                  (Condition != Weather.Sleet) && (Condition != Weather.FreezingDrizzle)))
                 return;
 
-            // Randomly select another type to replace it with because of temp being to high!
-            switch (GameSimulationApp.Instance.Random.Next(5))
+            // Randomly select another type to replace it with because of temp being to high! Next(6) keeps case 5
+            // reachable - Next(5) only yields 0-4, so the ChanceOfRain case below could never be selected.
+            switch (GameSimulationApp.Instance.Random.Next(6))
             {
                 case 0:
                     Condition = Weather.Clear;

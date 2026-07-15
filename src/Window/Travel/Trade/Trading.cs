@@ -168,8 +168,9 @@ namespace OregonTrailDotNet.Window.Travel.Trade
         /// </summary>
         private void UpdateTrade()
         {
-            // Tick the people, but not the trail or the day.
-            GameSimulationApp.Instance.TakeTurn(false);
+            // Tick the people, but not the trail or the day. Passing false here advanced a real calendar day every
+            // time the trade screen opened or refocused (unlike CheckSupplies, which correctly skips the day).
+            GameSimulationApp.Instance.TakeTurn(true);
 
             // Grabs all the data for the player current vehicle inventory.
             _supplyPrompt.Clear();
