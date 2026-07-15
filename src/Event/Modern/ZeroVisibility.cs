@@ -19,10 +19,10 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>The flavor line describing the specific multi-car catastrophe.</summary>
         protected override string OnPileup()
         {
-            return "The fog bank swallows the interstate between one mile marker and the next -- a gray wall with no " +
-                   "depth to it. Nobody behind you lifts off the gas, because nobody behind you can see that you have. " +
-                   "The impacts arrive as sound first, then as physics, forty vehicles folding into each other in the " +
-                   "white.";
+            return "The fog bank swallows the interstate between one mile marker and the next -- a" +
+                   " gray wall with no depth to it. Nobody behind you lifts off the gas, because " +
+                   "nobody behind you can see that you have. The impacts arrive as sound first, " +
+                   "then as physics, forty vehicles folding into each other in the white.";
         }
     }
 }

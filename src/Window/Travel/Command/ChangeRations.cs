@@ -63,8 +63,9 @@ namespace OregonTrailDotNet.Window.Travel.Command
             // Rebuilt every render pass (not just on form creation) so the arrow-key highlight stays current.
             _ration.Clear();
             _ration.AppendLine($"{Environment.NewLine}Change food rations");
+            _ration.AppendLine("(currently");
             _ration.AppendLine(
-                $"(currently \"{GameSimulationApp.Instance.Vehicle.Ration.ToDescriptionAttribute()}\"){Environment.NewLine}");
+                $"\"{GameSimulationApp.Instance.Vehicle.Ration.ToDescriptionAttribute()}\"){Environment.NewLine}");
             _ration.AppendLine("The amount of food the people in");
             _ration.AppendLine("your family eat each day can");
             _ration.AppendLine($"change. These amounts are:{Environment.NewLine}");

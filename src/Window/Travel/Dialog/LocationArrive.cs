@@ -150,7 +150,8 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
                     var travelMode = ParentWindow as Travel;
                     if (travelMode == null)
                         throw new InvalidCastException(
-                            "Unable to cast parent game Windows into travel game Windows when it should be that!");
+                            "Unable to cast parent game Windows into travel game Windows when it should " +
+                            "be that!");
 
                     // Call the continue on trail method command inside that game Windows, it will trigger the next action accordingly.
                     travelMode.ContinueOnTrail();
@@ -174,7 +175,8 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
             if (string.IsNullOrEmpty(locationName))
                 return null;
             if (locationName.Contains("Buc-ee"))
-                return "120 fuel pumps, a wall of brisket, and ammo by the register. Bladder relief at last.";
+                return "120 fuel pumps, a wall of brisket, and ammo by the register. Bladder relief " +
+                       "at last.";
             if (locationName.Contains("Touchdown Jesus"))
                 return "Sixty-odd feet of fiberglass Savior, both arms up like He just scored.";
             if (locationName.Contains("Wall Drug"))

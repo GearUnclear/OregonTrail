@@ -82,8 +82,8 @@ namespace OregonTrailDotNet.Window.RandomEvent
         {
             var brokenPrompt = new StringBuilder();
             brokenPrompt.AppendLine(
-                $"{Environment.NewLine}Broken {GameSimulationApp.Instance.Vehicle.BrokenPart.Name.ToLowerInvariant()}. Would you");
-            brokenPrompt.Append("like to try and repair it? Y/N");
+                $"{Environment.NewLine}Broken {GameSimulationApp.Instance.Vehicle.BrokenPart.Name.ToLowerInvariant()}.");
+            brokenPrompt.Append("Would you like to try and repair it? Y/N");
             return brokenPrompt.ToString();
         }
 

@@ -19,9 +19,10 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes how this particular passenger was maimed.</summary>
         protected override string OnMaim(Entity.Person.Person victim)
         {
-            return $"There is a trending sound and a flat stretch of motel roof, and {victim.Name} has a phone propped " +
-                   "on the ice machine and a plan. The takeoff is clean. The landing is filed under 'content warning.' " +
-                   "The clip does numbers; the ankle, the wrist, and one vertebra do not.";
+            return "There is a trending sound and a flat stretch of motel roof, and\n" +
+                   $"{victim.Name} has a phone propped on the ice machine and a plan. The\n" +
+                   "takeoff is clean. The landing is filed under 'content warning.' The\n" +
+                   "clip does numbers; the ankle, the wrist, and one vertebra do not.";
         }
     }
 }

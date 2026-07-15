@@ -33,7 +33,8 @@ namespace OregonTrailDotNet.Event.Wild
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return "A couple million folks are marching to say there is no king, like they have for 250 years. Nothing on the road moves.";
+            return "A couple million folks are marching to say there is no king, like they have " +
+                   "for 250 years. Nothing on the road moves.";
         }
     }
 }

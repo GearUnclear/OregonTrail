@@ -20,7 +20,8 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Name or type of infection the person is currently affected with.</returns>
         protected override string OnPostInfection(Entity.Person.Person person)
         {
-            return $"{person.Name} has an untreated infection. The nearest in-network hospital is three states away.";
+            return $"{person.Name} has an untreated infection. The nearest in-network\n" +
+                   "hospital is three states away.";
         }
     }
 }

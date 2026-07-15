@@ -207,7 +207,8 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                     break;
                 case RiverCrossChoice.None:
                     throw new ArgumentException(
-                        "Unable to use river cross choice NONE as a selection since it is only intended for initialization.");
+                        "Unable to use river cross choice NONE as a selection since it is only intended " +
+                        "for initialization.");
                 default:
                     throw new ArgumentOutOfRangeException(nameof(riverChoice),
                         "Unable to cast river cross choice into a valid selection for river crossing.");

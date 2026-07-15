@@ -29,7 +29,8 @@ namespace OregonTrailDotNet.Entity.Vehicle
                     return new VehicleModel(
                         VehicleChoice.Minivan,
                         "Beige Minivan",
-                        "Balanced, boring, and reliable. The family hauler nobody dreams about but everybody survives in.",
+                        "Balanced, boring, and reliable. The family hauler nobody dreams about but " +
+                        "everybody survives in.",
                         1200f,
                         1.0d,
                         1.0d,
@@ -39,7 +40,8 @@ namespace OregonTrailDotNet.Entity.Vehicle
                     return new VehicleModel(
                         VehicleChoice.PickupCamper,
                         "Lifted Pickup with Camper Shell",
-                        "Hauls everything you own and then some, but it is slow and thirsty at the pump the whole way there.",
+                        "Hauls everything you own and then some, but it is slow and thirsty at the " +
+                        "pump the whole way there.",
                         6500f,
                         0.9d,
                         0.7d,
@@ -49,7 +51,8 @@ namespace OregonTrailDotNet.Entity.Vehicle
                     return new VehicleModel(
                         VehicleChoice.HybridCrossover,
                         "Hybrid Crossover SUV",
-                        "Quick and fuel-sipping, but the trunk and the back seat are both smaller than the brochure photos suggested.",
+                        "Quick and fuel-sipping, but the trunk and the back seat are both smaller than " +
+                        "the brochure photos suggested.",
                         4500f,
                         1.1d,
                         1.4d,
@@ -59,9 +62,10 @@ namespace OregonTrailDotNet.Entity.Vehicle
                     return new VehicleModel(
                         VehicleChoice.ElectricHatchback,
                         "Secondhand EV Hatchback",
-                        "Fastest and most fuel-efficient of the four thanks to instant torque, but it has the least room for people " +
-                        "or cargo, and still keeps a gas generator riding along in back for when the 2028 EV charging network " +
-                        "between Florida and Seattle fails to materialize.",
+                        "Fastest and most fuel-efficient of the four thanks to instant torque, but it " +
+                        "has the least room for people or cargo, and still keeps a gas generator " +
+                        "riding along in back for when the 2028 EV charging network between Florida " +
+                        "and Seattle fails to materialize.",
                         5000f,
                         1.2d,
                         1.6d,

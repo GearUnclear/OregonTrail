@@ -28,10 +28,11 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes the indignity, given how much was actually taken.</summary>
         protected override string OnDrain(int amountLost)
         {
-            return "Half the convoy is on the gray-market weight-loss pens now, ordered from a compounding pharmacy an " +
-                   "influencer swore by, and appetite has left the vehicle entirely. The gas-station hauls get bought " +
-                   $"out of habit and thrown out untouched. {amountLost} pounds of snacks spoil in the cooler and go in " +
-                   "a dumpster outside Amarillo.";
+            return "Half the convoy is on the gray-market weight-loss pens now, ordered from a " +
+                   "compounding pharmacy an influencer swore by, and appetite has left the vehicle " +
+                   "entirely. The gas-station hauls get bought out of habit and thrown out " +
+                   $"untouched. {amountLost} pounds of snacks spoil in the cooler and go " +
+                   "in a dumpster outside Amarillo.";
         }
     }
 }

@@ -54,9 +54,10 @@ namespace OregonTrailDotNet.Event.Modern
             var story = new StringBuilder();
             story.AppendLine("Red Dead Redemption 3 comes out.");
             story.AppendLine();
-            story.AppendLine($"Everyone in the car pre-ordered it. All {buyers} of them, independently, without a word to");
-            story.AppendLine("each other, at the $80 Ultimate tier with the horse-armor cosmetic and the three-day early");
-            story.AppendLine("access nobody will use because you are, at present, driving.");
+            story.AppendLine($"Everyone in the car pre-ordered it. All {buyers} of them, independently,");
+            story.AppendLine("without a word to each other, at the $80 Ultimate tier with the horse-armor");
+            story.AppendLine("cosmetic and the three-day early access nobody will use because you are, at");
+            story.AppendLine("present, driving.");
             story.AppendLine();
             story.Append($"${total} leaves the party account. The map is enormous, they hear.");
 

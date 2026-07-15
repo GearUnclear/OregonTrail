@@ -20,10 +20,12 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes how this particular passenger was maimed.</summary>
         protected override string OnMaim(Entity.Person.Person victim)
         {
-            return $"The podcast was very clear about the cortisol benefits, so {victim.Name} wades into the snowmelt " +
-                   "reservoir behind the rest area for a two-minute cold plunge and a breathing protocol learned from a " +
-                   "reel. Cold-water shock does not care about the protocol; the gasp reflex fires underwater. They are " +
-                   "dragged out in time, but not soon enough to come away undamaged.";
+            return "The podcast was very clear about the cortisol benefits, so\n" +
+                   $"{victim.Name} wades into the snowmelt reservoir behind the rest area\n" +
+                   "for a two-minute cold plunge and a breathing protocol learned from a\n" +
+                   "reel. Cold-water shock does not care about the protocol; the gasp\n" +
+                   "reflex fires underwater. They are dragged out in time, but not soon\n" +
+                   "enough to come away undamaged.";
         }
     }
 }

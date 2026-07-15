@@ -43,7 +43,9 @@ namespace OregonTrailDotNet.Window.Travel.Store.Help
             _storeDebt.Clear();
             _storeDebt.AppendLine($"{Environment.NewLine}Hold up there, friend!");
             _storeDebt.AppendLine(
-                $"I see you got {UserData.Store.Transactions.Count} items worth {UserData.Store.TotalTransactionCost:C2}.");
+                $"I see you got {UserData.Store.Transactions.Count} items worth");
+            _storeDebt.AppendLine(
+                $"{UserData.Store.TotalTransactionCost:C2}.");
             _storeDebt.AppendLine($"You only got {GameSimulationApp.Instance.Vehicle.Balance:C2}!");
             _storeDebt.AppendLine($"Put some items back in order to leave Buc-ee's...{Environment.NewLine}");
             return _storeDebt.ToString();

@@ -71,83 +71,83 @@ namespace OregonTrailDotNet.Event.Person
         {
             // Aeschylus, Greek tragedian (c. 456 BC) - eagle dropped a tortoise on his bald head. Traditional account (Pliny, Valerius Maximus).
             new AbsurdDeath(
-                "Stopped at a scenic overlook outside Flagstaff, a bald eagle carrying a desert tortoise dropped it onto his bald head from sixty feet, mistaking the gleam for a cracking rock - the ranger at the booth said it was the second time this season."),
+                "Stopped at a scenic overlook outside Flagstaff, a bald eagle carrying a desert\ntortoise dropped it onto his bald head from sixty feet, mistaking the gleam\nfor a cracking rock - the ranger at the booth said it was the second time this\nseason."),
 
             // Chrysippus, Stoic philosopher (c. 206 BC) - died of laughter at a donkey eating figs. Traditional account (Diogenes Laertius).
             new AbsurdDeath(
-                "Spotted a rest stop donkey eating Funyuns out of a trash barrel, announced to the convoy it needed a cold Sprite to wash them down, and laughed at their own joke until they didn't."),
+                "Spotted a rest stop donkey eating Funyuns out of a trash barrel, announced to\nthe convoy it needed a cold Sprite to wash them down, and laughed at their own\njoke until they didn't."),
 
             // Draco, Athenian lawgiver (c. 620 BC) - smothered by cloaks/hats thrown by admirers. Traditional account (the Suda).
             new AbsurdDeath(
-                "At the truck-stop signing, admirers kept pitching baseball caps and zip-ups until the pile stopped moving. The official report described the incident as an outpouring of community appreciation."),
+                "At the truck-stop signing, admirers kept pitching baseball caps and zip-ups\nuntil the pile stopped moving. The official report described the incident as\nan outpouring of community appreciation."),
 
             // George Plantagenet, Duke of Clarence (1478) - reputedly drowned in a butt of Malmsey wine. Traditional account (Croyland Chronicle).
             new AbsurdDeath(
-                "Toppled headfirst into the half-ton decorative wine barrel outside the vineyard rest stop and drowned before anyone thought to tip it over; the winery has pulled the barrel from the welcome display and is not commenting further."),
+                "Toppled headfirst into the half-ton decorative wine barrel outside the\nvineyard rest stop and drowned before anyone thought to tip it over; the\nwinery has pulled the barrel from the welcome display and is not commenting\nfurther."),
 
             // Tycho Brahe, astronomer (1601) - burst bladder after being too polite to leave a banquet. Traditional account (Kepler).
             new AbsurdDeath(
-                "Would not get up from the six-hour rest stop dinner to use the restroom, too polite to interrupt the table, and held it the entire time; the bladder gave out eleven days later, which is how a rest area off I-40 ended up being the last stop on the itinerary."),
+                "Would not get up from the six-hour rest stop dinner to use the restroom, too\npolite to interrupt the table, and held it the entire time; the bladder gave\nout eleven days later, which is how a rest area off I-40 ended up being the\nlast stop on the itinerary."),
 
             // Sir Francis Bacon (1626) - pneumonia from stuffing a chicken with snow to test refrigeration. Traditional account (Aubrey).
             new AbsurdDeath(
-                "Pulled over at a rest stop to pack a gas-station rotisserie bird with parking-lot snow as a cold-preservation experiment, spent an hour crouching in the sleet writing up observations, and was dead of pneumonia before the convoy crossed the state line.",
+                "Pulled over at a rest stop to pack a gas-station rotisserie bird with\nparking-lot snow as a cold-preservation experiment, spent an hour crouching in\nthe sleet writing up observations, and was dead of pneumonia before the convoy\ncrossed the state line.",
                 v =>
                 {
                     var n = Deplete(v, Entities.Food, 6);
-                    return n > 0 ? $"The snow-packed experiment bird spoiled the cooler with it; {n} pounds of snacks went in the dumpster." : null;
+                    return n > 0 ? $"The snow-packed experiment bird spoiled the cooler with it; {n}\npounds of snacks went in the dumpster." : null;
                 }),
 
             // Franz Reichelt, the "Flying Tailor" (1912) - jumped off the Eiffel Tower testing a homemade parachute suit. Documented (filmed).
             new AbsurdDeath(
-                "The hand-sewn parachute vest, debuted off the scenic overlook railing with a crowd watching and two phones rolling, wrapped itself shut on exit and converted the wearer into a dart; the landing is coned off and the full video is still up."),
+                "The hand-sewn parachute vest, debuted off the scenic overlook railing with a\ncrowd watching and two phones rolling, wrapped itself shut on exit and\nconverted the wearer into a dart; the landing is coned off and the full video\nis still up."),
 
             // The 21 victims of the Great Boston Molasses Flood (1919) - killed by a wave from a burst molasses tank. Documented.
             new AbsurdDeath(
-                "A bulk corn-syrup storage tank behind the travel plaza fuel apron ruptured without warning and the wave it released crossed the lot at thirty-five miles an hour, taking everyone on the apron with it; it's in the incident report, it's accurate, and no one ever believes it.",
+                "A bulk corn-syrup storage tank behind the travel plaza fuel apron ruptured\nwithout warning and the wave it released crossed the lot at thirty-five miles\nan hour, taking everyone on the apron with it; it's in the incident report,\nit's accurate, and no one ever believes it.",
                 v =>
                 {
                     var n = Deplete(v, Entities.Clothes, 3);
-                    return n > 0 ? $"Everything on the roof rack came out glazed and ruined; {n} crates of leggings were a total loss." : null;
+                    return n > 0 ? $"Everything on the roof rack came out glazed and ruined; {n} crates\nof leggings were a total loss." : null;
                 }),
 
             // Basil Brown, health-food enthusiast (1974) - vitamin A poisoning from ~10 gallons of carrot juice. Documented (coroner's inquest).
             new AbsurdDeath(
-                "Went through ten gallons of cold-pressed carrot juice in nine days as a cleanse experiment. By Flagstaff the skin had gone full road-cone orange, and the urgent care at the Flying J had a word for what that does to a liver.",
+                "Went through ten gallons of cold-pressed carrot juice in nine days as a\ncleanse experiment. By Flagstaff the skin had gone full road-cone orange, and\nthe urgent care at the Flying J had a word for what that does to a liver.",
                 v =>
                 {
                     var n = Deplete(v, Entities.Food, 5);
-                    return n > 0 ? $"The cleanse ran through the convoy's produce first; {n} pounds of snacks juiced and gone." : null;
+                    return n > 0 ? $"The cleanse ran through the convoy's produce first; {n} pounds of\nsnacks juiced and gone." : null;
                 }),
 
             // Hans Steininger, Austrian burgomaster (1567) - tripped over his record-length beard fleeing a fire, broke his neck. Documented (the beard is a museum artifact).
             new AbsurdDeath(
-                "He normally kept four and a half feet of beard coiled inside his jacket. The truck stop fire caught him in a hurry and he forgot the coiling part, tripped on it crossing the lot, and broke his neck before he reached the on-ramp.",
+                "He normally kept four and a half feet of beard coiled inside his jacket. The\ntruck stop fire caught him in a hurry and he forgot the coiling part, tripped\non it crossing the lot, and broke his neck before he reached the on-ramp.",
                 v =>
                 {
                     var n = Deplete(v, Entities.Clothes, 5);
-                    return n > 0 ? $"The same fire got into the cargo; {n} crates of leggings burned with the rest stop." : null;
+                    return n > 0 ? $"The same fire got into the cargo; {n} crates of leggings burned with\nthe rest stop." : null;
                 }),
 
             // Jennifer Strange (2007) - water intoxication in the "Hold Your Wee for a Wii" radio contest. Documented.
             new AbsurdDeath(
-                "Drank two gallons of water at a truck stop radio promo to win a free charging bundle, took first place by a wide margin, and was dead of it before the convoy crossed the state line."),
+                "Drank two gallons of water at a truck stop radio promo to win a free charging\nbundle, took first place by a wide margin, and was dead of it before the\nconvoy crossed the state line."),
 
             // Garry Hoy, Toronto lawyer (1993) - fell through an "unbreakable" skyscraper window while demonstrating it. Documented.
             new AbsurdDeath(
-                "Bragged that the top-floor breezeway window at the highway motel was unbreakable and threw a shoulder into it to prove it to the group; the pane held both times - it always does - but the second hit popped the frame clean out of the wall, and the drop to the lot below was exactly as far as it looked."),
+                "Bragged that the top-floor breezeway window at the highway motel was\nunbreakable and threw a shoulder into it to prove it to the group; the pane\nheld both times - it always does - but the second hit popped the frame clean\nout of the wall, and the drop to the lot below was exactly as far as it\nlooked."),
 
             // Jimi Heselden, owner of Segway Inc. (2010) - rode a Segway off a cliff. Documented.
             new AbsurdDeath(
-                "Took the visitor center demo Segway out to the river gorge overlook and kept going; they found the Segway downstream, still powered on."),
+                "Took the visitor center demo Segway out to the river gorge overlook and kept\ngoing; they found the Segway downstream, still powered on."),
 
             // King Adolf Frederick of Sweden (1771) - "ate himself to death", capping a feast with fourteen servings of semla. Traditional account.
             new AbsurdDeath(
-                "Cleared the buffet line twice, then went back for a fourteenth bowl of warm milk bread pudding; the convoy left a note on the windshield and pulled out at dawn.",
+                "Cleared the buffet line twice, then went back for a fourteenth bowl of warm\nmilk bread pudding; the convoy left a note on the windshield and pulled out at\ndawn.",
                 v =>
                 {
                     var n = Deplete(v, Entities.Food, 3);
-                    return n > 0 ? $"The buffet they cleared twice was mostly yours; {n} pounds of snacks left with them." : null;
+                    return n > 0 ? $"The buffet they cleared twice was mostly yours; {n} pounds of snacks\nleft with them." : null;
                 }),
         };
 

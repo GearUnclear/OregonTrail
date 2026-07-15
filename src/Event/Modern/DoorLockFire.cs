@@ -20,10 +20,11 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>The flavor line describing the specific catastrophe that wiped the convoy.</summary>
         protected override string OnCarnage()
         {
-            return "The rig rolls once and settles against the guardrail, smoking but intact -- everyone conscious, " +
-                   "everyone belted, everyone fine. Then the twelve-volt line burns through and the door buttons go " +
-                   "dark. The manual releases are under the seat map-pockets where the manual said they were. Outside, " +
-                   "a passerby with a tire iron cannot get the stainless panels open, and the touchscreen keeps " +
+            return "The rig rolls once and settles against the guardrail, smoking but intact --\n" +
+                   "everyone conscious, everyone belted, everyone fine. Then the twelve-volt line\n" +
+                   "burns through and the door buttons go dark. The manual releases are under the\n" +
+                   "seat map-pockets where the manual said they were. Outside, a passerby with a\n" +
+                   "tire iron cannot get the stainless panels open, and the touchscreen keeps\n" +
                    "cheerfully offering to play everyone's favorite podcast.";
         }
     }

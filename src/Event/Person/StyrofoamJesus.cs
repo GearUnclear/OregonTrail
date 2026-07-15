@@ -21,8 +21,9 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Describes what type of physical injury has come to the person.</returns>
         protected override string OnPostInjury(Entity.Person.Person person)
         {
-            return $"{person.Name} was caught beneath the 62-ft Styrofoam Jesus when lightning struck it and " +
-                   "it went up in flames. The lightning rods, a passer-by noted, did not help.";
+            return $"{person.Name} was caught beneath the 62-ft Styrofoam Jesus when " +
+                   "lightning struck it and it went up in flames. The lightning rods, a " +
+                   "passer-by noted, did not help.";
         }
     }
 }

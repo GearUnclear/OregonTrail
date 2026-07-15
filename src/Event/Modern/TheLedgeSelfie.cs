@@ -19,10 +19,11 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes how this particular passenger met their end.</summary>
         protected override string OnDeath(Entity.Person.Person victim)
         {
-            return $"{victim.Name} backs toward the canyon rim to fit the whole waterfall into frame, one thumb hunting " +
-                   "for the record button, eyes on the little rectangle instead of the ground. The convoy hears the " +
-                   "shutter sound, then the scream, then nothing. The phone is recovered forty feet down, intact, " +
-                   "still shooting vertical video of the sky.";
+            return $"{victim.Name} backs toward the canyon rim to fit the whole waterfall " +
+                   "into frame, one thumb hunting for the record button, eyes on the " +
+                   "little rectangle instead of the ground. The convoy hears the shutter " +
+                   "sound, then the scream, then nothing. The phone is recovered forty " +
+                   "feet down, intact, still shooting vertical video of the sky.";
         }
     }
 }

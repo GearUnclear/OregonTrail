@@ -27,7 +27,7 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
         ///     Attempts to seal the SUV's doors and take the washed-out shoulder detour to the other side, there is a much higher
         ///     chance for bad things to happen.
         /// </summary>
-        [Description("SEAL THE DOORS, TAKE THE WASHED-OUT SHOULDER DETOUR (free, slow, can soak supplies)")] Float = 2,
+        [Description("SEAL THE DOORS, TAKE THE WASHED-OUT SHOULDER DETOUR (free, slow, can\n  soak supplies)")] Float = 2,
 
         /// <summary>
         ///     Prompts to pay for a National Guard high-water convoy that will haul the SUV across the flooded stretch without the

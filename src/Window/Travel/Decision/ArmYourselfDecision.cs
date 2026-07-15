@@ -54,13 +54,17 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _armPrompt.Clear();
             _armPrompt.AppendLine($"{Environment.NewLine}Sporting Goods, Aisle 12{Environment.NewLine}");
             _armPrompt.AppendLine(
-                "The greeter has a sidearm and a lanyard. The cashier has a rifle. Half the carts have a long gun laid across the child seat, and a cardboard cutout of a smiling deputy says GEAR UP, PATRIOT.");
+                "The greeter has a sidearm and a lanyard. The cashier has a rifle. Half the\n" +
+                "carts have a long gun laid across the child seat, and a cardboard cutout of a\n" +
+                "smiling deputy says GEAR UP, PATRIOT.");
             _armPrompt.AppendLine(string.Empty);
             _armPrompt.AppendLine(
-                "The ammo case is fuller than the pharmacy, which is empty. A pistol and two boxes of shells cost less than the insulin you couldn't buy.");
+                "The ammo case is fuller than the pharmacy, which is empty. A pistol and two\n" +
+                "boxes of shells cost less than the insulin you couldn't buy.");
             _armPrompt.AppendLine(string.Empty);
             _armPrompt.AppendLine(
-                "Whatever you carry into the Cascades, the people at the checkpoints will notice - and remember. No option here is clean, and everyone in line knows it.");
+                "Whatever you carry into the Cascades, the people at the checkpoints will\n" +
+                "notice - and remember. No option here is clean, and everyone in line knows it.");
             _armPrompt.AppendLine(string.Empty);
 
             _menu.SetOptions(new[]
@@ -90,13 +94,17 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     // Buy the pistol and a box of shells: -$300 cash, records the "armed" flag.
                     game.Vehicle.Inventory[Entities.Cash].ReduceQuantity(300);
                     game.Choices.Record("arm", "armed", -300,
-                        "You slept a little better with the weight in the glovebox and worried a lot more every time a light flashed behind you; the gun rode west as a question the family never agreed on.");
+                        "You slept a little better with the weight in the glovebox and worried a lot\n" +
+                        "more every time a light flashed behind you; the gun rode west as a question\n" +
+                        "the family never agreed on.");
                     ClearForm();
                     break;
                 case 2:
                     // Refuse on principle: no cost, records the "unarmed" flag.
                     game.Choices.Record("arm", "unarmed", 200,
-                        "You kept your hands empty on principle, and at the checkpoint that principle was either the only thing that saved you or the reason they searched you for an hour - depending on who you'd chosen to travel with.");
+                        "You kept your hands empty on principle, and at the checkpoint that principle\n" +
+                        "was either the only thing that saved you or the reason they searched you for\n" +
+                        "an hour - depending on who you'd chosen to travel with.");
                     ClearForm();
                     break;
                 case 3:
@@ -105,7 +113,9 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     foreach (var passenger in game.Vehicle.Passengers)
                         passenger.HealEntirely();
                     game.Choices.Record("arm", "kit", 50,
-                        "You bought the thing that saves a life instead of the thing that takes one, and the vest stopped exactly one thing on the whole trip - which is one more than the gun stopped for anyone honest about it.");
+                        "You bought the thing that saves a life instead of the thing that takes one,\n" +
+                        "and the vest stopped exactly one thing on the whole trip - which is one more\n" +
+                        "than the gun stopped for anyone honest about it.");
                     ClearForm();
                     break;
             }

@@ -20,7 +20,8 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Describes what type of physical injury has come to the person.</returns>
         protected override string OnPostInjury(Entity.Person.Person person)
         {
-            return $"{person.Name} was hit by a falling celebratory bullet fired into the air a mile away at midnight.";
+            return $"{person.Name} was hit by a falling celebratory bullet fired into\n" +
+                   "the air a mile away at midnight.";
         }
     }
 }

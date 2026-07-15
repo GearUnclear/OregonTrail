@@ -96,8 +96,9 @@ namespace OregonTrailDotNet.Window.MainMenu.VehicleSelection
                 var optionText = new StringBuilder();
                 optionText.AppendLine($"{(int) vehicleChoice}. {vehicleChoice.ToDescriptionAttribute()}");
                 optionText.AppendLine($"     {vehicleModel.FlavorText}");
-                optionText.Append(
-                    $"     Price: {vehicleModel.Cost:C0} | Seats: {vehicleModel.MaxPartySize} | Cargo: {vehicleModel.CargoCapacity} lbs");
+                optionText.AppendLine(
+                    $"     Price: {vehicleModel.Cost:C0} | Seats: {vehicleModel.MaxPartySize} |");
+                optionText.Append($"     Cargo: {vehicleModel.CargoCapacity} lbs");
 
                 // Warn the player if this vehicle would wipe out their starting cash.
                 if (vehicleModel.Cost >= UserData.StartingMonies)
@@ -130,7 +131,8 @@ namespace OregonTrailDotNet.Window.MainMenu.VehicleSelection
             if (vehicleModel.Cost >= UserData.StartingMonies)
             {
                 _blockedMessage =
-                    $"You can't afford the {vehicleModel.Name} - it would leave you with nothing to buy supplies with. Pick something else.";
+                    $"You can't afford the {vehicleModel.Name} - it would leave you with " +
+                    "nothing to buy supplies with. Pick something else.";
                 return;
             }
 

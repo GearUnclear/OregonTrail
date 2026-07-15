@@ -53,26 +53,32 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _decisionPrompt.Clear();
             _decisionPrompt.AppendLine($"{Environment.NewLine}The Others at Carhenge{Environment.NewLine}");
             _decisionPrompt.AppendLine(
-                "Thirty junked Detroit sedans stand nose-down in the Nebraska dirt like a Stonehenge for a religion that");
+                "Thirty junked Detroit sedans stand nose-down in the Nebraska dirt like a");
             _decisionPrompt.AppendLine(
-                "already failed. Camped in their shadow: forty families who read the same weather app you did.");
+                "Stonehenge for a religion that already failed. Camped in their shadow: forty");
+            _decisionPrompt.AppendLine(
+                "families who read the same weather app you did.");
             _decisionPrompt.AppendLine(string.Empty);
             _decisionPrompt.AppendLine(
-                "A woman named Reyes runs the caravan -- shared fuel, shared watch, shared food pot, half the speed.");
+                "A woman named Reyes runs the caravan -- shared fuel, shared watch, shared food");
+            _decisionPrompt.AppendLine("pot, half the speed.");
             _decisionPrompt.AppendLine("Nobody crosses the empty middle alone.");
 
             if (pack == "heavy")
             {
                 _decisionPrompt.AppendLine(string.Empty);
                 _decisionPrompt.AppendLine(
-                    "They clock your overloaded rig and the copper poking out the back -- a rolling yard sale, and every");
-                _decisionPrompt.AppendLine("pound of it their problem if you throw a rod. The price of admission goes up.");
+                    "They clock your overloaded rig and the copper poking out the back -- a rolling");
+                _decisionPrompt.AppendLine(
+                    "yard sale, and every pound of it their problem if you throw a rod. The price");
+                _decisionPrompt.AppendLine("of admission goes up.");
             }
             else if (pack == "teen")
             {
                 _decisionPrompt.AppendLine(string.Empty);
                 _decisionPrompt.AppendLine(
-                    "Mateo already knows two kids here from the group chat; an older woman nods at you like you've passed a test.");
+                    "Mateo already knows two kids here from the group chat; an older woman nods at");
+                _decisionPrompt.AppendLine("you like you've passed a test.");
             }
 
             _decisionPrompt.AppendLine(string.Empty);
@@ -112,7 +118,9 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             passenger.HealEntirely();
 
                     game.Choices.Record("caravan", "join", 600,
-                        "You gave the pool your surplus and your speed, and when the axle finally snapped in Wyoming there were forty strangers who stopped -- a debt the hoarders behind you never got to call in.");
+                        "You gave the pool your surplus and your speed, and when the axle finally " +
+                        "snapped in Wyoming there were forty strangers who stopped -- a debt the " +
+                        "hoarders behind you never got to call in.");
                     ClearForm();
                     break;
 
@@ -124,7 +132,9 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             passenger.Damage(15);
 
                     game.Choices.Record("caravan", "solo", -150,
-                        "You made better time than the convoy and owed no one, right up until the road went quiet at 3 a.m. and the whole family learned exactly how alone 'independent' feels.");
+                        "You made better time than the convoy and owed no one, right up until the road " +
+                        "went quiet at 3 a.m. and the whole family learned exactly how alone " +
+                        "'independent' feels.");
                     ClearForm();
                     break;
 

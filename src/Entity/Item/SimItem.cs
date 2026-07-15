@@ -39,7 +39,8 @@ namespace OregonTrailDotNet.Entity.Item
             // Complain if minimum amount is zero, you cannot have zero of something.
             if (minimumQuantity <= 0)
                 throw new ArgumentException(
-                    "Cannot set minimum quantity of an SimItem to be zero, you cannot have nothing of something!");
+                    "Cannot set minimum quantity of an SimItem to be zero, you cannot have nothing " +
+                    "of something!");
 
             // Setup quantity based on minimum amount.
             StartingQuantity = startingQuantity;

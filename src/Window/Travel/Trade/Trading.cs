@@ -191,8 +191,8 @@ namespace OregonTrailDotNet.Window.Travel.Trade
             {
                 // Generates the default prompt for trading that is shown if you have items to trade back or not.
                 var wrapText =
-                    $"A hun from the parking-lot MLM wants {_trades[_tradeIndex].WantedItem.Quantity:N0} {_trades[_tradeIndex].WantedItem.Name.ToLowerInvariant()}. " +
-                    $"She'll swap you {_trades[_tradeIndex].OfferedItem.Quantity:N0} {_trades[_tradeIndex].OfferedItem.Name.ToLowerInvariant()}, hon -- ground floor, only goes up from here.";
+                    $"A hun from the parking-lot MLM wants\n{_trades[_tradeIndex].WantedItem.Quantity:N0}\n{_trades[_tradeIndex].WantedItem.Name.ToLowerInvariant()}. " +
+                    $"She'll swap you {_trades[_tradeIndex].OfferedItem.Quantity:N0}\n{_trades[_tradeIndex].OfferedItem.Name.ToLowerInvariant()}, hon -- ground\nfloor, only goes up from here.";
 
                 // Depending if the player has enough of what the trader wants we change up last part of message.
                 _supplyPrompt.Append(_playerCanTrade

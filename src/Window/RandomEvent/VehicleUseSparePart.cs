@@ -46,8 +46,9 @@ namespace OregonTrailDotNet.Window.RandomEvent
         /// </returns>
         protected override string OnDialogPrompt()
         {
-            return $"{Environment.NewLine}You were able to repair the " +
-                   $"{GameSimulationApp.Instance.Vehicle.BrokenPart.Name.ToLowerInvariant()} using your spare.{Environment.NewLine}{Environment.NewLine}";
+            return $"{Environment.NewLine}You were able to repair the\n" +
+                   $"{GameSimulationApp.Instance.Vehicle.BrokenPart.Name.ToLowerInvariant()}\n" +
+                   $"using your spare.{Environment.NewLine}{Environment.NewLine}";
         }
 
         /// <summary>

@@ -22,7 +22,8 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>Reason why the food was destroyed and or went bad.</returns>
         protected override string OnFoodSpoilReason()
         {
-            return "A prosperity preacher needs a third jet, because commercial flights are full of demons. You sow a seed and get nothing back.";
+            return "A prosperity preacher needs a third jet, because commercial flights are full " +
+                   "of demons. You sow a seed and get nothing back.";
         }
     }
 }

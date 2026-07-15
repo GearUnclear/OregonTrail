@@ -67,8 +67,9 @@ namespace OregonTrailDotNet.Module.Director
             // Check if event type exists in reference dictionary.
             if (!EventReference.ContainsValue(eventType))
                 throw new ArgumentException(
-                    $"Attempted to create instance of {eventType.Name} without any known reference to it in event factory! " +
-                    "Perhaps you are missing the [DirectorEvent()] attribute.");
+                    $"Attempted to create instance of {eventType.Name} without any known " +
+                    "reference to it in event factory! Perhaps you are missing the " +
+                    "[DirectorEvent()] attribute.");
 
             // Grab the key value pair from event references that matches inputted type via equality reference.
             var directorEventKeyValuePair = EventReference.FirstOrDefault(x => x.Value == eventType);

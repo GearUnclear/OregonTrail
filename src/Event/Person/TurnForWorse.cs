@@ -44,7 +44,8 @@ namespace OregonTrailDotNet.Event.Person
             // Skip if the source entity is not a person.
             return person == null
                 ? "Nobody has taken a turn for the worse."
-                : $"{person.Name} has taken a turn for the worse. The in-network specialist has an opening in eleven weeks.";
+                : $"{person.Name} has taken a turn for the worse. The in-network specialist\n" +
+                  "has an opening in eleven weeks.";
         }
     }
 }

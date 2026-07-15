@@ -33,8 +33,8 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
         protected override string OnDialogPrompt()
         {
             return
-                $"{Environment.NewLine}You fumbled it, and the {UserData.Hunt.LastEscapee.Animal.Name.ToLowerInvariant()} " +
-                $"got swept away!{Environment.NewLine}{Environment.NewLine}";
+                $"{Environment.NewLine}You fumbled it, and the\n" +
+                $"{UserData.Hunt.LastEscapee.Animal.Name.ToLowerInvariant()} got swept away!{Environment.NewLine}{Environment.NewLine}";
         }
 
         /// <summary>

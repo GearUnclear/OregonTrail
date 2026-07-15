@@ -243,7 +243,11 @@ namespace OregonTrailDotNet
             var tui = new StringBuilder();
             tui.AppendLine($"Turns: {TotalTurns:D4}");
 
-            // Vehicle and location status.
+            // Vehicle and location status. Longest real render is ~61 chars (longest
+            // model name + longest enum values); tools/check_text_width.py flags this
+            // line because it measures the interpolation holes' source expressions,
+            // not their runtime values -- do not hard-wrap this, it would permanently
+            // add a row to every frame in the game.
             tui.AppendLine($"{Vehicle?.Model?.Name ?? "vehicle"}: {Vehicle?.Status} - Location:{Trail?.CurrentLocation?.Status}");
             return tui.ToString();
         }

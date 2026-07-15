@@ -41,7 +41,8 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>Text user interface string that can be used to explain what the event did when executed.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "a roadside produce-stand family takes you in and sends you off with more food, refusing payment";
+            return "a roadside produce-stand family takes you in and sends you off with more food,\n" +
+                   "refusing payment";
         }
     }
 }

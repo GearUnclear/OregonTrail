@@ -19,9 +19,10 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes how this particular passenger was maimed.</summary>
         protected override string OnMaim(Entity.Person.Person victim)
         {
-            return $"{victim.Name} looks down to change the song -- just for a second, the way it is always just for a " +
-                   "second. The convoy drifts onto the rumble strip, overcorrects, and clips the guardrail hard enough " +
-                   "to rearrange the front end and everyone's neck. The song, for the record, was fine.";
+            return $"{victim.Name} looks down to change the song -- just for a second, the\n" +
+                   "way it is always just for a second. The convoy drifts onto the rumble strip,\n" +
+                   "overcorrects, and clips the guardrail hard enough to rearrange the front end\n" +
+                   "and everyone's neck. The song, for the record, was fine.";
         }
     }
 }

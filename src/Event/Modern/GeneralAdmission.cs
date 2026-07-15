@@ -19,10 +19,12 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes how this particular passenger met their end.</summary>
         protected override string OnDeath(Entity.Person.Person victim)
         {
-            return "The convoy detours into a sold-out roadside festival because the tickets were free and the " +
-                   $"headliner is trending. The floor has no barriers and no aisles, just forward. When the beat drops " +
-                   $"the crowd inhales as one organism and {victim.Name}'s feet leave the ground without permission -- " +
-                   "upright, eyes open, and already gone, held vertical by ten thousand people there to have a good time.";
+            return "The convoy detours into a sold-out roadside festival because the\n" +
+                   "tickets were free and the headliner is trending. The floor has no\n" +
+                   "barriers and no aisles, just forward. When the beat drops the\n" +
+                   $"crowd inhales as one organism and {victim.Name}'s feet leave the\n" +
+                   "ground without permission -- upright, eyes open, and already gone,\n" +
+                   "held vertical by ten thousand people there to have a good time.";
         }
     }
 }

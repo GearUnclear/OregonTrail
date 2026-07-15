@@ -207,6 +207,11 @@ namespace OregonTrailDotNet.Window.Travel.Store
             {
                 var template = GetTemplate(item);
                 var transaction = UserData.Store.Transactions[item];
+                // Real render is ~35 chars max (name padded to 18 + qty + currency);
+                // tools/check_text_width.py overestimates this line because it measures
+                // the interpolation holes' source expressions. Don't hard-wrap this --
+                // it's a single ArrowMenuOption row and a raw \n here leaves the
+                // continuation line with no marker/indent (see ArrowMenu.Render()).
                 var label = transaction.Quantity > 0
                     ? $"{template.Name.PadRight(18)}x{transaction.Quantity}  {(transaction.Quantity*transaction.Cost):C2}"
                     : $"{template.Name.PadRight(18)}$0.00";

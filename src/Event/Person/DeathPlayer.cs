@@ -52,7 +52,7 @@ namespace OregonTrailDotNet.Event.Person
                 throw new ArgumentException("Cannot kill this person because it is not the player!");
 
             _leaderDeath.AppendLine(
-                $"{sourcePerson.Name} has died. The drive-thru viewing is Thursday; the GoFundMe is already live.");
+                $"{sourcePerson.Name} has died. The drive-thru viewing is Thursday;\nthe GoFundMe is already live.");
         }
 
         /// <summary>

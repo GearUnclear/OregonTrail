@@ -62,7 +62,8 @@ namespace OregonTrailDotNet.Event.Vehicle
         {
             // Cast the source entity as vehicle.
             var vehicle = userData.SourceEntity as Entity.Vehicle.Vehicle;
-            return $"Breakdown on the 55-mph shoulder: broken {vehicle?.BrokenPart.Name.ToLowerInvariant()}.";
+            return "Breakdown on the 55-mph shoulder: broken " +
+                   $"{vehicle?.BrokenPart.Name.ToLowerInvariant()}.";
         }
     }
 }

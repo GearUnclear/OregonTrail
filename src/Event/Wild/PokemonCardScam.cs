@@ -65,13 +65,15 @@ namespace OregonTrailDotNet.Event.Wild
             {
                 vehicle.Inventory[Entities.Cash].AddQuantity(RealCardPayout);
                 reveal.Append(
-                    $"It is REAL. The grade holds up and you flip it for ${RealCardPayout}. You got lucky.");
+                    $"It is REAL. The grade holds up and you flip it for ${RealCardPayout}.\n" +
+                    "You got lucky.");
             }
             else
             {
                 vehicle.Inventory[Entities.Cash].ReduceQuantity(FakeCardLoss);
                 reveal.Append(
-                    $"The slab is a resealed fake with a laser-printed label. You are out ${FakeCardLoss}.");
+                    $"The slab is a resealed fake with a laser-printed label. You are out\n" +
+                    $"${FakeCardLoss}.");
             }
 
             _outcome = reveal.ToString();

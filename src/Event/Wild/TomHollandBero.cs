@@ -48,7 +48,7 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>Non-empty pitch string.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "A man in a leather jacket steps off the shoulder waving a gold can of beer at you.";
+            return "A man in a leather jacket steps off the shoulder waving a gold can of beer at\nyou.";
         }
     }
 }

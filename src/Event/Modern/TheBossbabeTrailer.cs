@@ -29,10 +29,11 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes the indignity, given how much was actually taken.</summary>
         protected override string OnDrain(int amountLost)
         {
-            return "A woman from your old high school messages 'hey hun!!' and by the next rest stop a pallet of berry-" +
-                   "flavored 'metabolic gut activator' has replaced the actual food in the back -- you are a founding " +
-                   $"member of her downline now. {amountLost} pounds of real snacks got traded for product nobody will " +
-                   "ever buy, sample packets included.";
+            return "A woman from your old high school messages 'hey hun!!' and by the next rest " +
+                   "stop a pallet of berry-flavored 'metabolic gut activator' has replaced the " +
+                   "actual food in the back -- you are a founding member of her downline now. " +
+                   $"{amountLost} pounds of real snacks got traded for product nobody " +
+                   "will ever buy, sample packets included.";
         }
     }
 }

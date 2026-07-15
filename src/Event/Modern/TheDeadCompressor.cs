@@ -19,10 +19,10 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>The flavor line describing the specific multi-car catastrophe.</summary>
         protected override string OnPileup()
         {
-            return "Gridlock on the interstate, 118 degrees, the third day of the heat dome. The compressor clicks, " +
-                   "hesitates, and dies, and the cabin becomes an oven with the windows already down. The dashboard " +
-                   "keeps insisting the climate system is ON. Help is four exits away in traffic that has not moved in " +
-                   "an hour.";
+            return "Gridlock on the interstate, 118 degrees, the third day of the heat dome. The\n" +
+                   "compressor clicks, hesitates, and dies, and the cabin becomes an oven with the\n" +
+                   "windows already down. The dashboard keeps insisting the climate system is ON.\n" +
+                   "Help is four exits away in traffic that has not moved in an hour.";
         }
     }
 }

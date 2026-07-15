@@ -19,10 +19,11 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes how this particular passenger was maimed.</summary>
         protected override string OnMaim(Entity.Person.Person victim)
         {
-            return $"At the charging stop {victim.Name} unlocks a shared e-scooter with a QR code to grab dinner two " +
-                   "blocks up -- no helmet, because who rents a helmet. A pothole the app did not mention stops the front " +
-                   "wheel and not the rider. The curb wins the introduction to the skull, and something in how they talk " +
-                   "afterward does not come all the way back.";
+            return $"At the charging stop {victim.Name} unlocks a shared e-scooter with a QR\n" +
+                   "code to grab dinner two blocks up -- no helmet, because who rents a\n" +
+                   "helmet. A pothole the app did not mention stops the front wheel and\n" +
+                   "not the rider. The curb wins the introduction to the skull, and\n" +
+                   "something in how they talk afterward does not come all the way back.";
         }
     }
 }

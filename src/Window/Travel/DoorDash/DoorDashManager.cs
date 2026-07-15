@@ -102,7 +102,8 @@ namespace OregonTrailDotNet.Window.Travel.DoorDash
                 var shiftPercentage = _secondsRemaining / (decimal) SHIFTTIME;
                 status.AppendLine($"Shift left: {shiftPercentage * 100:N0}%");
                 status.AppendLine($"Earned so far: {_grossEarned:C2} ({_deliveriesDone} drops)");
-                status.AppendLine($"Fuel: {GasRemaining} gas cans   Spare tires: {game.Vehicle.Inventory[Entities.Wheel].Quantity}");
+                status.AppendLine($"Fuel: {GasRemaining} gas cans");
+                status.AppendLine($"Spare tires: {game.Vehicle.Inventory[Entities.Wheel].Quantity}");
                 status.AppendLine($"Acceptance rate: {AcceptanceRate * 100:N0}%");
                 status.AppendLine("--------------------------------");
 

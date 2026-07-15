@@ -98,6 +98,7 @@ The `RandomEvent` window's `EventExecutor` form runs `Execute → Render → OnP
 - Namespaces mirror folders under the `OregonTrailDotNet` root (e.g. `OregonTrailDotNet.Window.Travel.Store`).
 - "Windows" / "modes" in comments and method names mean these **state-machine windows, not the OS**.
 - Top-level Windows are a hardcoded whitelist (`AllowedWindows`); events self-register by reflection (`[DirectorEvent]`). Know which registration model applies before adding either.
+- **Game-facing text must fit in 80 console columns per rendered line — wrap at 78.** `Program.cs`'s renderer never wraps: it `PadRight`s and writes each line raw, so an overlong line soft-wraps at the terminal and desyncs the next frame's cursor-based redraw. Neither WolfCurses nor the renderer wraps for you — every hard line break must already be in the string (`\n`/`Environment.NewLine`/separate `AppendLine` calls). Check with `python3 tools/check_text_width.py` (scans `src/**/*.cs` string literals, default width 80; see `tools/check_text_width.py` for details).
 
 ## Local credentials (NOT in the repo)
 

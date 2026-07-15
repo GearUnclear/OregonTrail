@@ -55,10 +55,12 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                     break;
                 case RiverOption.None:
                     throw new ArgumentException(
-                        "Unable to generate river without having options configured to some value other than NONE!");
+                        "Unable to generate river without having options configured to some value other\n" +
+                        "than NONE!");
                 default:
                     throw new ArgumentException(
-                        "Unable to figure out what the river option value should be! Check value being sent to river generator class!");
+                        "Unable to figure out what the river option value should be! Check value being\n" +
+                        "sent to river generator class!");
             }
         }
 

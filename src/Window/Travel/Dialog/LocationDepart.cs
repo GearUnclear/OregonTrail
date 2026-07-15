@@ -40,9 +40,12 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
         {
             // Tell player how far it is to next location before attaching drive state.
             var prompt = new StringBuilder();
-            var nextPoint = GameSimulationApp.Instance.Trail.NextLocation;
+            var trail = GameSimulationApp.Instance.Trail;
+            var nextPoint = trail.NextLocation;
+            var currentLocationName = trail.CurrentLocation.Name;
+            var distanceToNext = trail.DistanceToNextLocation;
             prompt.AppendLine(
-                $"{Environment.NewLine}From {GameSimulationApp.Instance.Trail.CurrentLocation.Name} it is {GameSimulationApp.Instance.Trail.DistanceToNextLocation}");
+                $"{Environment.NewLine}From {currentLocationName} it is {distanceToNext}");
             prompt.AppendLine($"miles to {nextPoint.Name}{Environment.NewLine}");
             return prompt.ToString();
         }

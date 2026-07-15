@@ -48,13 +48,20 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _prompt.Clear();
             _prompt.AppendLine($"{Environment.NewLine}The Cathedral of Snacks{Environment.NewLine}");
             _prompt.AppendLine(
-                "One hundred twenty fuel pumps and a wall of jerky the length of a football field. The sixty-foot beaver on the sign smiles down like a saint who knows something you don't.");
+                "One hundred twenty fuel pumps and a wall of jerky the length of a football");
+            _prompt.AppendLine(
+                "field. The sixty-foot beaver on the sign smiles down like a saint who knows");
+            _prompt.AppendLine("something you don't.");
             _prompt.AppendLine(string.Empty);
             _prompt.AppendLine(
-                "Inside: an acre of brisket, a chapel-quiet hush over the fudge, and the last functioning bathrooms in three states.");
+                "Inside: an acre of brisket, a chapel-quiet hush over the fudge, and the last");
+            _prompt.AppendLine("functioning bathrooms in three states.");
             _prompt.AppendLine(string.Empty);
             _prompt.AppendLine(
-                "A man in a vest is hiring drivers to run unmarked pallets to Knoxville, cash same-day, no questions. Your wallet, your pantry, and your calendar can each afford to win exactly once here.");
+                "A man in a vest is hiring drivers to run unmarked pallets to Knoxville, cash");
+            _prompt.AppendLine(
+                "same-day, no questions. Your wallet, your pantry, and your calendar can each");
+            _prompt.AppendLine("afford to win exactly once here.");
             _prompt.AppendLine(string.Empty);
 
             _menu.SetOptions(new[]
@@ -88,14 +95,16 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     vehicle.Inventory[Entities.Cash].ReduceQuantity(400);
                     vehicle.Inventory[Entities.Food].AddQuantity(300);
                     game.Choices.Record("bucees", "haul", 250,
-                        "You bankrupted yourself under the beaver's grin, and still had brisket in Kansas when others were boiling shoe leather.");
+                        "You bankrupted yourself under the beaver's grin, and still had brisket in " +
+                        "Kansas when others were boiling shoe leather.");
                     break;
                 case 2:
                     // -$40 cash (fuel), +80 food; the cash cushion survives.
                     vehicle.Inventory[Entities.Cash].ReduceQuantity(40);
                     vehicle.Inventory[Entities.Food].AddQuantity(80);
                     game.Choices.Record("bucees", "disciplined", 300,
-                        "You walked past the cathedral with your wallet shut, and the folded money you kept was the reason a checkpoint later was pocket change.");
+                        "You walked past the cathedral with your wallet shut, and the folded money you " +
+                        "kept was the reason a checkpoint later was pocket change.");
                     break;
                 case 3:
                     // +$500 cash but -3 days on the detour and -20 health to the party.
@@ -105,7 +114,8 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     foreach (var passenger in vehicle.Passengers)
                         passenger.Damage(20);
                     game.Choices.Record("bucees", "gig", -200,
-                        "The pallets were somebody else's problem by Thursday and the cash was real, but the three days you burned were three days the season never gave back.");
+                        "The pallets were somebody else's problem by Thursday and the cash was real, " +
+                        "but the three days you burned were three days the season never gave back.");
                     break;
                 default:
                     // Invalid selection re-renders the form.

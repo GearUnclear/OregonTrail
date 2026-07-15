@@ -28,9 +28,15 @@ namespace OregonTrailDotNet.Window.MainMenu
         ///     Asked for every other party member name we want to collect. Interpolates the chosen vehicle's seating
         ///     capacity so the question always matches how many other names are actually being asked for.
         /// </summary>
-        public static string MembersQuestion =>
-            $"What are the first names of the{Environment.NewLine}" +
-            $"{GameSimulationApp.Instance.Vehicle.MaxPartySize - 1} other members of your family?";
+        public static string MembersQuestion
+        {
+            get
+            {
+                var otherMembers = GameSimulationApp.Instance.Vehicle.MaxPartySize - 1;
+                return $"What are the first names of the{Environment.NewLine}" +
+                       $"{otherMembers} other members of your family?";
+            }
+        }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Window{TCommands,TData}" /> class.

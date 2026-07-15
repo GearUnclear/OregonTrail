@@ -20,7 +20,8 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Name or type of infection the person is currently affected with.</returns>
         protected override string OnPostInfection(Entity.Person.Person person)
         {
-            return $"{person.Name} is freezing indoors. The grid failed and the lights have been off for four days.";
+            return $"{person.Name} is freezing indoors. The grid failed and the lights " +
+                   "have been off for four days.";
         }
     }
 }

@@ -33,7 +33,8 @@ namespace OregonTrailDotNet.Event.Wild
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return "An MLM hun who mortgaged the house for ten crates of leggings needs you to buy in.";
+            return "An MLM hun who mortgaged the house for ten crates of leggings\n" +
+                   "needs you to buy in.";
         }
     }
 }

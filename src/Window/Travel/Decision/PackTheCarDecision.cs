@@ -59,20 +59,34 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             var vehicleName = GameSimulationApp.Instance.Vehicle.Model.Name;
             _decisionPrompt.AppendLine($"{Environment.NewLine}What Fits in the {vehicleName}{Environment.NewLine}");
             _decisionPrompt.AppendLine(
-                "This is your own house in Cape Coral -- the one the form letter condemned -- on the morning you leave it for good. The county's drone already tagged it UNINSURABLE / CONDEMNED and moved on down your flooded cul-de-sac; your driveway is a boat ramp now and the water is at your third porch step.");
+                "This is your own house in Cape Coral -- the one the form letter condemned --");
             _decisionPrompt.AppendLine(
-                $"Your {vehicleName} sits in that driveway with a bad rear axle, forty minutes before the tide and the repo truck. Whatever you leave behind in the house you're walking out of, someone with a crowbar inherits by Tuesday.");
+                "on the morning you leave it for good. The county's drone already tagged it");
             _decisionPrompt.AppendLine(
-                "Mrs. Delgado two doors down didn't make the last convoy. Her boy Mateo is on your lawn with a duffel and no plan.");
+                "UNINSURABLE / CONDEMNED and moved on down your flooded cul-de-sac; your");
+            _decisionPrompt.AppendLine(
+                "driveway is a boat ramp now and the water is at your third porch step.");
+            _decisionPrompt.AppendLine(
+                $"Your {vehicleName} sits in that driveway with a bad rear axle, forty");
+            _decisionPrompt.AppendLine(
+                "minutes before the tide and the repo truck. Whatever you leave");
+            _decisionPrompt.AppendLine(
+                "behind in the house you're walking out of, someone with a crowbar");
+            _decisionPrompt.AppendLine(
+                "inherits by Tuesday.");
+            _decisionPrompt.AppendLine(
+                "Mrs. Delgado two doors down didn't make the last convoy. Her boy Mateo is on");
+            _decisionPrompt.AppendLine(
+                "your lawn with a duffel and no plan.");
             _decisionPrompt.AppendLine(string.Empty);
 
             _menu.SetOptions(new[]
             {
                 new ArrowMenuOption(
-                    "1. Cram it with resellables - the flatscreen, the good copper, Grandpa's flatware to flip for gas money",
+                    "1. Cram it with resellables - the flatscreen, the good copper,\n  Grandpa's flatware to flip for gas money",
                     "1"),
                 new ArrowMenuOption(
-                    "2. Travel light - insulin, the kids' inhalers, birth certificates, the deed nobody will honor",
+                    "2. Travel light - insulin, the kids' inhalers, birth certificates,\n  the deed nobody will honor",
                     "2"),
                 new ArrowMenuOption("3. Leave a seat for the Delgado kid - take Mateo", "3")
             });
@@ -102,7 +116,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                         "pack",
                         "heavy",
                         -600,
-                        "You pawned your mother's flatware at a Fort Myers strip mall for diesel, and rode low on the axles the whole way while strangers smelled the hoard on you before you spoke.");
+                        "You pawned your mother's flatware at a Fort Myers strip mall for diesel, and\nrode low on the axles the whole way while strangers smelled the hoard on you\nbefore you spoke.");
                     // Pack fires as the party departs Cape Coral, so resume the drive rather than dropping to the menu.
                     SetForm(typeof(ContinueOnTrail));
                     break;
@@ -115,7 +129,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                         "pack",
                         "light",
                         400,
-                        "You left with less than a car should hold and every paper the checkpoints ever asked for, and nobody in the family died of a thing a pharmacy could have fixed.");
+                        "You left with less than a car should hold and every paper the checkpoints ever\nasked for, and nobody in the family died of a thing a pharmacy could have\nfixed.");
                     // Pack fires as the party departs Cape Coral, so resume the drive rather than dropping to the menu.
                     SetForm(typeof(ContinueOnTrail));
                     break;
@@ -131,7 +145,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             "pack",
                             "teen",
                             300,
-                            "Mateo ate his share and then some, but he changed the tire outside Amarillo in nine minutes flat, and you never once regretted the seat you filled.");
+                            "Mateo ate his share and then some, but he changed the tire outside Amarillo in\nnine minutes flat, and you never once regretted the seat you filled.");
                     }
                     else
                     {
@@ -139,7 +153,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             "pack",
                             "teen_declined",
                             0,
-                            $"There wasn't a seat to give him -- the {vehicle.Model.Name} was already packed to its limit with your own family, and you watched him wave from the curb as you pulled out of your driveway for the last time.");
+                            $"There wasn't a seat to give him -- the {vehicle.Model.Name} was\nalready packed to its limit with your own family, and you watched\nhim wave from the curb as you pulled out of your driveway for the\nlast time.");
                     }
                     // Pack fires as the party departs Cape Coral, so resume the drive rather than dropping to the menu.
                     SetForm(typeof(ContinueOnTrail));

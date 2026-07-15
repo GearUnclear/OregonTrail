@@ -50,7 +50,8 @@ namespace OregonTrailDotNet.Window.RandomEvent
             // Complain if the event text is empty.
             if (string.IsNullOrEmpty(eventText) || string.IsNullOrWhiteSpace(eventText))
                 throw new InvalidOperationException(
-                    $"Executed random event {UserData.DirectorEvent.Name} from director, but it returned no text data!");
+                    $"Executed random event {UserData.DirectorEvent.Name} from director, but\n" +
+                    "it returned no text data!");
 
             // Add the text to the user data so we can print it on another form if needed.
             UserData.EventText = eventText;

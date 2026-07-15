@@ -39,9 +39,9 @@ namespace OregonTrailDotNet.Event.Vehicle
         protected override string OnRender(RandomEventInfo userData)
         {
             var repairPrompt = new StringBuilder();
+            var brokenPartName = GameSimulationApp.Instance.Vehicle.BrokenPart.Name.ToLowerInvariant();
             repairPrompt.AppendLine("You did not repair the broken ");
-            repairPrompt.AppendLine(
-                $"{GameSimulationApp.Instance.Vehicle.BrokenPart.Name.ToLowerInvariant()}. You must replace it with a ");
+            repairPrompt.AppendLine($"{brokenPartName}. You must replace it with a ");
             repairPrompt.Append("spare part.");
             return repairPrompt.ToString();
         }

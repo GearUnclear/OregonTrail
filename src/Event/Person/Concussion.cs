@@ -20,7 +20,8 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Describes what type of physical injury has come to the person.</returns>
         protected override string OnPostInjury(Entity.Person.Person person)
         {
-            return $"{person.Name} was struck by a car walking the shoulder of a 55-mph highway. There was no sidewalk.";
+            return $"{person.Name} was struck by a car walking the shoulder of a 55-mph\n" +
+                   "highway. There was no sidewalk.";
         }
     }
 }

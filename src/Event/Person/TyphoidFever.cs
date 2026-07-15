@@ -20,7 +20,7 @@ namespace OregonTrailDotNet.Event.Person
         /// <returns>Name or type of infection the person is currently affected with.</returns>
         protected override string OnPostInfection(Entity.Person.Person person)
         {
-            return $"{person.Name} has heat exhaustion. It was a dry heat: 110°F for the 31st straight day.";
+            return $"{person.Name} has heat exhaustion. It was a dry heat: 110°F for\nthe 31st straight day.";
         }
     }
 }

@@ -44,7 +44,8 @@ namespace OregonTrailDotNet.Event.Person
             // Skip if the source entity is not a person.
             return person == null
                 ? "nobody is well again."
-                : $"{person.Name} is well again. The symptoms cleared before the prior authorization did.";
+                : $"{person.Name} is well again. The symptoms cleared before the prior\n" +
+                  "authorization did.";
         }
     }
 }

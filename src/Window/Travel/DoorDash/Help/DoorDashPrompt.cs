@@ -51,13 +51,15 @@ namespace OregonTrailDotNet.Window.Travel.DoorDash.Help
             }
 
             const string dashTop =
-                "A shift takes the whole day. Offers roll in one at a time; type ACCEPT to take one or REJECT to skip it. " +
-                "Base pay is a couple of dollars -- the money is supposed to be in the tips, but the tip you see is only an " +
-                "estimate and customers can (and do) yank it back after delivery.";
+                "A shift takes the whole day. Offers roll in one at a time; type ACCEPT to take" +
+                " one or REJECT to skip it. Base pay is a couple of dollars -- the money is " +
+                "supposed to be in the tips, but the tip you see is only an estimate and " +
+                "customers can (and do) yank it back after delivery.";
 
             const string dashBottom =
-                "Every mile you drive -- including the unpaid miles out to the restaurant -- burns your own gas and wears out " +
-                "your tires. Reject too many offers and the app starts feeding you worse ones. Type QUIT any time to clock out.";
+                "Every mile you drive -- including the unpaid miles out to the restaurant -- " +
+                "burns your own gas and wears out your tires. Reject too many offers and the " +
+                "app starts feeding you worse ones. Type QUIT any time to clock out.";
 
             _dashHelp.AppendLine(dashTop.WordWrap());
             _dashHelp.AppendLine(dashBottom.WordWrap());

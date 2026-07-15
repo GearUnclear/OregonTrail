@@ -20,10 +20,11 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes how this particular passenger met their end.</summary>
         protected override string OnDeath(Entity.Person.Person victim)
         {
-            return $"You pull off at a shuttered rural station before dawn and send {victim.Name} across the lot for the " +
-                   "restroom key. The forty-hog sounder that has claimed the dumpster does not negotiate; it simply " +
-                   "arrives, all at once, at ankle height. They make it eleven feet from the car, which the county will " +
-                   "later note is farther than most.";
+            return "You pull off at a shuttered rural station before dawn and send " +
+                   $"{victim.Name} across the lot for the restroom key. The forty-hog " +
+                   "sounder that has claimed the dumpster does not negotiate; it simply " +
+                   "arrives, all at once, at ankle height. They make it eleven feet from " +
+                   "the car, which the county will later note is farther than most.";
         }
     }
 }

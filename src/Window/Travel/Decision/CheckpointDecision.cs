@@ -57,14 +57,18 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _decisionPrompt.Clear();
             _decisionPrompt.AppendLine($"{Environment.NewLine}The Cascadia Line{Environment.NewLine}");
             _decisionPrompt.AppendLine(
-                "Portland's northern edge doesn't call itself a border. The jersey barriers, the plate scanners, the");
+                "Portland's northern edge doesn't call itself a border. The jersey barriers,");
             _decisionPrompt.AppendLine(
-                "drones, and the volunteers in orange vests with rifles call it a border. Seattle is on the far side.");
+                "the plate scanners, the drones, and the volunteers in orange vests with rifles");
+            _decisionPrompt.AppendLine(
+                "call it a border. Seattle is on the far side.");
             _decisionPrompt.AppendLine(string.Empty);
             _decisionPrompt.AppendLine(
-                "They're admitting 'verified households' only. Your paperwork is Florida paperwork for a Florida that's");
+                "They're admitting 'verified households' only. Your paperwork is Florida");
             _decisionPrompt.AppendLine(
-                "underwater, and they want registration, inspection, and a 'resettlement processing fee.'");
+                "paperwork for a Florida that's underwater, and they want registration,");
+            _decisionPrompt.AppendLine(
+                "inspection, and a 'resettlement processing fee.'");
 
             if (armed)
             {
@@ -75,12 +79,19 @@ namespace OregonTrailDotNet.Window.Travel.Decision
 
             _decisionPrompt.AppendLine(string.Empty);
             if (join)
+            {
                 _decisionPrompt.AppendLine(
-                    "Your forty families are stacked up behind you, engines idling in solidarity. What happens in the next");
+                    "Your forty families are stacked up behind you, engines idling in solidarity.");
+                _decisionPrompt.AppendLine(
+                    "What happens in the next five minutes was decided a thousand miles ago.");
+            }
             else
+            {
                 _decisionPrompt.AppendLine(
-                    "You're alone at the barrier with no one to vouch for you. What happens in the next");
-            _decisionPrompt.AppendLine("five minutes was decided a thousand miles ago.");
+                    "You're alone at the barrier with no one to vouch for you. What happens in the");
+                _decisionPrompt.AppendLine(
+                    "next five minutes was decided a thousand miles ago.");
+            }
 
             _decisionPrompt.AppendLine(string.Empty);
 
@@ -130,7 +141,9 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     }
 
                     game.Choices.Record("checkpoint", "comply", complyDelta,
-                        "You handed over every document and every fear, and they stamped you a resident of a state still deciding whether it wanted you.");
+                        "You handed over every document and every fear, and they stamped you a" +
+                        Environment.NewLine + "    " +
+                        "resident of a state still deciding whether it wanted you.");
                     ClearForm();
                     break;
 
@@ -143,14 +156,18 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                         // An armed forty-strong caravan is not searched; the militia lifts the barrier.
                         assertDelta = 2500;
                         assertEpilogue =
-                            "Forty families and one rifle apiece -- the checkpoint captain found urgent reasons to lift the barrier himself.";
+                            "Forty families and one rifle apiece -- the checkpoint captain found urgent" +
+                            Environment.NewLine + "    " +
+                            "reasons to lift the barrier himself.";
                     }
                     else if (join)
                     {
                         // A nonviolent mass sit-in shames the volunteers into opening the gate.
                         assertDelta = 900;
                         assertEpilogue =
-                            "Forty families sat down in the road, unarmed, until the volunteers in orange vests were too ashamed to keep the gate closed.";
+                            "Forty families sat down in the road, unarmed, until the volunteers in" +
+                            Environment.NewLine + "    " +
+                            "orange vests were too ashamed to keep the gate closed.";
                     }
                     else if (armed)
                     {
@@ -159,7 +176,9 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             passenger.Damage(40);
                         assertDelta = 300;
                         assertEpilogue =
-                            "A lone armed stranger at the barrier -- you passed, barely, and never learned how close the orange vests came to firing.";
+                            "A lone armed stranger at the barrier -- you passed, barely, and never" +
+                            Environment.NewLine + "    " +
+                            "learned how close the orange vests came to firing.";
                     }
                     else
                     {
@@ -169,7 +188,9 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             game.Time.TickTime(false);
                         assertDelta = -1500;
                         assertEpilogue =
-                            "Alone and unarmed, you were exactly the kind of person the Cascadia line was built to break.";
+                            "Alone and unarmed, you were exactly the kind of person the Cascadia line" +
+                            Environment.NewLine + "    " +
+                            "was built to break.";
                     }
 
                     game.Choices.Record("checkpoint", "assert", assertDelta, assertEpilogue);
@@ -189,7 +210,11 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                         runDelta += -800 - 600;
 
                     game.Choices.Record("checkpoint", "run", runDelta,
-                        "You slipped around the Cascadia line on a logging road and told no one where you'd been; if the caravan had vouched for you, their forty horns did not sound when you left them at the last exit.");
+                        "You slipped around the Cascadia line on a logging road and told no one" +
+                        Environment.NewLine + "    " +
+                        "where you'd been; if the caravan had vouched for you, their forty horns" +
+                        Environment.NewLine + "    " +
+                        "did not sound when you left them at the last exit.");
                     ClearForm();
                     break;
 
