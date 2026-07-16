@@ -40,11 +40,14 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
         /// </returns>
         protected override string OnDialogPrompt()
         {
+            // Clear any previous grab message so a re-render cannot stack them up.
+            _hitPrompt.Clear();
+
             // Get the last known tray.
             var target = UserData.Hunt.LastTarget;
 
             // Prompt for grabbing a tray.
-            if (target.Animal.TotalWeight > 100)
+            if (target.Animal.TotalWeight >= HuntManager.CONTESTEDWEIGHT)
             {
                 // Compliment the player on hauling off a door-buster haul.
                 _hitPrompt.AppendLine($"{Environment.NewLine}You grabbed a whole {target.Animal.Name.ToLowerInvariant()}.");

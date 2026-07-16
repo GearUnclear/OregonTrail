@@ -36,7 +36,8 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
             // Get the last known tray that got away.
             return
                 $"{Environment.NewLine}Another shopper grabs the\n{UserData.Hunt.LastEscapee.Animal.Name.ToLowerInvariant()} " +
-                $"off the table before you do.{Environment.NewLine}{Environment.NewLine}";
+                $"off the table before you do.\n{ScrambleMishap.RandomMishap()}" +
+                $"{Environment.NewLine}{Environment.NewLine}";
         }
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace OregonTrailDotNet.Window.Travel
         public StoreGenerator Store { get; }
 
         /// <summary>
-        ///     Holds all the important information related to a hunt for animals using bullets. When hunting form is attached this
+        ///     Holds all the important information related to a food sweep. When hunting form is attached this
         ///     will be used to maintain the state of the hunt and manage all the data related to it and scoring.
         /// </summary>
         public HuntManager Hunt { get; private set; }

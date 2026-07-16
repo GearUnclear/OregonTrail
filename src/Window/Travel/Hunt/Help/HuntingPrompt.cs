@@ -54,15 +54,15 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
             // Explain how timer works, how grabbing works and food weight limits.
             const string huntTextTop =
                 "The food sweep has a timer which represents how long until the doors close.\n" +
-                "When the timer reaches zero the sweep is over. You can only haul 100 pounds of\n" +
-                "food back to the car, don't grab more than you keep since you just burn ammo\n" +
-                "holding your spot.";
+                "When the timer reaches zero the sweep is over. Whatever you have in your arms\n" +
+                "at that point comes with you, up to 100 pounds.";
 
             // Explain how grabbing works, how player has limited window of opportunity to snag the tray.
             const string huntTextBottom =
                 "When a tray hits the table you have until another shopper grabs it to type the\n" +
-                "grab word shown. If you don't type fast enough you risk fumbling the grab and\n" +
-                "burning ammo on nothing!";
+                "grab word shown. The whole building can see how much food is on a tray, so the\n" +
+                "better the tray the less time you get to reach it, and the harder the landing\n" +
+                "when you miss.";
 
             // Add the top and bottom food sweep text on their own lines.
             _huntHelp.AppendLine(huntTextTop.WordWrap());

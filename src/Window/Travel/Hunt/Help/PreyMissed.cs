@@ -34,7 +34,8 @@ namespace OregonTrailDotNet.Window.Travel.Hunt.Help
         {
             return
                 $"{Environment.NewLine}You fumbled it, and the\n" +
-                $"{UserData.Hunt.LastEscapee.Animal.Name.ToLowerInvariant()} got swept away!{Environment.NewLine}{Environment.NewLine}";
+                $"{UserData.Hunt.LastEscapee.Animal.Name.ToLowerInvariant()} got swept away!\n" +
+                $"{ScrambleMishap.RandomMishap()}{Environment.NewLine}{Environment.NewLine}";
         }
 
         /// <summary>

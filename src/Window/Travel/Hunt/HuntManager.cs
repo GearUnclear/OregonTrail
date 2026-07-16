@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Item;
 using OregonTrailDotNet.Entity.Location;
 using WolfCurses;
@@ -46,6 +45,14 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
         public const int MAXFOOD = 100;
 
         /// <summary>
+        ///     Weight in pounds at which a tray is worth fighting over. The crowd converges on the heavy trays, so the
+        ///     closer a tray gets to this weight the less time the player has to type the grab word before somebody else
+        ///     walks off with it. Trays at or above this are also the only ones that draw a compliment on the way out.
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        public const int CONTESTEDWEIGHT = 40;
+
+        /// <summary>
         ///     Determines the total number of seconds a given prey item is allowed to be a target by the player, if this value is
         ///     exceeded the animal will sense the player and run away.
         /// </summary>
@@ -60,12 +67,12 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
         public const int MINTARGETINGTIME = 3;
 
         /// <summary>
-        ///     Reference list for all of the prey that was killed by the player using their bullets.
+        ///     Reference list for all of the trays the player got their hands on.
         /// </summary>
         private readonly List<PreyItem> _killedPrey;
 
         /// <summary>
-        ///     Defines a rolling list of all the prey that has escaped death from the players bullets.
+        ///     Defines a rolling list of all the trays that got away from the player.
         /// </summary>
         private readonly List<PreyItem> _preyEscaped;
 
@@ -80,7 +87,7 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
         private readonly List<HuntWord> _shootWords;
 
         /// <summary>
-        ///     Reference to all of the created prey in the area which the player will be able to hunt and kill with their bullets.
+        ///     Reference to all of the trays on the tables which the player will be able to grab.
         /// </summary>
         private List<PreyItem> _sortedPrey;
 
@@ -105,7 +112,7 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
             // Grab all of the shooting words from enum that holds them.
             _shootWords = Enum.GetValues(typeof(HuntWord)).Cast<HuntWord>().ToList();
 
-            // Create animals for the player to shoot with their bullets.
+            // Create trays for the player to grab off the tables.
             GeneratePrey();
         }
 
@@ -460,13 +467,6 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
                 ClearTarget();
                 return false;
             }
-
-            // Calculate the total cost of this shot in bullets.
-            var bulletCost = (int) game.Vehicle.Inventory[Entities.Ammo].TotalValue - 10 -
-                             game.Random.Next()*4;
-
-            // Remove the amount of bullets from vehicle inventory.
-            game.Vehicle.Inventory[Entities.Ammo].ReduceQuantity(bulletCost);
 
             // Add the target to the list of animals that have been killed.
             _killedPrey.Add(_target);

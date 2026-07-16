@@ -146,15 +146,12 @@ namespace OregonTrailDotNet.Window.Travel
         }
 
         /// <summary>
-        ///     Attaches a new Windows on top of this one that allows the player to hunt for animals and kill them using bullets
-        ///     for a specified time limit.
+        ///     Attaches a new Windows on top of this one that lets the player wade into the crowd and grab trays of food off
+        ///     the tables for a specified time limit. Requires nothing but nerve; ammo is not involved in the food sweep.
         /// </summary>
         internal void HuntForFood()
         {
-            // Check if the player even has enough bullets to go hunting.
-            SetForm(GameSimulationApp.Instance.Vehicle.Inventory[Entities.Ammo].Quantity > 0
-                ? typeof(HuntingPrompt)
-                : typeof(NoAmmo));
+            SetForm(typeof(HuntingPrompt));
         }
 
         /// <summary>

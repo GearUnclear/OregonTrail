@@ -49,8 +49,8 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
             aboutTrail.AppendLine(" * Snacks - food for your family. Run low and everyone's");
             aboutTrail.AppendLine($"   health drops, so always keep some on hand.{Environment.NewLine}");
 
-            aboutTrail.AppendLine(" * Ammo - used to grab extra food during sweeps along the way and");
-            aboutTrail.AppendLine($"   to handle trouble on the road.{Environment.NewLine}");
+            aboutTrail.AppendLine(" * Ammo - for handling trouble on the road. It buys you nothing");
+            aboutTrail.AppendLine($"   at the food tables, where the only currency is nerve.{Environment.NewLine}");
 
             aboutTrail.AppendLine(" * Leggings - your barter goods. River guides take these");
             aboutTrail.AppendLine($"   as payment when a flooded crossing blocks the road.{Environment.NewLine}");

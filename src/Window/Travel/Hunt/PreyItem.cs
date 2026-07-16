@@ -1,6 +1,7 @@
 ﻿// Created by Ron 'Maxwolf' McDowell (ron.mcdowell@gmail.com) 
 // Timestamp 01/03/2016@1:50 AM
 
+using System;
 using OregonTrailDotNet.Entity.Item;
 using WolfCurses;
 
@@ -21,16 +22,33 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
             Lifetime = 0;
             LifetimeMax = GameSimulationApp.Instance.Random.Next(HuntManager.HUNTINGTIME);
 
-            // Randomly generate maximum amount of time this animal will be a valid target.
-            TargetTime = 0;
-            TargetTimeMax = GameSimulationApp.Instance.Random.Next(HuntManager.MINTARGETINGTIME,
-                HuntManager.MAXTARGETINGTIME);
-
             // Randomly select a animal for this prey to be from default animals.
             var preyIndex = GameSimulationApp.Instance.Random.Next(HuntManager.DefaultAnimals.Count);
 
             // Select a random animal that we can be from default animals.
             Animal = new SimItem(HuntManager.DefaultAnimals[preyIndex], 1);
+
+            // Everybody in the building can see how much food is on the tray, so the grab window scales down with
+            // weight: nobody races you for a bag of pork rinds, and the brisket is gone in a blink.
+            TargetTime = 0;
+            TargetTimeMax = CalculateTargetTimeMax(Animal.TotalWeight);
+        }
+
+        /// <summary>
+        ///     Determines how many seconds the player gets to type the grab word for a tray of the given weight before the
+        ///     crowd takes it. Ramps linearly from <see cref="HuntManager.MAXTARGETINGTIME" /> for a worthless tray down to
+        ///     <see cref="HuntManager.MINTARGETINGTIME" /> for anything at or above <see cref="HuntManager.CONTESTEDWEIGHT" />.
+        /// </summary>
+        /// <param name="totalWeight">Weight of the tray in pounds.</param>
+        /// <returns>Seconds the tray may be targeted before it is taken.</returns>
+        private static int CalculateTargetTimeMax(int totalWeight)
+        {
+            // How badly the crowd wants this tray, from zero (nobody cares) to one (everybody wants it).
+            var contested = Math.Min(totalWeight, HuntManager.CONTESTEDWEIGHT)/(decimal) HuntManager.CONTESTEDWEIGHT;
+
+            // Spend that interest against the targeting window.
+            return HuntManager.MAXTARGETINGTIME -
+                   (int) ((HuntManager.MAXTARGETINGTIME - HuntManager.MINTARGETINGTIME)*contested);
         }
 
         /// <summary>

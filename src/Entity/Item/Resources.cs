@@ -16,7 +16,8 @@ namespace OregonTrailDotNet.Entity.Item
         public static SimItem Clothing => new SimItem(Entities.Clothes, "MLM Leggings", "crates", "crate", 50, 75, 1, 1, 0, 2);
 
         /// <summary>
-        ///     Boxes of ammo used in the food-sweep minigame so the players can grab snacks by clearing out the fair food.
+        ///     Boxes of ammo, bought off the shelf next to the flour. Only ever spent by scripted roadside encounters
+        ///     (bandits, thieves, snakebite) and the Open-Carry Walmart decision -- the food sweep does not touch it.
         /// </summary>
         // Price: ~$30 a box -- a box of range ammo at 2028 prices (buy as few as 1 box).
         public static SimItem Bullets => new SimItem(Entities.Ammo, "Ammunition", "boxes", "box", 99, 30, 0, 1, 0, 1, 50);
