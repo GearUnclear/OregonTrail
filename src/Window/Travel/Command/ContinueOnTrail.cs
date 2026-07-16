@@ -46,6 +46,21 @@ namespace OregonTrailDotNet.Window.Travel.Command
         private int _animStep;
 
         /// <summary>
+        ///     Simulation ticks elapsed since the last calendar day was consumed. See <see cref="TicksPerDay" />.
+        /// </summary>
+        private int _ticksSinceDay;
+
+        /// <summary>
+        ///     How many simulation ticks (WolfCurses fires one per second) a single day of driving lasts.
+        ///     At 1:1 the whole trail scrolled by in well under a minute and the roadside scene was on screen
+        ///     for barely a second between random events, so the driving -- the only place the vehicle art is
+        ///     ever shown -- read as a loading screen between dialogs. Stretching a day over several ticks
+        ///     costs nothing in balance (the day is what the simulation counts, not the tick) and simply lets
+        ///     the scene animate and be looked at. Raise to slow the drive down further, lower to speed it up.
+        /// </summary>
+        private const int TicksPerDay = 3;
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="ContinueOnTrail" /> class.
         ///     This constructor will be used by the other one
         /// </summary>
@@ -148,15 +163,26 @@ namespace OregonTrailDotNet.Window.Travel.Command
                     SetForm(typeof(UnableToContinue));
                     break;
                 case VehicleStatus.Moving:
-                    // Check if there is a tombstone here, if so we attach question form that asks if we stop or not.
+                    // Step the roadside scene on every tick so the world keeps scrolling past the vehicle even
+                    // on the ticks that don't consume a day -- this is what makes the drive read as movement.
                     _swayBarText = _marqueeBar.Step();
                     _animStep++;
+
+                    // Check if there is a tombstone here, if so we attach question form that asks if we stop or not.
+                    // Cheap and idempotent: the odometer only moves on a day tick, so testing it every tick is fine.
                     if (game.Tombstone.ContainsTombstone(game.Vehicle.Odometer) &&
                         !game.Trail.CurrentLocation.ArrivalFlag)
                     {
                         SetForm(typeof(TombstoneQuestion));
                         return;
                     }
+
+                    // Hold the day (and therefore every event roll below) for TicksPerDay ticks so the scene
+                    // above stays on screen. Everything past this point happens once per in-game day, exactly
+                    // as before -- only the wall-clock spacing between days changes.
+                    if (++_ticksSinceDay < TicksPerDay)
+                        return;
+                    _ticksSinceDay = 0;
 
                     // Processes the next turn in the game simulation.
                     game.TakeTurn(false);

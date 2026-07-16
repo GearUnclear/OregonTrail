@@ -94,6 +94,14 @@ namespace OregonTrailDotNet.Module.Director
         ///     called. The base game used a flat 1% for everything; these are weighted so flavorful, low-stakes
         ///     categories surface often while lethal ones stay rare. Crucially, Person is rolled once PER
         ///     passenger every travel day, so its odds compound -- keep it low or the party gets sick constantly.
+        ///     <para>
+        ///         These are rolled INDEPENDENTLY and they stack: the chance of *some* event on a given travel
+        ///         day is 1 - the product of all the misses, which is a good deal higher than any single number
+        ///         here. The first pass at these odds summed to a 41% chance per day -- an interruption every
+        ///         ~2.4 days on a trail only ~16 days long -- which buried the driving scene under back-to-back
+        ///         dialogs. They were halved to put the total near 21%/day (roughly one event every 5 days).
+        ///         Re-check that product, not just the individual value, when tuning any of these.
+        ///     </para>
         /// </summary>
         /// <param name="eventCategory">Category about to be rolled.</param>
         /// <returns>Percent chance the roll should pass.</returns>
@@ -102,22 +110,22 @@ namespace OregonTrailDotNet.Module.Director
             switch (eventCategory)
             {
                 case EventCategory.Wild:
-                    // Roadside America (strangers, crowds, roadside stands): mostly flavor and the main
-                    // driver of "something is always happening", so this fires the most.
-                    return 8;
+                    // Roadside America (strangers, crowds, roadside stands): mostly flavor and the biggest
+                    // single contributor to "something is always happening", so this still fires the most.
+                    return 4;
                 case EventCategory.Animal:
                     // Stampedes, snakebites, feral hogs: moderate stakes, fires fairly often.
-                    return 5;
+                    return 2;
                 case EventCategory.Vehicle:
                     // Breakdowns and flats: recoverable and part of the fun, rolled once per day.
-                    return 4;
+                    return 2;
                 case EventCategory.Weather:
                     // Fog, hail, heat: rolled once per day while moving.
-                    return 3;
-                case EventCategory.Person:
-                    // Illness and injury, rolled once per passenger per day -> ~8%/day for a full party.
-                    // Kept deliberately low so the journey is eventful without being a death spiral.
                     return 2;
+                case EventCategory.Person:
+                    // Illness and injury, rolled once per passenger per day -> ~4%/day for a full party.
+                    // Kept deliberately low so the journey is eventful without being a death spiral.
+                    return 1;
                 case EventCategory.RiverCross:
                     // A river crossing is already a discrete, tense moment; leave it at the original odds.
                     return 1;
@@ -126,8 +134,15 @@ namespace OregonTrailDotNet.Module.Director
                     // once per moving travel day. Tuned in the headless balance sim (sim/Program.cs --hazard) so
                     // that competent play (max fuel, big food, filling ration) wins only ~half the time; the
                     // weighted outcome spread (whole-party wipe / one-off death / maim / supply drain) lives in
-                    // the src/Event/Modern/ prefab bases. 22 => 22%/day. Lower this to make the game easier.
-                    return 22;
+                    // the src/Event/Modern/ prefab bases. 9 => 9%/day. Lower this to make the game easier.
+                    //
+                    // Was 22%. Two things forced it down. The trail now runs ~26 days rather than ~16 (see
+                    // Vehicle.RandomMileage), and this is rolled PER DAY, so the same 22% killed far more
+                    // parties over the longer drive. Separately, upstream fix 8cea40c2 removed the quadratic
+                    // food burn from Person.ConsumeFood, which cut a full party's daily food cost 4x and had
+                    // already pushed the win rate to ~60% without anyone re-rolling this number. Sim says 9%
+                    // over ~26 days lands at ~50% for a max-fuel Farmer, and ~55% for one who runs gig shifts.
+                    return 9;
                 default:
                     return 1;
             }

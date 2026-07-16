@@ -53,7 +53,35 @@ internal static class Program
     // ammo: awarded 1 / per 50 ; food: awarded 1 / per 25 ; cash: awarded 1 / per 5
 
     const int MaxPlayers = 4;         // GameSimulationApp.MAXPLAYERS
-    const int SegMin = 32, SegMax = 164;
+
+    // ---- pacing knobs (mutable so a sweep can search them; defaults mirror shipped tuning) ----
+    // Trail segment length band, from `new Trail(asphaltTrail, SegMin, SegMax)` in TrailRegistry.cs.
+    static int SegMin = 32, SegMax = 164;
+
+    // Settlement (store) positions on AsphaltTrail — the only locations with ShoppingAllowed => true,
+    // so the only places food can be restocked mid-trail. Indices into the 15-entry top-level
+    // TrailRegistry.AsphaltTrail array: Cape Coral, Buc-ee's, Wall Drug, Open-Carry Walmart,
+    // Portland, Seattle. Scaled to the configured `segments` count in SettlementSegs().
+    static readonly int[] RealSettlements = { 0, 3, 5, 10, 12, 14 };
+    const int RealTrailLen = 15;
+    // TRUE = the party tops off food/fuel at each settlement store (models actual play). The store
+    // has always existed in-game; the sim just never modeled it, which overstated starvation.
+    static bool Restock = true;
+    // Mirrors EventDirectorModule.CategoryChance(EventCategory.Vehicle) — the only event category besides
+    // ModernHazard the sim models (it can strand the party). Wild/Animal/Weather are flavor; Person illness
+    // is modeled directly off ration/clothing rather than the category roll.
+    static int VehEventChance = 2;
+
+    static HashSet<int> SettlementSegs(int segments)
+    {
+        var s = new HashSet<int>();
+        foreach (var i in RealSettlements)
+            s.Add(Math.Min(segments, (int)Math.Round(i * (double)segments / RealTrailLen)));
+        return s;
+    }
+    // Per-can mileage slope from Vehicle.RandomMileage: gasMiles = (costAnimals - GasBreakEven) / MileageDiv.
+    // Raising MileageDiv shortens each day's drive, which stretches the trip over more days.
+    static double MileageDiv = 11.5, GasBreakEven = 137.5;
 
     // ---- vehicle catalog (from VehicleModels.Get) ----
     // Minivan is the numeric baseline (Speed 1.0, FuelEff 1.0) and, at $1200, the post-fix affordable
@@ -121,6 +149,16 @@ internal static class Program
         if (doordash < 0) doordash = 0;
         if (hazardPerMille < 0) hazardPerMille = 0;
 
+        // ---- pacing knobs: let a sweep search trail length without editing the game ----
+        SegMin = I(a, "segmin", SegMin);
+        SegMax = I(a, "segmax", SegMax);
+        // mileagediv is passed *1000 to keep the int arg parser (3125 = the shipped 3.125).
+        MileageDiv = I(a, "mileagediv", (int)(MileageDiv * 1000)) / 1000.0;
+        if (MileageDiv <= 0) MileageDiv = 3.125;
+        if (SegMax <= SegMin) SegMax = SegMin + 1;
+        Restock = I(a, "restock", 1) != 0;
+        VehEventChance = I(a, "vehevent", VehEventChance);
+
         // ---- vehicle purchase: subtract Cost from starting cash, flooring at $0 (mirrors
         // GameSimulationApp.SetStartInfo -> Vehicle.Balance's setter) ----
         int rawBudget = (int)(StartMoney(prof) - veh.Cost);
@@ -181,7 +219,7 @@ internal static class Program
         {
             var r = new Rng(seed * 100003 + t);
             var res = Simulate(r, prof, gas, food, tires, alts, trans, cloth, ammo, ration, pace, leftoverCash, segments,
-                doordash, ddShiftNets, ddShiftGross, ddTotals, partySize, veh.Speed, veh.FuelEff, hazardPerMille);
+                doordash, ddShiftNets, ddShiftGross, ddTotals, partySize, veh.Speed, veh.FuelEff, hazardPerMille, veh.Cargo);
             days.Add(res.Days);
             if (res.Outcome == Outcome.Win)
             {
@@ -250,7 +288,7 @@ internal static class Program
         int gas, int food, int tires, int alts, int trans, int cloth, int ammo,
         int ration, int pace, int cash, int segments,
         int doordash, List<double> ddShiftNets, List<double> ddShiftGross, long[] ddTotals,
-        int partySize, double speedMult, double fuelEffMult, int hazardPerMille)
+        int partySize, double speedMult, double fuelEffMult, int hazardPerMille, int cargoCap)
     {
         // ---- DoorDash schedule: spread N shifts across intermediate settlements so the fuel-price curve and
         // acceptance-rate spiral actually vary across the journey. Shift k fires when we ARRIVE at segIdx
@@ -275,8 +313,8 @@ internal static class Program
         // ---- trail: distance to traverse = sum of per-segment U[SegMin,SegMax) ----
         // (each location's TotalDistance = Random.Next(32,164); you arrive when cumulative >= seg)
         double mileage = 1;           // Vehicle.Mileage, persists & compounds
-        double costAnimals = gas * PGas;
         double paceMult = pace == 2 ? 1.3 : pace == 3 ? 1.6 : 1.0;
+        var settlementSegs = SettlementSegs(segments);
 
         int segIdx = 0;
         int segTarget = r.Next(SegMin, SegMax);
@@ -318,12 +356,15 @@ internal static class Program
                 if (pace == 2) Damage(r, hp, dead, injured, infected, i, 2, 6);
                 else if (pace == 3) { Damage(r, hp, dead, injured, infected, i, 6, 14); CheckIllness(r, hp, dead, injured, infected, i, ration, partySize, ref mileage); }
 
-                // food consumption — FAITHFUL: the game calls ConsumeFood once PER living passenger, and
-                // each call reduces food by mult*livingCount, so whole-party daily burn is quadratic:
-                // mult * count^2 (Filling 4 people = 3*4*4 = 48 lb/day). INVERTED mult (Filling=3..BareBones=1).
+                // food consumption — ConsumeFood runs once per living passenger and reduces food by just
+                // (4 - Ration), so party-wide daily burn is LINEAR in the living count: mult * count
+                // (Filling, 4 people = 3*4 = 12 lb/day). INVERTED mult (Filling=3..BareBones=1).
+                // This previously multiplied by Living() as well, mirroring the game's old quadratic burn
+                // (mult * count^2 = 48 lb/day); upstream fix 8cea40c2 removed that from Person.ConsumeFood
+                // on 2026-07-15 and the sim went stale, overstating a full party's food burn by 4x.
                 if (food > 0)
                 {
-                    food = Math.Max(0, food - (4 - ration) * Living());
+                    food = Math.Max(0, food - (4 - ration));
                     Heal(r, hp, dead, i);
                 }
                 else
@@ -336,7 +377,12 @@ internal static class Program
 
             // ----- vehicle moves -----
             // RandomMileage: compounding base + gas bonus (scaled by FuelEfficiencyMultiplier) + jitter
-            double gasMiles = (costAnimals - 137.5) / 3.125 * fuelEffMult;
+                // costAnimals is re-read from the CURRENT gas quantity every day, exactly as
+            // Vehicle.RandomMileage does (Inventory[Entities.Animal].TotalValue) — losing fuel to an
+            // event slows the party down. The old sim computed this once before the loop, so gas lost
+            // mid-trip never reduced mileage.
+            double costAnimals = gas * PGas;
+            double gasMiles = (costAnimals - GasBreakEven) / MileageDiv * fuelEffMult;
             double totalMiles = mileage + gasMiles + 10 * r.NextDouble();
             mileage = Math.Abs((int)totalMiles);
             // PaceMultiplier = paceFactor * SpeedMultiplier; applied whenever pace isn't Steady, or the
@@ -344,8 +390,8 @@ internal static class Program
             if (pace != 1 || !speedMult.Equals(1.0)) mileage = (int)(mileage * paceMult * speedMult);
             if (r.Bool() && mileage > 0) mileage = (int)(mileage / 2);
 
-            // vehicle event 4%/day
-            if (r.Next(100) < 4)
+            // vehicle event: EventDirectorModule.CategoryChance(EventCategory.Vehicle) %/day
+            if (r.Next(100) < VehEventChance)
             {
                 var v = VehicleEvent(r, ref gas, ref tires, ref alts, ref trans, ref cloth, ref ammo, ref food);
                 if (v == VehOut.Stranded) return Lose(Outcome.Stranded, day);
@@ -371,6 +417,21 @@ internal static class Program
                     return Win(prof, hp, dead, gas, tires, alts, trans, cloth, ammo, food, cash, day, partySize);
                 }
                 segTarget = r.Next(SegMin, SegMax);
+
+                // ---- settlement store: top off food and fuel (Settlement.ShoppingAllowed => true) ----
+                // Food is a flat PFood/lb at every store (the game has no location price scaling), and
+                // food+clothes are the only cargo-weighted goods, so the party refills to the cargo cap
+                // as far as cash allows. This is what forces the stop: 300 lb of cargo is a ~25-day
+                // leash, shorter than the trail, so the trip can only be completed by restocking.
+                if (Restock && settlementSegs.Contains(segIdx))
+                {
+                    int cargoRoom = Math.Max(0, cargoCap - cloth - food);
+                    int wantFood = Math.Min(cargoRoom, (int)(cash / PFood));
+                    if (wantFood > 0) { food += wantFood; cash -= (int)(wantFood * PFood); }
+
+                    int wantGas = Math.Min(MaxGas - gas, (int)(cash / PGas));
+                    if (wantGas > 0) { gas += wantGas; cash -= (int)(wantGas * PGas); }
+                }
 
                 // DoorDash: run any shifts scheduled for this settlement (cities only in the real game).
                 if (doordash > 0)
@@ -479,8 +540,8 @@ internal static class Program
 
             if (food > 0)
             {
-                int liveNow = 0; for (int j = 0; j < partySize; j++) if (!dead[j]) liveNow++;
-                food = Math.Max(0, food - (4 - ration) * liveNow);
+                // Linear per-passenger burn, matching Person.ConsumeFood (see the travel-day site above).
+                food = Math.Max(0, food - (4 - ration));
                 Heal(r, hp, dead, i);
             }
             else

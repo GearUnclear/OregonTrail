@@ -261,13 +261,20 @@ namespace OregonTrailDotNet.Entity.Vehicle
                 var costAnimals = Inventory[Entities.Animal].TotalValue;
 
                 // Variables that will hold the distance we should travel in the next day.
-                // The two constants below are derived from the gas-can price (see Parts.Oxen): the threshold is
-                // 5.5 cans worth of fuel (5.5 * $25 = 137.5) and the divisor is the per-can mileage slope ($25 / 8 = 3.125),
-                // so each gas can is still worth ~8 miles/day and 5.5 cans is still the break-even point -- identical to the
-                // pre-2028 $20-a-can tuning, just expressed against the inflated price. Rescale both if the price changes.
+                // The threshold is 5.5 cans worth of fuel (5.5 * $25 = 137.5, see Parts.Oxen) -- the break-even
+                // point below which the party actually loses ground. The divisor is the per-can mileage slope.
+                //
+                // NOTE this figure is not a day's mileage: Mileage feeds back into itself above, so it settles
+                // near 3x (gasMiles + 5) rather than at gasMiles. At the old 3.125 divisor a full 20 cans
+                // settled around 400 miles/day against trail segments of only 32-164 miles, so the vehicle
+                // cleared *every* segment in a single day (the leftover distance is discarded -- see
+                // TrailModule.OnTick) and the whole trail collapsed to one day per location, ~16 days. Widening
+                // the divisor to 11.5 puts a full tank near ~2.5 days per segment for a ~26-day drive, which is
+                // what gives the roadside scene and the food/fuel economy room to matter. Tuned in the balance
+                // sim (sim/Program.cs --mileagediv); re-run it if this or the gas price changes.
                 // Fuel efficiency scales just the gas-derived term, so a thirstier vehicle needs more cans to cover
                 // the same ground while a fuel-sipper stretches every can further.
-                var gasMiles = (costAnimals - 137.5)/3.125*Model.FuelEfficiencyMultiplier;
+                var gasMiles = (costAnimals - 137.5)/11.5*Model.FuelEfficiencyMultiplier;
                 var totalMiles = Mileage + gasMiles + 10*GameSimulationApp.Instance.Random.NextDouble();
 
                 return (int) Math.Abs(totalMiles);
