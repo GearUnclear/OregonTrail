@@ -15,7 +15,6 @@ using OregonTrailDotNet.Window.Travel.DoorDash.Help;
 using OregonTrailDotNet.Window.Travel.Hunt.Help;
 using OregonTrailDotNet.Window.Travel.Rest;
 using OregonTrailDotNet.Window.Travel.RiverCrossing.Help;
-using OregonTrailDotNet.Window.Travel.Store.Help;
 using OregonTrailDotNet.Window.Travel.Trade;
 using WolfCurses;
 using WolfCurses.Window;
@@ -162,6 +161,9 @@ namespace OregonTrailDotNet.Window.Travel
             SetForm(typeof(DoorDashPrompt));
         }
 
+        internal void LaunchCrypto() => SetForm(typeof(Crypto.CryptoDesk));
+        internal void OpenCreator() => SetForm(typeof(Creator.CreatorDesk));
+
         /// <summary>
         ///     Header text shown above the base travel menu (distance/location status + "You may:").
         /// </summary>
@@ -193,6 +195,8 @@ namespace OregonTrailDotNet.Window.Travel
             // Get a reference to current location on the trail so we can query it to build our menu.
             var location = GameSimulationApp.Instance.Trail.CurrentLocation;
 
+            commands.Add((TravelCommands.TravelChannel, OpenCreator));
+
             // Depending on where you are at on the trail the last few available commands change.
             switch (location.Status)
             {
@@ -221,6 +225,9 @@ namespace OregonTrailDotNet.Window.Travel
                     throw new ArgumentOutOfRangeException();
             }
 
+            if (location.Status is LocationStatus.Arrived or LocationStatus.Departed)
+                commands.Add((TravelCommands.LaunchCrypto, LaunchCrypto));
+
             return commands;
         }
 
@@ -243,10 +250,10 @@ namespace OregonTrailDotNet.Window.Travel
         /// </summary>
         public override void OnWindowPostCreate()
         {
-            // Starting store that is shown after setting up player names, profession, and starting month.
+            // Pack at home after setup, before visiting the opening supply store.
             if (GameSimulationApp.Instance.Trail.IsFirstLocation &&
                 (GameSimulationApp.Instance.Trail.CurrentLocation?.Status == LocationStatus.Unreached))
-                SetForm(typeof(StoreWelcome));
+                SetForm(typeof(PackTheCarDecision));
             else
                 SetForm(typeof(TravelMenu));
         }
@@ -313,9 +320,7 @@ namespace OregonTrailDotNet.Window.Travel
 
             // Location-scripted forking decisions. Each fires at most once per game and hands the player a numbered
             // choice Form; the chosen option is recorded in the ChoiceLedger for endgame scoring and epilogue recap.
-            // NOTE: the "pack" decision is deliberately NOT triggered here -- it fires from LocationDepart as the
-            // party pulls out of Cape Coral, so it cannot preempt the opening supply Store that OnWindowPostCreate
-            // attaches while the first location is still Unreached.
+            // Packing is the initial form from OnWindowPostCreate; it leads into the opening store.
             if (!_buceesFired && game.Trail.CurrentLocation.Name.StartsWith("Buc-ee's, Sevierville") &&
                 game.Vehicle.Passengers.Count > 0)
             {
@@ -349,7 +354,7 @@ namespace OregonTrailDotNet.Window.Travel
             }
 
             // Nothing else claimed the form slot this pass; show the base travel menu, but only if some other
-            // form (e.g. StoreWelcome, set back in OnWindowPostCreate) isn't already active - this fallback
+            // form (e.g. PackTheCarDecision, set back in OnWindowPostCreate) isn't already active - this fallback
             // used to just refresh the command list, which was safe to call unconditionally, but SetForm is not.
             if (CurrentForm == null)
                 SetForm(typeof(TravelMenu));

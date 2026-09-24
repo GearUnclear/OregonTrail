@@ -1,108 +1,85 @@
-# Oregon Trail Clone #
+# The Asphalt Trail
 
-Clone of popular 90's computer game for C#.
+A road-trip survival game from Cape Coral to Seattle in 2028, presented as a roadside terminal: phosphor text, original ASCII scenes, numbered commands, and the increasingly questionable contents of your car.
 
-![Oregon Trail Main Menu](https://raw.githubusercontent.com/Maxwolf/OregonTrail/master/media/TitleScreen.jpg)
+## Architecture
 
-## Cloning Instructions ##
-
-```cmd
-git clone --recursive https://github.com/Maxwolf/OregonTrail.git
+```text
+Browser: semantic HTML + local road animation
+       │ commands + versioned state stream (SSE)
+       ▼
+ASP.NET Core: HTTP API, admission limits, cached JSON
+       │ bounded command mailbox per journey
+       ▼
+Independent journey workers → C# game rules / WolfCurses adapter
 ```
 
-Make sure your git client recursively grabs all the sub-modules for the repo. Most Git GUI's (e.g, SourceTree, SmartGit, GitEye) will all do this automatically for you. 
+Each journey has its own asynchronous worker and execution context. One slow journey cannot lock every other game. Commands and clock pulses run in order through bounded mailboxes; HTTP reads use immutable, pre-serialized snapshots. Clients receive changes through server-sent events instead of repeatedly polling unchanged screens. Slow connections retain only the latest full snapshot. A health endpoint checks the host without creating a game.
 
-## Compilation Instructions ##
+`GET /api/game` establishes an HttpOnly browser cookie and returns the current snapshot, including a `journeyId`, monotonic `revision`, legal actions, and explicit `driving` state. `GET /api/game/events` streams state changes and heartbeats. Submit an advertised action to `POST /api/game/actions` with `{ actionId, expectedRevision, expectedJourneyId, text?, value? }`. Stale revisions or previous host incarnations return HTTP 409 with the current state. Commands are never automatically replayed on reconnect.
 
-You *should* be able to run the Cake build script by invoking the bootstrapper with a script tailored to the target platform.
+The browser animates the selected vehicle, wheels, road markings, and passing scenery while the server reports driving. A visible “On the road” panel shows the destination, remaining distance, pace, and weather. Motion stops when parked, resting, disabled, disconnected, or interrupted by an event. The CRT switch and reduced-motion preference stop animation while keeping driving information visible. Live updates preserve focus and unfinished input.
 
-### Windows ###
+## Play
 
-```cmd
-build.bat
-```
+Click or tap commands, use **1–9** for numbered actions, **↑/↓** to move between them, and **Enter** to activate a focused control or submit a form. **?** opens the field guide; **Escape** closes it. The opening story has five chapters. All four vehicles have distinct silhouettes and comparison facts. Travel centers include quantity controls and a live receipt with cash and cargo limits. No fonts, images, or scripts are fetched from third-party services.
 
-If script execution fail due to the execution policy, you might have to tell PowerShell to allow running scripts. You do this by [changing the execution policy](https://technet.microsoft.com/en-us/library/ee176961.aspx).
+Select **Plan your trip** on the title screen to read the opening story. Chapter one, **Notice of non-renewal**, contains the original insurance-company letter, smiling cartoon sun, and HOA clubhouse joke. Use **Next chapter** to read the remaining chapters before choosing your background.
 
-### Linux/OS X ###
+**RUG.RUN:** Choose **Launch a crypto coin** from the travel menu while parked at a stop or between stops. Name a fictional coin, choose a narrative and seed capital, then run six different hype campaigns during a 120-second market. Campaigns take time, cost road cash, and lose impact with repetition. Live candles, volume, liquidity, credibility, wallet suspicion, and the market feed help time the **PULL OUT / RUG IT** button. Withdrawing takes three market ticks; the final cash payout includes price impact and fees. Most launches lose money. Letting the listing expire triggers a distressed sale; a collapsed pool returns nothing.
+
+Each launched coin costs one trail day when you return. Your founder history and increasing notoriety last for the current journey. The exchange's sparks, pump bursts, and crash effects respect the CRT switch and reduced-motion preference. Like the rest of the journey, exchange records are held in memory, not saved across service restarts.
+
+**DEAD AIR:** Start a **YouTube travel channel** anywhere along the trail, or use **Pull over / YouTube travel channel** while driving. Name the channel, film whatever happens for **one trail day and $8**, and publish your randomly assigned idea. You can carry unfinished footage to another stop. Most ideas are dull; only the rare excellent idea has a chance to break out. Subscriber traffic, discovery views, new subscribers, and departures vary on every upload. A hidden recommendation score reacts to both audience sources.
+
+Order cameras and supporting equipment from **V&H — Victor & Horoshilov**: lights from $19 to $1,499, SD cards, backup storage, batteries, HDMI monitors, mount-specific lenses, ND filters, microphones, and supports. Orders debit road cash immediately and arrive after one trail day, whether spent traveling or filming. Equip delivered cameras in your bag. Compatible supporting gear fits automatically; only the strongest item in each category counts. Equipment raises the maximum possible audience, never the underlying demand for a video. Existing footage keeps the equipment it was filmed on.
+
+The fictional in-game Partner Program unlocks at **500 subscribers and 10,000 lifetime views**. Eligible uploads earn variable ad revenue; transfer it to road cash once the unpaid balance reaches **$10**. These are game rules, not real YouTube eligibility requirements. Every original upload has a **15%** chance of losing ads to an unnoticed background incident. Spend **one day re-editing** to restore eligibility: the reupload gets **half the original views**, rounded down, without counting subscriber gains twice. An upload can be repaired once. Browsing, publishing, and returning to the road are free in trail days; the family still eats while you film, wait for deliveries, or re-edit.
+
+The studio tracks views by source, equipment, recent upload history, subscriber churn, delivery orders, ad income, withdrawals, and net profit after all production and gear spending. Its library retains the most recent 60 uploads; lifetime totals retain older work. The 200-idea pool is scored on the server, authored in 20 independent batches, and includes enforced filming-location locks. The channel is deliberately a money trap with rare profitable careers. It follows the same memory-only journey lifetime as the rest of the game.
+
+## Run
+
+Requires the .NET 8 SDK. Browser assets are plain JavaScript and CSS; no frontend compiler or package installation is required.
 
 ```bash
-bash build.sh
+dotnet run --project src/OregonTrailDotNet.csproj --urls http://127.0.0.1:8080
 ```
 
-## Simulation Features ##
+Open `http://127.0.0.1:8080/`.
 
-### Travel ###
- 1. Iterates through 2-week trip segments
- 2. Play then proceeds through a series of up to 18 turns 
-   (each representing two weeks)
- 3. 20+ weeks (246 days) will trigger end game routine
- 4. Expected mileage for next two-weeks calculated with current stats
- 5. Mileage figure is ideal, problems subtract from this figure
- 6. Mileage printed at start of next trip segment
- 7. Average mileage is about 75 miles a week
- 8. The going gets slower and harder later in the trip
- 9. Weather changes, requiring more clothing
- 10. Stopping at a fort for supplies dramatically reduces 
-   the miles you can cover in a single turn
- 11. Bad weather occurs 20% of the time
- 12. Injuries 5% of the time
- 13. Detects where the player is on the trail and adjust random events
- 14. Snows in the mountains and river disasters occur on the plains
- 15. Clothes and wagon parts increase 2.5 dollars
- 16. Food increases .10 dollars and bullets increase 2.5 dollars
- 17. Oxen go up 5 dollars at each fort
- 18. When you rest at a land mark people often heal quicker than on the trail
- 19. Locations have fresh water flag if enabled doubles change for dysentery
-   and cholera
- 20. Maximum amount of weight that can be carried back after a hunt
-   is 250 lbs of food
- 21. The less buffalo you kill the better deal you shall receive
-   from Indian wanting clothes
- 22. Random chance for Indian Guide to help cross river for 1-5 sets of clothes
- 
-### Hunting ###
- 1. Random shooting word selected
- 2. Date is taken for hunting start time
- 3. Wait for correct shooting word input
- 4. Subtract start time from end time
- 5. If 2 seconds or less good shot, longer bad
- 6. Ammunition consumption calculated from shoot time
+## Verify and publish
 
-### Eating ###
- 1. Food consumption in pounds calculated from ration level per day
+```bash
+./tools/build_web.sh
+dotnet run --project tests/Backend/BackendTests.csproj
+./tools/verify_web_rewrite.sh
+dotnet publish src/OregonTrailDotNet.csproj -c Release -o ./publish
+```
 
-### Random Events ###
- 1. Select random number from 0 to 100 that will be dice roll
- 2. Probability determined by sucessive numbers in array
- 3. 0-6=event1, 6-11=event2, 11-13=event3, and so on...
- 4. Event typically prints message, subtracts mileage, and supplies
- 5. Events cold weather, bandits, wild-animal attack, illness
- are more complicated
+For HTTP integration checks, start a disposable host and run:
 
-### Climate ###
- 1. Check if set of clothing for every member in party
- 2. If not enough clothes illness routine is called
- 3. Illness routine can also be called if starvation flag is set
+```bash
+python3 tests/backend_integration.py http://127.0.0.1:8080
+python3 tests/crypto_integration.py http://127.0.0.1:8080
+python3 tests/creator_integration.py http://127.0.0.1:8080
+```
 
-### Illness ###
- 1. Check how well the player has been eating
- 2. If bad chance to contract mild, bad, or very serious illness
- 3. Mild and serious can be ignored, the others medical services
+These checks cover independent concurrent journeys, command conflicts, stream reconnects, all four vehicle setups, stores, and driving start/stop. The worker checks cover bounded queues, slow subscribers, cancellation, idle clocks, and shutdown. The browser checklist is in [tests/WEB_E2E_CHECKLIST.md](tests/WEB_E2E_CHECKLIST.md). See [DEPLOYMENT.md](DEPLOYMENT.md) for proxy and release configuration.
 
-### Mountains ###
- 1. Higher elevations risk cave-ins, losing your way, and slow going
- 2. 80% chance of getting stuck in South Pass
- 3. 70% chance of getting stuck in Blue Mountains
- 4. Will never be stuck for more than 10 days
- 5. 90% chance for blizzard at high elevations
+The backend harness also runs 9,000 deterministic crypto launches across three narratives, three stakes, and hold/hype/timed-exit policies, and checks campaign timing, cash accounting, validation, and settlement. Crypto HTTP checks exercise the real live stream, replay protection, campaign locks, payouts, and the trail-day cost.
 
-### Death ###
- 1. Not enough food, clothing, ammunition, or medical supplies
- 2. Short message is displayed telling you what happened
- 3. How far you traveled is shown, remaining supplies
- 4. Assumed less than 50% made it, realistic 20%
+Creator checks cover gear compatibility, ceiling-only effects, random audience sources, hidden recommendations, exact-once payouts, half-view reuploads, geography, and 20,000 moderation samples. The balance harness measures 40,000 careers across phone, cheap-light, mirrorless, and longer filming policies. The approximately 8% profitability target is defined for a frugal **12-upload phone career**, re-editing flagged videos and counting earned ads minus production costs. Gear spending, longer careers, and road survival change the odds. Content provenance and collision auditing live in `tools/creator-content/`; run `python3 tools/creator-content/pool.py audit --complete` to check the complete pool.
 
-### Winning ###
- 1. Display total time of journey
- 2. Remaining supplies shown, if any
+In a local comparison using 16 concurrent fresh journeys, initialization fell from **17.4 seconds to 1.8 seconds**. This is a development-host measurement, not a production capacity guarantee. Healthy browser connections make no recurring snapshot requests.
+
+## Project layout
+
+- `src/Web/` — endpoints, bounded journey workers, engine adapter, semantic presentation contract
+- `src/wwwroot/` — browser transport, interface, local animation, styles
+- `src/Window/`, `src/Module/`, `src/Entity/`, `src/Event/` — game state machine and rules
+- `tests/Backend/`, `tests/backend_integration.py` — worker and real HTTP checks
+- `sim/` — balancing simulator
+- `web/` — earlier Bonsai reference prototype; not loaded
+
+Journeys, high scores, and tombstones remain in memory and disappear when the service restarts. The host admits up to 256 sessions by default and never evicts a live journey to admit another player. Inactive sessions expire after 12 hours. Simulations pause 30 seconds after their last connected tab or request. Horizontal replicas require sticky routing. Limits are configurable under `GameHost`.

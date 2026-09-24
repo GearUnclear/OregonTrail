@@ -1,0 +1,18 @@
+[Unit]
+Description=Web host for The Asphalt Trail (wagenhoffer.dev/oregon)
+After=network.target
+StopWhenUnneeded=yes
+
+[Service]
+Type=simple
+User=oregon
+Group=oregon
+WorkingDirectory=/opt/oregon-trail-web/current
+ExecStart=/usr/bin/dotnet /opt/oregon-trail-web/current/OregonTrailDotNet.dll --urls http://127.0.0.1:7682
+ExecStartPost=/usr/bin/timeout 10 /bin/bash -c 'until (echo > /dev/tcp/127.0.0.1/7682) 2>/dev/null; do sleep 0.2; done'
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true

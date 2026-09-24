@@ -55,6 +55,9 @@ namespace OregonTrailDotNet.Window.Travel
         /// </summary>
         public DoorDashManager DoorDash { get; private set; }
 
+        public Module.Crypto.CryptoCareer CryptoCareer { get; } = new();
+        public Module.Creator.CreatorCareer CreatorCareer { get; } = new();
+
         /// <summary>
         ///     Gets the current cost of the toll road that would like to be inserted into the trail, normally this is done from a
         ///     fork in the road however it could be on a linear path without any decision making.

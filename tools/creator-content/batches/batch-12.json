@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-111",
+    "title": "The Indicator Clicks Keep Their Own Time",
+    "premise": "With the SUV parked, the turn signal ticks through one complete cycle and then repeats. The second pass sounds so much like the first that the recording has no new information to offer.",
+    "conceptKey": "parked-indicator-tick-audio-loop",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-112",
+    "title": "A Zipper Opens, Closes, Explains Nothing",
+    "premise": "At a parked break, a small pouch is unzipped and zipped once while the microphone stays nearby. The fabric and teeth make an impressively short event with no update about what is inside.",
+    "conceptKey": "single-pouch-zipper-audio-loop",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-113",
+    "title": "The Lock Chirp Is Over Before Anyone Turns Around",
+    "premise": "The parked SUV's lock button makes one brief chirp outside, then silence when the sound is recorded again from inside. The comparison ends with the doors staying locked.",
+    "conceptKey": "car-lock-confirmation-chirp-audio",
+    "potential": 26,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-114",
+    "title": "Keys Settle into the Console",
+    "premise": "A loose key ring is set into the console tray during a parked break, makes a short rattle, and goes quiet. There is no more key news.",
+    "conceptKey": "key-ring-rattle-into-console-tray",
+    "potential": 16,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-115",
+    "title": "The Buckle Gives One Click",
+    "premise": "After parking, one seat belt buckle clicks open and then rests against the seat. The recording stays on the small sound until it no longer seems new.",
+    "conceptKey": "parked-seat-belt-buckle-click",
+    "potential": 29,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-116",
+    "title": "The Vent Holds a Single Note",
+    "premise": "The lowest cabin fan setting gives a steady hum inside an empty, parked SUV. The recording ends with the fan humming exactly as steadily.",
+    "conceptKey": "lowest-cabin-fan-steady-hum",
+    "potential": 32,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-117",
+    "title": "Rest-Stop Ambience, with No One Quite in It",
+    "premise": "From inside a safely parked SUV, the camera records only the nonverbal layers around an ordinary rest stop: a distant rolling case, doors closing far off, and air moving through the lot. The sound gives the place a quiet texture without making any traveler its subject.",
+    "conceptKey": "rest-stop-nonverbal-ambient-soundscape",
+    "potential": 49,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-118",
+    "title": "Closed Window, Smaller World",
+    "premise": "From the same parked spot, a traveler records an indistinct traffic wash with the window slightly open and then closed. The sound retreats behind the glass, making a small and useful demonstration of how the cabin changes an ordinary roadside pause.",
+    "conceptKey": "parked-window-position-ambient-sound-comparison",
+    "potential": 57,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-119",
+    "title": "The Butter Cow's Display Hum",
+    "premise": "At the Iowa State Fair, a traveler records the low refrigeration hum beside the chilled 600-pound Butter Cow. The sculpture is silent, leaving its ordinary cooling equipment to carry the audio portrait.",
+    "conceptKey": "iowa-butter-cow-display-refrigeration-hum",
+    "potential": 63,
+    "locations": ["iowa-fair"],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-120",
+    "title": "The Screen Door Is the Last Sound from Home",
+    "premise": "A saved clip from the Cape Coral lanai catches the screen door closing against an otherwise ordinary evening. Set beside a current recording of the parked SUV's door and cabin quiet, that unremarkable home sound becomes a brief portrait of what the traveler had to leave.",
+    "conceptKey": "cape-coral-screen-door-sound-memory",
+    "potential": 92,
+    "locations": ["cape-coral"],
+    "authorBatch": 12
+  }
+]

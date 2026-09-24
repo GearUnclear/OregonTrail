@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-051",
+    "title": "The Sock Heel Will Not Stay Flat",
+    "premise": "While folding clean laundry at an ordinary parked stop, one traveler smooths a sock heel that keeps turning sideways. The close-up repeats until the sock is folded with the heel still slightly crooked.",
+    "conceptKey": "sock-heel-keeps-turning-during-folding",
+    "potential": 13,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-052",
+    "title": "The Care Tag Has Nothing New to Say",
+    "premise": "We turn over one familiar shirt to read its care tag, then turn it back and read the same line again. The instructions are unchanged and the shirt remains unfolded beside the camera.",
+    "conceptKey": "re-reading-familiar-shirt-care-tag",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-053",
+    "title": "The Cuff Is Still Damp",
+    "premise": "After a routine wash, a shirt hangs on a portable rack at a parked stop while the camera checks one cuff at three ordinary intervals. It goes from damp to less damp, with no larger development.",
+    "conceptKey": "single-shirt-cuff-drying-checks",
+    "potential": 32,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-054",
+    "title": "Folding the Empty Laundry Bag Again",
+    "premise": "An empty laundry bag is folded into a flat rectangle, opened to check its shape, and folded once more. The final version is almost exactly the first one.",
+    "conceptKey": "re-folding-empty-laundry-bag",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-055",
+    "title": "The T-Shirt Fold Needs One More Try",
+    "premise": "A traveler folds one clean T-shirt, notices that one sleeve sticks out, and starts over with the same shirt. The camera gives both attempts equal time, though the second rectangle is only a little neater.",
+    "conceptKey": "repeated-single-t-shirt-folding-attempt",
+    "potential": 26,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-056",
+    "title": "Three Hangers Face the Same Direction",
+    "premise": "After putting away a few clean shirts, a traveler turns three empty hangers to face the same way. One is nudged out of line and then put back.",
+    "conceptKey": "lining-up-empty-clothes-hangers",
+    "potential": 9,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-057",
+    "title": "Two Shirts Dry at Different Speeds",
+    "premise": "A washed cotton shirt and a lightweight synthetic layer hang with equal space on a portable rack during the same parked break. Checking them together shows how these two fabrics dry at different rates under the same conditions.",
+    "conceptKey": "paired-fabric-drying-rate-comparison",
+    "potential": 61,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-058",
+    "title": "A Small Shirt Wash, From Basin to Rack",
+    "premise": "A traveler hand-washes one lightly worn shirt in a clean basin, gives it a separate rinse, and lays it neatly on a portable rack to dry. The simple sequence offers a practical way to refresh one item without turning the whole stop into laundry day.",
+    "conceptKey": "single-shirt-hand-wash-and-drying-sequence",
+    "potential": 53,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-059",
+    "title": "Fold Some Clothes, Hang the Rest",
+    "premise": "After a small wash, the family sorts the dry clothes into items that stack neatly and items that keep their shape better on hangers. The modest split makes the clean clothes easier to find without adding another storage system.",
+    "conceptKey": "sorting-clean-clothes-by-fold-or-hanger",
+    "potential": 44,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-060",
+    "title": "The Missing Sock Finally Catches Up at Wash Day",
+    "premise": "One clean sock sits folded in the unmatched pile through several ordinary wash days, until its partner appears in a later load. Their reunion gets a brief celebratory close-up before the family folds them together for the next day's trip.",
+    "conceptKey": "laundry-sock-pair-reunion-across-loads",
+    "potential": 89,
+    "locations": [],
+    "authorBatch": 6
+  }
+]

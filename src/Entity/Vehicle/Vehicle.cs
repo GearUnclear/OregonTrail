@@ -32,6 +32,10 @@ namespace OregonTrailDotNet.Entity.Vehicle
         /// </summary>
         private List<Person.Person> _passengers;
 
+        // Uneaten half-pound from an opened pound of food. Shared across meals so fractional
+        // rations do not round up per passenger or disappear when rations change.
+        private int _foodHalfPound;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="T:TrailEntities.Entities.Vehicle" /> class.
         /// </summary>
@@ -99,9 +103,9 @@ namespace OregonTrailDotNet.Entity.Vehicle
         /// <summary>
         ///     Total pounds of cargo currently loaded into the vehicle, summed across every inventory category. Given
         ///     that gas cans, spare parts, and cash all weigh zero pounds today this is effectively just food and
-        ///     clothes weight, which is intentional -- no category is special-cased here.
+        ///     clothes weight. An opened half-pound still occupies one whole cargo slot until eaten.
         /// </summary>
-        public int CargoWeight => Inventory.Values.Sum(item => item.TotalWeight);
+        public int CargoWeight => Inventory.Values.Sum(item => item.TotalWeight) + _foodHalfPound;
 
         /// <summary>
         ///     Maximum number of passengers this vehicle can seat, bounded by both the chosen <see cref="Model" /> and
@@ -113,6 +117,26 @@ namespace OregonTrailDotNet.Entity.Vehicle
         ///     Current ration level, determines the amount food that will be consumed each day of the simulation.
         /// </summary>
         public RationLevel Ration { get; private set; }
+
+        public decimal FoodPerDay => PassengerLivingCount * FoodRations.PoundsPerPerson(Ration);
+
+        public decimal FoodPoundsRemaining => Inventory[Entities.Food].Quantity + _foodHalfPound / 2m;
+
+        /// <summary>Shares opened food between passengers while purchases remain in whole pounds.</summary>
+        internal bool TryConsumeMeal()
+        {
+            var food = Inventory[Entities.Food];
+            var available = food.Quantity * 2 + _foodHalfPound;
+            if (available <= 0)
+                return false;
+
+            // As before, a partial meal uses whatever is left; an empty pantry causes starvation.
+            var eaten = Math.Min(available, (int)(FoodRations.PoundsPerPerson(Ration) * 2));
+            var poundsToOpen = (Math.Max(0, eaten - _foodHalfPound) + 1) / 2;
+            food.ReduceQuantity(poundsToOpen);
+            _foodHalfPound += poundsToOpen * 2 - eaten;
+            return true;
+        }
 
         /// <summary>
         ///     Current travel pace, determines how fast the vehicle will attempt to move down the trail.
@@ -270,8 +294,8 @@ namespace OregonTrailDotNet.Entity.Vehicle
                 // cleared *every* segment in a single day (the leftover distance is discarded -- see
                 // TrailModule.OnTick) and the whole trail collapsed to one day per location, ~16 days. Widening
                 // the divisor to 11.5 puts a full tank near ~2.5 days per segment for a ~26-day drive, which is
-                // what gives the roadside scene and the food/fuel economy room to matter. Tuned in the balance
-                // sim (sim/Program.cs --mileagediv); re-run it if this or the gas price changes.
+                // what gives the roadside scene and the food/fuel economy room to matter. Validate mileage
+                // changes with tools/strategy-sim, which runs the live rules including crossings.
                 // Fuel efficiency scales just the gas-derived term, so a thirstier vehicle needs more cans to cover
                 // the same ground while a fuel-sipper stretches every can further.
                 var gasMiles = (costAnimals - 137.5)/11.5*Model.FuelEfficiencyMultiplier;
@@ -282,9 +306,9 @@ namespace OregonTrailDotNet.Entity.Vehicle
         }
 
         /// <summary>
-        ///     Distance multiplier applied to a single day's mileage based on the current travel pace. Steady is the
-        ///     baseline (x1.0) and MUST remain numerically identical to the original behaviour; faster paces trade health
-        ///     (see Person.ApplyPacePenalty) for extra ground covered. Tune the two non-baseline values here. The result
+        ///     Distance multiplier applied to a single day's mileage based on the current travel pace. Steady covers
+        ///     enough ground to avoid an unnecessarily long exposure to road hazards; faster paces trade health
+        ///     (see Person.ApplyPacePenalty) for extra ground covered. The result
         ///     is further scaled by the chosen vehicle's <see cref="Model" />.SpeedMultiplier before being returned.
         /// </summary>
         private double PaceMultiplier
@@ -295,15 +319,15 @@ namespace OregonTrailDotNet.Entity.Vehicle
                 switch (Pace)
                 {
                     case TravelPace.Strenuous:
-                        // ~12 hour days: roughly +30% distance.
+                        // Longer days cover more ground, with a daily fatigue cost.
                         paceFactor = 1.3d;
                         break;
                     case TravelPace.Grueling:
-                        // ~16 hour days: roughly +60% distance.
+                        // Longest days, with the greatest fatigue and illness cost.
                         paceFactor = 1.6d;
                         break;
                     case TravelPace.Steady:
-                        paceFactor = 1.0d;
+                        paceFactor = 1.25d;
                         break;
                     default:
                         paceFactor = 1.0d;
@@ -529,12 +553,9 @@ namespace OregonTrailDotNet.Entity.Vehicle
             // Figure out how far we need to go to reach the next point.
             Mileage = RandomMileage;
 
-            // Apply the travel pace multiplier so faster paces cover more ground each day. Steady is excluded so its
-            // result is byte-identical to the original behaviour for the default Minivan (SpeedMultiplier 1.0);
-            // Strenuous/Grueling stretch the day's distance regardless of vehicle, and any vehicle whose
-            // SpeedMultiplier is not exactly 1.0 also applies PaceMultiplier at Steady pace so its speed always matters.
-            if ((Pace != TravelPace.Steady) || !Model.SpeedMultiplier.Equals(1.0d))
-                Mileage = (int) (Mileage*PaceMultiplier);
+            // All paces include their road-speed factor and the chosen vehicle's speed. Steady's modest
+            // boost shortens the trip without adding the health penalties of the faster paces.
+            Mileage = (int) (Mileage*PaceMultiplier);
 
             // Sometimes things just go slow on the trail, cut mileage in half if above zero randomly.
             if (GameSimulationApp.Instance.Random.NextBool() && (Mileage > 0))
@@ -662,6 +683,7 @@ namespace OregonTrailDotNet.Entity.Vehicle
 
             // Inventory items for the passengers to use like food, clothes, spare parts.
             _inventory = new Dictionary<Entities, SimItem>(DefaultInventory);
+            _foodHalfPound = 0;
 
             // Passengers the vehicle will be moving along the trail.
             _passengers = new List<Person.Person>();

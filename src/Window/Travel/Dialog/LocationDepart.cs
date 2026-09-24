@@ -4,7 +4,6 @@
 using System;
 using System.Text;
 using OregonTrailDotNet.Window.Travel.Command;
-using OregonTrailDotNet.Window.Travel.Decision;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 using WolfCurses.Window.Form.Input;
@@ -57,16 +56,6 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
         /// <param name="reponse">The response the dialog parsed from simulation input buffer.</param>
         protected override void OnDialogResponse(DialogResponse reponse)
         {
-            // As the party pulls out of Cape Coral for the first (and only) time, hand them the tone-setting
-            // "what fits in the SUV" loadout decision before the drive begins. Guarded by the ChoiceLedger so it
-            // fires exactly once; the decision form resumes ContinueOnTrail itself when the player chooses.
-            if (GameSimulationApp.Instance.Trail.IsFirstLocation &&
-                !GameSimulationApp.Instance.Choices.HasDecision("pack"))
-            {
-                SetForm(typeof(PackTheCarDecision));
-                return;
-            }
-
             SetForm(typeof(ContinueOnTrail));
         }
     }

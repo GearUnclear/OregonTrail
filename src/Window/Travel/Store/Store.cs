@@ -314,6 +314,10 @@ namespace OregonTrailDotNet.Window.Travel.Store
             if (GameSimulationApp.Instance.Trail.IsFirstLocation &&
                 (GameSimulationApp.Instance.Trail.CurrentLocation?.Status == LocationStatus.Unreached))
             {
+                // Resellables displace snacks once the opening supplies have been loaded.
+                if (GameSimulationApp.Instance.Choices.GetDecision("pack") == "heavy")
+                    GameSimulationApp.Instance.Vehicle.Inventory[Entities.Food].ReduceQuantity(80);
+
                 // Sets up vehicle, location, and all other needed variables for simulation.
                 GameSimulationApp.Instance.Trail.ArriveAtNextLocation();
 

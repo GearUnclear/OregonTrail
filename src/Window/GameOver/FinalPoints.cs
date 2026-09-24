@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Item;
@@ -48,6 +49,9 @@ namespace OregonTrailDotNet.Window.GameOver
         /// </returns>
         protected override string OnDialogPrompt()
         {
+            if (_pointsPrompt.Length > 0)
+                return _pointsPrompt.ToString();
+
             // Shortcut to the game simulation instance to make code easier to read.
             var game = GameSimulationApp.Instance;
 
@@ -174,6 +178,14 @@ namespace OregonTrailDotNet.Window.GameOver
             // Add the score to the current listing that will get saved.
             var finalScore = new Highscore(leaderPerson.Name, totalPointsWithBonus);
             GameSimulationApp.Instance.Scoring.Add(finalScore);
+            UserData.FinalScore = finalScore;
+            UserData.BasePoints = totalPoints;
+            UserData.ChoiceScoreDelta = game.Choices.ScoreDelta;
+            UserData.Multiplier = (int) leaderPerson.Profession;
+            UserData.ScoreLines = tuplePoints
+                .Select(line => new ScoreLine(line.Item1, line.Item2, line.Item3))
+                .ToArray();
+            UserData.Epilogue = game.Choices.Epilogue.ToArray();
 
             // Surface the clout rank (Tourist/Influencer/Verified) the run just earned on the leaderboard.
             _pointsPrompt.AppendLine($"{Environment.NewLine}Clout Rank: {finalScore.Rating}");

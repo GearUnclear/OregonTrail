@@ -1,0 +1,500 @@
+{"Seed":22001,"Outcome":"win","Days":34,"Living":2,"Score":2626,"Location":"Seattle, WA","Error":null}
+{"Seed":22002,"Outcome":"win","Days":34,"Living":1,"Score":1777,"Location":"Seattle, WA","Error":null}
+{"Seed":22003,"Outcome":"death","Days":25,"Living":0,"Score":0,"Location":"Great Salt Lake Causeway Flood Crossing","Error":null}
+{"Seed":22004,"Outcome":"win","Days":37,"Living":4,"Score":2692,"Location":"Seattle, WA","Error":null}
+{"Seed":22005,"Outcome":"win","Days":46,"Living":4,"Score":2882,"Location":"Seattle, WA","Error":null}
+{"Seed":22006,"Outcome":"win","Days":49,"Living":4,"Score":2099,"Location":"Seattle, WA","Error":null}
+{"Seed":22007,"Outcome":"win","Days":54,"Living":4,"Score":2578,"Location":"Seattle, WA","Error":null}
+{"Seed":22008,"Outcome":"win","Days":31,"Living":4,"Score":2672,"Location":"Seattle, WA","Error":null}
+{"Seed":22009,"Outcome":"win","Days":30,"Living":4,"Score":2505,"Location":"Seattle, WA","Error":null}
+{"Seed":22010,"Outcome":"win","Days":42,"Living":4,"Score":2100,"Location":"Seattle, WA","Error":null}
+{"Seed":22011,"Outcome":"win","Days":41,"Living":2,"Score":1548,"Location":"Seattle, WA","Error":null}
+{"Seed":22012,"Outcome":"win","Days":35,"Living":3,"Score":2813,"Location":"Seattle, WA","Error":null}
+{"Seed":22013,"Outcome":"stranded","Days":5,"Living":3,"Score":0,"Location":"I-40 Pigeon River Gorge Washout","Error":null}
+{"Seed":22014,"Outcome":"win","Days":30,"Living":2,"Score":1903,"Location":"Seattle, WA","Error":null}
+{"Seed":22015,"Outcome":"win","Days":27,"Living":4,"Score":3126,"Location":"Seattle, WA","Error":null}
+{"Seed":22016,"Outcome":"win","Days":44,"Living":2,"Score":987,"Location":"Seattle, WA","Error":null}
+{"Seed":22017,"Outcome":"win","Days":27,"Living":2,"Score":1436,"Location":"Seattle, WA","Error":null}
+{"Seed":22018,"Outcome":"death","Days":33,"Living":0,"Score":0,"Location":"The Cascades: I-90 vs Highway 1 Fork","Error":null}
+{"Seed":22019,"Outcome":"win","Days":39,"Living":2,"Score":2507,"Location":"Seattle, WA","Error":null}
+{"Seed":22020,"Outcome":"win","Days":32,"Living":4,"Score":2850,"Location":"Seattle, WA","Error":null}
+{"Seed":22021,"Outcome":"win","Days":36,"Living":4,"Score":2360,"Location":"Seattle, WA","Error":null}
+{"Seed":22022,"Outcome":"win","Days":37,"Living":2,"Score":2994,"Location":"Seattle, WA","Error":null}
+{"Seed":22023,"Outcome":"win","Days":39,"Living":1,"Score":1391,"Location":"Seattle, WA","Error":null}
+{"Seed":22024,"Outcome":"win","Days":34,"Living":3,"Score":2951,"Location":"Seattle, WA","Error":null}
+{"Seed":22025,"Outcome":"win","Days":35,"Living":3,"Score":2145,"Location":"Seattle, WA","Error":null}
+{"Seed":22026,"Outcome":"win","Days":44,"Living":4,"Score":2623,"Location":"Seattle, WA","Error":null}
+{"Seed":22027,"Outcome":"win","Days":42,"Living":4,"Score":2537,"Location":"Seattle, WA","Error":null}
+{"Seed":22028,"Outcome":"win","Days":34,"Living":4,"Score":2392,"Location":"Seattle, WA","Error":null}
+{"Seed":22029,"Outcome":"win","Days":36,"Living":1,"Score":2012,"Location":"Seattle, WA","Error":null}
+{"Seed":22030,"Outcome":"win","Days":28,"Living":4,"Score":2208,"Location":"Seattle, WA","Error":null}
+{"Seed":22031,"Outcome":"win","Days":42,"Living":3,"Score":2663,"Location":"Seattle, WA","Error":null}
+{"Seed":22032,"Outcome":"win","Days":31,"Living":4,"Score":2696,"Location":"Seattle, WA","Error":null}
+{"Seed":22033,"Outcome":"win","Days":43,"Living":2,"Score":1326,"Location":"Seattle, WA","Error":null}
+{"Seed":22034,"Outcome":"win","Days":31,"Living":4,"Score":2919,"Location":"Seattle, WA","Error":null}
+{"Seed":22035,"Outcome":"win","Days":37,"Living":3,"Score":2141,"Location":"Seattle, WA","Error":null}
+{"Seed":22036,"Outcome":"win","Days":30,"Living":4,"Score":2566,"Location":"Seattle, WA","Error":null}
+{"Seed":22037,"Outcome":"win","Days":43,"Living":2,"Score":1723,"Location":"Seattle, WA","Error":null}
+{"Seed":22038,"Outcome":"win","Days":32,"Living":3,"Score":2676,"Location":"Seattle, WA","Error":null}
+{"Seed":22039,"Outcome":"win","Days":38,"Living":4,"Score":2600,"Location":"Seattle, WA","Error":null}
+{"Seed":22040,"Outcome":"win","Days":33,"Living":4,"Score":3031,"Location":"Seattle, WA","Error":null}
+{"Seed":22041,"Outcome":"death","Days":3,"Living":0,"Score":0,"Location":"I-40 Pigeon River Gorge Washout","Error":null}
+{"Seed":22042,"Outcome":"win","Days":39,"Living":2,"Score":2111,"Location":"Seattle, WA","Error":null}
+{"Seed":22043,"Outcome":"win","Days":39,"Living":3,"Score":1981,"Location":"Seattle, WA","Error":null}
+{"Seed":22044,"Outcome":"win","Days":41,"Living":4,"Score":2089,"Location":"Seattle, WA","Error":null}
+{"Seed":22045,"Outcome":"win","Days":28,"Living":3,"Score":2026,"Location":"Seattle, WA","Error":null}
+{"Seed":22046,"Outcome":"win","Days":35,"Living":1,"Score":873,"Location":"Seattle, WA","Error":null}
+{"Seed":22047,"Outcome":"win","Days":38,"Living":4,"Score":2359,"Location":"Seattle, WA","Error":null}
+{"Seed":22048,"Outcome":"win","Days":39,"Living":3,"Score":2237,"Location":"Seattle, WA","Error":null}
+{"Seed":22049,"Outcome":"win","Days":35,"Living":1,"Score":1871,"Location":"Seattle, WA","Error":null}
+{"Seed":22050,"Outcome":"win","Days":32,"Living":4,"Score":2719,"Location":"Seattle, WA","Error":null}
+{"Seed":22051,"Outcome":"win","Days":39,"Living":4,"Score":2175,"Location":"Seattle, WA","Error":null}
+{"Seed":22052,"Outcome":"win","Days":39,"Living":4,"Score":3117,"Location":"Seattle, WA","Error":null}
+{"Seed":22053,"Outcome":"win","Days":31,"Living":3,"Score":2302,"Location":"Seattle, WA","Error":null}
+{"Seed":22054,"Outcome":"win","Days":32,"Living":4,"Score":2708,"Location":"Seattle, WA","Error":null}
+{"Seed":22055,"Outcome":"death","Days":61,"Living":0,"Score":0,"Location":"Columbia/Snake \u0027Sovereign Citizen\u0027 Crossing","Error":null}
+{"Seed":22056,"Outcome":"win","Days":35,"Living":4,"Score":2158,"Location":"Seattle, WA","Error":null}
+{"Seed":22057,"Outcome":"death","Days":24,"Living":0,"Score":0,"Location":"Big Texan Steak Ranch","Error":null}
+{"Seed":22058,"Outcome":"win","Days":44,"Living":1,"Score":944,"Location":"Seattle, WA","Error":null}
+{"Seed":22059,"Outcome":"win","Days":28,"Living":3,"Score":2498,"Location":"Seattle, WA","Error":null}
+{"Seed":22060,"Outcome":"win","Days":38,"Living":4,"Score":2728,"Location":"Seattle, WA","Error":null}
+{"Seed":22061,"Outcome":"win","Days":34,"Living":3,"Score":2678,"Location":"Seattle, WA","Error":null}
+{"Seed":22062,"Outcome":"win","Days":46,"Living":2,"Score":1297,"Location":"Seattle, WA","Error":null}
+{"Seed":22063,"Outcome":"win","Days":40,"Living":1,"Score":989,"Location":"Seattle, WA","Error":null}
+{"Seed":22064,"Outcome":"win","Days":43,"Living":4,"Score":2433,"Location":"Seattle, WA","Error":null}
+{"Seed":22065,"Outcome":"win","Days":38,"Living":2,"Score":1765,"Location":"Seattle, WA","Error":null}
+{"Seed":22066,"Outcome":"win","Days":36,"Living":2,"Score":2373,"Location":"Seattle, WA","Error":null}
+{"Seed":22067,"Outcome":"win","Days":27,"Living":4,"Score":2604,"Location":"Seattle, WA","Error":null}
+{"Seed":22068,"Outcome":"win","Days":38,"Living":4,"Score":2628,"Location":"Seattle, WA","Error":null}
+{"Seed":22069,"Outcome":"death","Days":34,"Living":0,"Score":0,"Location":"Tacoma \u0027No Kings\u0027 Rally Town","Error":null}
+{"Seed":22070,"Outcome":"win","Days":32,"Living":1,"Score":997,"Location":"Seattle, WA","Error":null}
+{"Seed":22071,"Outcome":"win","Days":33,"Living":4,"Score":2973,"Location":"Seattle, WA","Error":null}
+{"Seed":22072,"Outcome":"win","Days":44,"Living":3,"Score":2027,"Location":"Seattle, WA","Error":null}
+{"Seed":22073,"Outcome":"win","Days":39,"Living":2,"Score":1252,"Location":"Seattle, WA","Error":null}
+{"Seed":22074,"Outcome":"win","Days":39,"Living":4,"Score":2698,"Location":"Seattle, WA","Error":null}
+{"Seed":22075,"Outcome":"win","Days":34,"Living":4,"Score":2252,"Location":"Seattle, WA","Error":null}
+{"Seed":22076,"Outcome":"win","Days":59,"Living":4,"Score":2823,"Location":"Seattle, WA","Error":null}
+{"Seed":22077,"Outcome":"win","Days":40,"Living":4,"Score":2536,"Location":"Seattle, WA","Error":null}
+{"Seed":22078,"Outcome":"win","Days":31,"Living":2,"Score":1531,"Location":"Seattle, WA","Error":null}
+{"Seed":22079,"Outcome":"win","Days":35,"Living":2,"Score":2053,"Location":"Seattle, WA","Error":null}
+{"Seed":22080,"Outcome":"win","Days":27,"Living":4,"Score":2664,"Location":"Seattle, WA","Error":null}
+{"Seed":22081,"Outcome":"death","Days":21,"Living":0,"Score":0,"Location":"The I-44 Texas Detour","Error":null}
+{"Seed":22082,"Outcome":"win","Days":29,"Living":2,"Score":1580,"Location":"Seattle, WA","Error":null}
+{"Seed":22083,"Outcome":"win","Days":37,"Living":4,"Score":2884,"Location":"Seattle, WA","Error":null}
+{"Seed":22084,"Outcome":"win","Days":49,"Living":4,"Score":3027,"Location":"Seattle, WA","Error":null}
+{"Seed":22085,"Outcome":"win","Days":27,"Living":1,"Score":1166,"Location":"Seattle, WA","Error":null}
+{"Seed":22086,"Outcome":"win","Days":30,"Living":4,"Score":3231,"Location":"Seattle, WA","Error":null}
+{"Seed":22087,"Outcome":"win","Days":38,"Living":3,"Score":2268,"Location":"Seattle, WA","Error":null}
+{"Seed":22088,"Outcome":"win","Days":33,"Living":4,"Score":2181,"Location":"Seattle, WA","Error":null}
+{"Seed":22089,"Outcome":"win","Days":42,"Living":1,"Score":1043,"Location":"Seattle, WA","Error":null}
+{"Seed":22090,"Outcome":"win","Days":32,"Living":4,"Score":3369,"Location":"Seattle, WA","Error":null}
+{"Seed":22091,"Outcome":"win","Days":41,"Living":4,"Score":2797,"Location":"Seattle, WA","Error":null}
+{"Seed":22092,"Outcome":"win","Days":37,"Living":4,"Score":2098,"Location":"Seattle, WA","Error":null}
+{"Seed":22093,"Outcome":"win","Days":29,"Living":2,"Score":1259,"Location":"Seattle, WA","Error":null}
+{"Seed":22094,"Outcome":"win","Days":31,"Living":4,"Score":2711,"Location":"Seattle, WA","Error":null}
+{"Seed":22095,"Outcome":"win","Days":32,"Living":4,"Score":3811,"Location":"Seattle, WA","Error":null}
+{"Seed":22096,"Outcome":"win","Days":45,"Living":4,"Score":2885,"Location":"Seattle, WA","Error":null}
+{"Seed":22097,"Outcome":"death","Days":1,"Living":0,"Score":0,"Location":"Cape Coral, FL","Error":null}
+{"Seed":22098,"Outcome":"win","Days":35,"Living":1,"Score":827,"Location":"Seattle, WA","Error":null}
+{"Seed":22099,"Outcome":"win","Days":31,"Living":1,"Score":1162,"Location":"Seattle, WA","Error":null}
+{"Seed":22100,"Outcome":"death","Days":20,"Living":0,"Score":0,"Location":"Carhenge, Alliance NE","Error":null}
+{"Seed":22101,"Outcome":"win","Days":26,"Living":4,"Score":3082,"Location":"Seattle, WA","Error":null}
+{"Seed":22102,"Outcome":"win","Days":40,"Living":4,"Score":2203,"Location":"Seattle, WA","Error":null}
+{"Seed":22103,"Outcome":"win","Days":40,"Living":2,"Score":1551,"Location":"Seattle, WA","Error":null}
+{"Seed":22104,"Outcome":"death","Days":23,"Living":0,"Score":0,"Location":"Wall Drug, SD","Error":null}
+{"Seed":22105,"Outcome":"win","Days":40,"Living":4,"Score":2262,"Location":"Seattle, WA","Error":null}
+{"Seed":22106,"Outcome":"win","Days":28,"Living":4,"Score":2716,"Location":"Seattle, WA","Error":null}
+{"Seed":22107,"Outcome":"win","Days":41,"Living":4,"Score":2339,"Location":"Seattle, WA","Error":null}
+{"Seed":22108,"Outcome":"win","Days":38,"Living":4,"Score":3871,"Location":"Seattle, WA","Error":null}
+{"Seed":22109,"Outcome":"win","Days":36,"Living":4,"Score":2486,"Location":"Seattle, WA","Error":null}
+{"Seed":22110,"Outcome":"win","Days":25,"Living":1,"Score":1385,"Location":"Seattle, WA","Error":null}
+{"Seed":22111,"Outcome":"win","Days":35,"Living":4,"Score":2490,"Location":"Seattle, WA","Error":null}
+{"Seed":22112,"Outcome":"win","Days":28,"Living":2,"Score":1562,"Location":"Seattle, WA","Error":null}
+{"Seed":22113,"Outcome":"win","Days":47,"Living":2,"Score":1303,"Location":"Seattle, WA","Error":null}
+{"Seed":22114,"Outcome":"death","Days":21,"Living":0,"Score":0,"Location":"Big Texan Steak Ranch","Error":null}
+{"Seed":22115,"Outcome":"win","Days":36,"Living":4,"Score":3054,"Location":"Seattle, WA","Error":null}
+{"Seed":22116,"Outcome":"win","Days":31,"Living":4,"Score":3908,"Location":"Seattle, WA","Error":null}
+{"Seed":22117,"Outcome":"win","Days":45,"Living":2,"Score":1505,"Location":"Seattle, WA","Error":null}
+{"Seed":22118,"Outcome":"win","Days":50,"Living":1,"Score":2454,"Location":"Seattle, WA","Error":null}
+{"Seed":22119,"Outcome":"win","Days":30,"Living":4,"Score":2646,"Location":"Seattle, WA","Error":null}
+{"Seed":22120,"Outcome":"win","Days":39,"Living":4,"Score":3085,"Location":"Seattle, WA","Error":null}
+{"Seed":22121,"Outcome":"death","Days":26,"Living":0,"Score":0,"Location":"Great Salt Lake Causeway Flood Crossing","Error":null}
+{"Seed":22122,"Outcome":"win","Days":45,"Living":4,"Score":3242,"Location":"Seattle, WA","Error":null}
+{"Seed":22123,"Outcome":"death","Days":7,"Living":0,"Score":0,"Location":"I-10 Francine Flood Crossing","Error":null}
+{"Seed":22124,"Outcome":"win","Days":37,"Living":2,"Score":1623,"Location":"Seattle, WA","Error":null}
+{"Seed":22125,"Outcome":"win","Days":44,"Living":3,"Score":1777,"Location":"Seattle, WA","Error":null}
+{"Seed":22126,"Outcome":"win","Days":36,"Living":4,"Score":2692,"Location":"Seattle, WA","Error":null}
+{"Seed":22127,"Outcome":"win","Days":38,"Living":4,"Score":3013,"Location":"Seattle, WA","Error":null}
+{"Seed":22128,"Outcome":"win","Days":36,"Living":2,"Score":1287,"Location":"Seattle, WA","Error":null}
+{"Seed":22129,"Outcome":"win","Days":37,"Living":3,"Score":2572,"Location":"Seattle, WA","Error":null}
+{"Seed":22130,"Outcome":"win","Days":42,"Living":1,"Score":743,"Location":"Seattle, WA","Error":null}
+{"Seed":22131,"Outcome":"win","Days":33,"Living":4,"Score":3105,"Location":"Seattle, WA","Error":null}
+{"Seed":22132,"Outcome":"win","Days":42,"Living":4,"Score":2799,"Location":"Seattle, WA","Error":null}
+{"Seed":22133,"Outcome":"win","Days":37,"Living":2,"Score":1755,"Location":"Seattle, WA","Error":null}
+{"Seed":22134,"Outcome":"win","Days":35,"Living":2,"Score":2062,"Location":"Seattle, WA","Error":null}
+{"Seed":22135,"Outcome":"stranded","Days":27,"Living":1,"Score":0,"Location":"Carhenge, Alliance NE","Error":null}
+{"Seed":22136,"Outcome":"win","Days":36,"Living":4,"Score":2093,"Location":"Seattle, WA","Error":null}
+{"Seed":22137,"Outcome":"win","Days":47,"Living":1,"Score":915,"Location":"Seattle, WA","Error":null}
+{"Seed":22138,"Outcome":"win","Days":38,"Living":4,"Score":1986,"Location":"Seattle, WA","Error":null}
+{"Seed":22139,"Outcome":"win","Days":46,"Living":4,"Score":3047,"Location":"Seattle, WA","Error":null}
+{"Seed":22140,"Outcome":"win","Days":43,"Living":4,"Score":2513,"Location":"Seattle, WA","Error":null}
+{"Seed":22141,"Outcome":"win","Days":41,"Living":3,"Score":2030,"Location":"Seattle, WA","Error":null}
+{"Seed":22142,"Outcome":"win","Days":40,"Living":4,"Score":2710,"Location":"Seattle, WA","Error":null}
+{"Seed":22143,"Outcome":"win","Days":40,"Living":4,"Score":2697,"Location":"Seattle, WA","Error":null}
+{"Seed":22144,"Outcome":"win","Days":45,"Living":4,"Score":1222,"Location":"Seattle, WA","Error":null}
+{"Seed":22145,"Outcome":"win","Days":37,"Living":4,"Score":3772,"Location":"Seattle, WA","Error":null}
+{"Seed":22146,"Outcome":"win","Days":33,"Living":4,"Score":2655,"Location":"Seattle, WA","Error":null}
+{"Seed":22147,"Outcome":"death","Days":36,"Living":0,"Score":0,"Location":"The Cascades: I-90 vs Highway 1 Fork","Error":null}
+{"Seed":22148,"Outcome":"win","Days":42,"Living":2,"Score":1245,"Location":"Seattle, WA","Error":null}
+{"Seed":22149,"Outcome":"win","Days":37,"Living":2,"Score":2662,"Location":"Seattle, WA","Error":null}
+{"Seed":22150,"Outcome":"win","Days":37,"Living":4,"Score":2981,"Location":"Seattle, WA","Error":null}
+{"Seed":22151,"Outcome":"win","Days":40,"Living":3,"Score":1723,"Location":"Seattle, WA","Error":null}
+{"Seed":22152,"Outcome":"win","Days":41,"Living":4,"Score":3766,"Location":"Seattle, WA","Error":null}
+{"Seed":22153,"Outcome":"win","Days":28,"Living":2,"Score":1409,"Location":"Seattle, WA","Error":null}
+{"Seed":22154,"Outcome":"win","Days":37,"Living":4,"Score":2804,"Location":"Seattle, WA","Error":null}
+{"Seed":22155,"Outcome":"win","Days":33,"Living":4,"Score":2105,"Location":"Seattle, WA","Error":null}
+{"Seed":22156,"Outcome":"win","Days":38,"Living":4,"Score":3348,"Location":"Seattle, WA","Error":null}
+{"Seed":22157,"Outcome":"win","Days":29,"Living":4,"Score":2643,"Location":"Seattle, WA","Error":null}
+{"Seed":22158,"Outcome":"stranded","Days":32,"Living":4,"Score":0,"Location":"Portland, OR","Error":null}
+{"Seed":22159,"Outcome":"win","Days":38,"Living":2,"Score":1856,"Location":"Seattle, WA","Error":null}
+{"Seed":22160,"Outcome":"win","Days":43,"Living":4,"Score":2101,"Location":"Seattle, WA","Error":null}
+{"Seed":22161,"Outcome":"win","Days":44,"Living":2,"Score":1527,"Location":"Seattle, WA","Error":null}
+{"Seed":22162,"Outcome":"death","Days":43,"Living":0,"Score":0,"Location":"Tacoma \u0027No Kings\u0027 Rally Town","Error":null}
+{"Seed":22163,"Outcome":"win","Days":40,"Living":4,"Score":3083,"Location":"Seattle, WA","Error":null}
+{"Seed":22164,"Outcome":"win","Days":47,"Living":4,"Score":3030,"Location":"Seattle, WA","Error":null}
+{"Seed":22165,"Outcome":"win","Days":37,"Living":4,"Score":2852,"Location":"Seattle, WA","Error":null}
+{"Seed":22166,"Outcome":"win","Days":37,"Living":2,"Score":1409,"Location":"Seattle, WA","Error":null}
+{"Seed":22167,"Outcome":"death","Days":31,"Living":0,"Score":0,"Location":"The Cascades: I-90 vs Highway 1 Fork","Error":null}
+{"Seed":22168,"Outcome":"win","Days":34,"Living":4,"Score":3031,"Location":"Seattle, WA","Error":null}
+{"Seed":22169,"Outcome":"win","Days":34,"Living":2,"Score":2236,"Location":"Seattle, WA","Error":null}
+{"Seed":22170,"Outcome":"win","Days":35,"Living":2,"Score":2213,"Location":"Seattle, WA","Error":null}
+{"Seed":22171,"Outcome":"win","Days":33,"Living":2,"Score":1502,"Location":"Seattle, WA","Error":null}
+{"Seed":22172,"Outcome":"win","Days":48,"Living":4,"Score":2842,"Location":"Seattle, WA","Error":null}
+{"Seed":22173,"Outcome":"win","Days":34,"Living":4,"Score":3088,"Location":"Seattle, WA","Error":null}
+{"Seed":22174,"Outcome":"win","Days":45,"Living":4,"Score":2294,"Location":"Seattle, WA","Error":null}
+{"Seed":22175,"Outcome":"win","Days":30,"Living":4,"Score":2646,"Location":"Seattle, WA","Error":null}
+{"Seed":22176,"Outcome":"win","Days":47,"Living":4,"Score":1899,"Location":"Seattle, WA","Error":null}
+{"Seed":22177,"Outcome":"win","Days":43,"Living":4,"Score":3348,"Location":"Seattle, WA","Error":null}
+{"Seed":22178,"Outcome":"win","Days":45,"Living":3,"Score":2661,"Location":"Seattle, WA","Error":null}
+{"Seed":22179,"Outcome":"death","Days":42,"Living":0,"Score":0,"Location":"Tacoma \u0027No Kings\u0027 Rally Town","Error":null}
+{"Seed":22180,"Outcome":"win","Days":47,"Living":4,"Score":2223,"Location":"Seattle, WA","Error":null}
+{"Seed":22181,"Outcome":"win","Days":41,"Living":2,"Score":2298,"Location":"Seattle, WA","Error":null}
+{"Seed":22182,"Outcome":"win","Days":37,"Living":1,"Score":718,"Location":"Seattle, WA","Error":null}
+{"Seed":22183,"Outcome":"win","Days":30,"Living":4,"Score":2807,"Location":"Seattle, WA","Error":null}
+{"Seed":22184,"Outcome":"win","Days":34,"Living":3,"Score":2005,"Location":"Seattle, WA","Error":null}
+{"Seed":22185,"Outcome":"win","Days":47,"Living":2,"Score":1773,"Location":"Seattle, WA","Error":null}
+{"Seed":22186,"Outcome":"win","Days":44,"Living":4,"Score":2760,"Location":"Seattle, WA","Error":null}
+{"Seed":22187,"Outcome":"win","Days":40,"Living":2,"Score":1367,"Location":"Seattle, WA","Error":null}
+{"Seed":22188,"Outcome":"win","Days":33,"Living":4,"Score":3351,"Location":"Seattle, WA","Error":null}
+{"Seed":22189,"Outcome":"win","Days":46,"Living":4,"Score":3268,"Location":"Seattle, WA","Error":null}
+{"Seed":22190,"Outcome":"win","Days":31,"Living":4,"Score":2551,"Location":"Seattle, WA","Error":null}
+{"Seed":22191,"Outcome":"death","Days":32,"Living":0,"Score":0,"Location":"Iowa State Fair Butter Cow","Error":null}
+{"Seed":22192,"Outcome":"win","Days":38,"Living":4,"Score":2534,"Location":"Seattle, WA","Error":null}
+{"Seed":22193,"Outcome":"win","Days":36,"Living":4,"Score":2789,"Location":"Seattle, WA","Error":null}
+{"Seed":22194,"Outcome":"win","Days":42,"Living":4,"Score":2676,"Location":"Seattle, WA","Error":null}
+{"Seed":22195,"Outcome":"win","Days":35,"Living":4,"Score":3099,"Location":"Seattle, WA","Error":null}
+{"Seed":22196,"Outcome":"win","Days":64,"Living":2,"Score":1062,"Location":"Seattle, WA","Error":null}
+{"Seed":22197,"Outcome":"death","Days":32,"Living":0,"Score":0,"Location":"Columbia/Snake \u0027Sovereign Citizen\u0027 Crossing","Error":null}
+{"Seed":22198,"Outcome":"win","Days":38,"Living":4,"Score":2703,"Location":"Seattle, WA","Error":null}
+{"Seed":22199,"Outcome":"win","Days":41,"Living":4,"Score":2725,"Location":"Seattle, WA","Error":null}
+{"Seed":22200,"Outcome":"win","Days":34,"Living":2,"Score":1799,"Location":"Seattle, WA","Error":null}
+{"Seed":22201,"Outcome":"win","Days":46,"Living":2,"Score":1556,"Location":"Seattle, WA","Error":null}
+{"Seed":22202,"Outcome":"win","Days":34,"Living":1,"Score":1301,"Location":"Seattle, WA","Error":null}
+{"Seed":22203,"Outcome":"stranded","Days":19,"Living":1,"Score":0,"Location":"The I-44 Texas Detour","Error":null}
+{"Seed":22204,"Outcome":"win","Days":32,"Living":4,"Score":2802,"Location":"Seattle, WA","Error":null}
+{"Seed":22205,"Outcome":"death","Days":29,"Living":0,"Score":0,"Location":"Seattle, WA","Error":null}
+{"Seed":22206,"Outcome":"win","Days":33,"Living":4,"Score":2659,"Location":"Seattle, WA","Error":null}
+{"Seed":22207,"Outcome":"win","Days":45,"Living":3,"Score":2799,"Location":"Seattle, WA","Error":null}
+{"Seed":22208,"Outcome":"win","Days":37,"Living":4,"Score":2114,"Location":"Seattle, WA","Error":null}
+{"Seed":22209,"Outcome":"win","Days":39,"Living":4,"Score":3532,"Location":"Seattle, WA","Error":null}
+{"Seed":22210,"Outcome":"win","Days":31,"Living":1,"Score":1045,"Location":"Seattle, WA","Error":null}
+{"Seed":22211,"Outcome":"win","Days":39,"Living":4,"Score":1704,"Location":"Seattle, WA","Error":null}
+{"Seed":22212,"Outcome":"win","Days":40,"Living":4,"Score":2949,"Location":"Seattle, WA","Error":null}
+{"Seed":22213,"Outcome":"death","Days":7,"Living":0,"Score":0,"Location":"I-10 Francine Flood Crossing","Error":null}
+{"Seed":22214,"Outcome":"win","Days":37,"Living":4,"Score":3142,"Location":"Seattle, WA","Error":null}
+{"Seed":22215,"Outcome":"win","Days":28,"Living":2,"Score":1387,"Location":"Seattle, WA","Error":null}
+{"Seed":22216,"Outcome":"win","Days":39,"Living":3,"Score":3197,"Location":"Seattle, WA","Error":null}
+{"Seed":22217,"Outcome":"win","Days":38,"Living":3,"Score":2051,"Location":"Seattle, WA","Error":null}
+{"Seed":22218,"Outcome":"win","Days":37,"Living":4,"Score":2541,"Location":"Seattle, WA","Error":null}
+{"Seed":22219,"Outcome":"win","Days":45,"Living":4,"Score":2686,"Location":"Seattle, WA","Error":null}
+{"Seed":22220,"Outcome":"win","Days":35,"Living":1,"Score":962,"Location":"Seattle, WA","Error":null}
+{"Seed":22221,"Outcome":"death","Days":51,"Living":0,"Score":0,"Location":"Iowa State Fair Butter Cow","Error":null}
+{"Seed":22222,"Outcome":"win","Days":25,"Living":4,"Score":3000,"Location":"Seattle, WA","Error":null}
+{"Seed":22223,"Outcome":"death","Days":38,"Living":0,"Score":0,"Location":"Portland, OR","Error":null}
+{"Seed":22224,"Outcome":"win","Days":47,"Living":1,"Score":1304,"Location":"Seattle, WA","Error":null}
+{"Seed":22225,"Outcome":"win","Days":45,"Living":2,"Score":1305,"Location":"Seattle, WA","Error":null}
+{"Seed":22226,"Outcome":"win","Days":46,"Living":4,"Score":3363,"Location":"Seattle, WA","Error":null}
+{"Seed":22227,"Outcome":"win","Days":35,"Living":4,"Score":2700,"Location":"Seattle, WA","Error":null}
+{"Seed":22228,"Outcome":"win","Days":56,"Living":1,"Score":907,"Location":"Seattle, WA","Error":null}
+{"Seed":22229,"Outcome":"win","Days":35,"Living":2,"Score":2045,"Location":"Seattle, WA","Error":null}
+{"Seed":22230,"Outcome":"death","Days":31,"Living":0,"Score":0,"Location":"Tacoma \u0027No Kings\u0027 Rally Town","Error":null}
+{"Seed":22231,"Outcome":"win","Days":50,"Living":2,"Score":2039,"Location":"Seattle, WA","Error":null}
+{"Seed":22232,"Outcome":"win","Days":26,"Living":2,"Score":1497,"Location":"Seattle, WA","Error":null}
+{"Seed":22233,"Outcome":"death","Days":28,"Living":0,"Score":0,"Location":"Carhenge, Alliance NE","Error":null}
+{"Seed":22234,"Outcome":"win","Days":41,"Living":4,"Score":2102,"Location":"Seattle, WA","Error":null}
+{"Seed":22235,"Outcome":"win","Days":48,"Living":3,"Score":2288,"Location":"Seattle, WA","Error":null}
+{"Seed":22236,"Outcome":"death","Days":52,"Living":0,"Score":0,"Location":"Wall Drug, SD","Error":null}
+{"Seed":22237,"Outcome":"death","Days":17,"Living":0,"Score":0,"Location":"Big Texan Steak Ranch","Error":null}
+{"Seed":22238,"Outcome":"win","Days":29,"Living":1,"Score":1312,"Location":"Seattle, WA","Error":null}
+{"Seed":22239,"Outcome":"win","Days":31,"Living":2,"Score":1571,"Location":"Seattle, WA","Error":null}
+{"Seed":22240,"Outcome":"win","Days":36,"Living":3,"Score":1394,"Location":"Seattle, WA","Error":null}
+{"Seed":22241,"Outcome":"win","Days":34,"Living":4,"Score":2127,"Location":"Seattle, WA","Error":null}
+{"Seed":22242,"Outcome":"win","Days":35,"Living":3,"Score":2170,"Location":"Seattle, WA","Error":null}
+{"Seed":22243,"Outcome":"death","Days":23,"Living":0,"Score":0,"Location":"Touchdown Jesus, Monroe OH","Error":null}
+{"Seed":22244,"Outcome":"stranded","Days":7,"Living":2,"Score":0,"Location":"Buc-ee\u0027s, Sevierville TN","Error":null}
+{"Seed":22245,"Outcome":"win","Days":27,"Living":4,"Score":3048,"Location":"Seattle, WA","Error":null}
+{"Seed":22246,"Outcome":"win","Days":35,"Living":3,"Score":1686,"Location":"Seattle, WA","Error":null}
+{"Seed":22247,"Outcome":"win","Days":50,"Living":4,"Score":2933,"Location":"Seattle, WA","Error":null}
+{"Seed":22248,"Outcome":"death","Days":25,"Living":0,"Score":0,"Location":"The I-44 Texas Detour","Error":null}
+{"Seed":22249,"Outcome":"death","Days":45,"Living":0,"Score":0,"Location":"Seattle, WA","Error":null}
+{"Seed":22250,"Outcome":"win","Days":41,"Living":4,"Score":2943,"Location":"Seattle, WA","Error":null}
+{"Seed":22251,"Outcome":"win","Days":44,"Living":4,"Score":2503,"Location":"Seattle, WA","Error":null}
+{"Seed":22252,"Outcome":"win","Days":34,"Living":4,"Score":2338,"Location":"Seattle, WA","Error":null}
+{"Seed":22253,"Outcome":"win","Days":42,"Living":3,"Score":2056,"Location":"Seattle, WA","Error":null}
+{"Seed":22254,"Outcome":"death","Days":1,"Living":0,"Score":0,"Location":"Cape Coral, FL","Error":null}
+{"Seed":22255,"Outcome":"win","Days":35,"Living":4,"Score":2540,"Location":"Seattle, WA","Error":null}
+{"Seed":22256,"Outcome":"win","Days":37,"Living":4,"Score":2518,"Location":"Seattle, WA","Error":null}
+{"Seed":22257,"Outcome":"win","Days":46,"Living":4,"Score":2684,"Location":"Seattle, WA","Error":null}
+{"Seed":22258,"Outcome":"win","Days":29,"Living":3,"Score":2040,"Location":"Seattle, WA","Error":null}
+{"Seed":22259,"Outcome":"win","Days":45,"Living":2,"Score":1094,"Location":"Seattle, WA","Error":null}
+{"Seed":22260,"Outcome":"win","Days":38,"Living":2,"Score":1905,"Location":"Seattle, WA","Error":null}
+{"Seed":22261,"Outcome":"win","Days":48,"Living":2,"Score":2361,"Location":"Seattle, WA","Error":null}
+{"Seed":22262,"Outcome":"win","Days":45,"Living":4,"Score":3020,"Location":"Seattle, WA","Error":null}
+{"Seed":22263,"Outcome":"win","Days":33,"Living":4,"Score":3072,"Location":"Seattle, WA","Error":null}
+{"Seed":22264,"Outcome":"win","Days":49,"Living":4,"Score":2958,"Location":"Seattle, WA","Error":null}
+{"Seed":22265,"Outcome":"win","Days":42,"Living":4,"Score":2847,"Location":"Seattle, WA","Error":null}
+{"Seed":22266,"Outcome":"death","Days":50,"Living":0,"Score":0,"Location":"The I-44 Texas Detour","Error":null}
+{"Seed":22267,"Outcome":"win","Days":40,"Living":1,"Score":904,"Location":"Seattle, WA","Error":null}
+{"Seed":22268,"Outcome":"win","Days":30,"Living":4,"Score":3290,"Location":"Seattle, WA","Error":null}
+{"Seed":22269,"Outcome":"win","Days":37,"Living":1,"Score":887,"Location":"Seattle, WA","Error":null}
+{"Seed":22270,"Outcome":"win","Days":40,"Living":4,"Score":2552,"Location":"Seattle, WA","Error":null}
+{"Seed":22271,"Outcome":"win","Days":34,"Living":4,"Score":2589,"Location":"Seattle, WA","Error":null}
+{"Seed":22272,"Outcome":"win","Days":46,"Living":4,"Score":3301,"Location":"Seattle, WA","Error":null}
+{"Seed":22273,"Outcome":"win","Days":37,"Living":4,"Score":2863,"Location":"Seattle, WA","Error":null}
+{"Seed":22274,"Outcome":"win","Days":39,"Living":3,"Score":2369,"Location":"Seattle, WA","Error":null}
+{"Seed":22275,"Outcome":"win","Days":41,"Living":4,"Score":2084,"Location":"Seattle, WA","Error":null}
+{"Seed":22276,"Outcome":"win","Days":41,"Living":4,"Score":2896,"Location":"Seattle, WA","Error":null}
+{"Seed":22277,"Outcome":"death","Days":13,"Living":0,"Score":0,"Location":"I-10 Francine Flood Crossing","Error":null}
+{"Seed":22278,"Outcome":"win","Days":27,"Living":4,"Score":3048,"Location":"Seattle, WA","Error":null}
+{"Seed":22279,"Outcome":"death","Days":34,"Living":0,"Score":0,"Location":"Iowa State Fair Butter Cow","Error":null}
+{"Seed":22280,"Outcome":"win","Days":38,"Living":2,"Score":2532,"Location":"Seattle, WA","Error":null}
+{"Seed":22281,"Outcome":"death","Days":42,"Living":0,"Score":0,"Location":"Portland, OR","Error":null}
+{"Seed":22282,"Outcome":"win","Days":38,"Living":4,"Score":2085,"Location":"Seattle, WA","Error":null}
+{"Seed":22283,"Outcome":"win","Days":48,"Living":3,"Score":3109,"Location":"Seattle, WA","Error":null}
+{"Seed":22284,"Outcome":"win","Days":40,"Living":3,"Score":1837,"Location":"Seattle, WA","Error":null}
+{"Seed":22285,"Outcome":"win","Days":44,"Living":1,"Score":1157,"Location":"Seattle, WA","Error":null}
+{"Seed":22286,"Outcome":"death","Days":10,"Living":0,"Score":0,"Location":"I-10 Francine Flood Crossing","Error":null}
+{"Seed":22287,"Outcome":"win","Days":47,"Living":3,"Score":2930,"Location":"Seattle, WA","Error":null}
+{"Seed":22288,"Outcome":"win","Days":45,"Living":4,"Score":2870,"Location":"Seattle, WA","Error":null}
+{"Seed":22289,"Outcome":"win","Days":47,"Living":3,"Score":1728,"Location":"Seattle, WA","Error":null}
+{"Seed":22290,"Outcome":"win","Days":32,"Living":4,"Score":3684,"Location":"Seattle, WA","Error":null}
+{"Seed":22291,"Outcome":"win","Days":27,"Living":4,"Score":2546,"Location":"Seattle, WA","Error":null}
+{"Seed":22292,"Outcome":"win","Days":42,"Living":2,"Score":1969,"Location":"Seattle, WA","Error":null}
+{"Seed":22293,"Outcome":"win","Days":38,"Living":4,"Score":2114,"Location":"Seattle, WA","Error":null}
+{"Seed":22294,"Outcome":"win","Days":39,"Living":4,"Score":3227,"Location":"Seattle, WA","Error":null}
+{"Seed":22295,"Outcome":"win","Days":37,"Living":1,"Score":1010,"Location":"Seattle, WA","Error":null}
+{"Seed":22296,"Outcome":"stranded","Days":59,"Living":1,"Score":0,"Location":"Great Salt Lake Causeway Flood Crossing","Error":null}
+{"Seed":22297,"Outcome":"win","Days":38,"Living":2,"Score":1454,"Location":"Seattle, WA","Error":null}
+{"Seed":22298,"Outcome":"death","Days":46,"Living":0,"Score":0,"Location":"The Cascades: I-90 vs Highway 1 Fork","Error":null}
+{"Seed":22299,"Outcome":"stranded","Days":11,"Living":4,"Score":0,"Location":"I-40 Pigeon River Gorge Washout","Error":null}
+{"Seed":22300,"Outcome":"win","Days":42,"Living":4,"Score":3076,"Location":"Seattle, WA","Error":null}
+{"Seed":22301,"Outcome":"win","Days":35,"Living":2,"Score":1071,"Location":"Seattle, WA","Error":null}
+{"Seed":22302,"Outcome":"win","Days":27,"Living":3,"Score":2325,"Location":"Seattle, WA","Error":null}
+{"Seed":22303,"Outcome":"win","Days":38,"Living":3,"Score":2092,"Location":"Seattle, WA","Error":null}
+{"Seed":22304,"Outcome":"win","Days":34,"Living":4,"Score":2656,"Location":"Seattle, WA","Error":null}
+{"Seed":22305,"Outcome":"win","Days":34,"Living":4,"Score":2980,"Location":"Seattle, WA","Error":null}
+{"Seed":22306,"Outcome":"win","Days":34,"Living":4,"Score":2272,"Location":"Seattle, WA","Error":null}
+{"Seed":22307,"Outcome":"win","Days":37,"Living":1,"Score":1483,"Location":"Seattle, WA","Error":null}
+{"Seed":22308,"Outcome":"win","Days":43,"Living":1,"Score":837,"Location":"Seattle, WA","Error":null}
+{"Seed":22309,"Outcome":"win","Days":47,"Living":4,"Score":2834,"Location":"Seattle, WA","Error":null}
+{"Seed":22310,"Outcome":"win","Days":38,"Living":4,"Score":2093,"Location":"Seattle, WA","Error":null}
+{"Seed":22311,"Outcome":"win","Days":44,"Living":2,"Score":1606,"Location":"Seattle, WA","Error":null}
+{"Seed":22312,"Outcome":"win","Days":31,"Living":1,"Score":1622,"Location":"Seattle, WA","Error":null}
+{"Seed":22313,"Outcome":"win","Days":35,"Living":4,"Score":2698,"Location":"Seattle, WA","Error":null}
+{"Seed":22314,"Outcome":"win","Days":46,"Living":1,"Score":1525,"Location":"Seattle, WA","Error":null}
+{"Seed":22315,"Outcome":"win","Days":43,"Living":4,"Score":2497,"Location":"Seattle, WA","Error":null}
+{"Seed":22316,"Outcome":"win","Days":44,"Living":2,"Score":2099,"Location":"Seattle, WA","Error":null}
+{"Seed":22317,"Outcome":"win","Days":38,"Living":4,"Score":3667,"Location":"Seattle, WA","Error":null}
+{"Seed":22318,"Outcome":"death","Days":23,"Living":0,"Score":0,"Location":"Great Salt Lake Causeway Flood Crossing","Error":null}
+{"Seed":22319,"Outcome":"win","Days":34,"Living":4,"Score":2098,"Location":"Seattle, WA","Error":null}
+{"Seed":22320,"Outcome":"death","Days":3,"Living":0,"Score":0,"Location":"I-40 Pigeon River Gorge Washout","Error":null}
+{"Seed":22321,"Outcome":"win","Days":29,"Living":1,"Score":1653,"Location":"Seattle, WA","Error":null}
+{"Seed":22322,"Outcome":"win","Days":29,"Living":4,"Score":2105,"Location":"Seattle, WA","Error":null}
+{"Seed":22323,"Outcome":"win","Days":36,"Living":4,"Score":2695,"Location":"Seattle, WA","Error":null}
+{"Seed":22324,"Outcome":"win","Days":51,"Living":4,"Score":1538,"Location":"Seattle, WA","Error":null}
+{"Seed":22325,"Outcome":"win","Days":37,"Living":2,"Score":1294,"Location":"Seattle, WA","Error":null}
+{"Seed":22326,"Outcome":"win","Days":34,"Living":4,"Score":2098,"Location":"Seattle, WA","Error":null}
+{"Seed":22327,"Outcome":"win","Days":40,"Living":2,"Score":2167,"Location":"Seattle, WA","Error":null}
+{"Seed":22328,"Outcome":"win","Days":46,"Living":3,"Score":2031,"Location":"Seattle, WA","Error":null}
+{"Seed":22329,"Outcome":"win","Days":35,"Living":4,"Score":3013,"Location":"Seattle, WA","Error":null}
+{"Seed":22330,"Outcome":"win","Days":37,"Living":2,"Score":1464,"Location":"Seattle, WA","Error":null}
+{"Seed":22331,"Outcome":"win","Days":37,"Living":4,"Score":2271,"Location":"Seattle, WA","Error":null}
+{"Seed":22332,"Outcome":"win","Days":42,"Living":4,"Score":2543,"Location":"Seattle, WA","Error":null}
+{"Seed":22333,"Outcome":"win","Days":46,"Living":2,"Score":2173,"Location":"Seattle, WA","Error":null}
+{"Seed":22334,"Outcome":"stranded","Days":21,"Living":4,"Score":0,"Location":"I-10 Francine Flood Crossing","Error":null}
+{"Seed":22335,"Outcome":"win","Days":35,"Living":2,"Score":1100,"Location":"Seattle, WA","Error":null}
+{"Seed":22336,"Outcome":"win","Days":38,"Living":2,"Score":2278,"Location":"Seattle, WA","Error":null}
+{"Seed":22337,"Outcome":"win","Days":46,"Living":4,"Score":2386,"Location":"Seattle, WA","Error":null}
+{"Seed":22338,"Outcome":"win","Days":34,"Living":4,"Score":2642,"Location":"Seattle, WA","Error":null}
+{"Seed":22339,"Outcome":"win","Days":39,"Living":2,"Score":2284,"Location":"Seattle, WA","Error":null}
+{"Seed":22340,"Outcome":"stranded","Days":18,"Living":4,"Score":0,"Location":"Buc-ee\u0027s, Sevierville TN","Error":null}
+{"Seed":22341,"Outcome":"death","Days":33,"Living":0,"Score":0,"Location":"The Cascades: I-90 vs Highway 1 Fork","Error":null}
+{"Seed":22342,"Outcome":"win","Days":29,"Living":4,"Score":2658,"Location":"Seattle, WA","Error":null}
+{"Seed":22343,"Outcome":"win","Days":33,"Living":4,"Score":2054,"Location":"Seattle, WA","Error":null}
+{"Seed":22344,"Outcome":"win","Days":34,"Living":1,"Score":1524,"Location":"Seattle, WA","Error":null}
+{"Seed":22345,"Outcome":"win","Days":32,"Living":4,"Score":2663,"Location":"Seattle, WA","Error":null}
+{"Seed":22346,"Outcome":"win","Days":34,"Living":1,"Score":1027,"Location":"Seattle, WA","Error":null}
+{"Seed":22347,"Outcome":"win","Days":42,"Living":4,"Score":1692,"Location":"Seattle, WA","Error":null}
+{"Seed":22348,"Outcome":"win","Days":30,"Living":1,"Score":1158,"Location":"Seattle, WA","Error":null}
+{"Seed":22349,"Outcome":"win","Days":44,"Living":4,"Score":2494,"Location":"Seattle, WA","Error":null}
+{"Seed":22350,"Outcome":"win","Days":47,"Living":1,"Score":1367,"Location":"Seattle, WA","Error":null}
+{"Seed":22351,"Outcome":"death","Days":29,"Living":0,"Score":0,"Location":"Great Salt Lake Causeway Flood Crossing","Error":null}
+{"Seed":22352,"Outcome":"win","Days":32,"Living":4,"Score":2919,"Location":"Seattle, WA","Error":null}
+{"Seed":22353,"Outcome":"win","Days":50,"Living":4,"Score":2105,"Location":"Seattle, WA","Error":null}
+{"Seed":22354,"Outcome":"win","Days":28,"Living":4,"Score":2626,"Location":"Seattle, WA","Error":null}
+{"Seed":22355,"Outcome":"win","Days":49,"Living":4,"Score":3724,"Location":"Seattle, WA","Error":null}
+{"Seed":22356,"Outcome":"win","Days":48,"Living":1,"Score":1288,"Location":"Seattle, WA","Error":null}
+{"Seed":22357,"Outcome":"win","Days":37,"Living":2,"Score":2062,"Location":"Seattle, WA","Error":null}
+{"Seed":22358,"Outcome":"win","Days":47,"Living":3,"Score":2004,"Location":"Seattle, WA","Error":null}
+{"Seed":22359,"Outcome":"win","Days":39,"Living":3,"Score":2676,"Location":"Seattle, WA","Error":null}
+{"Seed":22360,"Outcome":"win","Days":42,"Living":2,"Score":1324,"Location":"Seattle, WA","Error":null}
+{"Seed":22361,"Outcome":"win","Days":31,"Living":4,"Score":2556,"Location":"Seattle, WA","Error":null}
+{"Seed":22362,"Outcome":"win","Days":38,"Living":4,"Score":2518,"Location":"Seattle, WA","Error":null}
+{"Seed":22363,"Outcome":"win","Days":33,"Living":1,"Score":945,"Location":"Seattle, WA","Error":null}
+{"Seed":22364,"Outcome":"death","Days":37,"Living":0,"Score":0,"Location":"Iowa State Fair Butter Cow","Error":null}
+{"Seed":22365,"Outcome":"win","Days":24,"Living":3,"Score":2024,"Location":"Seattle, WA","Error":null}
+{"Seed":22366,"Outcome":"death","Days":15,"Living":0,"Score":0,"Location":"Big Texan Steak Ranch","Error":null}
+{"Seed":22367,"Outcome":"win","Days":46,"Living":1,"Score":1125,"Location":"Seattle, WA","Error":null}
+{"Seed":22368,"Outcome":"win","Days":34,"Living":4,"Score":2657,"Location":"Seattle, WA","Error":null}
+{"Seed":22369,"Outcome":"win","Days":31,"Living":4,"Score":3427,"Location":"Seattle, WA","Error":null}
+{"Seed":22370,"Outcome":"win","Days":37,"Living":1,"Score":1521,"Location":"Seattle, WA","Error":null}
+{"Seed":22371,"Outcome":"win","Days":33,"Living":4,"Score":2507,"Location":"Seattle, WA","Error":null}
+{"Seed":22372,"Outcome":"win","Days":37,"Living":4,"Score":3123,"Location":"Seattle, WA","Error":null}
+{"Seed":22373,"Outcome":"win","Days":51,"Living":4,"Score":2648,"Location":"Seattle, WA","Error":null}
+{"Seed":22374,"Outcome":"win","Days":34,"Living":4,"Score":2095,"Location":"Seattle, WA","Error":null}
+{"Seed":22375,"Outcome":"win","Days":34,"Living":4,"Score":2845,"Location":"Seattle, WA","Error":null}
+{"Seed":22376,"Outcome":"win","Days":32,"Living":2,"Score":2253,"Location":"Seattle, WA","Error":null}
+{"Seed":22377,"Outcome":"win","Days":37,"Living":4,"Score":2329,"Location":"Seattle, WA","Error":null}
+{"Seed":22378,"Outcome":"win","Days":51,"Living":1,"Score":1398,"Location":"Seattle, WA","Error":null}
+{"Seed":22379,"Outcome":"win","Days":35,"Living":2,"Score":854,"Location":"Seattle, WA","Error":null}
+{"Seed":22380,"Outcome":"win","Days":31,"Living":2,"Score":1140,"Location":"Seattle, WA","Error":null}
+{"Seed":22381,"Outcome":"win","Days":35,"Living":4,"Score":2471,"Location":"Seattle, WA","Error":null}
+{"Seed":22382,"Outcome":"win","Days":24,"Living":3,"Score":2464,"Location":"Seattle, WA","Error":null}
+{"Seed":22383,"Outcome":"win","Days":46,"Living":3,"Score":1988,"Location":"Seattle, WA","Error":null}
+{"Seed":22384,"Outcome":"win","Days":47,"Living":4,"Score":2986,"Location":"Seattle, WA","Error":null}
+{"Seed":22385,"Outcome":"death","Days":40,"Living":0,"Score":0,"Location":"The Cascades: I-90 vs Highway 1 Fork","Error":null}
+{"Seed":22386,"Outcome":"win","Days":28,"Living":4,"Score":2390,"Location":"Seattle, WA","Error":null}
+{"Seed":22387,"Outcome":"win","Days":46,"Living":1,"Score":1593,"Location":"Seattle, WA","Error":null}
+{"Seed":22388,"Outcome":"death","Days":28,"Living":0,"Score":0,"Location":"Iowa State Fair Butter Cow","Error":null}
+{"Seed":22389,"Outcome":"win","Days":41,"Living":3,"Score":2125,"Location":"Seattle, WA","Error":null}
+{"Seed":22390,"Outcome":"stranded","Days":18,"Living":4,"Score":0,"Location":"Buc-ee\u0027s, Sevierville TN","Error":null}
+{"Seed":22391,"Outcome":"win","Days":37,"Living":4,"Score":3094,"Location":"Seattle, WA","Error":null}
+{"Seed":22392,"Outcome":"win","Days":44,"Living":3,"Score":2002,"Location":"Seattle, WA","Error":null}
+{"Seed":22393,"Outcome":"win","Days":36,"Living":4,"Score":3407,"Location":"Seattle, WA","Error":null}
+{"Seed":22394,"Outcome":"win","Days":29,"Living":4,"Score":2711,"Location":"Seattle, WA","Error":null}
+{"Seed":22395,"Outcome":"death","Days":53,"Living":0,"Score":0,"Location":"Tacoma \u0027No Kings\u0027 Rally Town","Error":null}
+{"Seed":22396,"Outcome":"win","Days":28,"Living":4,"Score":3086,"Location":"Seattle, WA","Error":null}
+{"Seed":22397,"Outcome":"win","Days":35,"Living":4,"Score":2398,"Location":"Seattle, WA","Error":null}
+{"Seed":22398,"Outcome":"win","Days":36,"Living":3,"Score":2611,"Location":"Seattle, WA","Error":null}
+{"Seed":22399,"Outcome":"win","Days":36,"Living":2,"Score":1270,"Location":"Seattle, WA","Error":null}
+{"Seed":22400,"Outcome":"win","Days":37,"Living":4,"Score":2647,"Location":"Seattle, WA","Error":null}
+{"Seed":22401,"Outcome":"win","Days":34,"Living":2,"Score":1717,"Location":"Seattle, WA","Error":null}
+{"Seed":22402,"Outcome":"win","Days":36,"Living":4,"Score":2695,"Location":"Seattle, WA","Error":null}
+{"Seed":22403,"Outcome":"win","Days":33,"Living":4,"Score":3351,"Location":"Seattle, WA","Error":null}
+{"Seed":22404,"Outcome":"win","Days":36,"Living":2,"Score":2253,"Location":"Seattle, WA","Error":null}
+{"Seed":22405,"Outcome":"win","Days":37,"Living":4,"Score":3426,"Location":"Seattle, WA","Error":null}
+{"Seed":22406,"Outcome":"win","Days":47,"Living":4,"Score":2549,"Location":"Seattle, WA","Error":null}
+{"Seed":22407,"Outcome":"win","Days":36,"Living":4,"Score":2589,"Location":"Seattle, WA","Error":null}
+{"Seed":22408,"Outcome":"death","Days":43,"Living":0,"Score":0,"Location":"Portland, OR","Error":null}
+{"Seed":22409,"Outcome":"death","Days":48,"Living":0,"Score":0,"Location":"Seattle, WA","Error":null}
+{"Seed":22410,"Outcome":"win","Days":38,"Living":1,"Score":899,"Location":"Seattle, WA","Error":null}
+{"Seed":22411,"Outcome":"win","Days":42,"Living":1,"Score":902,"Location":"Seattle, WA","Error":null}
+{"Seed":22412,"Outcome":"win","Days":46,"Living":4,"Score":3063,"Location":"Seattle, WA","Error":null}
+{"Seed":22413,"Outcome":"win","Days":42,"Living":4,"Score":2404,"Location":"Seattle, WA","Error":null}
+{"Seed":22414,"Outcome":"death","Days":41,"Living":0,"Score":0,"Location":"Seattle, WA","Error":null}
+{"Seed":22415,"Outcome":"win","Days":37,"Living":4,"Score":2692,"Location":"Seattle, WA","Error":null}
+{"Seed":22416,"Outcome":"death","Days":23,"Living":0,"Score":0,"Location":"Big Texan Steak Ranch","Error":null}
+{"Seed":22417,"Outcome":"win","Days":40,"Living":2,"Score":1424,"Location":"Seattle, WA","Error":null}
+{"Seed":22418,"Outcome":"win","Days":40,"Living":1,"Score":1487,"Location":"Seattle, WA","Error":null}
+{"Seed":22419,"Outcome":"win","Days":34,"Living":4,"Score":2411,"Location":"Seattle, WA","Error":null}
+{"Seed":22420,"Outcome":"win","Days":34,"Living":4,"Score":2633,"Location":"Seattle, WA","Error":null}
+{"Seed":22421,"Outcome":"win","Days":39,"Living":2,"Score":1303,"Location":"Seattle, WA","Error":null}
+{"Seed":22422,"Outcome":"win","Days":36,"Living":4,"Score":2344,"Location":"Seattle, WA","Error":null}
+{"Seed":22423,"Outcome":"win","Days":36,"Living":4,"Score":3660,"Location":"Seattle, WA","Error":null}
+{"Seed":22424,"Outcome":"win","Days":45,"Living":4,"Score":2687,"Location":"Seattle, WA","Error":null}
+{"Seed":22425,"Outcome":"win","Days":43,"Living":4,"Score":3105,"Location":"Seattle, WA","Error":null}
+{"Seed":22426,"Outcome":"win","Days":50,"Living":4,"Score":3139,"Location":"Seattle, WA","Error":null}
+{"Seed":22427,"Outcome":"win","Days":31,"Living":1,"Score":1583,"Location":"Seattle, WA","Error":null}
+{"Seed":22428,"Outcome":"win","Days":37,"Living":4,"Score":2692,"Location":"Seattle, WA","Error":null}
+{"Seed":22429,"Outcome":"win","Days":47,"Living":3,"Score":2163,"Location":"Seattle, WA","Error":null}
+{"Seed":22430,"Outcome":"win","Days":42,"Living":4,"Score":3077,"Location":"Seattle, WA","Error":null}
+{"Seed":22431,"Outcome":"win","Days":41,"Living":1,"Score":1894,"Location":"Seattle, WA","Error":null}
+{"Seed":22432,"Outcome":"win","Days":43,"Living":3,"Score":2021,"Location":"Seattle, WA","Error":null}
+{"Seed":22433,"Outcome":"win","Days":38,"Living":2,"Score":1295,"Location":"Seattle, WA","Error":null}
+{"Seed":22434,"Outcome":"win","Days":39,"Living":2,"Score":1616,"Location":"Seattle, WA","Error":null}
+{"Seed":22435,"Outcome":"win","Days":35,"Living":3,"Score":3044,"Location":"Seattle, WA","Error":null}
+{"Seed":22436,"Outcome":"win","Days":43,"Living":2,"Score":1819,"Location":"Seattle, WA","Error":null}
+{"Seed":22437,"Outcome":"win","Days":33,"Living":3,"Score":2413,"Location":"Seattle, WA","Error":null}
+{"Seed":22438,"Outcome":"win","Days":41,"Living":1,"Score":889,"Location":"Seattle, WA","Error":null}
+{"Seed":22439,"Outcome":"win","Days":44,"Living":1,"Score":1569,"Location":"Seattle, WA","Error":null}
+{"Seed":22440,"Outcome":"win","Days":33,"Living":2,"Score":1973,"Location":"Seattle, WA","Error":null}
+{"Seed":22441,"Outcome":"win","Days":22,"Living":2,"Score":1539,"Location":"Seattle, WA","Error":null}
+{"Seed":22442,"Outcome":"death","Days":27,"Living":0,"Score":0,"Location":"The I-44 Texas Detour","Error":null}
+{"Seed":22443,"Outcome":"win","Days":43,"Living":4,"Score":2865,"Location":"Seattle, WA","Error":null}
+{"Seed":22444,"Outcome":"win","Days":30,"Living":4,"Score":2500,"Location":"Seattle, WA","Error":null}
+{"Seed":22445,"Outcome":"death","Days":28,"Living":0,"Score":0,"Location":"Iowa State Fair Butter Cow","Error":null}
+{"Seed":22446,"Outcome":"win","Days":40,"Living":2,"Score":1301,"Location":"Seattle, WA","Error":null}
+{"Seed":22447,"Outcome":"win","Days":28,"Living":3,"Score":2340,"Location":"Seattle, WA","Error":null}
+{"Seed":22448,"Outcome":"win","Days":32,"Living":4,"Score":2708,"Location":"Seattle, WA","Error":null}
+{"Seed":22449,"Outcome":"win","Days":42,"Living":2,"Score":2133,"Location":"Seattle, WA","Error":null}
+{"Seed":22450,"Outcome":"win","Days":50,"Living":3,"Score":2875,"Location":"Seattle, WA","Error":null}
+{"Seed":22451,"Outcome":"win","Days":31,"Living":4,"Score":2404,"Location":"Seattle, WA","Error":null}
+{"Seed":22452,"Outcome":"win","Days":31,"Living":4,"Score":2680,"Location":"Seattle, WA","Error":null}
+{"Seed":22453,"Outcome":"death","Days":35,"Living":0,"Score":0,"Location":"Iowa State Fair Butter Cow","Error":null}
+{"Seed":22454,"Outcome":"win","Days":37,"Living":4,"Score":2607,"Location":"Seattle, WA","Error":null}
+{"Seed":22455,"Outcome":"win","Days":39,"Living":4,"Score":2951,"Location":"Seattle, WA","Error":null}
+{"Seed":22456,"Outcome":"win","Days":42,"Living":1,"Score":1930,"Location":"Seattle, WA","Error":null}
+{"Seed":22457,"Outcome":"win","Days":40,"Living":1,"Score":1017,"Location":"Seattle, WA","Error":null}
+{"Seed":22458,"Outcome":"win","Days":39,"Living":4,"Score":2685,"Location":"Seattle, WA","Error":null}
+{"Seed":22459,"Outcome":"win","Days":47,"Living":2,"Score":1997,"Location":"Seattle, WA","Error":null}
+{"Seed":22460,"Outcome":"win","Days":32,"Living":4,"Score":2648,"Location":"Seattle, WA","Error":null}
+{"Seed":22461,"Outcome":"win","Days":40,"Living":4,"Score":2096,"Location":"Seattle, WA","Error":null}
+{"Seed":22462,"Outcome":"win","Days":30,"Living":4,"Score":3114,"Location":"Seattle, WA","Error":null}
+{"Seed":22463,"Outcome":"win","Days":51,"Living":1,"Score":1632,"Location":"Seattle, WA","Error":null}
+{"Seed":22464,"Outcome":"death","Days":18,"Living":0,"Score":0,"Location":"Great Salt Lake Causeway Flood Crossing","Error":null}
+{"Seed":22465,"Outcome":"win","Days":42,"Living":4,"Score":2237,"Location":"Seattle, WA","Error":null}
+{"Seed":22466,"Outcome":"win","Days":67,"Living":1,"Score":1293,"Location":"Seattle, WA","Error":null}
+{"Seed":22467,"Outcome":"win","Days":39,"Living":4,"Score":2879,"Location":"Seattle, WA","Error":null}
+{"Seed":22468,"Outcome":"win","Days":45,"Living":2,"Score":2114,"Location":"Seattle, WA","Error":null}
+{"Seed":22469,"Outcome":"win","Days":47,"Living":4,"Score":2996,"Location":"Seattle, WA","Error":null}
+{"Seed":22470,"Outcome":"win","Days":36,"Living":2,"Score":2246,"Location":"Seattle, WA","Error":null}
+{"Seed":22471,"Outcome":"win","Days":36,"Living":3,"Score":1997,"Location":"Seattle, WA","Error":null}
+{"Seed":22472,"Outcome":"win","Days":39,"Living":2,"Score":2397,"Location":"Seattle, WA","Error":null}
+{"Seed":22473,"Outcome":"death","Days":32,"Living":0,"Score":0,"Location":"Seattle, WA","Error":null}
+{"Seed":22474,"Outcome":"win","Days":33,"Living":4,"Score":2393,"Location":"Seattle, WA","Error":null}
+{"Seed":22475,"Outcome":"death","Days":60,"Living":0,"Score":0,"Location":"Columbia/Snake \u0027Sovereign Citizen\u0027 Crossing","Error":null}
+{"Seed":22476,"Outcome":"win","Days":51,"Living":3,"Score":3002,"Location":"Seattle, WA","Error":null}
+{"Seed":22477,"Outcome":"death","Days":34,"Living":0,"Score":0,"Location":"Tacoma \u0027No Kings\u0027 Rally Town","Error":null}
+{"Seed":22478,"Outcome":"win","Days":37,"Living":2,"Score":1560,"Location":"Seattle, WA","Error":null}
+{"Seed":22479,"Outcome":"win","Days":37,"Living":1,"Score":1217,"Location":"Seattle, WA","Error":null}
+{"Seed":22480,"Outcome":"win","Days":44,"Living":4,"Score":2097,"Location":"Seattle, WA","Error":null}
+{"Seed":22481,"Outcome":"win","Days":33,"Living":3,"Score":2002,"Location":"Seattle, WA","Error":null}
+{"Seed":22482,"Outcome":"win","Days":41,"Living":1,"Score":1154,"Location":"Seattle, WA","Error":null}
+{"Seed":22483,"Outcome":"win","Days":43,"Living":4,"Score":2672,"Location":"Seattle, WA","Error":null}
+{"Seed":22484,"Outcome":"win","Days":32,"Living":4,"Score":2509,"Location":"Seattle, WA","Error":null}
+{"Seed":22485,"Outcome":"win","Days":33,"Living":1,"Score":1267,"Location":"Seattle, WA","Error":null}
+{"Seed":22486,"Outcome":"win","Days":62,"Living":1,"Score":999,"Location":"Seattle, WA","Error":null}
+{"Seed":22487,"Outcome":"win","Days":34,"Living":4,"Score":2160,"Location":"Seattle, WA","Error":null}
+{"Seed":22488,"Outcome":"win","Days":41,"Living":1,"Score":1088,"Location":"Seattle, WA","Error":null}
+{"Seed":22489,"Outcome":"win","Days":28,"Living":4,"Score":1995,"Location":"Seattle, WA","Error":null}
+{"Seed":22490,"Outcome":"death","Days":24,"Living":0,"Score":0,"Location":"Big Texan Steak Ranch","Error":null}
+{"Seed":22491,"Outcome":"death","Days":29,"Living":0,"Score":0,"Location":"Carhenge, Alliance NE","Error":null}
+{"Seed":22492,"Outcome":"win","Days":40,"Living":2,"Score":1806,"Location":"Seattle, WA","Error":null}
+{"Seed":22493,"Outcome":"win","Days":40,"Living":3,"Score":3213,"Location":"Seattle, WA","Error":null}
+{"Seed":22494,"Outcome":"win","Days":37,"Living":1,"Score":1714,"Location":"Seattle, WA","Error":null}
+{"Seed":22495,"Outcome":"win","Days":56,"Living":2,"Score":1242,"Location":"Seattle, WA","Error":null}
+{"Seed":22496,"Outcome":"death","Days":33,"Living":0,"Score":0,"Location":"Columbia/Snake \u0027Sovereign Citizen\u0027 Crossing","Error":null}
+{"Seed":22497,"Outcome":"win","Days":30,"Living":3,"Score":2315,"Location":"Seattle, WA","Error":null}
+{"Seed":22498,"Outcome":"win","Days":34,"Living":1,"Score":857,"Location":"Seattle, WA","Error":null}
+{"Seed":22499,"Outcome":"win","Days":45,"Living":4,"Score":2665,"Location":"Seattle, WA","Error":null}
+{"Seed":22500,"Outcome":"win","Days":36,"Living":3,"Score":2400,"Location":"Seattle, WA","Error":null}

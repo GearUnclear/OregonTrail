@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-121",
+    "title": "After You, No, After You",
+    "premise": "During a low-stakes conversation, one traveler offers to let another answer first, then receives the same courtesy back. The question is forgotten before anyone claims a turn.",
+    "conceptKey": "polite-answer-first-loop-leaves-question-unanswered",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-122",
+    "title": "A Nickname That Did Not Survive Its First Test",
+    "premise": "Someone coins a family nickname for an ordinary habit, tries it again at another parked stop, and gets no sign that anyone else remembers it. The nickname is retired without a formal vote.",
+    "conceptKey": "one-use-family-nickname-fails-to-catch-on",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-123",
+    "title": "The Route Debate Has No Preferred Pronunciation",
+    "premise": "The travelers briefly disagree over which pronunciation of 'route' sounds right, then keep using their preferred versions as before. The camera gives the vote a close finish without establishing what was being voted on.",
+    "conceptKey": "family-route-pronunciation-vote-with-no-conclusion",
+    "potential": 29,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-124",
+    "title": "The Correction That Never Reaches the Noun",
+    "premise": "A traveler begins correcting a harmless word choice in a familiar story, pauses to think, then lets the other version stand. The story continues with both terms in place.",
+    "conceptKey": "abandoned-word-correction-in-family-story",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-125",
+    "title": "Did That Count as a Greeting?",
+    "premise": "One traveler asks whether a quiet nod counts as hello in the family's usual greeting ritual; replies differ, and the same nod gets used at the next parked stop. Nobody arrives at a definition.",
+    "conceptKey": "family-debate-over-whether-a-nod-is-a-greeting",
+    "potential": 25,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-126",
+    "title": "The Preface Takes Longer Than the Question",
+    "premise": "A traveler offers two caveats and a clarification before asking which of two harmless labels to use. The answer is 'either is fine,' and the preamble remains the longest part of the exchange.",
+    "conceptKey": "overlong-preamble-before-simple-family-question",
+    "potential": 33,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-127",
+    "title": "What 'We'll See' Meant to Each of Us",
+    "premise": "A casual 'we'll see' is meant as an open question by one traveler and heard as a quiet no by another. A follow-up conversation finds a clearer way to defer ordinary decisions without making the phrase a promise.",
+    "conceptKey": "different-family-meanings-of-well-see",
+    "potential": 49,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-128",
+    "title": "Can I Add One Thought?",
+    "premise": "After noticing that interruptions keep sending stories off course, a traveler offers a small phrase, 'Can I add one thought?' as a way to join in without taking over. The conversation still wanders, but everyone gets to finish a thought before the next correction arrives.",
+    "conceptKey": "polite-phrase-for-joining-family-conversation",
+    "potential": 61,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-129",
+    "title": "The Pun's Second Life Is Better Than Its First",
+    "premise": "A traveler makes a weak pun about the word 'road,' and later someone changes one word to make it worse in a way the group likes better. Its two versions become a small running bit that can be retold by whoever is still making the trip.",
+    "conceptKey": "family-road-pun-improved-by-a-worse-second-version",
+    "potential": 56,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-130",
+    "title": "The $40 Story Has a Handshake",
+    "premise": "A traveler retells the sale of the patio furniture before the move: one version centers on the $40, another on the neighbor's unusually formal handshake. In successive retellings, the handshake grows larger in the story than the furniture, turning a practical transaction into a small family legend about how an ordinary day became the last one in a home.",
+    "conceptKey": "forty-dollar-patio-sale-handshake-becomes-family-legend",
+    "potential": 88,
+    "locations": [],
+    "authorBatch": 13
+  }
+]

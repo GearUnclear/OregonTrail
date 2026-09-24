@@ -1,4 +1,5 @@
 using System.Text;
+using OregonTrailDotNet.Entity.Vehicle;
 
 namespace OregonTrailDotNet.Renderer
 {
@@ -364,15 +365,49 @@ namespace OregonTrailDotNet.Renderer
         private const int RoadW = 70;
 
         /// <summary>
-        ///     SUV drawn in side profile. Held still in the near-left of the travel scene while the world scrolls
-        ///     behind it, which reads as the vehicle driving forward.
+        ///     Each ride has a distinct side profile, held still while the world scrolls behind it.
         /// </summary>
-        private static readonly string[] Suv =
+        private static string[] VehicleArt(VehicleChoice choice, int step)
         {
-            @"      ______________",
-            @"   __/  |   |    |  \__",
-            @"  |__o___________o____|"
-        };
+            var art = choice switch
+            {
+                VehicleChoice.Minivan => new[]
+                {
+                    @"    ____________________",
+                    @"   / [__][__][__] |     \__",
+                    @"  |______________|________|",
+                    @"      (o)            (o)"
+                },
+                VehicleChoice.PickupCamper => new[]
+                {
+                    @"  .-------------.",
+                    @"  | CAMPER [__] | __[__]\___",
+                    @"  |_____________|_|________|",
+                    @"     ((o))          ((o))"
+                },
+                VehicleChoice.HybridCrossover => new[]
+                {
+                    @"        __======__",
+                    @"    ___/___|___|__\___",
+                    @"   /__________|__HYB__|",
+                    @"      (o)        (o)"
+                },
+                VehicleChoice.ElectricHatchback => new[]
+                {
+                    @"       .----------.",
+                    @"      / [__]|[__]  \_",
+                    @"      |_[:::]__|_____|",
+                    @"         (o)    (o)"
+                },
+                _ => throw new System.ArgumentOutOfRangeException(nameof(choice), choice, null)
+            };
+            var wheel = step % 2 == 0 ? "(+)" : "(x)";
+            for (var row = 0; row < art.Length; row++)
+                art[row] = art[row].Replace("(o)", wheel);
+            if (choice == VehicleChoice.ElectricHatchback && step % 2 != 0)
+                art[2] = art[2].Replace("[:::]", "[:.:]");
+            return art;
+        }
 
         /// <summary>Body row of the scrolling roadside props (cacti, billboard, pole), aligned to <see cref="PropBase" />.</summary>
         private static readonly string PropBody;
@@ -414,13 +449,14 @@ namespace OregonTrailDotNet.Renderer
         }
 
         /// <summary>
-        ///     Builds one frame of the looping "driving" scene. The SUV holds still while roadside props and the
+        ///     Builds one frame of the looping "driving" scene. The chosen ride holds still while roadside props and the
         ///     road surface scroll leftward, faster the nearer they are to the road (parallax). Pass an
         ///     ever-incrementing step (a tick counter) to animate it.
         /// </summary>
         /// <param name="step">Monotonically increasing animation step.</param>
+        /// <param name="choice">Vehicle selected for this journey.</param>
         /// <returns>A six-row scene string.</returns>
-        public static string TravelScene(int step)
+        public static string TravelScene(int step, VehicleChoice choice)
         {
             var rows = new char[6][];
             for (var r = 0; r < 6; r++)
@@ -436,12 +472,13 @@ namespace OregonTrailDotNet.Renderer
             // Scrolling scenery and road, each at its own parallax speed (road is nearest, so fastest).
             Overlay(rows[3], Window(PropBody, step * 2));
             Overlay(rows[4], Window(PropBase, step * 2));
-            Overlay(rows[5], Window(RoadLine, step * 4));
+            Overlay(rows[5], Window(RoadLine, step * 3));
 
-            // The SUV last, so it occludes any scenery it overlaps. Clear its bounding box first so scrolling
+            // The vehicle last, so it occludes any scenery it overlaps. Clear its bounding box first so scrolling
             // scenery cannot peek through the windows and gaps in its outline.
-            ClearBox(rows, 3, 2, Suv);
-            Stamp(rows, 3, 2, Suv);
+            var vehicleArt = VehicleArt(choice, step);
+            ClearBox(rows, 3, 1, vehicleArt);
+            Stamp(rows, 3, 1, vehicleArt);
 
             var sb = new StringBuilder();
             for (var r = 0; r < 6; r++)

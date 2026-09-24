@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-171",
+    "title": "The Stand's Release Knob Gets a Full Product Tour",
+    "premise": "In a parked-car product segment, a traveler introduces every locking knob on an adjustable light stand with the confidence of a studio engineer. The stand never rises above knee height, so the episode ends before a lamp or subject appears.",
+    "conceptKey": "light-stand-locking-knob-tour-never-raises-stand",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-172",
+    "title": "The Blue Gel's One-Minute Premiere",
+    "premise": "A vivid blue gel is clipped over a small panel and pointed at a blank wall, where it makes the wall blue. The presenter gives the color a formal unveiling and cuts before showing where it might belong in a travel scene.",
+    "conceptKey": "blue-gel-blank-wall-formal-unveiling",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-173",
+    "title": "The Stand Is Tall Enough for an Empty Frame",
+    "premise": "A traveler assembles an oversized light stand beside the parked SUV, then spends the video searching for a safe patch of space large enough to use it. The lamp stays packed while the stand occupies the only composition the camera can find.",
+    "conceptKey": "oversized-light-stand-fills-frame-before-lamp-setup",
+    "potential": 11,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-174",
+    "title": "The Reflector Review Has a Reflector in Front of It",
+    "premise": "The traveler tries to demonstrate a bounce reflector, but props it directly between the lens and the small object meant to be lit. A confident voiceover describes the setup while the finished image remains a close-up of silver fabric.",
+    "conceptKey": "reflector-blocks-subject-during-lighting-review",
+    "potential": 15,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-175",
+    "title": "The Dimmer Menu Gets Its Own Narrator",
+    "premise": "A premium LED panel's dimmer is presented as a serious travel-channel subject, with solemn commentary on each control visible on the screen. No object is arranged in front of the light, so its different settings produce no visible comparison.",
+    "conceptKey": "led-panel-dimmer-controls-narrated-without-subject",
+    "potential": 28,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-176",
+    "title": "Can a Reflector Reflect When the Lamp Is Off?",
+    "premise": "An inconsequential investigation tests a reflector against a dark surface in a parked cabin, then searches the shot for proof that it is reflective. The light source never enters the experiment, which ends with the question technically unanswered.",
+    "conceptKey": "reflector-reflectivity-investigation-without-light-source",
+    "potential": 32,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-177",
+    "title": "A Diffusion Sheet Makes the Shadow Easier to Read",
+    "premise": "At a parked break, a traveler lights a plain travel mug with a bare LED panel, then repeats the close-up with a diffusion sheet between lamp and subject. The softened shadow gives a clear, useful look at what one small modifier changes in an otherwise ordinary product shot.",
+    "conceptKey": "diffusion-sheet-softens-shadow-on-travel-mug",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-178",
+    "title": "White and Silver Reflectors Give the Same Object Different Edges",
+    "premise": "A small object stays in place while a white reflector and then a silver reflector bounce light onto its shaded side. Comparing the softer and brighter fill makes a practical difference between two simple surfaces easy to see.",
+    "conceptKey": "white-versus-silver-reflector-fill-comparison",
+    "potential": 61,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-179",
+    "title": "One Cheap Lamp and One Costly Panel Share a Color Card",
+    "premise": "A neutral color card is filmed under an inexpensive lamp and a costly adjustable panel, with the same framing and exposure for each. The restrained comparison shows what matching a light source can change in a close-up, without turning the price tag into a promise about the finished channel.",
+    "conceptKey": "budget-lamp-versus-premium-panel-color-card",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-180",
+    "title": "A Studio Made to Read One Lighting Receipt",
+    "premise": "A traveler builds an elaborate three-light setup to review the receipt for the lighting kit, covering private details before filming the total. As diffusion and reflected fill make the cramped print legible, the grand equipment showcase becomes a wry, useful lesson in how much work a clear image actually needs.",
+    "conceptKey": "three-light-receipt-review-turns-gear-showcase-into-lighting-lesson",
+    "potential": 88,
+    "locations": [],
+    "authorBatch": 18
+  }
+]

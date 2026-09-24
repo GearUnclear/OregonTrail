@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-031",
+    "title": "The Water Line Moves a Little",
+    "premise": "In a parked-car close-up, a refill bottle's water line drops between checks. The camera records the tiny change without explaining where the sips went.",
+    "conceptKey": "small-drop-in-refill-bottle-waterline",
+    "potential": 17,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-032",
+    "title": "The Cap's Brief Vacation",
+    "premise": "At an ordinary refill stop, the bottle cap is set down, picked up, and screwed back on. The edit repeats this quiet intermission as if the cap has traveled somewhere.",
+    "conceptKey": "bottle-cap-set-aside-and-replaced",
+    "potential": 13,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-033",
+    "title": "Two Ice Cubes Settle Again",
+    "premise": "A clear cup shows two ice cubes shifting when it is lifted and settling when it is set down while parked. The edit repeats the same small movement from three angles.",
+    "conceptKey": "two-ice-cubes-shift-in-clear-cup",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-034",
+    "title": "Free Ice Water, Kept in Frame",
+    "premise": "At Wall Drug, we film one cup of its free ice water beside the refill source, then watch the ice melt before anyone finishes the cup. It is a complete water story with a very small middle.",
+    "conceptKey": "wall-drug-free-water-cup-ice-melt",
+    "potential": 27,
+    "locations": ["wall-drug"],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-035",
+    "title": "Room Temperature Has No Plot",
+    "premise": "A bottle of water rests in shade while the camera returns to it at ordinary breaks. Each update says only that it is less cold than before.",
+    "conceptKey": "cold-water-gradually-warms-in-shade",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-036",
+    "title": "The Empty Bottle's Last Swirl",
+    "premise": "After a refill bottle empties, a thin film of water traces the base when it is tilted while parked. The video inspects three tilts before stopping.",
+    "conceptKey": "last-water-film-swirl-in-empty-bottle",
+    "potential": 11,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-037",
+    "title": "Which Vessel Stays Cold Until the Next Stop?",
+    "premise": "A plain cup and an insulated bottle start with equally cold water during one parked stretch, then are compared at ordinary stops. Their changing temperatures give a useful sense of how much the vessel affects the small pleasure of a cold drink.",
+    "conceptKey": "cold-water-temperature-cup-versus-insulated-bottle",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-038",
+    "title": "The Wide-Mouth Bottle Wins at Refill Time",
+    "premise": "At three ordinary refill stops, the camera follows a wide-mouth bottle as it gets topped up with ice and water. Its small advantage becomes clear when the ice is easier to add than it would be through a narrow opening.",
+    "conceptKey": "wide-mouth-bottle-ice-refill-ease",
+    "potential": 58,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-039",
+    "title": "The Bottle Dries Before the Drink Warms",
+    "premise": "We follow one chilled bottle through ordinary breaks as its condensation fades while the water inside stays cool. The mismatch makes a simple point: a dry bottle is not automatically a warm drink.",
+    "conceptKey": "bottle-exterior-dries-before-water-warms",
+    "potential": 43,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-040",
+    "title": "The Bottle Everyone Reaches For",
+    "premise": "A plain bottle and an insulated one begin the trip as equals, but at ordinary stops the family keeps choosing the clear bottle because anyone can see what remains and refill it. By the end, the modest container has quietly become the shared favorite, a useful reminder that visibility can matter more than a promise on a label.",
+    "conceptKey": "clear-visible-water-bottle-becomes-shared-favorite",
+    "potential": 88,
+    "locations": [],
+    "authorBatch": 4
+  }
+]

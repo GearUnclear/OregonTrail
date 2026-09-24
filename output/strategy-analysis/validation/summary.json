@@ -1,0 +1,257 @@
+[
+  {
+    "name": "banker_minivan_grueling",
+    "options": {
+      "pace": 3
+    },
+    "seed": 10001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 353,
+    "win_pct": 70.6,
+    "ci95": [
+      66.46,
+      74.42
+    ],
+    "outcomes": {
+      "win": 353,
+      "death": 144,
+      "stranded": 3
+    },
+    "median_days_wins": 36,
+    "mean_living_wins": 2.47,
+    "full_party_wins": 86,
+    "median_score_wins": 1855
+  },
+  {
+    "name": "banker_minivan_7clothes_grueling",
+    "options": {
+      "pace": 3,
+      "clothes": 7
+    },
+    "seed": 10001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 359,
+    "win_pct": 71.8,
+    "ci95": [
+      67.7,
+      75.57
+    ],
+    "outcomes": {
+      "death": 139,
+      "win": 359,
+      "stranded": 2
+    },
+    "median_days_wins": 34,
+    "mean_living_wins": 2.48,
+    "full_party_wins": 90,
+    "median_score_wins": 1843
+  },
+  {
+    "name": "banker_minivan_11clothes_grueling",
+    "options": {
+      "pace": 3,
+      "clothes": 11
+    },
+    "seed": 10001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 363,
+    "win_pct": 72.6,
+    "ci95": [
+      68.53,
+      76.33
+    ],
+    "outcomes": {
+      "win": 363,
+      "death": 135,
+      "stranded": 2
+    },
+    "median_days_wins": 34,
+    "mean_living_wins": 2.58,
+    "full_party_wins": 100,
+    "median_score_wins": 1890
+  },
+  {
+    "name": "banker_minivan_steady",
+    "options": {},
+    "seed": 10001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 252,
+    "win_pct": 50.4,
+    "ci95": [
+      46.03,
+      54.76
+    ],
+    "outcomes": {
+      "death": 233,
+      "win": 252,
+      "stranded": 15
+    },
+    "median_days_wins": 44.0,
+    "mean_living_wins": 2.18,
+    "full_party_wins": 44,
+    "median_score_wins": 1932.0
+  },
+  {
+    "name": "banker_minivan_strenuous",
+    "options": {
+      "pace": 2
+    },
+    "seed": 10001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 353,
+    "win_pct": 70.6,
+    "ci95": [
+      66.46,
+      74.42
+    ],
+    "outcomes": {
+      "win": 353,
+      "death": 142,
+      "stranded": 5
+    },
+    "median_days_wins": 37,
+    "mean_living_wins": 2.47,
+    "full_party_wins": 91,
+    "median_score_wins": 2057
+  },
+  {
+    "name": "banker_ev_grueling",
+    "options": {
+      "vehicle": 4,
+      "food": 146,
+      "transmissions": 0,
+      "pace": 3
+    },
+    "seed": 10001,
+    "party_size": 3,
+    "trials": 500,
+    "wins": 314,
+    "win_pct": 62.8,
+    "ci95": [
+      58.48,
+      66.92
+    ],
+    "outcomes": {
+      "win": 314,
+      "death": 185,
+      "stranded": 1
+    },
+    "median_days_wins": 35.0,
+    "mean_living_wins": 1.96,
+    "full_party_wins": 95,
+    "median_score_wins": 1457.5
+  },
+  {
+    "name": "banker_hybrid_grueling",
+    "options": {
+      "vehicle": 3,
+      "food": 196,
+      "transmissions": 0,
+      "pace": 3
+    },
+    "seed": 10001,
+    "party_size": 3,
+    "trials": 500,
+    "wins": 324,
+    "win_pct": 64.8,
+    "ci95": [
+      60.52,
+      68.86
+    ],
+    "outcomes": {
+      "win": 324,
+      "death": 176
+    },
+    "median_days_wins": 35.0,
+    "mean_living_wins": 1.99,
+    "full_party_wins": 106,
+    "median_score_wins": 1493.0
+  },
+  {
+    "name": "carpenter_minivan_grueling",
+    "options": {
+      "profession": 2,
+      "transmissions": 0,
+      "pace": 3
+    },
+    "seed": 10001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 305,
+    "win_pct": 61.0,
+    "ci95": [
+      56.66,
+      65.18
+    ],
+    "outcomes": {
+      "win": 305,
+      "death": 187,
+      "stranded": 8
+    },
+    "median_days_wins": 36,
+    "mean_living_wins": 2.46,
+    "full_party_wins": 74,
+    "median_score_wins": 3272
+  },
+  {
+    "name": "farmer_heavy_grueling",
+    "options": {
+      "profession": 3,
+      "pack": 1,
+      "clothes": 4,
+      "food": 296,
+      "tires": 0,
+      "alternators": 0,
+      "transmissions": 0,
+      "pace": 3
+    },
+    "seed": 10001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 121,
+    "win_pct": 24.2,
+    "ci95": [
+      20.65,
+      28.14
+    ],
+    "outcomes": {
+      "win": 121,
+      "death": 368,
+      "stranded": 11
+    },
+    "median_days_wins": 34,
+    "mean_living_wins": 1.8,
+    "full_party_wins": 10,
+    "median_score_wins": 414
+  },
+  {
+    "name": "banker_minivan_score_grueling",
+    "options": {
+      "pace": 3,
+      "arm": 1
+    },
+    "seed": 10001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 341,
+    "win_pct": 68.2,
+    "ci95": [
+      63.99,
+      72.13
+    ],
+    "outcomes": {
+      "win": 341,
+      "death": 156,
+      "stranded": 3
+    },
+    "median_days_wins": 36,
+    "mean_living_wins": 2.46,
+    "full_party_wins": 86,
+    "median_score_wins": 1693
+  }
+]

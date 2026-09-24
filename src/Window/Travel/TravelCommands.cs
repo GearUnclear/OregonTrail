@@ -75,6 +75,10 @@ namespace OregonTrailDotNet.Window.Travel
         /// <summary>
         ///     Pick up a day of DoorDash delivery gigs in town for some quick cash -- at the cost of your own fuel and tires.
         /// </summary>
-        [Description("Drive for DoorDash")] DriveForDoorDash = 11
+        [Description("Drive for DoorDash")] DriveForDoorDash = 11,
+
+        [Description("Launch a crypto coin")] LaunchCrypto = 12,
+
+        [Description("YouTube travel channel")] TravelChannel = 13
     }
 }

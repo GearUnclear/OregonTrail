@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-081",
+    "title": "One Cloud, Reframed",
+    "premise": "From a safely parked car, we return to the same cloud beyond the windshield after several minutes. It has moved just enough to make the retake feel necessary.",
+    "conceptKey": "same-cloud-reframed-after-short-pause",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-082",
+    "title": "The Raindrop That Took the Long Way Down",
+    "premise": "A parked-car close-up follows one rain bead as it takes a wandering path down the windshield and disappears at the edge. The only destination it reaches is the lower edge.",
+    "conceptKey": "single-rain-bead-wandering-windshield-path",
+    "potential": 28,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-083",
+    "title": "The Side Window's Second-Best Sky",
+    "premise": "From a parked car, we compare the clouds in the front windshield with those framed by a side window. One patch is slightly darker, and the camera checks back without reaching a verdict.",
+    "conceptKey": "cloud-shade-comparison-across-car-windows",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-084",
+    "title": "A Strip of Sun Finds the Dashboard Seam",
+    "premise": "While the SUV is parked, a narrow stripe of sunlight moves across the dashboard as cloud cover opens and closes. The camera returns to the same seam until the light moves on.",
+    "conceptKey": "sunlight-stripe-crossing-dashboard-seam",
+    "potential": 24,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-085",
+    "title": "The Old Wiper Arc Outlasts the Shower",
+    "premise": "After a light shower, we film from the parked car while one arc left by the wipers remains visible on the windshield. The rest of the glass slowly dries, leaving the mark with nothing to do.",
+    "conceptKey": "old-wiper-arc-remains-after-rain-shower",
+    "potential": 34,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-086",
+    "title": "Buc-ee's Gets One Cloud for Shade",
+    "premise": "From a parked car at Buc-ee's in Sevierville, we watch a cloud shadow cross part of the huge lot and disappear. For a few minutes, one row of parked cars gets the only roof in the county that keeps moving.",
+    "conceptKey": "moving-cloud-shade-over-bucees-lot",
+    "potential": 31,
+    "locations": ["bucees"],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-087",
+    "title": "After Rain, the Windshield Holds Two Skies",
+    "premise": "From a parked car, the rain-speckled windshield briefly reflects low clouds while the same clouds remain visible beyond it. As the shower thins, the reflected sky fades before the real one, showing how wet glass can double a view of the weather.",
+    "conceptKey": "low-cloud-reflection-on-rain-speckled-windshield",
+    "potential": 58,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-088",
+    "title": "The Hills Return When the Clouds Lift",
+    "premise": "From a safely parked car, distant hills disappear behind low clouds and come back as the cloud base rises. The landscape has not moved closer; the weather simply changed how much of it was visible.",
+    "conceptKey": "cloud-base-lift-reveals-distant-hills",
+    "potential": 55,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-089",
+    "title": "The Gray Sky Opens Just Before Dusk",
+    "premise": "From a parked vehicle, a flat overcast afternoon changes by tiny degrees as a narrow gap lets a warm band of evening light across the windshield. The pause gives the day a quiet ending without pretending a cloud break fixes the trip.",
+    "conceptKey": "overcast-afternoon-breaks-into-evening-light",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-090",
+    "title": "The Window Clears Before the Forecast Does",
+    "premise": "On a humid morning, condensation clouds the windshield while the SUV is safely parked; as daylight changes, a clear patch spreads until the ordinary rest-stop view returns. Whoever is still making the trip shares what the blurred shapes seemed to be, and the window clears before anyone can say what the next stop will bring.",
+    "conceptKey": "parked-morning-condensation-clears-into-shared-view",
+    "potential": 93,
+    "locations": [],
+    "authorBatch": 9
+  }
+]

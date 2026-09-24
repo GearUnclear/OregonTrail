@@ -1,0 +1,94 @@
+[
+  {
+    "id": "video-091",
+    "title": "Regular Stays in the Same Place",
+    "premise": "At an ordinary fuel stop, the camera moves from the full pump panel to the grade button and back. The word 'Regular' has not moved, which is the episode's only finding.",
+    "conceptKey": "gas-pump-regular-label-closeup",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-092",
+    "title": "The Cap Tether Settles Against the Car",
+    "premise": "After the nozzle is returned at an ordinary refueling stop, the fuel cap's tether swings once against the body panel and settles. The camera stays through the silence afterward.",
+    "conceptKey": "fuel-cap-tether-single-swing-after-refuel",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-093",
+    "title": "The Pump Says Ready Until It Doesn't",
+    "premise": "An idle pump display glows while the traveler waits beside it, then the shot cuts before fueling begins. The screen has been ready throughout, with no other development.",
+    "conceptKey": "idle-pump-ready-screen-before-fueling",
+    "potential": 9,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-094",
+    "title": "Our Place in the Fuel Line Moves One Car",
+    "premise": "From inside the parked SUV, the camera watches the queue advance by one car, pause, and advance again. The count restarts after a cut, leaving the wait mostly intact.",
+    "conceptKey": "one-car-fuel-queue-advance-count",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-095",
+    "title": "The Nozzle Handle Is the Only Bright Color",
+    "premise": "At one ordinary stop, we frame the plain pump and its colored nozzle handle, then let the shot continue with no context or comparison. By the end, the handle is still just bright.",
+    "conceptKey": "single-colored-fuel-nozzle-handle-observation",
+    "potential": 15,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-096",
+    "title": "At Buc-ee's, Every Pump Row Looks Like a Queue",
+    "premise": "At Buc-ee's in Sevierville, the camera follows the traveler's parked wait as cars join and leave several pump rows. The wide field makes one stop feel like a set of small lines sharing a canopy.",
+    "conceptKey": "bucees-sevierville-pump-rows-multiple-queues",
+    "potential": 31,
+    "locations": [
+      "bucees"
+    ],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-097",
+    "title": "How Long Is a Fuel Stop When Nothing Goes Wrong?",
+    "premise": "Across several ordinary refueling stops, the camera times the wait in line, the time at the pump, and the pause before pulling away. The comparison shows how much of stopping is simply standing still between those small steps.",
+    "conceptKey": "time-breakdown-of-routine-refueling-stop",
+    "potential": 49,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-098",
+    "title": "How Far Apart Are Our Fuel Stops, Really?",
+    "premise": "At several refueling stops, we note the vehicle's odometer at departure and arrival without naming a route or recommending a schedule. The resulting gaps vary enough to show how a route's tidy distance estimate becomes a few ordinary stretches between stations.",
+    "conceptKey": "actual-odometer-distance-between-fuel-stops",
+    "potential": 56,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-099",
+    "title": "How the Range Estimate Changes as the Tank Empties",
+    "premise": "We follow the dashboard's remaining-distance estimate at the start, middle, and end of one ordinary stretch between fuel stops, comparing each display to the miles actually traveled. The changes give a practical feel for the number as an estimate rather than a promise.",
+    "conceptKey": "dashboard-fuel-range-estimate-versus-miles-driven",
+    "potential": 64,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-100",
+    "title": "The Tiny Arrow That Ends the Pump-Side Debate",
+    "premise": "At an ordinary refueling stop, a traveler starts the familiar walk around the SUV to find the fuel door, then notices the tiny arrow beside the fuel gauge. At later stops, the traveler checks that arrow before pulling in, turning a repeated pause into a small, reliable ritual.",
+    "conceptKey": "dashboard-fuel-door-arrow-selects-pump-side",
+    "potential": 87,
+    "locations": [],
+    "authorBatch": 10
+  }
+]

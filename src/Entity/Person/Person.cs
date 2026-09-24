@@ -317,16 +317,8 @@ namespace OregonTrailDotNet.Entity.Person
             var game = GameSimulationApp.Instance;
 
             // Check if player has any food to eat.
-            if (game.Vehicle.Inventory[Entities.Food].Quantity > 0)
+            if (game.Vehicle.TryConsumeMeal())
             {
-                // Consume this person's individual share of food for the day. The food multiplier is INVERTED
-                // relative to the RationLevel int (Filling=1, Meager=2, BareBones=3) so that generous meals eat the
-                // MOST and bare-bones meals eat the LEAST -- Filling=3, Meager=2, BareBones=1 lb/person/day. This
-                // method runs once per living passenger each traveling day, so the party-wide daily burn already
-                // scales with the living count; multiplying by PassengerLivingCount here as well made a party of N
-                // eat ration * N^2 pounds per day, starving larger parties far faster than intended.
-                game.Vehicle.Inventory[Entities.Food].ReduceQuantity(4 - (int) game.Vehicle.Ration);
-
                 // Change to get better when eating well.
                 Heal();
             }

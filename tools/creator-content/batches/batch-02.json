@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-011",
+    "title": "The Last Inch Above the Bins",
+    "premise": "A parked-car camera study watches the stack rise into its unused headroom. One shallow bag moves once, and the rest of the episode admires the newly available inch.",
+    "conceptKey": "unused-vertical-cargo-clearance",
+    "potential": 15,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-012",
+    "title": "A Flat Tray Under a Deeper Crate",
+    "premise": "We slide one shallow tray beneath a taller supply crate, then check whether the trunk still closes. The arrangement changes very little, which is also the episode's conclusion.",
+    "conceptKey": "shallow-tray-under-deep-crate",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-013",
+    "title": "The Bin That Only Fits Sideways",
+    "premise": "One plastic bin is rotated through its two possible orientations while the camera holds on the trunk opening. It fits either way, and the family declines to develop a position on the question.",
+    "conceptKey": "single-bin-orientation-test",
+    "potential": 24,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-014",
+    "title": "Where the Lids Go",
+    "premise": "The camera follows unattached storage lids as they are stacked, moved, and stacked again beside their containers. By the end, all the lids are together and nobody needs one.",
+    "conceptKey": "loose-storage-lid-pile",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-015",
+    "title": "A Cardboard Divider Has a Short Career",
+    "premise": "A flattened shipping box separates two supply bins, then gets folded flat so the bins can sit together. The camera records the brief career of a divider that never quite divides anything.",
+    "conceptKey": "temporary-cardboard-cargo-divider",
+    "potential": 28,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-016",
+    "title": "The Slight Slope at the Back of the Trunk",
+    "premise": "An empty flat tote slides after an ordinary rearrangement, so it gets moved back to its original place. We keep filming the unchanged cargo floor.",
+    "conceptKey": "sloped-trunk-floor-bag-slide",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-017",
+    "title": "The Bag Inside Every Other Bag",
+    "premise": "The camera follows folded reusable totes nesting into one larger tote, then shows the bundle tucked between hard-sided containers. It occupies almost no more room than a bag full of bags deserves.",
+    "conceptKey": "nested-reusable-tote-bundle",
+    "potential": 46,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-018",
+    "title": "The Crates Change Shape as Supplies Run Down",
+    "premise": "Over several ordinary stops, partly emptied boxes stop stacking square, and the family rearranges the cargo to use the new gaps. The before-and-after layouts show how the shape of a load changes without reviewing what's inside it.",
+    "conceptKey": "cargo-geometry-after-supply-depletion",
+    "potential": 58,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-019",
+    "title": "Tall Stack or Wide Footprint?",
+    "premise": "With the SUV parked, the same sealed containers are arranged in a tall column and then spread across the cargo floor. The comparison is mostly about how much room each layout leaves for the next bag.",
+    "conceptKey": "vertical-vs-horizontal-cargo-layout",
+    "potential": 63,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-020",
+    "title": "The Trunk Stops Being a Puzzle",
+    "premise": "At first, every ordinary stop begins with lifting bins to reach the one kit needed next. We film a complete unload and reload, then put the soonest-needed crates nearest the hatch, turning a tiring pile into a layout the family can repeat; tomorrow's inconvenience gets top billing.",
+    "conceptKey": "reusable-hatch-first-packing-order",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 2
+  }
+]

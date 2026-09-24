@@ -13,6 +13,7 @@
 *.userprefs
 
 # Build results
+_build/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -23,6 +24,9 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+
+# Retired Bonsai prototype bundle, kept out of production assets
+src/wwwroot/app.bc.js
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -294,3 +298,7 @@ data
 
 # Agent harness raw stdout dumps (large, regenerable)
 agent/*.out
+
+# Local browser snapshots, screenshots, and session artifacts
+.playwright-cli/
+output/playwright/

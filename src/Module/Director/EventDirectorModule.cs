@@ -71,7 +71,8 @@ namespace OregonTrailDotNet.Module.Director
             // Roll a category-weighted chance instead of the old flat 1% gate. The base game hardcoded
             // every category to 1%, which meant the 40+ authored events almost never showed up and play
             // felt empty and repetitive. See CategoryChance for the per-category odds and why they differ.
-            if (GameSimulationApp.Instance.Random.Next(100) >= CategoryChance(eventCategory))
+            // Tenths of a percent allow rare crossing incidents without rounding them up to 1%.
+            if (GameSimulationApp.Instance.Random.Next(1000) >= CategoryChance(eventCategory) * 10)
                 return;
 
             // Create a random event by type enumeration; the factory picks one for us, biased away from the
@@ -105,7 +106,7 @@ namespace OregonTrailDotNet.Module.Director
         /// </summary>
         /// <param name="eventCategory">Category about to be rolled.</param>
         /// <returns>Percent chance the roll should pass.</returns>
-        private static int CategoryChance(EventCategory eventCategory)
+        private static double CategoryChance(EventCategory eventCategory)
         {
             switch (eventCategory)
             {
@@ -127,22 +128,14 @@ namespace OregonTrailDotNet.Module.Director
                     // Kept deliberately low so the journey is eventful without being a death spiral.
                     return 1;
                 case EventCategory.RiverCross:
-                    // A river crossing is already a discrete, tense moment; leave it at the original odds.
-                    return 1;
+                    // Rolled on every crossing tick, not just once per day. Even paid crossings face
+                    // these incidents; halve the old 1% so repeated rolls do not overwhelm safe choices.
+                    return 0.5;
                 case EventCategory.ModernHazard:
-                    // The 2028 re-skin's headline difficulty lever: a satirical modern death/catastrophe roll,
-                    // once per moving travel day. Tuned in the headless balance sim (sim/Program.cs --hazard) so
-                    // that competent play (max fuel, big food, filling ration) wins only ~half the time; the
-                    // weighted outcome spread (whole-party wipe / one-off death / maim / supply drain) lives in
-                    // the src/Event/Modern/ prefab bases. 9 => 9%/day. Lower this to make the game easier.
-                    //
-                    // Was 22%. Two things forced it down. The trail now runs ~26 days rather than ~16 (see
-                    // Vehicle.RandomMileage), and this is rolled PER DAY, so the same 22% killed far more
-                    // parties over the longer drive. Separately, upstream fix 8cea40c2 removed the quadratic
-                    // food burn from Person.ConsumeFood, which cut a full party's daily food cost 4x and had
-                    // already pushed the win rate to ~60% without anyone re-rolling this number. Sim says 9%
-                    // over ~26 days lands at ~50% for a max-fuel Farmer, and ~55% for one who runs gig shifts.
-                    return 9;
+                    // Rolled once per moving day. These events include instant deaths and whole-party
+                    // catastrophes, so keep them rarer than routine roadside incidents. Balance against
+                    // whole-family arrival using tools/strategy-sim, which includes the live crossing rules.
+                    return 1;
                 default:
                     return 1;
             }

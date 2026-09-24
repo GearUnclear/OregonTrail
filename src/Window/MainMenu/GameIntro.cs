@@ -2,6 +2,8 @@
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using OregonTrailDotNet.Renderer;
 using OregonTrailDotNet.Window.MainMenu.Profession;
@@ -131,6 +133,41 @@ namespace OregonTrailDotNet.Window.MainMenu
         ///     Index of the page currently being shown. Advanced one step per ENTER until the preamble is exhausted.
         /// </summary>
         private int _page;
+
+        /// <summary>
+        ///     Current web-facing page number, including the opening and closing beats. Exposing the authored prose directly
+        ///     keeps the semantic web adapter from having to render or scrape the terminal frame.
+        /// </summary>
+        public int SemanticPageNumber => _page + 1;
+
+        /// <summary>Total number of semantic introduction pages, including the opening and closing beats.</summary>
+        public int SemanticPageCount => PageLines.Length + 2;
+
+        /// <summary>The complete authored opening, available as one readable browser story.</summary>
+        public IReadOnlyList<string> SemanticStoryPages => PageLines
+            .Select(lines => string.Join(Environment.NewLine, lines))
+            .ToArray();
+
+        /// <summary>
+        ///     Authored narrative for the current introduction page. The terminal-only sun art is represented by concise copy
+        ///     at the two bookends; prose pages expose the same source text used by the terminal form.
+        /// </summary>
+        public string SemanticPageText
+        {
+            get
+            {
+                if (_page <= 0)
+                {
+                    return "The year is 2028. Your Cape Coral home has been declared uninsurable, and your family is " +
+                           "preparing to drive to Seattle.";
+                }
+
+                if (_page > PageLines.Length)
+                    return "The road is waiting. Continue to choose the life you are bringing with you.";
+
+                return string.Join(Environment.NewLine, PageLines[_page - 1]);
+            }
+        }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameIntro" /> class.

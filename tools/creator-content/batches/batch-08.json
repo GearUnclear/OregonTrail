@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-071",
+    "title": "The Legend Has One Symbol We Never Need",
+    "premise": "The camera settles on one small symbol in an atlas key and holds there while the traveler checks the nearby map panel. The symbol never turns into a useful discovery, so the close-up is the whole item.",
+    "conceptKey": "atlas-key-symbol-without-a-route-use",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-072",
+    "title": "The Fold Covers the Same Town Name Again",
+    "premise": "A folded road atlas is opened just enough to reveal a town name, then shut along its old crease. The camera repeats the same reveal without going anywhere or learning more about the town.",
+    "conceptKey": "atlas-crease-repeatedly-hides-town-name",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-073",
+    "title": "A Road Number Stops at the Page Seam",
+    "premise": "A printed highway number disappears into the center seam of an open atlas and resumes on the facing page. We follow the broken label with a finger, then leave it at that.",
+    "conceptKey": "atlas-highway-label-interrupted-by-page-seam",
+    "potential": 26,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-074",
+    "title": "North Is Still Printed at the Top",
+    "premise": "At a parked stop, the traveler turns the atlas to match the car's heading, notices the compass rose is now sideways, and turns the page back. North returns to the top exactly as printed.",
+    "conceptKey": "north-up-atlas-turned-and-restored",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-075",
+    "title": "The Blue Route Line Is Very Thin",
+    "premise": "In a parked-car close-up, one finger traces a blue route line through the atlas without naming the roads or choosing a turn. The line is a little hard to see, and the video never improves the lighting.",
+    "conceptKey": "thin-blue-route-line-traced-on-paper-map",
+    "potential": 8,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-076",
+    "title": "The Map Line Continues Past the Closure",
+    "premise": "From a safe parked viewpoint at the Pigeon River Gorge washout, we compare the atlas's unbroken I-40 line with the closure notice that interrupts it in real life. The paper stays calm about the missing roadbed.",
+    "conceptKey": "pigeon-gorge-atlas-line-versus-closure-notice",
+    "potential": 24,
+    "locations": ["pigeon-gorge"],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-077",
+    "title": "The Scale Bar Changes the Size of a Long Day",
+    "premise": "A traveler uses the atlas scale bar to compare a short-looking stretch on paper with the distance it represents, without recommending a route. The simple check makes the map's compact view easier to read.",
+    "conceptKey": "atlas-scale-bar-relates-paper-distance-to-miles",
+    "potential": 63,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-078",
+    "title": "The Same Destination at Two Map Zooms",
+    "premise": "At a parked stop, the traveler compares a navigation screen's regional overview with its closer view of the same destination. The route looks simple at one scale and becomes a string of small turns at the other, a useful reminder that each view answers a different question.",
+    "conceptKey": "navigation-screen-destination-overview-versus-close-zoom",
+    "potential": 52,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-079",
+    "title": "The Atlas Index Sends Us Back to the Grid",
+    "premise": "A traveler finds a place name in the road atlas index, follows its letter-and-number reference to the map grid, and locates it without searching the whole state. The small method is useful whenever a printed map feels like too much page at once.",
+    "conceptKey": "atlas-index-grid-reference-finds-place",
+    "potential": 46,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-080",
+    "title": "The Map Changes From a Plan Into a Record",
+    "premise": "A traveler begins with a tidy line drawn toward a safer destination, then adds brief notes wherever closures and changing conditions alter the day's plan. By the end, the map is less a promise about the road ahead than a clear record of how an ordinary household kept adapting while moving on.",
+    "conceptKey": "route-map-evolves-from-plan-into-record-of-adjustment",
+    "potential": 92,
+    "locations": [],
+    "authorBatch": 8
+  }
+]

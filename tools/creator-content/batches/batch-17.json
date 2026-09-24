@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-161",
+    "title": "The Camera Arrives in a Box Built for a Bigger Moment",
+    "premise": "The unboxing narrator explains each nested sleeve and foam insert in a ceremonial voice, although the object at the center is just a camera body at a parked roadside break. The packaging gets its grand reveal, and the channel never chooses what to film.",
+    "conceptKey": "camera-unboxing-packaging-gets-grand-reveal",
+    "potential": 16,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-162",
+    "title": "The Feature List Gets a Travel Channel Before We Do",
+    "premise": "We read the camera box's feature claims with the conviction of a launch film, then struggle to connect any of them to the modest scenes we have actually made. The list receives more confident narration than the channel itself.",
+    "conceptKey": "camera-box-feature-claims-outshine-channel",
+    "potential": 29,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-163",
+    "title": "A Strap Review Filmed Entirely on the Table",
+    "premise": "The new camera strap is laid out, turned over, and compared with its retail tag while the reviewer gives a serious account of its many possibilities. Nobody wears it, so the review never advances beyond an accessory on a table.",
+    "conceptKey": "camera-strap-review-never-leaves-table",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-164",
+    "title": "Removing the Lens Cap Is the Whole Demonstration",
+    "premise": "A self-important close-up follows the traveler's fingers as they remove the lens cap and set it beside the camera body. The promised view through the lens never arrives before the video cuts away.",
+    "conceptKey": "lens-cap-removal-substitutes-for-camera-demo",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-165",
+    "title": "The Manual's Page Numbers Get a Walkthrough",
+    "premise": "A parked-car tutorial carefully presents the camera manual's cover, contents page, and page numbers, then ends at the chapter called Getting Started. It spends the whole video preparing to begin.",
+    "conceptKey": "camera-manual-walkthrough-ends-before-getting-started",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-166",
+    "title": "Polishing Away the Camera's First Fingerprint",
+    "premise": "After the unboxing, the owner spots one fingerprint on the camera body and spends the episode finding an angle where it cannot be seen. No photograph is taken, but the finish is once again pristine on camera.",
+    "conceptKey": "camera-body-fingerprint-disappears-through-framing",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-167",
+    "title": "One Strap, Adjusted for Whoever Is Filming Today",
+    "premise": "At safe parked stops, the camera strap is adjusted for whoever is holding the body that day, and a small mark records the setting that feels natural. Over the trip, the formerly precious purchase becomes a shared tool that does not need a permanent owner.",
+    "conceptKey": "camera-strap-adjusted-for-current-traveler",
+    "potential": 59,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-168",
+    "title": "The Camera Manual, Translated Into Words We Use",
+    "premise": "A traveler picks a few intimidating phrases from the camera manual and restates them in plain language while showing the choices they make at a safe parked stop. The small glossary is useful to anyone who bought a capable body and still feels new to it.",
+    "conceptKey": "camera-manual-jargon-translated-into-plain-language",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-169",
+    "title": "The Lens Cap Marks the Start and End of a Stop",
+    "premise": "Across ordinary breaks, the camera stays capped while nobody is filming and is uncovered only for a calm, deliberate shot. The small repeated gesture makes a modest visual diary of which moments the traveler decided were worth carrying forward.",
+    "conceptKey": "lens-cap-routine-frames-ordinary-breaks",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-170",
+    "title": "Unboxing the Camera, Then Finding Its Subject",
+    "premise": "The camera enters the trip as a luxury purchase introduced like the start of a polished travel channel, while each attempt at a grand scene gives way to the ordinary work of keeping a displaced household moving. By gathering those interruptions into a gentle portrait of one person trying again at the next safe stop, the owner finally makes a film the glossy box could not promise.",
+    "conceptKey": "camera-unboxing-aspiration-becomes-portrait-of-ordinary-persistence",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 17
+  }
+]

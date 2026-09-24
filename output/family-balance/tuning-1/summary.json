@@ -1,0 +1,117 @@
+[
+  {
+    "name": "steady_4",
+    "options": {},
+    "seed": 20001,
+    "party_size": 4,
+    "trials": 300,
+    "wins": 241,
+    "win_pct": 80.33,
+    "ci95": [
+      75.46,
+      84.44
+    ],
+    "outcomes": {
+      "win": 241,
+      "death": 55,
+      "stranded": 4
+    },
+    "median_days_wins": 39,
+    "mean_living_wins": 2.71,
+    "full_party_wins": 92,
+    "full_party_pct": 30.67,
+    "full_party_ci95": [
+      25.72,
+      36.1
+    ],
+    "median_score_wins": 2146
+  },
+  {
+    "name": "steady_11",
+    "options": {
+      "clothes": 11
+    },
+    "seed": 20001,
+    "party_size": 4,
+    "trials": 300,
+    "wins": 242,
+    "win_pct": 80.67,
+    "ci95": [
+      75.82,
+      84.74
+    ],
+    "outcomes": {
+      "win": 242,
+      "death": 55,
+      "stranded": 3
+    },
+    "median_days_wins": 37.0,
+    "mean_living_wins": 2.86,
+    "full_party_wins": 106,
+    "full_party_pct": 35.33,
+    "full_party_ci95": [
+      30.14,
+      40.9
+    ],
+    "median_score_wins": 2258.0
+  },
+  {
+    "name": "strenuous_4",
+    "options": {
+      "pace": 2
+    },
+    "seed": 20001,
+    "party_size": 4,
+    "trials": 300,
+    "wins": 234,
+    "win_pct": 78.0,
+    "ci95": [
+      72.97,
+      82.32
+    ],
+    "outcomes": {
+      "win": 234,
+      "death": 64,
+      "stranded": 2
+    },
+    "median_days_wins": 37.0,
+    "mean_living_wins": 2.9,
+    "full_party_wins": 110,
+    "full_party_pct": 36.67,
+    "full_party_ci95": [
+      31.41,
+      42.26
+    ],
+    "median_score_wins": 2206.0
+  },
+  {
+    "name": "grueling_11",
+    "options": {
+      "pace": 3,
+      "clothes": 11
+    },
+    "seed": 20001,
+    "party_size": 4,
+    "trials": 300,
+    "wins": 245,
+    "win_pct": 81.67,
+    "ci95": [
+      76.9,
+      85.64
+    ],
+    "outcomes": {
+      "death": 53,
+      "win": 245,
+      "stranded": 2
+    },
+    "median_days_wins": 34,
+    "mean_living_wins": 2.89,
+    "full_party_wins": 100,
+    "full_party_pct": 33.33,
+    "full_party_ci95": [
+      28.24,
+      38.85
+    ],
+    "median_score_wins": 1962
+  }
+]

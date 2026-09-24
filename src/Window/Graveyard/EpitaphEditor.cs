@@ -62,6 +62,9 @@ namespace OregonTrailDotNet.Window.Graveyard
         /// </remarks>
         public override bool InputFillsBuffer => true;
 
+        /// <summary>Current draft for the semantic browser presentation.</summary>
+        public string SemanticEpitaph => _epitaph.ToString();
+
         /// <summary>
         ///     Returns a text only representation of the current game Windows state. Could be a statement, information, question
         ///     waiting input, etc.

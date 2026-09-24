@@ -1,0 +1,31 @@
+[
+  {
+    "name": "steady_family",
+    "options": {
+      "clothes": 11
+    },
+    "seed": 40001,
+    "party_size": 4,
+    "trials": 2000,
+    "wins": 1063,
+    "win_pct": 53.15,
+    "ci95": [
+      50.96,
+      55.33
+    ],
+    "outcomes": {
+      "win": 1063,
+      "death": 907,
+      "stranded": 30
+    },
+    "median_days_wins": 44,
+    "mean_living_wins": 2.41,
+    "full_party_wins": 256,
+    "full_party_pct": 12.8,
+    "full_party_ci95": [
+      11.41,
+      14.34
+    ],
+    "median_score_wins": 2049
+  }
+]

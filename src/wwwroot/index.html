@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10130f" />
+    <meta
+      name="description"
+      content="The year is 2028. Florida is uninsurable. Seattle is uphill. A terminal-inspired American road-trip survival game."
+    />
+    <title>The Asphalt Trail</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="fonts/chivo-mono-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/kode-mono-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css?v=20260924-crypto" />
+    <link rel="stylesheet" href="creator.css?v=20260924-creator" />
+    <script defer src="bridge.js?v=20260923-vehicles"></script>
+    <script defer src="scenes.js?v=20260923-vehicles"></script>
+    <script defer src="crypto.js?v=20260924-crypto"></script>
+    <script defer src="creator.js?v=20260924-creator"></script>
+    <script defer src="app.js?v=20260924-family-balance"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to game</a>
+    <div id="app">
+      <div
+        class="state-page"
+        data-bootstrap-loading
+        role="status"
+        aria-busy="true"
+        aria-live="polite"
+      >
+        <div class="state-card">
+          <span class="loading-mark" aria-hidden="true">&gt;_</span>
+          <p class="eyebrow">The Asphalt Trail</p>
+          <p>[ INITIALIZING JOURNEY ]</p>
+          <p>Checking the road ahead…</p>
+        </div>
+      </div>
+      <noscript>
+        <style>
+          [data-bootstrap-loading] {
+            display: none;
+          }
+        </style>
+        <main class="no-script">
+          <h1>The Asphalt Trail</h1>
+          <p>This game needs JavaScript enabled to start a journey.</p>
+        </main>
+      </noscript>
+    </div>
+  </body>
+</html>

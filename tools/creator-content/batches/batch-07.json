@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-061",
+    "title": "The Return Address Is Smaller Than the Apology",
+    "premise": "The camera holds on the tiny return-address block of one piece of household mail, then waits while a traveler reads the same lines at normal size. The envelope offers no second subject.",
+    "conceptKey": "household-envelope-return-address-closeup",
+    "potential": 17,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-062",
+    "title": "One Blank Box for the Apartment Number",
+    "premise": "A form gives the apartment number a box barely wide enough for its usual characters. The traveler fills it in, notices the last digit touches the border, and leaves the framing unchanged.",
+    "conceptKey": "form-apartment-number-field-too-narrow",
+    "potential": 24,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-063",
+    "title": "The Envelope Window Shows a Little Too Much Margin",
+    "premise": "One household envelope is tilted until the name behind its plastic window sits almost straight. The camera checks the alignment again after the envelope is set down.",
+    "conceptKey": "household-mail-window-name-alignment",
+    "potential": 13,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-064",
+    "title": "How Many Copies Have the Same Staple Hole?",
+    "premise": "Two copies of a form are placed side by side so the camera can compare their old staple holes. They line up closely, which is the whole comparison.",
+    "conceptKey": "matching-staple-holes-on-form-copies",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-065",
+    "title": "The Zip Code Still Fits in Its Little Row",
+    "premise": "The camera follows a traveler checking the same five-character ZIP field on one form, then checking it once more. The digits have not moved or changed.",
+    "conceptKey": "rechecking-zip-code-on-single-form",
+    "potential": 8,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-066",
+    "title": "A Notice Printed on Heavier Paper",
+    "premise": "A household notice is lifted, turned over, and lifted again so its paper can be compared with an ordinary envelope. The weight difference is faint and leads nowhere.",
+    "conceptKey": "household-notice-paper-weight-comparison",
+    "potential": 30,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-067",
+    "title": "One Address Update, Four Places to Change It",
+    "premise": "The traveler works through four ordinary forms that each ask for the household's current mailing address. Seeing the repeated field together gives a useful picture of how one move creates several small, separate errands.",
+    "conceptKey": "repeating-mailing-address-across-forms",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-068",
+    "title": "The Mail Forwarding Form Has an End Date",
+    "premise": "A traveler reads the end date printed on a mail-forwarding form and compares it with the stack of household mail still arriving. The small deadline makes clear that forwarding buys time, not a permanent address.",
+    "conceptKey": "mail-forwarding-form-temporary-deadline",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-069",
+    "title": "Important Papers, With the Important Parts Covered",
+    "premise": "A traveler lays out the household documents kept close and explains what each one is for while names, numbers, and account details stay covered. The plain-language tour turns a private folder into a readable portrait of what the family needed to carry forward.",
+    "conceptKey": "redacted-household-document-purpose-tour",
+    "potential": 63,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-070",
+    "title": "The Cheerful Sun on the Letter That Ended an Address",
+    "premise": "An insurance letter arrives in bright, friendly stationery to say that a home is uninsurable at any premium, making devastating news look like routine correspondence. As the traveler updates forms and mail labels one field at a time, the video follows the home address from a place they left to a mailing address they can still answer, without promising that the next one solves anything.",
+    "conceptKey": "insurance-denial-letter-and-changing-home-address",
+    "potential": 94,
+    "locations": [],
+    "authorBatch": 7
+  }
+]

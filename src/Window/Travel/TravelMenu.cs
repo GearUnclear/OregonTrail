@@ -29,6 +29,9 @@ namespace OregonTrailDotNet.Window.Travel
         {
         }
 
+        public bool IsCreatorOption(int index) => ((Travel)ParentWindow).GetMenuCommands()
+            .ElementAtOrDefault(index).Command == TravelCommands.TravelChannel;
+
         public override string OnRenderForm()
         {
             var travel = (Travel) ParentWindow;

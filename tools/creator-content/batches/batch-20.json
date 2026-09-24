@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-191",
+    "title": "The Receipt Gets Added Up One More Time",
+    "premise": "During a parked break, the traveler enters one routine receipt's total into a calculator, clears it, and adds the same line items again. Both answers agree, so the rest of the segment is an unusually patient view of the same number.",
+    "conceptKey": "same-receipt-total-recalculated-twice",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-192",
+    "title": "Cashback for a Store We Already Passed",
+    "premise": "A phone shows a small reward tied to a shop the traveler has already left behind. The video gives the balance a slow, hopeful update without learning when or where it can be used.",
+    "conceptKey": "cashback-reward-tied-to-passed-store",
+    "potential": 27,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-193",
+    "title": "The Receipt Total Disappears in Every Shot",
+    "premise": "From a parked seat, the camera tries to frame a folded receipt's total but keeps focusing on the glove box and window glare. The narrator reads the amount while the video never lets anyone verify it.",
+    "conceptKey": "receipt-total-lost-to-focus-and-glare",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-194",
+    "title": "A Budget Column Needs Its Own Smaller Budget",
+    "premise": "The traveler gives one ordinary purchase a homemade category, then makes subcategories because the first label feels too broad. After a long explanation, the receipt is still filed under 'other.'",
+    "conceptKey": "overbuilt-subcategories-for-single-household-expense",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-195",
+    "title": "The Five-Cent Win Gets a Press Conference",
+    "premise": "After noticing a tiny saving on an ordinary purchase, the traveler sets up a serious announcement and thanks an unseen committee for the victory. The celebratory speech lasts longer than the transaction being celebrated.",
+    "conceptKey": "overlong-celebration-of-tiny-purchase-savings",
+    "potential": 34,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-196",
+    "title": "The Receipt Fades Before We Finish Reviewing It",
+    "premise": "A traveler returns to an ordinary receipt after it has faded in the parked car's sun, then tries to read the remaining lines at three zoom levels. Each close-up shows less information than the previous one, and nobody remembers the total.",
+    "conceptKey": "sun-faded-receipt-review-loses-the-total",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-197",
+    "title": "The Same Small Purchase Follows Changing Stops",
+    "premise": "Receipts from several ordinary breaks show one familiar, inexpensive purchase turning up again as the traveler's surroundings and daily routine change. The slips form a quiet record of a comfort that stayed recognizable across a trip full of unfamiliar places.",
+    "conceptKey": "repeat-small-purchase-records-routine-through-travel",
+    "potential": 52,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-198",
+    "title": "The Cashback Credit Arrives After Its Scene",
+    "premise": "A routine receipt turns up in an earlier clip, then days later the traveler's phone shows a promotional credit linked to that purchase. Cutting the notification back beside the old footage makes a modest reward feel like an unnecessary sequel.",
+    "conceptKey": "delayed-cashback-notification-reenters-earlier-footage",
+    "potential": 57,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-199",
+    "title": "Where the Fuel Receipt's Total Actually Comes From",
+    "premise": "On a parked break, the traveler traces the lines on one ordinary fuel receipt from gallons to tax to final amount. The small breakdown makes a familiar total easier to understand without recommending a different station or spending routine.",
+    "conceptKey": "fuel-receipt-lines-explain-final-purchase-total",
+    "potential": 63,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-200",
+    "title": "The Sponsor's Money Is in Every Category",
+    "premise": "During a parked budget review, a traveler adds a blank possible-sponsorship line to ordinary household needs, then assigns the same future income to a repair, snacks, and the next filming day because each use sounds reasonable. Watching the imaginary money get spent more than once is funny until the traveler deletes the line and gives the real receipt its actual place on the page, a small story about planning in a future tense while living on a present one.",
+    "conceptKey": "imaginary-sponsorship-income-spent-across-budget-categories",
+    "potential": 92,
+    "locations": [],
+    "authorBatch": 20
+  }
+]

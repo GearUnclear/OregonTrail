@@ -1,0 +1,48 @@
+{
+  "banker_minivan_grueling": {
+    "pace": 3
+  },
+  "banker_minivan_7clothes_grueling": {
+    "pace": 3,
+    "clothes": 7
+  },
+  "banker_minivan_11clothes_grueling": {
+    "pace": 3,
+    "clothes": 11
+  },
+  "banker_minivan_steady": {},
+  "banker_minivan_strenuous": {
+    "pace": 2
+  },
+  "banker_ev_grueling": {
+    "vehicle": 4,
+    "food": 146,
+    "transmissions": 0,
+    "pace": 3
+  },
+  "banker_hybrid_grueling": {
+    "vehicle": 3,
+    "food": 196,
+    "transmissions": 0,
+    "pace": 3
+  },
+  "carpenter_minivan_grueling": {
+    "profession": 2,
+    "transmissions": 0,
+    "pace": 3
+  },
+  "farmer_heavy_grueling": {
+    "profession": 3,
+    "pack": 1,
+    "clothes": 4,
+    "food": 296,
+    "tires": 0,
+    "alternators": 0,
+    "transmissions": 0,
+    "pace": 3
+  },
+  "banker_minivan_score_grueling": {
+    "pace": 3,
+    "arm": 1
+  }
+}

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- WolfCurses discovers forms in the entry assembly, so compile the live sources here. -->
+    <AssemblyName>OregonTrailDotNet</AssemblyName>
+    <RootNamespace>OregonTrailDotNet</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="WolfCurses" Version="2018.9.12.1" />
+    <Using Include="Microsoft.AspNetCore.Builder" />
+    <Using Include="Microsoft.AspNetCore.Http" />
+    <Using Include="Microsoft.AspNetCore.Routing" />
+    <Using Include="Microsoft.Extensions.Hosting" />
+    <Using Include="Microsoft.Extensions.Logging" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+    <Compile Include="../../src/**/*.cs" Exclude="../../src/Program.cs;../../src/obj/**;../../src/bin/**" />
+    <EmbeddedResource Include="../../src/Module/Creator/video-ideas.json" LogicalName="OregonTrailDotNet.Module.Creator.video-ideas.json" />
+  </ItemGroup>
+</Project>

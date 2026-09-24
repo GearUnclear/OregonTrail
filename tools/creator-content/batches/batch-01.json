@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-001",
+    "title": "Cup Holder Diameter, Measured Twice",
+    "premise": "A ruler circles two front cup holders and finds one is barely wider than the other. The video ends before this measurement becomes useful.",
+    "conceptKey": "front-cup-holder-width-comparison",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-002",
+    "title": "Counting the Passenger Seat's Recline Stops",
+    "premise": "The camera records each parked adjustment from upright to reclined, then repeats the count because one stop was missed. Nothing else happens.",
+    "conceptKey": "passenger-seat-recline-stop-count",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-003",
+    "title": "The Armrest Height Is Off by One Finger",
+    "premise": "With the SUV parked, a passenger compares the door ledge and center armrest using a finger as a level. One sits slightly higher, and nobody can tell whether it matters.",
+    "conceptKey": "front-armrest-height-difference",
+    "potential": 16,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-004",
+    "title": "How Many Clicks Forward Is All the Way Forward?",
+    "premise": "From the parked passenger seat, we count the rail clicks from one end of its normal travel to the other. The edit preserves every click and no broader point.",
+    "conceptKey": "passenger-seat-rail-click-count",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-005",
+    "title": "The Seat Cushion's Front Edge, Examined Closely",
+    "premise": "One passenger takes turns sitting slightly farther forward and back, then reports that the cushion edge feels different. The footage ends with the same seat still there.",
+    "conceptKey": "passenger-seat-cushion-front-edge",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-006",
+    "title": "Lumbar Support: Three Settings, One Reaction",
+    "premise": "While parked, one traveler cycles through the passenger seat's built-in lumbar settings and gives each the same noncommittal nod. The settings are the entire review.",
+    "conceptKey": "passenger-lumbar-setting-comparison",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-007",
+    "title": "A Passenger's Reach Map of the Cabin",
+    "premise": "From an ordinary seated position in a parked SUV, the camera maps which everyday surfaces and controls are easy to reach without leaning. It is a modest visual tour of how the cabin was arranged for the passenger's arm.",
+    "conceptKey": "parked-cabin-passenger-reach-map",
+    "potential": 52,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-008",
+    "title": "Getting In: Two Ways to Settle Into a Passenger Seat",
+    "premise": "At rest stops, we compare how the same traveler gets into a parked passenger seat with it set forward and set back. The small change makes the doorway feel either roomy or oddly cramped.",
+    "conceptKey": "passenger-seat-entry-clearance-comparison",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-009",
+    "title": "The Front Seat's Legroom Trade-Off, Seen From Behind",
+    "premise": "With the car parked, a passenger slides the front seat through its normal range while the rear seat records the knee room gained and lost. The result turns a familiar comfort compromise into a clear before-and-after.",
+    "conceptKey": "front-seat-position-rear-knee-room-tradeoff",
+    "potential": 64,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-010",
+    "title": "The Folding Tray That Becomes an Afternoon Desk",
+    "premise": "A passenger's simple travel sketch keeps slipping off their lap until a seatback tray gives it a steady place to grow. Filmed during a parked rest stop, the small surface becomes the only desk in the car for the afternoon.",
+    "conceptKey": "seatback-tray-temporary-desk-visual-arc",
+    "potential": 88,
+    "locations": [],
+    "authorBatch": 1
+  }
+]

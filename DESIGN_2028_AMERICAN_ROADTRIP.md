@@ -275,19 +275,32 @@ by car on US-40 (NBC10, 2026); IShowSpeed street-takeover hijack (Dexerto, 2025-
 
 ---
 
-## 11. Modern-hazard difficulty system (post-spec rebalance — "win only ~half the time")
+## 11. Modern hazards and whole-family survival (September 2026 rebalance)
 
-**Why:** the finished re-skin was too easy — competent play (max fuel, big food, filling
-ration) won ~92–96% of the time, because the game only registers a **loss when the *entire*
-party is dead** (`Vehicle.PassengersDead`) or a win at the last location; the leader is not
-special and one-off deaths barely dent the win rate. This is a deliberate **mechanic change**
-(explicitly out of the original "strings only" scope) to bring competent-play win rate to ~50%.
+The current target is approximately **45% whole-family arrival** for a prepared four-person
+minivan party, rather than treating one survivor as sufficient evidence of forgiving balance.
+Earlier versions targeted roughly 50% arrival with any survivor using a simplified simulator;
+that underestimated the combined cost of crossing incidents, illness, and lost family members.
 
-**Mechanic:** a new `EventCategory.ModernHazard`, rolled once per moving travel day from
-`ContinueOnTrail.OnTick` at **22%/day** (`EventDirectorModule.CategoryChance` — the single
-difficulty dial; lower it to make the game easier). The category is a weighted spread of five
-**effect profiles**, implemented as prefab bases in `src/Event/Prefab/` and skinned by
-16 satirical, allegorical death events in `src/Event/Modern/`:
+`ContinueOnTrail.OnTick` rolls `ModernHazard` once per moving day at **1%**, down from the
+previous live 9%. Random crossing incidents now roll at **0.5% per crossing tick**, down from
+1%; scripted consequences for driving into deep water remain. Routine Wild/Animal/Vehicle/
+Weather/Person event probabilities are unchanged. The director uses tenths of a percent so
+crossing probability does not have to round up to 1%.
+
+Steady's mileage factor is **1.25** instead of 1.0 and is applied to every vehicle. Strenuous
+and Grueling remain 1.3 and 1.6, with their existing fatigue and illness costs. This keeps a
+speed advantage for harder driving while making the default sustainable pace competitive.
+
+Food represents packed provisions: **2 / 1.5 / 1 lb per person per day** for Filling / Meager /
+Bare Bones, replacing 3 / 2 / 1. A four-person family on Filling consumes **8 lb/day**, not 12.
+The vehicle conserves half-pound leftovers across passengers and ration changes. Shops still
+sell whole pounds; opened food reserves a cargo slot, and the HUD/checkout forecasts include
+fractional food. These are gameplay weights, not a claim that equal food weight supplies equal
+nutrition. The existing illness tradeoffs between ration levels remain.
+
+Modern hazards retain the five effect profiles below; lower encounter frequency makes their
+lethal outcomes rarer without changing their authored consequences.
 
 | Profile | Prefab base | Effect | ~Weight | Example skins |
 |---|---|---|---|---|
@@ -304,8 +317,10 @@ would cause. Losses are now death-dominated and even most *winners* bury someone
 **Also:** `RedDeadRedemption3` (ManualOnly) — a 0.02%/turn roll (`Random.Next(5000)==0`) in
 `ContinueOnTrail` deducts **$80 per living passenger** when everyone pre-orders it mid-drive.
 
-**Tuning:** calibrated in the headless balance sim (`sim/Program.cs`), which was first corrected
-to model the real all-party-dead loss rule and given a faithful `--hazard <permille>` mirror of
-the weighted table. At `--hazard 220` competent play wins ~52% (loss mix: death ~35%, starve
-~8%, strand ~4%). The live game is a touch harder still, since the sim ignores the pre-existing
-Wild/Animal daily rolls.
+**Validation:** use `tools/strategy-sim/`, which compiles and executes the live rules, including
+crossings and story choices. The reference policy uses the crypto-bro budget, minivan, four
+passengers, 20 gas, 11 leggings, 289 food, 2 tires, 1 alternator, 1 transmission, Filling rations,
+Steady pace, town refills, and cautious crossings. It matches the previously recommended loadout.
+See `output/family-balance/report.md` for before/after cohorts and uncertainty. Rates depend on
+preparation and route decisions; the target is not a guarantee for every background or strategy.
+The old `sim/Program.cs` model remains historical and is not used to validate this balance.

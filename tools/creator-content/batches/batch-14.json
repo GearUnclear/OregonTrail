@@ -1,0 +1,94 @@
+[
+  {
+    "id": "video-131",
+    "title": "The Dashboard Clock Is Two Minutes Fast",
+    "premise": "At a parked stop, a traveler compares the dashboard clock with a wristwatch and finds the dashboard two minutes ahead. They repeat the comparison later without resetting anything, so the only result is that both clocks remain readable.",
+    "conceptKey": "dashboard-clock-two-minute-offset-comparison",
+    "potential": 17,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-132",
+    "title": "The Calendar Page Is Still on Last Month",
+    "premise": "A small paper calendar is opened to a page whose final date has already passed. The traveler flips it forward, then turns back to check that the old page really was old.",
+    "conceptKey": "paper-calendar-page-turned-after-month-end",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-133",
+    "title": "We Watch the Minute Change to 42",
+    "premise": "The camera holds on a parked dashboard clock at 41 and waits for the display to change. It does, and the next shot gives 42 the same amount of attention.",
+    "conceptKey": "dashboard-minute-display-advances-one-minute",
+    "potential": 8,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-134",
+    "title": "The Daily Chart Has a Blank Row at 11:00",
+    "premise": "A traveler's daily chart has one empty line beside 11:00, and the camera returns to it at the next parked break. Nothing is added to the row.",
+    "conceptKey": "empty-eleven-am-row-on-daily-chart",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-135",
+    "title": "The Timer Starts Before Anyone Chooses a Finish",
+    "premise": "A traveler starts a short timer during a parked pause, then leaves it out of frame before it reaches the end. Later, the same timer is restarted without explaining what it was meant to count.",
+    "conceptKey": "parked-pause-timer-restarted-before-completion",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-136",
+    "title": "One Date Gets Two Identical Check Marks",
+    "premise": "A traveler checks a date on a plain daily chart, then marks the same box again during a later break. The two marks sit together without a note about what either one records.",
+    "conceptKey": "duplicate-checkmarks-in-single-calendar-date-box",
+    "potential": 26,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-137",
+    "title": "One Tick Mark for Every Waiting Morning at Pigeon Gorge",
+    "premise": "While waiting at the I-40 Pigeon River Gorge washout, a traveler marks each morning spent waiting for the crossing to reopen. The growing row turns an uncertain delay into a simple count of days the odometer cannot show.",
+    "conceptKey": "pigeon-gorge-crossing-wait-morning-calendar-tally",
+    "potential": 58,
+    "locations": [
+      "pigeon-gorge"
+    ],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-138",
+    "title": "The Clock Goes Back, the Day Keeps Its Place",
+    "premise": "As the trip moves west through time zones, the traveler resets the dashboard clock while keeping the day's small tasks in the order they happened. Paired views of the changed clock and unchanged list make the time adjustment easy to see without turning it into a route lesson.",
+    "conceptKey": "time-zone-clock-reset-versus-events-order",
+    "potential": 59,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-139",
+    "title": "A Calendar Mark for a Wait Is Not a Day Off",
+    "premise": "A traveler uses two different marks on a plain calendar for a planned rest day and an unexpected day spent waiting. Seeing both kinds of pause together makes the difference between choosing to stop and having the road stop you quietly clear.",
+    "conceptKey": "calendar-distinguishes-chosen-rest-from-forced-delay",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-140",
+    "title": "A Routine With No Appointment Hour Still Holds the Day",
+    "premise": "On the road, a traveler starts with a neat chart assigning exact hours to ordinary daily tasks; delays steadily turn the clock boxes into crossed-out promises. They redraw it as a short sequence of things that can be done in any available pause, and that second version becomes a quiet picture of finding shape in a day the road will not schedule.",
+    "conceptKey": "daily-routine-chart-shifts-from-fixed-hours-to-flexible-sequence",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 14
+  }
+]

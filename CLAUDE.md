@@ -4,28 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-A console (text-UI) clone of the 1990s *Oregon Trail* game, written in C# on **.NET 6** (`net6.0`, `OutputType=Exe`). It is a single executable project (`src/OregonTrailDotNet.csproj`) that depends on the **WolfCurses** NuGet package (`WolfCurses` 2018.9.12.1) — a separate TUI/state-machine engine that provides the base classes this game extends: `SimulationApp`, `Window`, `Form`, `Module`, the `SceneGraph` renderer, `WindowManager`, and `InputManager`. There is no engine source or git submodule in this repo; WolfCurses is consumed purely as a `PackageReference`.
-
-> The `README.md` is stale: it describes Cake build scripts (`build.sh`/`build.bat`) and recursive git submodules. Neither exists anymore — WolfCurses is a plain NuGet reference and the build is ordinary `dotnet`. The `tools/` Cake config is likewise vestigial.
+A browser-based Oregon Trail clone. The game rules and screen state machine are C# on **.NET 8**, still backed by the `WolfCurses` NuGet package. The ASP.NET Core host in `src/Web/` runs independent journey workers and publishes versioned JSON snapshots over HTTP and server-sent events; the browser UI is plain JavaScript and CSS in `src/wwwroot/`. The earlier Bonsai prototype remains in `web/` as reference and is not loaded.
 
 ## Build & Run
 
 ```bash
-dotnet restore src/OregonTrailDotNet.csproj
-dotnet build   src/OregonTrailDotNet.csproj -o ./bin
 dotnet run --project src/OregonTrailDotNet.csproj
 ```
 
-**OutputPath gotcha:** `OregonTrailDotNet.csproj` hardcodes `<OutputPath>C:\OregonTrail\bin\</OutputPath>` for **both** Debug and Release. This Windows path fails or writes to an odd location off-Windows. Pass `-o ./bin` (or delete those two `PropertyGroup`s) when building on Linux/macOS.
-
-**No test project.** The game is interactive and **cannot run headlessly**: the loop in `Program.cs` depends on `Console.KeyAvailable`, `Console.ReadKey`, `Console.WindowHeight/WindowWidth`, and `SetCursorPosition`, which throw or misbehave in a redirected/CI terminal. `Console.OutputEncoding = Unicode` is required for the box/progress-bar glyphs. It needs a real TTY.
+`src/wwwroot/app.js`, `bridge.js`, `styles.css`, and `index.html` ship directly with the .NET publish output. Run `./tools/verify_web_rewrite.sh` before publishing; it checks the typed API, revision rules, and browser assets. The randomized full journey is covered by the manual browser checklist in `tests/WEB_E2E_CHECKLIST.md` until a deterministic fixture exists.
 
 ## Architecture
 
 The whole game is a hierarchical state machine driven by the WolfCurses engine. The four layers below are the key to navigating the code.
 
-### 1. Simulation singleton — `GameSimulationApp` (`src/GameSimulationApp.cs`)
-Extends `WolfCurses.SimulationApp`; a hard singleton accessed everywhere via `GameSimulationApp.Instance`. Created only through the static `Create()` factory (which throws `InvalidOperationException` if `Instance` is already non-null) and destroyed only by `OnPreDestroy()` setting `Instance = null`. It owns:
+### 1. Journey simulation — `GameSimulationApp` (`src/GameSimulationApp.cs`)
+Extends `WolfCurses.SimulationApp`; accessed by the rules through an `AsyncLocal` execution context via `GameSimulationApp.Instance`. Each journey worker owns one simulation; no process-wide game singleton or engine lock remains. Created only through the static `Create()` factory (which throws `InvalidOperationException` if `Instance` is already non-null) and destroyed only by `OnPreDestroy()` setting `Instance = null`. It owns:
 - The game **Modules** (see layer 4) and the active **Vehicle** entity.
 - `AllowedWindows` (~lines 84–99) — the whitelist of top-level `Window` types the `WindowManager` may instantiate: `Travel`, `MainMenu`, `RandomEvent`, `Graveyard`, `GameOver`.
 - `MAXPLAYERS = 4` — caps party size and how many names the new-game flow collects.
@@ -34,9 +28,21 @@ Extends `WolfCurses.SimulationApp`; a hard singleton accessed everywhere via `Ga
 - `Scoring` and `Tombstone` are constructed **once** in `OnPostCreate()` and **survive `Restart()`** — they are only cleared via the main-menu Options screens.
 - `Time`, `EventDirector`, `Trail`, and the `Vehicle` are rebuilt **every** `Restart()` (constructed in that order; `Time` must tick first). `Restart()` then adds `Travel` (bottom/always-present) and pushes `MainMenu` on top.
 
-**Lifecycle chain:** `OnPostCreate` (persistent modules) → `OnFirstTick` (calls `Restart`) → `Restart` (per-game state + window stack) → `OnPreRender` (per-frame: prepends the `Turns: NNNN` / `Vehicle … Location …` status header) → `OnPreDestroy` (teardown).
+**Lifecycle chain:** `OnPostCreate` (persistent modules) → `OnFirstTick` (calls `Restart`) → `Restart` (per-game state + window stack) → the WolfCurses render lifecycle → `OnPreDestroy` (teardown).
 
-`Program.cs` is the **only OS-facing code**. It is a busy-wait loop `while (Instance != null) { OnTick(true); poll key; Thread.Sleep(1); }`. Input maps exactly three ways: **Enter → `InputManager.SendInputBufferAsCommand()`**, **Backspace → `RemoveLastCharOfInputBuffer()`**, **any other char → `AddCharToInputBuffer(key.KeyChar)`** (keybindings live here). It paints the full screen on every `SceneGraph.ScreenBufferDirtyEvent` (no diffing). **CTRL-C does not kill the process** — `Console_CancelKeyPress` sets `e.Cancel = true` and calls `Instance.Destroy()`; the loop exits only because `OnPreDestroy` nulls `Instance`.
+`Program.cs` configures hosting, compression, trusted proxy headers, and configurable capacity. `Web/GameEndpoints.cs` owns `GET /api/game`, `GET /api/game/events`, `POST /api/game/actions`, and `/healthz`. `GameSession` owns bounded session admission and expiration; `JourneyWorker` serializes commands and coalesced pulses per journey through a bounded channel. `GameEngine` isolates the legacy rules; cached `GamePublication` objects serve reads and bounded SSE subscriptions. The browser contract is domain data, input metadata, and advertised actions; it does not expose character commands or rendered WolfCurses output.
+
+### Web contract — `src/Web/`
+
+`GameSnapshotDto` contains a `JourneyId`, explicit `Driving` state, a monotonic `Revision`, `Running`, shared `Hud`, `Party`, `Inventory`, `Progress`, nullable `Store` and `Crypto`, and a semantic `Screen` object. `Screen.Kind` selects the browser presentation and is one of `setup`, `travel`, `dialog`, `choice`, `store`, `status`, `river`, `activity`, `crypto`, `event`, or `game-over`. The progress payload includes route stops and the HUD includes food use and vehicle trouble. Choice actions can include comparison facts. Each screen also carries an `Id`, title/description, optional `InputSpecDto`, and its currently legal `GameActionDto` list.
+
+RUG.RUN's market rules are isolated in `Module/Crypto/CryptoExchange.cs`, with injected randomness and wallet operations. `Window/Travel/Crypto/CryptoDesk.cs` connects it to the journey; `Web/CryptoPresentation.cs` copies immutable market snapshots and advertises `crypto.*` actions. The browser's `wwwroot/crypto.js` draws the graph and effects locally. Market ticks never advance trail days; leaving a completed launch advances one day exactly once. `TravelInfo.CryptoCareer` retains founder history within a journey. Keep payouts server-owned, debit costs before campaigns start, and settle each receipt only once. Run the seeded cohorts in the backend harness when changing balance.
+
+DEAD AIR adds nullable `GameSnapshotDto.Creator` and the `creator` screen kind. `Module/Creator/CreatorChannel.cs` owns an injected-RNG/wallet career in `TravelInfo.CreatorCareer`; `CreatorCatalog.cs` owns the fictional V&H equipment catalog and an embedded `video-ideas.json` authored by 20 Luna/xhigh workers. `CreatorDesk` applies one real trail day after successful filming, re-editing, or waiting for orders, while parked. `creator.open` is available both in `TravelMenu` and during `ContinueOnTrail`; the latter pulls over. `Web/CreatorPresentation.cs` explicitly projects safe data—never serialize the career or draft idea directly, since algorithm and potential scores are hidden. Equipment only clamps audience demand; it never boosts demand, conversion, or recommendation rolls. Purchases are charged before next-day delivery; only compatible gear contributes, strongest per category. Original uploads independently roll 15% limited ads; a single re-edit earns exactly half the original views, with no duplicate subscribers. `wwwroot/creator.js`/`creator.css` render the studio, shop, and library. Test the declared 12-upload net-profit target with the backend cohort when changing balance; preserve the 200-idea/20-author catalog and geo locks.
+
+Clients may only submit an advertised action to `POST /api/game/actions` as `{ actionId, expectedRevision, expectedJourneyId, text?, value? }`. The response always contains `{ accepted, errorCode, message, state }`: accepted actions return 200, stale revisions return 409/`stale-revision`, and illegal actions or values return 400. Store quantity changes are row-specific and absolute values should use the row's `SetActionId`; never recreate legacy left/right or raw-input endpoints.
+
+When adding a game interaction, update both sides of this contract: publish a stable semantic action ID and structured state in the server adapter, then handle the relevant screen/action in `src/wwwroot/app.js`. Do not parse display copy to recover state or action values. The client must ignore older revisions within the same journey incarnation, accept a new `journeyId` after restart, and keep at most one mutation in flight. SSE publishes full snapshots only when the semantic state changes, with 15-second heartbeats and native reconnect; capped polling is a fallback. The client uses `driving.isDriving` for road motion, never a parsed screen ID. Keep animation local and respect connection, visibility, CRT, and reduced-motion state.
 
 > `OnTick(true)` is the **OS/system tick**, NOT a game turn. A game turn is `GameSimulationApp.TakeTurn(bool skipDay)` (advances `TotalTurns` and calls `Time.TickTime`). Don't conflate them.
 
@@ -56,7 +62,7 @@ The actual interactive screens (store, river crossing, hunting, rest, trade, nam
 - `InputForm` (yes/no/acknowledge dialogs): override `OnDialogPrompt()` and `OnDialogResponse(DialogResponse)`.
 
 ### 4. Modules — `WolfCurses.Module.Module` (`src/Module/`)
-- **Time** (`src/Module/Time/`) — master day/month/year clock; start **1848 / March / day 1**; fixed **30-day months** (`Date.NumberOfDaysInMonth = 30`), **no leap years**. `TakeTurn(skipDay=false)` → `TimeModule.TickTime` → `OnTickDay` → `Trail.OnTick`. Nothing on the trail moves except via the time tick. `skipDay=true` ticks/fires events without consuming a calendar day or incrementing `TotalTurns`.
+- **Time** (`src/Module/Time/`) — master day/month/year clock; start **2028 / March / day 1**; fixed **30-day months** (`Date.NumberOfDaysInMonth = 30`), **no leap years**. `TakeTurn(skipDay=false)` → `TimeModule.TickTime` → `OnTickDay` → `Trail.OnTick`. Nothing on the trail moves except via the time tick. `skipDay=true` ticks/fires events without consuming a calendar day or incrementing `TotalTurns`.
 - **Trail** (`src/Module/Trail/`) — `TrailRegistry.cs` declares each trail as a `Location[]` (ordered `Settlement`/`RiverCrossing`/`Landmark`/`ForkInRoad`/`TollRoad`, each with a `Climate`) wrapped in `new Trail(locations, lengthMin, lengthMax)`. Segment distances are **randomized per game** in the band (32–164 for Oregon). `TrailModule` hardcodes `Trail = TrailRegistry.AsphaltTrail` in its ctor and tracks `LocationIndex`/`DistanceToNextLocation`. `NextLocation == null` signals end of game.
 - **Director** (`src/Module/Director/`) — the event engine (see below).
 - **Scoring** (`src/Module/Scoring/`) — a ranking **container only** (`List<Highscore>`, `TopTen`, `Add`/`Reset`), seeded from hardcoded `DefaultTopTen`. **It does NOT compute the score** (that's `FinalPoints.cs`, below). **Not persisted to disk** — `Destroy`/`Reset` are `// TODO: Save/Load … as JSON` stubs; player scores re-seed from defaults every launch.
@@ -69,15 +75,15 @@ The actual interactive screens (store, river crossing, hunting, rest, trade, nam
 ### Entities — `src/Entity/`
 The domain model, all implementing `IEntity` (`Name` + WolfCurses `ITick`) so they can be ticked and passed generically to the event director. **Identity/equality is by `Name` string only** — two items with the same `Name` are "equal"; renaming or duplicating names silently breaks lookups. Most game tuning lives here:
 - `SimItem` (`src/Entity/Item/SimItem.cs`) is the single universal class for **every** commodity and for abstract "reference" entities (Cash/Vehicle/Person). The `Entities` enum (`Entities.cs`) is the category tag; the Vehicle inventory is a `Dictionary<Entities, SimItem>` (one slot per category).
-- Item tuning constants are literal ctor args in three static factories: `Resources.cs` (consumables + Cash/Person/Vehicle refs), `Parts.cs` (Oxen/Axle/Tongue/Wheel), `Animals.cs` (hunting yields). **Each property access allocates a NEW `SimItem`** (`=> new SimItem(...)`) — treat them as constructors, never compare by reference; `Animals.*` getters call `GameSimulationApp.Instance.Random` so they require the singleton to exist.
+- Item tuning constants are literal ctor args in three static factories: `Resources.cs` (consumables + Cash/Person/Vehicle refs), `Parts.cs` (Oxen/Axle/Tongue/Wheel), `Animals.cs` (hunting yields). **Each property access allocates a NEW `SimItem`** (`=> new SimItem(...)`) — treat them as constructors, never compare by reference; `Animals.*` getters call `GameSimulationApp.Instance.Random` so they require an active journey context.
 - `Vehicle` (`src/Entity/Vehicle/Vehicle.cs`) is the aggregate root: `_inventory`, `_parts` (4 wheels/1 axle/1 tongue), `_passengers`. **Money is not a field** — `Balance` is a computed wrapper over `Inventory[Entities.Cash]`. `DefaultParts`/`CreateRandomItem` use a `switch` over `Entities` with `default: throw` — adding an `Entities` member without updating these throws at runtime.
-- `Person` (`src/Entity/Person/Person.cs`): health is a hidden `0–500` int exposed only as the banded `HealthStatus` enum (Good=500…Dead=0). `RationLevel`'s int value (**Filling=1, Meager=2, BareBones=3**) doubles as the per-person daily food-consumption multiplier — changing it silently rebalances food.
+- `Person` (`src/Entity/Person/Person.cs`): health is a hidden `0–500` int exposed only as the banded `HealthStatus` enum (Good=500…Dead=0). `FoodRations.PoundsPerPerson` defines daily packed-food use: **Filling=2 lb, Meager=1.5 lb, BareBones=1 lb**. `Vehicle.TryConsumeMeal` shares half-pound portions across passengers; `FoodPerDay` and `FoodPoundsRemaining` supply the browser's decimal forecasts. Ration enum values still control illness exposure, not food weight.
 - `Location` (`src/Entity/Location/`): only `Settlement` returns true for `ShoppingAllowed`/`ChattingAllowed`. Each simulates `Weather` from a `Climate` enum (monthly tuning in `ClimateData`).
 
 ### Event system — `src/Event/` + `src/Module/Director/`
 Random/scripted incidents are individual classes under `src/Event/<Category>/`, each derived from `EventProduct` (directly or via a prefab) and tagged `[DirectorEvent(EventCategory.X)]`. `EventFactory` discovers them **by reflection** at construction — there is no central registration list. The six `EventCategory` values (`src/Event/EventCategory.cs`) are `Vehicle`, `Animal`, `Person`, `Weather`, `Wild`, **`RiverCross`** (note: the enum is `RiverCross`, though the folder is `src/Event/River/`).
 
-`EventDirectorModule.TriggerEventByType(source, category)` rolls a **per-category weighted chance** (`CategoryChance`; the base game's flat 1% was replaced) and picks a random event of that category (biased away from the last 3 fired); `TriggerEvent(source, type)` fires a specific event unconditionally. Where each category is rolled: Weather → `LocationWeather.cs`, Person → `Person.cs`, Vehicle → `Vehicle.cs`, RiverCross → `CrossingTick.cs`, and **`Wild` (8%), `Animal` (5%), and `ModernHazard` (22%) → `ContinueOnTrail.cs`** once per moving travel day. (Older notes calling `Animal`/`Wild` "dead content" are stale — the 2028 re-skin wired them into the travel tick.) **`ModernHazard`** is the 2028 difficulty lever: a weighted spread of satirical modern deaths/catastrophes (`src/Event/Modern/` skins over five `src/Event/Prefab/Modern*` effect profiles), tuned in `sim/Program.cs` (`--hazard`) so competent play wins ~half the time. See `DESIGN_2028_AMERICAN_ROADTRIP.md` §11.
+`EventDirectorModule.TriggerEventByType(source, category)` rolls a **per-category weighted chance** (`CategoryChance`; the base game's flat 1% was replaced) and picks a random event of that category (biased away from the last 3 fired); `TriggerEvent(source, type)` fires a specific event unconditionally. Where each category is rolled: Weather → `LocationWeather.cs`, Person → `Person.cs`, Vehicle → `Vehicle.cs`, RiverCross → `CrossingTick.cs`, and **`Wild` (4%), `Animal` (2%), and `ModernHazard` (1%) → `ContinueOnTrail.cs`** once per moving travel day. (Older notes calling `Animal`/`Wild` "dead content" are stale — the 2028 re-skin wired them into the travel tick.) **`ModernHazard`** is the 2028 difficulty lever: a weighted spread of satirical modern deaths/catastrophes (`src/Event/Modern/` skins over five `src/Event/Prefab/Modern*` effect profiles), tuned with the live-source runner in `tools/strategy-sim/` toward roughly 45% whole-family arrival for the documented prepared minivan policy. Random crossing incidents roll at **0.5% per crossing tick**. Steady/Strenuous/Grueling mileage factors are **1.25/1.3/1.6**; Steady avoids extra fatigue. The older `sim/Program.cs` approximation is not the balance authority. See `DESIGN_2028_AMERICAN_ROADTRIP.md` §11.
 
 **Prefab bases** (abstract, in `src/Event/Prefab/`, excluded from the registry): `ItemDestroyer`, `ItemCreator`, `PersonInjure`, `PersonInfect`, `FoodDestroyer`, `LoseTime` — subclass and override a couple of hooks (`OnPreDestroyItems`/`OnPostInjury`/`DaysToSkip`/etc.).
 
@@ -98,7 +104,7 @@ The `RandomEvent` window's `EventExecutor` form runs `Execute → Render → OnP
 - Namespaces mirror folders under the `OregonTrailDotNet` root (e.g. `OregonTrailDotNet.Window.Travel.Store`).
 - "Windows" / "modes" in comments and method names mean these **state-machine windows, not the OS**.
 - Top-level Windows are a hardcoded whitelist (`AllowedWindows`); events self-register by reflection (`[DirectorEvent]`). Know which registration model applies before adding either.
-- **Game-facing text must fit in 80 console columns per rendered line — wrap at 78.** `Program.cs`'s renderer never wraps: it `PadRight`s and writes each line raw, so an overlong line soft-wraps at the terminal and desyncs the next frame's cursor-based redraw. Neither WolfCurses nor the renderer wraps for you — every hard line break must already be in the string (`\n`/`Environment.NewLine`/separate `AppendLine` calls). Check with `python3 tools/check_text_width.py` (scans `src/**/*.cs` string literals, default width 80; see `tools/check_text_width.py` for details).
+- The web interface uses a terminal and ASCII visual language. Keep gameplay in semantic responsive elements; reserve preformatted text for decorative, aria-hidden character art in `scenes.js`. Never introduce horizontal gameplay scrolling or parse terminal frames for game state.
 
 ## Local credentials (NOT in the repo)
 
@@ -120,15 +126,4 @@ set -a; source ~/.config/asphalt-trail/google_ai.env; set +a   # exports GOOGLE_
 
 ## Web deployment (NOT in the repo)
 
-The game is live at `https://wagenhoffer.dev/oregon` as a public, **single-player-at-a-time**
-web terminal (ttyd streams the real console binary over WebSocket into a browser xterm.js
-instance — no rewrite of `Program.cs`'s TTY dependency). Every file involved — the systemd
-unit, the Apache reverse-proxy rules, the deployed binaries under `/opt/oregon-trail-web/`,
-the dedicated low-priv `oregon` system user — lives on the host, **outside this repo**.
-
-**Full writeup, architecture diagram, redeploy steps, and security rationale: [`DEPLOYMENT.md`](./DEPLOYMENT.md).**
-
-TL;DR: a non-blocking `flock` in `/opt/oregon-trail-web/play.sh` means the first WebSocket
-connection gets the game, any concurrent one gets a "someone else is playing, refresh to
-retry" message and is dropped. To redeploy after a code change, rebuild and copy the four
-output files into `/opt/oregon-trail-web/bin/` — see `DEPLOYMENT.md` for the exact command.
+The intended public URL remains `https://wagenhoffer.dev/oregon`, but the checked-in deployment design is now a native ASP.NET reverse-proxy target rather than ttyd. See [`DEPLOYMENT.md`](./DEPLOYMENT.md). `GameSession` keeps cookie-keyed in-memory workers, bounded to 256 by default; replicas require sticky routing. Scores, tombstones, and journeys remain ephemeral. See the worker harness in `tests/Backend/` and the real HTTP integration checks in `tests/backend_integration.py`.

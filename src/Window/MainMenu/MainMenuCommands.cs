@@ -13,7 +13,7 @@ namespace OregonTrailDotNet.Window.MainMenu
         /// <summary>
         ///     Begins data entry for starting a new game such as selecting professions, names, starting items, etc.
         /// </summary>
-        [Description("Hit the road")] TravelTheTrail = 1,
+        [Description("Plan your trip")] TravelTheTrail = 1,
 
         /// <summary>
         ///     Explains how the game works and what your goals are while playing it.

@@ -20,6 +20,12 @@ namespace OregonTrailDotNet.Window.Travel.TalkToPeople
     [ParentWindow(typeof(Travel))]
     public sealed class TalkToPeople : InputForm<TravelInfo>
     {
+        private Advice _advice;
+
+        /// <summary>The same authored conversation shown by the console, without rendered layout.</summary>
+        public string SemanticSpeaker => _advice?.Name;
+        public string SemanticQuote => _advice?.Quote;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="TalkToPeople" /> class.
         ///     This constructor will be used by the other one
@@ -57,7 +63,7 @@ namespace OregonTrailDotNet.Window.Travel.TalkToPeople
                 advice = new List<Advice>(AdviceRegistry.Ending);
 
             // Grab single random piece of advice from that collection.
-            var randomAdvice = advice.PickRandom(1).FirstOrDefault();
+            var randomAdvice = _advice ??= advice.PickRandom(1).FirstOrDefault();
 
             // Render out the advice to the form.
             return randomAdvice == null

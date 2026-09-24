@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-041",
+    "title": "Turning the Pillow to Find the Same Side",
+    "premise": "Before settling in for a parked rest, one traveler rotates a pillow to find its cool side, then turns it back a few minutes later. The edit treats this reversible decision as the night's only development.",
+    "conceptKey": "parked-rest-pillow-cool-side-loop",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-042",
+    "title": "One Curtain Pleat Hangs Lower",
+    "premise": "A traveler adjusts a simple window curtain until one pleat hangs slightly lower than the others, then checks it again after reopening the curtain. The small difference is the entire review.",
+    "conceptKey": "uneven-window-curtain-pleat",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-043",
+    "title": "The Blanket Corner Comes Loose Again",
+    "premise": "At an ordinary parked stop, the same blanket corner is tucked under a leg and released a few times while its owner settles down. The blanket ends where it began, only slightly more observed.",
+    "conceptKey": "repeatedly-tucking-one-blanket-corner",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-044",
+    "title": "A Yawn Before the Curtain Closes",
+    "premise": "A traveler notices that a yawn tends to arrive just before the parked car's curtain is closed for the night. The camera waits for another yawn and gets no further explanation.",
+    "conceptKey": "yawn-before-night-curtain-routine",
+    "potential": 29,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-045",
+    "title": "The Blanket Is Folded to the Same Width Twice",
+    "premise": "Before resting in a parked car, one person folds a blanket across its width, unfolds it, and repeats the same fold to check the edges. The resulting rectangle is nearly identical and has no practical reveal.",
+    "conceptKey": "repeated-blanket-width-fold-before-rest",
+    "potential": 9,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-046",
+    "title": "The Curtain's Last Finger-Width of Light",
+    "premise": "A simple window curtain leaves a narrow strip of light at one edge, so its owner shifts it and looks again. The video ends with the same small strip still visible.",
+    "conceptKey": "narrow-light-strip-at-curtain-edge",
+    "potential": 34,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-047",
+    "title": "A Thin Curtain Changes the Shape of Morning",
+    "premise": "At an ordinary parked overnight stop, a thin curtain softens the first daylight coming into the cabin, while a small edge still lets the morning in. The change makes a useful, quiet comparison between full darkness and waking gradually.",
+    "conceptKey": "curtain-softens-first-daylight-at-rest",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-048",
+    "title": "Two Travelers, Different Pillow Rules",
+    "premise": "During a parked overnight rest, two travelers show the small pillow arrangements that help them settle, then make room for both preferences in the shared cabin. Their quiet compromise shows how comfort in a tight space can depend on agreement as much as equipment.",
+    "conceptKey": "shared-cabin-pillow-preference-compromise",
+    "potential": 62,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-049",
+    "title": "Daylight Rest Has Its Own Pace",
+    "premise": "A traveler who usually settles after dark tries to rest during an ordinary parked daytime break, with a curtain muting the glare but not changing the hour. The comparison shows why a daytime pause can feel different from the start of a night's sleep.",
+    "conceptKey": "daylight-rest-feels-different-from-night-sleep",
+    "potential": 45,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-050",
+    "title": "The Little Goodnight Routine That Still Fits",
+    "premise": "At each parked overnight stop, whoever is still making the journey keeps a small goodnight custom: settling a pillow, closing the curtain, and naming one thing to look forward to tomorrow. The stops change and the travelers grow tired, but this familiar moment carries a little continuity through the upheaval.",
+    "conceptKey": "family-goodnight-custom-carries-through-changing-stops",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 5
+  }
+]

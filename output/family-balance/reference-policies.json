@@ -1,0 +1,13 @@
+{
+  "steady_4": {},
+  "steady_11": {
+    "clothes": 11
+  },
+  "strenuous_4": {
+    "pace": 2
+  },
+  "grueling_11": {
+    "pace": 3,
+    "clothes": 11
+  }
+}

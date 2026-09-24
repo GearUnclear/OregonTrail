@@ -1,0 +1,11 @@
+(lang dune 3.11)
+(name oregon_trail_web)
+
+(package
+ (name oregon_trail_web)
+ (synopsis "Bonsai browser interface for Oregon Trail")
+ (depends
+  (ocaml (>= 5.1))
+  (bonsai (= v0.17.0))
+  (core (= v0.17.0))
+  (js_of_ocaml (and (>= 5.1.1) (< 5.7.0)))))

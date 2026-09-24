@@ -6,14 +6,14 @@ using System.Text;
 using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Person;
 using OregonTrailDotNet.UI;
-using OregonTrailDotNet.Window.Travel.Command;
+using OregonTrailDotNet.Window.Travel.Store.Help;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 
 namespace OregonTrailDotNet.Window.Travel.Decision
 {
     /// <summary>
-    ///     Tone-setting departure decision fired the first time the party reaches Cape Coral. The player decides what fits in
+    ///     Tone-setting decision shown at home before the opening supply store. The player decides what fits in
     ///     the SUV as the tide rises: load up on resellables (the "heavy" flag), travel light with meds and clean papers (the
     ///     "light"/documented flag), or leave a seat for the Delgado kid (the "teen" flag). Each option applies an immediate
     ///     inventory/health/roster effect and records a flag + score delta + epilogue line in the ChoiceLedger under the
@@ -109,16 +109,15 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             switch (parsedInputNumber)
             {
                 case 1:
-                    // Cram it full of resellables: cash now, but lose pantry room and ride overloaded.
+                    // Cash is available for shopping; the snack penalty applies at the opening checkout.
                     vehicle.Inventory[Entities.Cash].AddQuantity(600);
-                    vehicle.Inventory[Entities.Food].ReduceQuantity(80);
                     GameSimulationApp.Instance.Choices.Record(
                         "pack",
                         "heavy",
                         -600,
                         "You pawned your mother's flatware at a Fort Myers strip mall for diesel, and\nrode low on the axles the whole way while strangers smelled the hoard on you\nbefore you spoke.");
-                    // Pack fires as the party departs Cape Coral, so resume the drive rather than dropping to the menu.
-                    SetForm(typeof(ContinueOnTrail));
+                    // Leave home for the supply stop before starting the first road leg.
+                    SetForm(typeof(StoreWelcome));
                     break;
 
                 case 2:
@@ -130,8 +129,8 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                         "light",
                         400,
                         "You left with less than a car should hold and every paper the checkpoints ever\nasked for, and nobody in the family died of a thing a pharmacy could have\nfixed.");
-                    // Pack fires as the party departs Cape Coral, so resume the drive rather than dropping to the menu.
-                    SetForm(typeof(ContinueOnTrail));
+                    // Leave home for the supply stop before starting the first road leg.
+                    SetForm(typeof(StoreWelcome));
                     break;
 
                 case 3:
@@ -155,8 +154,8 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             0,
                             $"There wasn't a seat to give him -- the {vehicle.Model.Name} was\nalready packed to its limit with your own family, and you watched\nhim wave from the curb as you pulled out of your driveway for the\nlast time.");
                     }
-                    // Pack fires as the party departs Cape Coral, so resume the drive rather than dropping to the menu.
-                    SetForm(typeof(ContinueOnTrail));
+                    // Leave home for the supply stop before starting the first road leg.
+                    SetForm(typeof(StoreWelcome));
                     break;
 
                 default:

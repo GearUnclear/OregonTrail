@@ -43,6 +43,12 @@ namespace OregonTrailDotNet.UI
         public string SelectedValue => HasOptions ? _options[SelectedIndex].Value : string.Empty;
 
         /// <summary>
+        ///     Read-only view of the current choices. The web presentation adapter uses this to render semantic
+        ///     buttons instead of scraping the text scene produced by WolfCurses.
+        /// </summary>
+        public IReadOnlyList<ArrowMenuOption> Options => _options.AsReadOnly();
+
+        /// <summary>
         ///     Replaces the option list. If the previously-selected option (matched by <see cref="ArrowMenuOption.Value" />)
         ///     is still present, the highlight stays put across re-renders (e.g. after a purchase updates prices);
         ///     otherwise the highlight resets to the first enabled option.

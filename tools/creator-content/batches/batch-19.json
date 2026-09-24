@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-181",
+    "title": "One Bar Longer Than the Explanation",
+    "premise": "At a parked break, the camera watches one spare battery's charge indicator gain a bar, then checks it again after a cut. The narration has nothing new to add when the display does.",
+    "conceptKey": "spare-battery-indicator-gains-one-bar-without-context",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-182",
+    "title": "The Charging Cable Measured in Elbows",
+    "premise": "A traveler measures one charging cable using elbow spans, loses count, and starts the measurement over from the other end. The final length is still not compared with anything useful.",
+    "conceptKey": "charging-cable-length-measured-in-elbow-spans",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-183",
+    "title": "The Adapter Guide Ends at the Adapter",
+    "premise": "A parked-car tutorial introduces a travel charger's adapters by shape and gives each one a careful close-up. It stops before showing what any of them connect to.",
+    "conceptKey": "charger-adapter-tutorial-stops-before-a-connection",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-184",
+    "title": "The Label Under the Label",
+    "premise": "Two old tape labels overlap on a charging cable, each with a different guess about which device it belongs to. The traveler peels back one corner, finds another strip underneath, and leaves the mystery intact.",
+    "conceptKey": "overlapping-conflicting-labels-on-charging-cable",
+    "potential": 32,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-185",
+    "title": "A Charger Light Waits for Its Close-Up",
+    "premise": "The charger sits in the foreground while its tiny status light stays hidden behind the battery. The voice-over reports each color confidently, and the camera never finds a view that confirms it.",
+    "conceptKey": "charger-status-light-hidden-behind-battery-in-frame",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-186",
+    "title": "The Charger Serial Number, Read Slowly",
+    "premise": "A traveler reads the charger's long serial number aloud, pauses to check one character, and begins again from the first digit. The number remains the only specification the video explains.",
+    "conceptKey": "charger-serial-number-read-aloud-twice",
+    "potential": 26,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-187",
+    "title": "Camera Says Ready, Charger Says Almost",
+    "premise": "At a parked stop, the camera's battery icon and the separate charger's indicator describe two batteries at different stages. Putting both displays in view makes it easier to tell which battery is ready for the next shot and which one still needs time.",
+    "conceptKey": "camera-and-charger-indicators-show-different-battery-states",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-188",
+    "title": "The Adapter's Fit Is Not Its Whole Job",
+    "premise": "A traveler lines up the travel charger, its adapter, and the camera battery charger to show the actual path between them. The visual check explains why a plug fitting into a socket does not by itself tell you what the connection is for.",
+    "conceptKey": "charger-adapter-fit-versus-connection-purpose",
+    "potential": 61,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-189",
+    "title": "One Power Source, Three Turns",
+    "premise": "During one ordinary parked break, the camera battery charger, external monitor, and camera take turns using the same available power source. The sequence makes the kit's competing needs visible without pretending every accessory can be ready at once.",
+    "conceptKey": "shared-power-source-taking-turns-across-video-accessories",
+    "potential": 48,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-190",
+    "title": "We Bought the Charger to Film the Charger",
+    "premise": "The V&H charging kit arrives with enough adapters and cables to make a first travel-channel setup feel inevitable, but the first recording only shows a spare battery charging. As the traveler figures out which connection serves the battery, camera, and monitor, the gear's self-important demonstration becomes the channel's first clear and useful guide, with no guarantee that anyone will see it.",
+    "conceptKey": "charging-kit-demonstration-becomes-first-useful-setup-guide",
+    "potential": 92,
+    "locations": [],
+    "authorBatch": 19
+  }
+]

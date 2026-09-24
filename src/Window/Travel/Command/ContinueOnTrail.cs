@@ -23,6 +23,8 @@ namespace OregonTrailDotNet.Window.Travel.Command
     [ParentWindow(typeof(Travel))]
     public sealed class ContinueOnTrail : Form<TravelInfo>
     {
+        public void OpenCreator() => SetForm(typeof(Creator.CreatorDesk));
+
         /// <summary>
         ///     Holds the current drive state, since we can size up the situation at any time.
         /// </summary>
@@ -41,7 +43,7 @@ namespace OregonTrailDotNet.Window.Travel.Command
 
         /// <summary>
         ///     Ever-incrementing step for the scrolling roadside "driving" scene; advanced each simulation tick so
-        ///     the world parallax-scrolls past the stationary SUV.
+        ///     the world parallax-scrolls past the selected vehicle.
         /// </summary>
         private int _animStep;
 
@@ -112,8 +114,8 @@ namespace OregonTrailDotNet.Window.Travel.Command
             // Clear whatever was in the string builder last tick.
             _drive.Clear();
 
-            // Animated roadside scene: the SUV holds still while the world scrolls past it, showing movement.
-            _drive.AppendLine($"{Environment.NewLine}{SceneArt.TravelScene(_animStep)}");
+            // The selected vehicle holds still while the world scrolls past it.
+            _drive.AppendLine($"{Environment.NewLine}{SceneArt.TravelScene(_animStep, GameSimulationApp.Instance.Vehicle.Model.Choice)}");
 
             // Basic information about simulation.
             _drive.AppendLine(TravelInfo.DriveStatus);
@@ -198,7 +200,7 @@ namespace OregonTrailDotNet.Window.Travel.Command
                     // road-trip" death or catastrophe, rolled once per moving travel day. The per-day odds live
                     // in EventDirectorModule.CategoryChance(ModernHazard); the weighted outcome spread (whole-party
                     // wipe / one-off death / maiming / supply drain) lives in the src/Event/Modern/ prefabs. Tuned
-                    // in the headless balance sim so competent play wins only about half the time.
+                    // with the live strategy runner against whole-family survival, not just one survivor arriving.
                     game.EventDirector.TriggerEventByType(game.Vehicle, EventCategory.ModernHazard);
 
                     // Scripted flavor: a 0.02%/turn chance (1 in 5000) that Red Dead Redemption 3 drops mid-trip

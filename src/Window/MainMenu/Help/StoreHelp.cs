@@ -46,7 +46,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Help
         /// <param name="reponse">The response the dialog parsed from simulation input buffer.</param>
         protected override void OnDialogResponse(DialogResponse reponse)
         {
-            // Closes main menu and drops back to travel Windows at the bottom level which should have store already open and ready.
+            // Close setup and reveal the packing choice at home, followed by the opening store.
             ParentWindow.RemoveWindowNextTick();
         }
     }

@@ -38,7 +38,7 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
             // Steady
             var paceHelp = new StringBuilder();
             paceHelp.Append($"{Environment.NewLine}steady - You travel about 8 hours a{Environment.NewLine}");
-            paceHelp.Append($"day, taking frequent rests. You take{Environment.NewLine}");
+            paceHelp.Append($"day, making reliable progress. You take{Environment.NewLine}");
             paceHelp.Append($"care not to get too tired.{Environment.NewLine}{Environment.NewLine}");
 
             // Strenuous

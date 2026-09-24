@@ -1,0 +1,19 @@
+{
+  "release": "/opt/oregon-trail-web/releases/20260924T223057Z-all",
+  "previousRelease": "/opt/oregon-trail-web/releases/20260924T192256Z-fonts",
+  "url": "https://wagenhoffer.dev/oregon/",
+  "scope": "All current runtime changes, including DEAD AIR and RUG.RUN",
+  "serverSha256": "0dbd462c395d829b615704f048c5ad22aebbff5c1c8b1056ad13bc4c150d3ef8",
+  "ideaCount": 200,
+  "freshPublishAssetComparison": "passed",
+  "publishedCreatorHttp": "passed",
+  "publishedCryptoHttp": "passed",
+  "loopbackHealth": "passed",
+  "publicHttpsHealth": "passed",
+  "publicRuntimeAssetHashes": "11 matched source",
+  "publicSecureCookie": "passed",
+  "publicSse": "passed: state and heartbeat received uncompressed through public HTTPS",
+  "rollout": "Atomic current symlink switch; previous release retained; app and proxy restarted together",
+  "proxyConfiguration": "Already matched; no Apache changes needed",
+  "status": "deployed and verified"
+}

@@ -1,0 +1,1818 @@
+[
+  {
+    "id": "video-001",
+    "title": "Cup Holder Diameter, Measured Twice",
+    "premise": "A ruler circles two front cup holders and finds one is barely wider than the other. The video ends before this measurement becomes useful.",
+    "conceptKey": "front-cup-holder-width-comparison",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-002",
+    "title": "Counting the Passenger Seat's Recline Stops",
+    "premise": "The camera records each parked adjustment from upright to reclined, then repeats the count because one stop was missed. Nothing else happens.",
+    "conceptKey": "passenger-seat-recline-stop-count",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-003",
+    "title": "The Armrest Height Is Off by One Finger",
+    "premise": "With the SUV parked, a passenger compares the door ledge and center armrest using a finger as a level. One sits slightly higher, and nobody can tell whether it matters.",
+    "conceptKey": "front-armrest-height-difference",
+    "potential": 16,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-004",
+    "title": "How Many Clicks Forward Is All the Way Forward?",
+    "premise": "From the parked passenger seat, we count the rail clicks from one end of its normal travel to the other. The edit preserves every click and no broader point.",
+    "conceptKey": "passenger-seat-rail-click-count",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-005",
+    "title": "The Seat Cushion's Front Edge, Examined Closely",
+    "premise": "One passenger takes turns sitting slightly farther forward and back, then reports that the cushion edge feels different. The footage ends with the same seat still there.",
+    "conceptKey": "passenger-seat-cushion-front-edge",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-006",
+    "title": "Lumbar Support: Three Settings, One Reaction",
+    "premise": "While parked, one traveler cycles through the passenger seat's built-in lumbar settings and gives each the same noncommittal nod. The settings are the entire review.",
+    "conceptKey": "passenger-lumbar-setting-comparison",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-007",
+    "title": "A Passenger's Reach Map of the Cabin",
+    "premise": "From an ordinary seated position in a parked SUV, the camera maps which everyday surfaces and controls are easy to reach without leaning. It is a modest visual tour of how the cabin was arranged for the passenger's arm.",
+    "conceptKey": "parked-cabin-passenger-reach-map",
+    "potential": 52,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-008",
+    "title": "Getting In: Two Ways to Settle Into a Passenger Seat",
+    "premise": "At rest stops, we compare how the same traveler gets into a parked passenger seat with it set forward and set back. The small change makes the doorway feel either roomy or oddly cramped.",
+    "conceptKey": "passenger-seat-entry-clearance-comparison",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-009",
+    "title": "The Front Seat's Legroom Trade-Off, Seen From Behind",
+    "premise": "With the car parked, a passenger slides the front seat through its normal range while the rear seat records the knee room gained and lost. The result turns a familiar comfort compromise into a clear before-and-after.",
+    "conceptKey": "front-seat-position-rear-knee-room-tradeoff",
+    "potential": 64,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-010",
+    "title": "The Folding Tray That Becomes an Afternoon Desk",
+    "premise": "A passenger's simple travel sketch keeps slipping off their lap until a seatback tray gives it a steady place to grow. Filmed during a parked rest stop, the small surface becomes the only desk in the car for the afternoon.",
+    "conceptKey": "seatback-tray-temporary-desk-visual-arc",
+    "potential": 88,
+    "locations": [],
+    "authorBatch": 1
+  },
+  {
+    "id": "video-011",
+    "title": "The Last Inch Above the Bins",
+    "premise": "A parked-car camera study watches the stack rise into its unused headroom. One shallow bag moves once, and the rest of the episode admires the newly available inch.",
+    "conceptKey": "unused-vertical-cargo-clearance",
+    "potential": 15,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-012",
+    "title": "A Flat Tray Under a Deeper Crate",
+    "premise": "We slide one shallow tray beneath a taller supply crate, then check whether the trunk still closes. The arrangement changes very little, which is also the episode's conclusion.",
+    "conceptKey": "shallow-tray-under-deep-crate",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-013",
+    "title": "The Bin That Only Fits Sideways",
+    "premise": "One plastic bin is rotated through its two possible orientations while the camera holds on the trunk opening. It fits either way, and the family declines to develop a position on the question.",
+    "conceptKey": "single-bin-orientation-test",
+    "potential": 24,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-014",
+    "title": "Where the Lids Go",
+    "premise": "The camera follows unattached storage lids as they are stacked, moved, and stacked again beside their containers. By the end, all the lids are together and nobody needs one.",
+    "conceptKey": "loose-storage-lid-pile",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-015",
+    "title": "A Cardboard Divider Has a Short Career",
+    "premise": "A flattened shipping box separates two supply bins, then gets folded flat so the bins can sit together. The camera records the brief career of a divider that never quite divides anything.",
+    "conceptKey": "temporary-cardboard-cargo-divider",
+    "potential": 28,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-016",
+    "title": "The Slight Slope at the Back of the Trunk",
+    "premise": "An empty flat tote slides after an ordinary rearrangement, so it gets moved back to its original place. We keep filming the unchanged cargo floor.",
+    "conceptKey": "sloped-trunk-floor-bag-slide",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-017",
+    "title": "The Bag Inside Every Other Bag",
+    "premise": "The camera follows folded reusable totes nesting into one larger tote, then shows the bundle tucked between hard-sided containers. It occupies almost no more room than a bag full of bags deserves.",
+    "conceptKey": "nested-reusable-tote-bundle",
+    "potential": 46,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-018",
+    "title": "The Crates Change Shape as Supplies Run Down",
+    "premise": "Over several ordinary stops, partly emptied boxes stop stacking square, and the family rearranges the cargo to use the new gaps. The before-and-after layouts show how the shape of a load changes without reviewing what's inside it.",
+    "conceptKey": "cargo-geometry-after-supply-depletion",
+    "potential": 58,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-019",
+    "title": "Tall Stack or Wide Footprint?",
+    "premise": "With the SUV parked, the same sealed containers are arranged in a tall column and then spread across the cargo floor. The comparison is mostly about how much room each layout leaves for the next bag.",
+    "conceptKey": "vertical-vs-horizontal-cargo-layout",
+    "potential": 63,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-020",
+    "title": "The Trunk Stops Being a Puzzle",
+    "premise": "At first, every ordinary stop begins with lifting bins to reach the one kit needed next. We film a complete unload and reload, then put the soonest-needed crates nearest the hatch, turning a tiring pile into a layout the family can repeat; tomorrow's inconvenience gets top billing.",
+    "conceptKey": "reusable-hatch-first-packing-order",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 2
+  },
+  {
+    "id": "video-021",
+    "title": "The Crumb Count on One Napkin",
+    "premise": "After a parked snack break, we move five crumbs into rows on a paper napkin and count them twice. The answer is the same, and the next shot is the napkin.",
+    "conceptKey": "parked-snack-crumb-row-count",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-022",
+    "title": "The Wrapper Fold Gets One More Fold",
+    "premise": "An empty snack wrapper is pressed flat and folded into increasingly small rectangles. We keep the shot through the last crease, then set it beside another small rectangle.",
+    "conceptKey": "empty-snack-wrapper-folding-sequence",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-023",
+    "title": "Reading the Same Portion Label Again",
+    "premise": "We zoom in on one serving-size line, read it, pan away, and return to it after a cut. The package has not added any information.",
+    "conceptKey": "repeated-reading-of-one-serving-label",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-024",
+    "title": "About Eighteen Pieces, Apparently",
+    "premise": "The camera lingers on a package that defines a serving as about eighteen pieces. We never open a second package to check how approximate that count is.",
+    "conceptKey": "package-serving-count-approximation",
+    "potential": 28,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-025",
+    "title": "The Wrapper Color Under the Dome Light",
+    "premise": "A snack wrapper is held beneath the parked car's dome light, turned once, and held there again. Its color looks a little different from each angle.",
+    "conceptKey": "snack-wrapper-color-under-cabin-light",
+    "potential": 11,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-026",
+    "title": "A Cracker Breaks at the Same Notch",
+    "premise": "One cracker is pressed over a napkin until it breaks along a shallow groove. We repeat the close-up and get the same result.",
+    "conceptKey": "single-cracker-groove-break-repeat",
+    "potential": 32,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-027",
+    "title": "One Bag, Three Portion Guesses",
+    "premise": "Before opening a familiar package at a parked stop, the travelers estimate how many servings it contains from its size. The printed portion count settles their friendly disagreement and shows how package size and serving count can describe different things.",
+    "conceptKey": "package-size-versus-serving-count-guess",
+    "potential": 48,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-028",
+    "title": "The Wrapper's Flavor Words, Translated",
+    "premise": "The family reads a packaged snack's elaborate flavor description, then gives it plain words after everyone tries a small piece. The same flavor survives the edit, but the notes become less poetic.",
+    "conceptKey": "marketing-flavor-description-plain-language-review",
+    "potential": 55,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-029",
+    "title": "Buc-ee's Has a Serving Size for Every Pause",
+    "premise": "At Buc-ee's, we record the serving counts printed on a row of packaged snacks, without reviewing the store's food or doing an eating challenge. The aisle turns a quick stop into a small catalog of how many pieces each package calls one portion.",
+    "conceptKey": "bucees-packaged-snack-serving-count-catalog",
+    "potential": 62,
+    "locations": [
+      "bucees"
+    ],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-030",
+    "title": "The Snack Ranking Ends With the One Everyone Shares",
+    "premise": "We set out to rank a few familiar packaged snacks by flavor, then ask the family to choose one to share at an ordinary parked break. The favorite shifts with each vote until a plain, easy-to-divide pack wins, turning a small review into a portrait of how people negotiate the last of something without a grand speech.",
+    "conceptKey": "family-snack-flavor-ranking-becomes-sharing-choice",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-031",
+    "title": "The Water Line Moves a Little",
+    "premise": "In a parked-car close-up, a refill bottle's water line drops between checks. The camera records the tiny change without explaining where the sips went.",
+    "conceptKey": "small-drop-in-refill-bottle-waterline",
+    "potential": 17,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-032",
+    "title": "The Cap's Brief Vacation",
+    "premise": "At an ordinary refill stop, the bottle cap is set down, picked up, and screwed back on. The edit repeats this quiet intermission as if the cap has traveled somewhere.",
+    "conceptKey": "bottle-cap-set-aside-and-replaced",
+    "potential": 13,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-033",
+    "title": "Two Ice Cubes Settle Again",
+    "premise": "A clear cup shows two ice cubes shifting when it is lifted and settling when it is set down while parked. The edit repeats the same small movement from three angles.",
+    "conceptKey": "two-ice-cubes-shift-in-clear-cup",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-034",
+    "title": "Free Ice Water, Kept in Frame",
+    "premise": "At Wall Drug, we film one cup of its free ice water beside the refill source, then watch the ice melt before anyone finishes the cup. It is a complete water story with a very small middle.",
+    "conceptKey": "wall-drug-free-water-cup-ice-melt",
+    "potential": 27,
+    "locations": [
+      "wall-drug"
+    ],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-035",
+    "title": "Room Temperature Has No Plot",
+    "premise": "A bottle of water rests in shade while the camera returns to it at ordinary breaks. Each update says only that it is less cold than before.",
+    "conceptKey": "cold-water-gradually-warms-in-shade",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-036",
+    "title": "The Empty Bottle's Last Swirl",
+    "premise": "After a refill bottle empties, a thin film of water traces the base when it is tilted while parked. The video inspects three tilts before stopping.",
+    "conceptKey": "last-water-film-swirl-in-empty-bottle",
+    "potential": 11,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-037",
+    "title": "Which Vessel Stays Cold Until the Next Stop?",
+    "premise": "A plain cup and an insulated bottle start with equally cold water during one parked stretch, then are compared at ordinary stops. Their changing temperatures give a useful sense of how much the vessel affects the small pleasure of a cold drink.",
+    "conceptKey": "cold-water-temperature-cup-versus-insulated-bottle",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-038",
+    "title": "The Wide-Mouth Bottle Wins at Refill Time",
+    "premise": "At three ordinary refill stops, the camera follows a wide-mouth bottle as it gets topped up with ice and water. Its small advantage becomes clear when the ice is easier to add than it would be through a narrow opening.",
+    "conceptKey": "wide-mouth-bottle-ice-refill-ease",
+    "potential": 58,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-039",
+    "title": "The Bottle Dries Before the Drink Warms",
+    "premise": "We follow one chilled bottle through ordinary breaks as its condensation fades while the water inside stays cool. The mismatch makes a simple point: a dry bottle is not automatically a warm drink.",
+    "conceptKey": "bottle-exterior-dries-before-water-warms",
+    "potential": 43,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-040",
+    "title": "The Bottle Everyone Reaches For",
+    "premise": "A plain bottle and an insulated one begin the trip as equals, but at ordinary stops the family keeps choosing the clear bottle because anyone can see what remains and refill it. By the end, the modest container has quietly become the shared favorite, a useful reminder that visibility can matter more than a promise on a label.",
+    "conceptKey": "clear-visible-water-bottle-becomes-shared-favorite",
+    "potential": 88,
+    "locations": [],
+    "authorBatch": 4
+  },
+  {
+    "id": "video-041",
+    "title": "Turning the Pillow to Find the Same Side",
+    "premise": "Before settling in for a parked rest, one traveler rotates a pillow to find its cool side, then turns it back a few minutes later. The edit treats this reversible decision as the night's only development.",
+    "conceptKey": "parked-rest-pillow-cool-side-loop",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-042",
+    "title": "One Curtain Pleat Hangs Lower",
+    "premise": "A traveler adjusts a simple window curtain until one pleat hangs slightly lower than the others, then checks it again after reopening the curtain. The small difference is the entire review.",
+    "conceptKey": "uneven-window-curtain-pleat",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-043",
+    "title": "The Blanket Corner Comes Loose Again",
+    "premise": "At an ordinary parked stop, the same blanket corner is tucked under a leg and released a few times while its owner settles down. The blanket ends where it began, only slightly more observed.",
+    "conceptKey": "repeatedly-tucking-one-blanket-corner",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-044",
+    "title": "A Yawn Before the Curtain Closes",
+    "premise": "A traveler notices that a yawn tends to arrive just before the parked car's curtain is closed for the night. The camera waits for another yawn and gets no further explanation.",
+    "conceptKey": "yawn-before-night-curtain-routine",
+    "potential": 29,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-045",
+    "title": "The Blanket Is Folded to the Same Width Twice",
+    "premise": "Before resting in a parked car, one person folds a blanket across its width, unfolds it, and repeats the same fold to check the edges. The resulting rectangle is nearly identical and has no practical reveal.",
+    "conceptKey": "repeated-blanket-width-fold-before-rest",
+    "potential": 9,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-046",
+    "title": "The Curtain's Last Finger-Width of Light",
+    "premise": "A simple window curtain leaves a narrow strip of light at one edge, so its owner shifts it and looks again. The video ends with the same small strip still visible.",
+    "conceptKey": "narrow-light-strip-at-curtain-edge",
+    "potential": 34,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-047",
+    "title": "A Thin Curtain Changes the Shape of Morning",
+    "premise": "At an ordinary parked overnight stop, a thin curtain softens the first daylight coming into the cabin, while a small edge still lets the morning in. The change makes a useful, quiet comparison between full darkness and waking gradually.",
+    "conceptKey": "curtain-softens-first-daylight-at-rest",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-048",
+    "title": "Two Travelers, Different Pillow Rules",
+    "premise": "During a parked overnight rest, two travelers show the small pillow arrangements that help them settle, then make room for both preferences in the shared cabin. Their quiet compromise shows how comfort in a tight space can depend on agreement as much as equipment.",
+    "conceptKey": "shared-cabin-pillow-preference-compromise",
+    "potential": 62,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-049",
+    "title": "Daylight Rest Has Its Own Pace",
+    "premise": "A traveler who usually settles after dark tries to rest during an ordinary parked daytime break, with a curtain muting the glare but not changing the hour. The comparison shows why a daytime pause can feel different from the start of a night's sleep.",
+    "conceptKey": "daylight-rest-feels-different-from-night-sleep",
+    "potential": 45,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-050",
+    "title": "The Little Goodnight Routine That Still Fits",
+    "premise": "At each parked overnight stop, whoever is still making the journey keeps a small goodnight custom: settling a pillow, closing the curtain, and naming one thing to look forward to tomorrow. The stops change and the travelers grow tired, but this familiar moment carries a little continuity through the upheaval.",
+    "conceptKey": "family-goodnight-custom-carries-through-changing-stops",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 5
+  },
+  {
+    "id": "video-051",
+    "title": "The Sock Heel Will Not Stay Flat",
+    "premise": "While folding clean laundry at an ordinary parked stop, one traveler smooths a sock heel that keeps turning sideways. The close-up repeats until the sock is folded with the heel still slightly crooked.",
+    "conceptKey": "sock-heel-keeps-turning-during-folding",
+    "potential": 13,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-052",
+    "title": "The Care Tag Has Nothing New to Say",
+    "premise": "We turn over one familiar shirt to read its care tag, then turn it back and read the same line again. The instructions are unchanged and the shirt remains unfolded beside the camera.",
+    "conceptKey": "re-reading-familiar-shirt-care-tag",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-053",
+    "title": "The Cuff Is Still Damp",
+    "premise": "After a routine wash, a shirt hangs on a portable rack at a parked stop while the camera checks one cuff at three ordinary intervals. It goes from damp to less damp, with no larger development.",
+    "conceptKey": "single-shirt-cuff-drying-checks",
+    "potential": 32,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-054",
+    "title": "Folding the Empty Laundry Bag Again",
+    "premise": "An empty laundry bag is folded into a flat rectangle, opened to check its shape, and folded once more. The final version is almost exactly the first one.",
+    "conceptKey": "re-folding-empty-laundry-bag",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-055",
+    "title": "The T-Shirt Fold Needs One More Try",
+    "premise": "A traveler folds one clean T-shirt, notices that one sleeve sticks out, and starts over with the same shirt. The camera gives both attempts equal time, though the second rectangle is only a little neater.",
+    "conceptKey": "repeated-single-t-shirt-folding-attempt",
+    "potential": 26,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-056",
+    "title": "Three Hangers Face the Same Direction",
+    "premise": "After putting away a few clean shirts, a traveler turns three empty hangers to face the same way. One is nudged out of line and then put back.",
+    "conceptKey": "lining-up-empty-clothes-hangers",
+    "potential": 9,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-057",
+    "title": "Two Shirts Dry at Different Speeds",
+    "premise": "A washed cotton shirt and a lightweight synthetic layer hang with equal space on a portable rack during the same parked break. Checking them together shows how these two fabrics dry at different rates under the same conditions.",
+    "conceptKey": "paired-fabric-drying-rate-comparison",
+    "potential": 61,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-058",
+    "title": "A Small Shirt Wash, From Basin to Rack",
+    "premise": "A traveler hand-washes one lightly worn shirt in a clean basin, gives it a separate rinse, and lays it neatly on a portable rack to dry. The simple sequence offers a practical way to refresh one item without turning the whole stop into laundry day.",
+    "conceptKey": "single-shirt-hand-wash-and-drying-sequence",
+    "potential": 53,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-059",
+    "title": "Fold Some Clothes, Hang the Rest",
+    "premise": "After a small wash, the family sorts the dry clothes into items that stack neatly and items that keep their shape better on hangers. The modest split makes the clean clothes easier to find without adding another storage system.",
+    "conceptKey": "sorting-clean-clothes-by-fold-or-hanger",
+    "potential": 44,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-060",
+    "title": "The Missing Sock Finally Catches Up at Wash Day",
+    "premise": "One clean sock sits folded in the unmatched pile through several ordinary wash days, until its partner appears in a later load. Their reunion gets a brief celebratory close-up before the family folds them together for the next day's trip.",
+    "conceptKey": "laundry-sock-pair-reunion-across-loads",
+    "potential": 89,
+    "locations": [],
+    "authorBatch": 6
+  },
+  {
+    "id": "video-061",
+    "title": "The Return Address Is Smaller Than the Apology",
+    "premise": "The camera holds on the tiny return-address block of one piece of household mail, then waits while a traveler reads the same lines at normal size. The envelope offers no second subject.",
+    "conceptKey": "household-envelope-return-address-closeup",
+    "potential": 17,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-062",
+    "title": "One Blank Box for the Apartment Number",
+    "premise": "A form gives the apartment number a box barely wide enough for its usual characters. The traveler fills it in, notices the last digit touches the border, and leaves the framing unchanged.",
+    "conceptKey": "form-apartment-number-field-too-narrow",
+    "potential": 24,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-063",
+    "title": "The Envelope Window Shows a Little Too Much Margin",
+    "premise": "One household envelope is tilted until the name behind its plastic window sits almost straight. The camera checks the alignment again after the envelope is set down.",
+    "conceptKey": "household-mail-window-name-alignment",
+    "potential": 13,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-064",
+    "title": "How Many Copies Have the Same Staple Hole?",
+    "premise": "Two copies of a form are placed side by side so the camera can compare their old staple holes. They line up closely, which is the whole comparison.",
+    "conceptKey": "matching-staple-holes-on-form-copies",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-065",
+    "title": "The Zip Code Still Fits in Its Little Row",
+    "premise": "The camera follows a traveler checking the same five-character ZIP field on one form, then checking it once more. The digits have not moved or changed.",
+    "conceptKey": "rechecking-zip-code-on-single-form",
+    "potential": 8,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-066",
+    "title": "A Notice Printed on Heavier Paper",
+    "premise": "A household notice is lifted, turned over, and lifted again so its paper can be compared with an ordinary envelope. The weight difference is faint and leads nowhere.",
+    "conceptKey": "household-notice-paper-weight-comparison",
+    "potential": 30,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-067",
+    "title": "One Address Update, Four Places to Change It",
+    "premise": "The traveler works through four ordinary forms that each ask for the household's current mailing address. Seeing the repeated field together gives a useful picture of how one move creates several small, separate errands.",
+    "conceptKey": "repeating-mailing-address-across-forms",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-068",
+    "title": "The Mail Forwarding Form Has an End Date",
+    "premise": "A traveler reads the end date printed on a mail-forwarding form and compares it with the stack of household mail still arriving. The small deadline makes clear that forwarding buys time, not a permanent address.",
+    "conceptKey": "mail-forwarding-form-temporary-deadline",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-069",
+    "title": "Important Papers, With the Important Parts Covered",
+    "premise": "A traveler lays out the household documents kept close and explains what each one is for while names, numbers, and account details stay covered. The plain-language tour turns a private folder into a readable portrait of what the family needed to carry forward.",
+    "conceptKey": "redacted-household-document-purpose-tour",
+    "potential": 63,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-070",
+    "title": "The Cheerful Sun on the Letter That Ended an Address",
+    "premise": "An insurance letter arrives in bright, friendly stationery to say that a home is uninsurable at any premium, making devastating news look like routine correspondence. As the traveler updates forms and mail labels one field at a time, the video follows the home address from a place they left to a mailing address they can still answer, without promising that the next one solves anything.",
+    "conceptKey": "insurance-denial-letter-and-changing-home-address",
+    "potential": 94,
+    "locations": [],
+    "authorBatch": 7
+  },
+  {
+    "id": "video-071",
+    "title": "The Legend Has One Symbol We Never Need",
+    "premise": "The camera settles on one small symbol in an atlas key and holds there while the traveler checks the nearby map panel. The symbol never turns into a useful discovery, so the close-up is the whole item.",
+    "conceptKey": "atlas-key-symbol-without-a-route-use",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-072",
+    "title": "The Fold Covers the Same Town Name Again",
+    "premise": "A folded road atlas is opened just enough to reveal a town name, then shut along its old crease. The camera repeats the same reveal without going anywhere or learning more about the town.",
+    "conceptKey": "atlas-crease-repeatedly-hides-town-name",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-073",
+    "title": "A Road Number Stops at the Page Seam",
+    "premise": "A printed highway number disappears into the center seam of an open atlas and resumes on the facing page. We follow the broken label with a finger, then leave it at that.",
+    "conceptKey": "atlas-highway-label-interrupted-by-page-seam",
+    "potential": 26,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-074",
+    "title": "North Is Still Printed at the Top",
+    "premise": "At a parked stop, the traveler turns the atlas to match the car's heading, notices the compass rose is now sideways, and turns the page back. North returns to the top exactly as printed.",
+    "conceptKey": "north-up-atlas-turned-and-restored",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-075",
+    "title": "The Blue Route Line Is Very Thin",
+    "premise": "In a parked-car close-up, one finger traces a blue route line through the atlas without naming the roads or choosing a turn. The line is a little hard to see, and the video never improves the lighting.",
+    "conceptKey": "thin-blue-route-line-traced-on-paper-map",
+    "potential": 8,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-076",
+    "title": "The Map Line Continues Past the Closure",
+    "premise": "From a safe parked viewpoint at the Pigeon River Gorge washout, we compare the atlas's unbroken I-40 line with the closure notice that interrupts it in real life. The paper stays calm about the missing roadbed.",
+    "conceptKey": "pigeon-gorge-atlas-line-versus-closure-notice",
+    "potential": 24,
+    "locations": [
+      "pigeon-gorge"
+    ],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-077",
+    "title": "The Scale Bar Changes the Size of a Long Day",
+    "premise": "A traveler uses the atlas scale bar to compare a short-looking stretch on paper with the distance it represents, without recommending a route. The simple check makes the map's compact view easier to read.",
+    "conceptKey": "atlas-scale-bar-relates-paper-distance-to-miles",
+    "potential": 63,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-078",
+    "title": "The Same Destination at Two Map Zooms",
+    "premise": "At a parked stop, the traveler compares a navigation screen's regional overview with its closer view of the same destination. The route looks simple at one scale and becomes a string of small turns at the other, a useful reminder that each view answers a different question.",
+    "conceptKey": "navigation-screen-destination-overview-versus-close-zoom",
+    "potential": 52,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-079",
+    "title": "The Atlas Index Sends Us Back to the Grid",
+    "premise": "A traveler finds a place name in the road atlas index, follows its letter-and-number reference to the map grid, and locates it without searching the whole state. The small method is useful whenever a printed map feels like too much page at once.",
+    "conceptKey": "atlas-index-grid-reference-finds-place",
+    "potential": 46,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-080",
+    "title": "The Map Changes From a Plan Into a Record",
+    "premise": "A traveler begins with a tidy line drawn toward a safer destination, then adds brief notes wherever closures and changing conditions alter the day's plan. By the end, the map is less a promise about the road ahead than a clear record of how an ordinary household kept adapting while moving on.",
+    "conceptKey": "route-map-evolves-from-plan-into-record-of-adjustment",
+    "potential": 92,
+    "locations": [],
+    "authorBatch": 8
+  },
+  {
+    "id": "video-081",
+    "title": "One Cloud, Reframed",
+    "premise": "From a safely parked car, we return to the same cloud beyond the windshield after several minutes. It has moved just enough to make the retake feel necessary.",
+    "conceptKey": "same-cloud-reframed-after-short-pause",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-082",
+    "title": "The Raindrop That Took the Long Way Down",
+    "premise": "A parked-car close-up follows one rain bead as it takes a wandering path down the windshield and disappears at the edge. The only destination it reaches is the lower edge.",
+    "conceptKey": "single-rain-bead-wandering-windshield-path",
+    "potential": 28,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-083",
+    "title": "The Side Window's Second-Best Sky",
+    "premise": "From a parked car, we compare the clouds in the front windshield with those framed by a side window. One patch is slightly darker, and the camera checks back without reaching a verdict.",
+    "conceptKey": "cloud-shade-comparison-across-car-windows",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-084",
+    "title": "A Strip of Sun Finds the Dashboard Seam",
+    "premise": "While the SUV is parked, a narrow stripe of sunlight moves across the dashboard as cloud cover opens and closes. The camera returns to the same seam until the light moves on.",
+    "conceptKey": "sunlight-stripe-crossing-dashboard-seam",
+    "potential": 24,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-085",
+    "title": "The Old Wiper Arc Outlasts the Shower",
+    "premise": "After a light shower, we film from the parked car while one arc left by the wipers remains visible on the windshield. The rest of the glass slowly dries, leaving the mark with nothing to do.",
+    "conceptKey": "old-wiper-arc-remains-after-rain-shower",
+    "potential": 34,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-086",
+    "title": "Buc-ee's Gets One Cloud for Shade",
+    "premise": "From a parked car at Buc-ee's in Sevierville, we watch a cloud shadow cross part of the huge lot and disappear. For a few minutes, one row of parked cars gets the only roof in the county that keeps moving.",
+    "conceptKey": "moving-cloud-shade-over-bucees-lot",
+    "potential": 31,
+    "locations": [
+      "bucees"
+    ],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-087",
+    "title": "After Rain, the Windshield Holds Two Skies",
+    "premise": "From a parked car, the rain-speckled windshield briefly reflects low clouds while the same clouds remain visible beyond it. As the shower thins, the reflected sky fades before the real one, showing how wet glass can double a view of the weather.",
+    "conceptKey": "low-cloud-reflection-on-rain-speckled-windshield",
+    "potential": 58,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-088",
+    "title": "The Hills Return When the Clouds Lift",
+    "premise": "From a safely parked car, distant hills disappear behind low clouds and come back as the cloud base rises. The landscape has not moved closer; the weather simply changed how much of it was visible.",
+    "conceptKey": "cloud-base-lift-reveals-distant-hills",
+    "potential": 55,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-089",
+    "title": "The Gray Sky Opens Just Before Dusk",
+    "premise": "From a parked vehicle, a flat overcast afternoon changes by tiny degrees as a narrow gap lets a warm band of evening light across the windshield. The pause gives the day a quiet ending without pretending a cloud break fixes the trip.",
+    "conceptKey": "overcast-afternoon-breaks-into-evening-light",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-090",
+    "title": "The Window Clears Before the Forecast Does",
+    "premise": "On a humid morning, condensation clouds the windshield while the SUV is safely parked; as daylight changes, a clear patch spreads until the ordinary rest-stop view returns. Whoever is still making the trip shares what the blurred shapes seemed to be, and the window clears before anyone can say what the next stop will bring.",
+    "conceptKey": "parked-morning-condensation-clears-into-shared-view",
+    "potential": 93,
+    "locations": [],
+    "authorBatch": 9
+  },
+  {
+    "id": "video-091",
+    "title": "Regular Stays in the Same Place",
+    "premise": "At an ordinary fuel stop, the camera moves from the full pump panel to the grade button and back. The word 'Regular' has not moved, which is the episode's only finding.",
+    "conceptKey": "gas-pump-regular-label-closeup",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-092",
+    "title": "The Cap Tether Settles Against the Car",
+    "premise": "After the nozzle is returned at an ordinary refueling stop, the fuel cap's tether swings once against the body panel and settles. The camera stays through the silence afterward.",
+    "conceptKey": "fuel-cap-tether-single-swing-after-refuel",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-093",
+    "title": "The Pump Says Ready Until It Doesn't",
+    "premise": "An idle pump display glows while the traveler waits beside it, then the shot cuts before fueling begins. The screen has been ready throughout, with no other development.",
+    "conceptKey": "idle-pump-ready-screen-before-fueling",
+    "potential": 9,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-094",
+    "title": "Our Place in the Fuel Line Moves One Car",
+    "premise": "From inside the parked SUV, the camera watches the queue advance by one car, pause, and advance again. The count restarts after a cut, leaving the wait mostly intact.",
+    "conceptKey": "one-car-fuel-queue-advance-count",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-095",
+    "title": "The Nozzle Handle Is the Only Bright Color",
+    "premise": "At one ordinary stop, we frame the plain pump and its colored nozzle handle, then let the shot continue with no context or comparison. By the end, the handle is still just bright.",
+    "conceptKey": "single-colored-fuel-nozzle-handle-observation",
+    "potential": 15,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-096",
+    "title": "At Buc-ee's, Every Pump Row Looks Like a Queue",
+    "premise": "At Buc-ee's in Sevierville, the camera follows the traveler's parked wait as cars join and leave several pump rows. The wide field makes one stop feel like a set of small lines sharing a canopy.",
+    "conceptKey": "bucees-sevierville-pump-rows-multiple-queues",
+    "potential": 31,
+    "locations": [
+      "bucees"
+    ],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-097",
+    "title": "How Long Is a Fuel Stop When Nothing Goes Wrong?",
+    "premise": "Across several ordinary refueling stops, the camera times the wait in line, the time at the pump, and the pause before pulling away. The comparison shows how much of stopping is simply standing still between those small steps.",
+    "conceptKey": "time-breakdown-of-routine-refueling-stop",
+    "potential": 49,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-098",
+    "title": "How Far Apart Are Our Fuel Stops, Really?",
+    "premise": "At several refueling stops, we note the vehicle's odometer at departure and arrival without naming a route or recommending a schedule. The resulting gaps vary enough to show how a route's tidy distance estimate becomes a few ordinary stretches between stations.",
+    "conceptKey": "actual-odometer-distance-between-fuel-stops",
+    "potential": 56,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-099",
+    "title": "How the Range Estimate Changes as the Tank Empties",
+    "premise": "We follow the dashboard's remaining-distance estimate at the start, middle, and end of one ordinary stretch between fuel stops, comparing each display to the miles actually traveled. The changes give a practical feel for the number as an estimate rather than a promise.",
+    "conceptKey": "dashboard-fuel-range-estimate-versus-miles-driven",
+    "potential": 64,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-100",
+    "title": "The Tiny Arrow That Ends the Pump-Side Debate",
+    "premise": "At an ordinary refueling stop, a traveler starts the familiar walk around the SUV to find the fuel door, then notices the tiny arrow beside the fuel gauge. At later stops, the traveler checks that arrow before pulling in, turning a repeated pause into a small, reliable ritual.",
+    "conceptKey": "dashboard-fuel-door-arrow-selects-pump-side",
+    "potential": 87,
+    "locations": [],
+    "authorBatch": 10
+  },
+  {
+    "id": "video-101",
+    "title": "The Service Sticker Sits a Little Crooked",
+    "premise": "In a parked close-up, a windshield service sticker sits a few degrees off level. We hold the frame long enough to establish that it is still crooked.",
+    "conceptKey": "windshield-service-sticker-alignment",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-102",
+    "title": "Finding Maintenance in the Owner's Manual",
+    "premise": "We search the owner's manual index for the heading 'Maintenance' and land on a page number. The video stops before the page earns its close-up.",
+    "conceptKey": "manual-index-search-stops-at-page-number",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-103",
+    "title": "Counting Letters in a Dashboard Reminder",
+    "premise": "A parked dashboard shows a short service reminder while the camera counts its characters twice. The count agrees both times, and the reminder remains unexplored.",
+    "conceptKey": "dashboard-service-reminder-character-count",
+    "potential": 8,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-104",
+    "title": "One Faded Label on the Spare Alternator",
+    "premise": "The spare alternator's box has a faded parts label, so the camera zooms in and loses focus. We put the box back without discovering what the last line says.",
+    "conceptKey": "faded-spare-alternator-box-label",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-105",
+    "title": "The Vehicle Notes Log Starts With a Blank Page",
+    "premise": "A traveler opens a small vehicle log to its first blank page and writes the heading 'Vehicle Notes.' The camera gives the heading an unusually long establishing shot.",
+    "conceptKey": "vehicle-notes-log-first-blank-page",
+    "potential": 25,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-106",
+    "title": "The Dashboard Reminder Hides Behind a Steering Wheel",
+    "premise": "From the passenger seat of a parked SUV, the camera tries two ordinary angles to show a dashboard service reminder. The steering wheel blocks the same corner of the message both times.",
+    "conceptKey": "steering-wheel-obscures-dashboard-service-reminder",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-107",
+    "title": "The Manual's Maintenance Chart Has Two Columns",
+    "premise": "A parked-car tour finds the owner's manual maintenance chart and points out its time and mileage columns without interpreting any service interval. Seeing both kinds of reminder side by side makes the schedule easier to read.",
+    "conceptKey": "manual-maintenance-chart-time-and-mileage-columns",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-108",
+    "title": "Turning Spare-Part Codes Into Names We Can Say",
+    "premise": "A traveler reads the printed identifiers on the carried spare parts, then adds plain-language names beside the codes in a vehicle log. The simple glossary makes the alternator, transmission part, and spare tire easier to talk about without showing how to install or repair anything.",
+    "conceptKey": "plain-language-glossary-for-spare-part-identifiers",
+    "potential": 58,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-109",
+    "title": "Two Different Sources for the Same Maintenance Reminder",
+    "premise": "A traveler compares the note on the windshield service sticker with the message on the dashboard, showing where each one came from and how each is worded. The video treats them as separate records and leaves any disagreement unresolved.",
+    "conceptKey": "windshield-sticker-and-dashboard-reminder-sources",
+    "potential": 63,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-110",
+    "title": "A Car With a Service Schedule Gets an Unscheduled Life",
+    "premise": "The windshield sticker assigns the SUV a tidy next-service mileage while closures and detours keep scrambling the family's days. At ordinary stops, one traveler copies the current odometer beside that original note, and the growing line of numbers becomes a modest record of trying to keep one future appointment in view.",
+    "conceptKey": "service-mileage-note-tracks-unplanned-trip",
+    "potential": 92,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-111",
+    "title": "The Indicator Clicks Keep Their Own Time",
+    "premise": "With the SUV parked, the turn signal ticks through one complete cycle and then repeats. The second pass sounds so much like the first that the recording has no new information to offer.",
+    "conceptKey": "parked-indicator-tick-audio-loop",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-112",
+    "title": "A Zipper Opens, Closes, Explains Nothing",
+    "premise": "At a parked break, a small pouch is unzipped and zipped once while the microphone stays nearby. The fabric and teeth make an impressively short event with no update about what is inside.",
+    "conceptKey": "single-pouch-zipper-audio-loop",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-113",
+    "title": "The Lock Chirp Is Over Before Anyone Turns Around",
+    "premise": "The parked SUV's lock button makes one brief chirp outside, then silence when the sound is recorded again from inside. The comparison ends with the doors staying locked.",
+    "conceptKey": "car-lock-confirmation-chirp-audio",
+    "potential": 26,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-114",
+    "title": "Keys Settle into the Console",
+    "premise": "A loose key ring is set into the console tray during a parked break, makes a short rattle, and goes quiet. There is no more key news.",
+    "conceptKey": "key-ring-rattle-into-console-tray",
+    "potential": 16,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-115",
+    "title": "The Buckle Gives One Click",
+    "premise": "After parking, one seat belt buckle clicks open and then rests against the seat. The recording stays on the small sound until it no longer seems new.",
+    "conceptKey": "parked-seat-belt-buckle-click",
+    "potential": 29,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-116",
+    "title": "The Vent Holds a Single Note",
+    "premise": "The lowest cabin fan setting gives a steady hum inside an empty, parked SUV. The recording ends with the fan humming exactly as steadily.",
+    "conceptKey": "lowest-cabin-fan-steady-hum",
+    "potential": 32,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-117",
+    "title": "Rest-Stop Ambience, with No One Quite in It",
+    "premise": "From inside a safely parked SUV, the camera records only the nonverbal layers around an ordinary rest stop: a distant rolling case, doors closing far off, and air moving through the lot. The sound gives the place a quiet texture without making any traveler its subject.",
+    "conceptKey": "rest-stop-nonverbal-ambient-soundscape",
+    "potential": 49,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-118",
+    "title": "Closed Window, Smaller World",
+    "premise": "From the same parked spot, a traveler records an indistinct traffic wash with the window slightly open and then closed. The sound retreats behind the glass, making a small and useful demonstration of how the cabin changes an ordinary roadside pause.",
+    "conceptKey": "parked-window-position-ambient-sound-comparison",
+    "potential": 57,
+    "locations": [],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-119",
+    "title": "The Butter Cow's Display Hum",
+    "premise": "At the Iowa State Fair, a traveler records the low refrigeration hum beside the chilled 600-pound Butter Cow. The sculpture is silent, leaving its ordinary cooling equipment to carry the audio portrait.",
+    "conceptKey": "iowa-butter-cow-display-refrigeration-hum",
+    "potential": 63,
+    "locations": [
+      "iowa-fair"
+    ],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-120",
+    "title": "The Screen Door Is the Last Sound from Home",
+    "premise": "A saved clip from the Cape Coral lanai catches the screen door closing against an otherwise ordinary evening. Set beside a current recording of the parked SUV's door and cabin quiet, that unremarkable home sound becomes a brief portrait of what the traveler had to leave.",
+    "conceptKey": "cape-coral-screen-door-sound-memory",
+    "potential": 92,
+    "locations": [
+      "cape-coral"
+    ],
+    "authorBatch": 12
+  },
+  {
+    "id": "video-121",
+    "title": "After You, No, After You",
+    "premise": "During a low-stakes conversation, one traveler offers to let another answer first, then receives the same courtesy back. The question is forgotten before anyone claims a turn.",
+    "conceptKey": "polite-answer-first-loop-leaves-question-unanswered",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-122",
+    "title": "A Nickname That Did Not Survive Its First Test",
+    "premise": "Someone coins a family nickname for an ordinary habit, tries it again at another parked stop, and gets no sign that anyone else remembers it. The nickname is retired without a formal vote.",
+    "conceptKey": "one-use-family-nickname-fails-to-catch-on",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-123",
+    "title": "The Route Debate Has No Preferred Pronunciation",
+    "premise": "The travelers briefly disagree over which pronunciation of 'route' sounds right, then keep using their preferred versions as before. The camera gives the vote a close finish without establishing what was being voted on.",
+    "conceptKey": "family-route-pronunciation-vote-with-no-conclusion",
+    "potential": 29,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-124",
+    "title": "The Correction That Never Reaches the Noun",
+    "premise": "A traveler begins correcting a harmless word choice in a familiar story, pauses to think, then lets the other version stand. The story continues with both terms in place.",
+    "conceptKey": "abandoned-word-correction-in-family-story",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-125",
+    "title": "Did That Count as a Greeting?",
+    "premise": "One traveler asks whether a quiet nod counts as hello in the family's usual greeting ritual; replies differ, and the same nod gets used at the next parked stop. Nobody arrives at a definition.",
+    "conceptKey": "family-debate-over-whether-a-nod-is-a-greeting",
+    "potential": 25,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-126",
+    "title": "The Preface Takes Longer Than the Question",
+    "premise": "A traveler offers two caveats and a clarification before asking which of two harmless labels to use. The answer is 'either is fine,' and the preamble remains the longest part of the exchange.",
+    "conceptKey": "overlong-preamble-before-simple-family-question",
+    "potential": 33,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-127",
+    "title": "What 'We'll See' Meant to Each of Us",
+    "premise": "A casual 'we'll see' is meant as an open question by one traveler and heard as a quiet no by another. A follow-up conversation finds a clearer way to defer ordinary decisions without making the phrase a promise.",
+    "conceptKey": "different-family-meanings-of-well-see",
+    "potential": 49,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-128",
+    "title": "Can I Add One Thought?",
+    "premise": "After noticing that interruptions keep sending stories off course, a traveler offers a small phrase, 'Can I add one thought?' as a way to join in without taking over. The conversation still wanders, but everyone gets to finish a thought before the next correction arrives.",
+    "conceptKey": "polite-phrase-for-joining-family-conversation",
+    "potential": 61,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-129",
+    "title": "The Pun's Second Life Is Better Than Its First",
+    "premise": "A traveler makes a weak pun about the word 'road,' and later someone changes one word to make it worse in a way the group likes better. Its two versions become a small running bit that can be retold by whoever is still making the trip.",
+    "conceptKey": "family-road-pun-improved-by-a-worse-second-version",
+    "potential": 56,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-130",
+    "title": "The $40 Story Has a Handshake",
+    "premise": "A traveler retells the sale of the patio furniture before the move: one version centers on the $40, another on the neighbor's unusually formal handshake. In successive retellings, the handshake grows larger in the story than the furniture, turning a practical transaction into a small family legend about how an ordinary day became the last one in a home.",
+    "conceptKey": "forty-dollar-patio-sale-handshake-becomes-family-legend",
+    "potential": 88,
+    "locations": [],
+    "authorBatch": 13
+  },
+  {
+    "id": "video-131",
+    "title": "The Dashboard Clock Is Two Minutes Fast",
+    "premise": "At a parked stop, a traveler compares the dashboard clock with a wristwatch and finds the dashboard two minutes ahead. They repeat the comparison later without resetting anything, so the only result is that both clocks remain readable.",
+    "conceptKey": "dashboard-clock-two-minute-offset-comparison",
+    "potential": 17,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-132",
+    "title": "The Calendar Page Is Still on Last Month",
+    "premise": "A small paper calendar is opened to a page whose final date has already passed. The traveler flips it forward, then turns back to check that the old page really was old.",
+    "conceptKey": "paper-calendar-page-turned-after-month-end",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-133",
+    "title": "We Watch the Minute Change to 42",
+    "premise": "The camera holds on a parked dashboard clock at 41 and waits for the display to change. It does, and the next shot gives 42 the same amount of attention.",
+    "conceptKey": "dashboard-minute-display-advances-one-minute",
+    "potential": 8,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-134",
+    "title": "The Daily Chart Has a Blank Row at 11:00",
+    "premise": "A traveler's daily chart has one empty line beside 11:00, and the camera returns to it at the next parked break. Nothing is added to the row.",
+    "conceptKey": "empty-eleven-am-row-on-daily-chart",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-135",
+    "title": "The Timer Starts Before Anyone Chooses a Finish",
+    "premise": "A traveler starts a short timer during a parked pause, then leaves it out of frame before it reaches the end. Later, the same timer is restarted without explaining what it was meant to count.",
+    "conceptKey": "parked-pause-timer-restarted-before-completion",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-136",
+    "title": "One Date Gets Two Identical Check Marks",
+    "premise": "A traveler checks a date on a plain daily chart, then marks the same box again during a later break. The two marks sit together without a note about what either one records.",
+    "conceptKey": "duplicate-checkmarks-in-single-calendar-date-box",
+    "potential": 26,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-137",
+    "title": "One Tick Mark for Every Waiting Morning at Pigeon Gorge",
+    "premise": "While waiting at the I-40 Pigeon River Gorge washout, a traveler marks each morning spent waiting for the crossing to reopen. The growing row turns an uncertain delay into a simple count of days the odometer cannot show.",
+    "conceptKey": "pigeon-gorge-crossing-wait-morning-calendar-tally",
+    "potential": 58,
+    "locations": [
+      "pigeon-gorge"
+    ],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-138",
+    "title": "The Clock Goes Back, the Day Keeps Its Place",
+    "premise": "As the trip moves west through time zones, the traveler resets the dashboard clock while keeping the day's small tasks in the order they happened. Paired views of the changed clock and unchanged list make the time adjustment easy to see without turning it into a route lesson.",
+    "conceptKey": "time-zone-clock-reset-versus-events-order",
+    "potential": 59,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-139",
+    "title": "A Calendar Mark for a Wait Is Not a Day Off",
+    "premise": "A traveler uses two different marks on a plain calendar for a planned rest day and an unexpected day spent waiting. Seeing both kinds of pause together makes the difference between choosing to stop and having the road stop you quietly clear.",
+    "conceptKey": "calendar-distinguishes-chosen-rest-from-forced-delay",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-140",
+    "title": "A Routine With No Appointment Hour Still Holds the Day",
+    "premise": "On the road, a traveler starts with a neat chart assigning exact hours to ordinary daily tasks; delays steadily turn the clock boxes into crossed-out promises. They redraw it as a short sequence of things that can be done in any available pause, and that second version becomes a quiet picture of finding shape in a day the road will not schedule.",
+    "conceptKey": "daily-routine-chart-shifts-from-fixed-hours-to-flexible-sequence",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 14
+  },
+  {
+    "id": "video-141",
+    "title": "A Guest Wi-Fi Tutorial That Never Reaches the Internet",
+    "premise": "At a parked break, a traveler starts a basic walkthrough of a guest Wi-Fi sign-in page. Each restart returns to the welcome screen, so the lesson ends before a webpage loads.",
+    "conceptKey": "guest-wifi-tutorial-restarts-at-welcome-screen",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-142",
+    "title": "Thank You for That Brief Return, Wi-Fi",
+    "premise": "A dropped connection returns long enough for the traveler to deliver a formal thank-you speech to the phone's Wi-Fi icon. The signal disappears before the speech reaches its point.",
+    "conceptKey": "self-important-thank-you-speech-to-returning-wifi",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-143",
+    "title": "The Signal Reading Is Outside the Frame",
+    "premise": "At a parked stop, a traveler records the phone's connection-status page but crops off the only bar that changes. The narration carefully explains a display the viewer never gets to see.",
+    "conceptKey": "phone-signal-reading-cropped-from-screen-recording",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-144",
+    "title": "A Glossary for the Status Screen",
+    "premise": "The traveler records a tiny glossary for three connection labels while parked, rephrasing each one twice without opening the browser. The terms are the entire result.",
+    "conceptKey": "repeated-glossary-for-network-status-labels",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-145",
+    "title": "The Old Network Wins the Auto-Join Lottery",
+    "premise": "At a parked break, the phone keeps choosing a familiar guest network whose sign-in has expired. The traveler watches it reconnect twice, then leaves the menu without deciding what should happen next.",
+    "conceptKey": "expired-guest-network-keeps-winning-auto-join",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-146",
+    "title": "The Upload ETA Gets a Full Broadcast",
+    "premise": "During a parked wait, a traveler reads every update to one file's estimated upload time as breaking news. The estimate grows, shrinks, and still has no ending by the time the report signs off.",
+    "conceptKey": "overlong-live-commentary-on-shifting-upload-estimate",
+    "potential": 15,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-147",
+    "title": "The Signal Bars Are Not a Delivery Receipt",
+    "premise": "Over two ordinary parked waits, a traveler compares the phone's reception icon with whether a short clip has actually arrived. The gap shows that visible signal and confirmed delivery answer different questions.",
+    "conceptKey": "phone-reception-bars-versus-confirmed-upload-delivery",
+    "potential": 52,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-148",
+    "title": "Joining the Guest Network Is Only Step One",
+    "premise": "At a generic public connection, the phone joins Wi-Fi but the browser still redirects to a separate sign-in page before ordinary browsing works. Following that small sequence shows why a connected device can still be waiting for access.",
+    "conceptKey": "guest-wifi-association-before-captive-portal-access",
+    "potential": 61,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-149",
+    "title": "A Loaded Page and a Live Page Part Company",
+    "premise": "While parked, an article that was already loaded remains readable after the connection drops, while a new page cannot be fetched. The contrast shows the difference between content already on the device and a live connection.",
+    "conceptKey": "already-loaded-webpage-versus-new-live-page-offline",
+    "potential": 48,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-150",
+    "title": "The Check-In Arrives After the Road Has Changed",
+    "premise": "A traveler sends a brief clip as a same-day check-in, but the upload stays queued through several ordinary stops. When it finally reaches an off-road contact, the reply refers to details from an earlier part of the trip, turning ordinary network delay into a quiet record of distance.",
+    "conceptKey": "delayed-check-in-video-delivery-receives-outdated-reply",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-151",
+    "title": "Final, Final, and the File We Actually Used",
+    "premise": "A rough-cut folder contains three copies of one travel clip named 'final,' 'final2,' and 'final-final.' The editor opens each one to find the right moment, then leaves the names as the episode's only unresolved mystery.",
+    "conceptKey": "ambiguous-final-version-clip-filenames",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 16
+  },
+  {
+    "id": "video-152",
+    "title": "The In-Point Moves One Frame and Nothing Else",
+    "premise": "On a short ordinary road clip, the editor nudges the in-point one frame earlier, then one frame later, and watches both cuts several times. The footage gains no context, and the choice changes no visible event.",
+    "conceptKey": "single-frame-inpoint-nudge-without-payoff",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 16
+  },
+  {
+    "id": "video-153",
+    "title": "Detour Becomes the Door in Captions",
+    "premise": "Auto-captions turn the plain spoken word 'detour' into 'the door,' and the edit shows the correction before replaying the unchanged shot. The typo gets more screen time in the review than it had in the cut.",
+    "conceptKey": "autocaption-detour-mistranscription-fix",
+    "potential": 25,
+    "locations": [],
+    "authorBatch": 16
+  },
+  {
+    "id": "video-154",
+    "title": "Six Tracks for One Title Card",
+    "premise": "The editor stacks six identical title-card layers on the timeline, drags them into alignment, and keeps only the top one. The explanation outlasts every title card in the finished travel cut.",
+    "conceptKey": "stacked-duplicate-title-card-edit-tracks",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 16
+  },
+  {
+    "id": "video-155",
+    "title": "A Lecture on the Playhead's Address",
+    "premise": "The editor delivers a solemn voice-over explaining the playhead and time ruler while the preview stays parked on the first frame. By the time the narration finishes, the timeline has not moved and neither has the story.",
+    "conceptKey": "self-important-static-playhead-timeline-explanation",
+    "potential": 30,
+    "locations": [],
+    "authorBatch": 16
+  },
+  {
+    "id": "video-156",
+    "title": "The Export Includes the Empty Gap",
+    "premise": "A routine export opens with a short black patch because the selected range reaches a blank stretch of timeline. The traveler spots it after rendering, then re-renders the same ordinary sequence and leaves the mistake as the episode's only turn.",
+    "conceptKey": "empty-timeline-gap-included-in-export",
+    "potential": 33,
+    "locations": [],
+    "authorBatch": 16
+  },
+  {
+    "id": "video-157",
+    "title": "We Put the Best Frame Before the Beginning",
+    "premise": "A raw travel cut starts with several seconds of a windshield pointed at a parking line, so the editor moves a clear image of the day's detour notice to the opening before returning to the original order. The same footage becomes easier to follow once the video shows what question the next shots answer.",
+    "conceptKey": "opening-image-reordered-to-frame-travel-sequence",
+    "potential": 62,
+    "locations": [],
+    "authorBatch": 16
+  },
+  {
+    "id": "video-158",
+    "title": "The Cut Sounds Continuous Only with Room Tone",
+    "premise": "Two ordinary clips from different parked pauses have a hard jump in cabin ambience. The editor lays a short strip of steady background sound beneath the picture cut, making the change feel intentional without adding music or new footage.",
+    "conceptKey": "continuous-ambience-audio-bridge-under-jump-cut",
+    "potential": 57,
+    "locations": [],
+    "authorBatch": 16
+  },
+  {
+    "id": "video-159",
+    "title": "Where a Sentence Breaks on Screen",
+    "premise": "An accurate transcript still reads awkwardly when a sentence is split across the screen at the wrong phrase. The editor moves only the caption breaks and compares both cuts, showing how line timing can improve readability without rewriting what the traveler said.",
+    "conceptKey": "caption-line-breaks-follow-speech-phrases",
+    "potential": 56,
+    "locations": [],
+    "authorBatch": 16
+  },
+  {
+    "id": "video-160",
+    "title": "The First Take Sounds More Like a Person",
+    "premise": "The traveler records several polished versions of a simple update, each one sounding less natural than the last. In the final cut they keep the first awkward take, turning a failed narration session into an unexpectedly warm lesson about how overediting can erase the person viewers came to hear.",
+    "conceptKey": "unedited-awkward-take-beats-polished-retakes",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 16
+  },
+  {
+    "id": "video-161",
+    "title": "The Camera Arrives in a Box Built for a Bigger Moment",
+    "premise": "The unboxing narrator explains each nested sleeve and foam insert in a ceremonial voice, although the object at the center is just a camera body at a parked roadside break. The packaging gets its grand reveal, and the channel never chooses what to film.",
+    "conceptKey": "camera-unboxing-packaging-gets-grand-reveal",
+    "potential": 16,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-162",
+    "title": "The Feature List Gets a Travel Channel Before We Do",
+    "premise": "We read the camera box's feature claims with the conviction of a launch film, then struggle to connect any of them to the modest scenes we have actually made. The list receives more confident narration than the channel itself.",
+    "conceptKey": "camera-box-feature-claims-outshine-channel",
+    "potential": 29,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-163",
+    "title": "A Strap Review Filmed Entirely on the Table",
+    "premise": "The new camera strap is laid out, turned over, and compared with its retail tag while the reviewer gives a serious account of its many possibilities. Nobody wears it, so the review never advances beyond an accessory on a table.",
+    "conceptKey": "camera-strap-review-never-leaves-table",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-164",
+    "title": "Removing the Lens Cap Is the Whole Demonstration",
+    "premise": "A self-important close-up follows the traveler's fingers as they remove the lens cap and set it beside the camera body. The promised view through the lens never arrives before the video cuts away.",
+    "conceptKey": "lens-cap-removal-substitutes-for-camera-demo",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-165",
+    "title": "The Manual's Page Numbers Get a Walkthrough",
+    "premise": "A parked-car tutorial carefully presents the camera manual's cover, contents page, and page numbers, then ends at the chapter called Getting Started. It spends the whole video preparing to begin.",
+    "conceptKey": "camera-manual-walkthrough-ends-before-getting-started",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-166",
+    "title": "Polishing Away the Camera's First Fingerprint",
+    "premise": "After the unboxing, the owner spots one fingerprint on the camera body and spends the episode finding an angle where it cannot be seen. No photograph is taken, but the finish is once again pristine on camera.",
+    "conceptKey": "camera-body-fingerprint-disappears-through-framing",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-167",
+    "title": "One Strap, Adjusted for Whoever Is Filming Today",
+    "premise": "At safe parked stops, the camera strap is adjusted for whoever is holding the body that day, and a small mark records the setting that feels natural. Over the trip, the formerly precious purchase becomes a shared tool that does not need a permanent owner.",
+    "conceptKey": "camera-strap-adjusted-for-current-traveler",
+    "potential": 59,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-168",
+    "title": "The Camera Manual, Translated Into Words We Use",
+    "premise": "A traveler picks a few intimidating phrases from the camera manual and restates them in plain language while showing the choices they make at a safe parked stop. The small glossary is useful to anyone who bought a capable body and still feels new to it.",
+    "conceptKey": "camera-manual-jargon-translated-into-plain-language",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-169",
+    "title": "The Lens Cap Marks the Start and End of a Stop",
+    "premise": "Across ordinary breaks, the camera stays capped while nobody is filming and is uncovered only for a calm, deliberate shot. The small repeated gesture makes a modest visual diary of which moments the traveler decided were worth carrying forward.",
+    "conceptKey": "lens-cap-routine-frames-ordinary-breaks",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-170",
+    "title": "Unboxing the Camera, Then Finding Its Subject",
+    "premise": "The camera enters the trip as a luxury purchase introduced like the start of a polished travel channel, while each attempt at a grand scene gives way to the ordinary work of keeping a displaced household moving. By gathering those interruptions into a gentle portrait of one person trying again at the next safe stop, the owner finally makes a film the glossy box could not promise.",
+    "conceptKey": "camera-unboxing-aspiration-becomes-portrait-of-ordinary-persistence",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 17
+  },
+  {
+    "id": "video-171",
+    "title": "The Stand's Release Knob Gets a Full Product Tour",
+    "premise": "In a parked-car product segment, a traveler introduces every locking knob on an adjustable light stand with the confidence of a studio engineer. The stand never rises above knee height, so the episode ends before a lamp or subject appears.",
+    "conceptKey": "light-stand-locking-knob-tour-never-raises-stand",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-172",
+    "title": "The Blue Gel's One-Minute Premiere",
+    "premise": "A vivid blue gel is clipped over a small panel and pointed at a blank wall, where it makes the wall blue. The presenter gives the color a formal unveiling and cuts before showing where it might belong in a travel scene.",
+    "conceptKey": "blue-gel-blank-wall-formal-unveiling",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-173",
+    "title": "The Stand Is Tall Enough for an Empty Frame",
+    "premise": "A traveler assembles an oversized light stand beside the parked SUV, then spends the video searching for a safe patch of space large enough to use it. The lamp stays packed while the stand occupies the only composition the camera can find.",
+    "conceptKey": "oversized-light-stand-fills-frame-before-lamp-setup",
+    "potential": 11,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-174",
+    "title": "The Reflector Review Has a Reflector in Front of It",
+    "premise": "The traveler tries to demonstrate a bounce reflector, but props it directly between the lens and the small object meant to be lit. A confident voiceover describes the setup while the finished image remains a close-up of silver fabric.",
+    "conceptKey": "reflector-blocks-subject-during-lighting-review",
+    "potential": 15,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-175",
+    "title": "The Dimmer Menu Gets Its Own Narrator",
+    "premise": "A premium LED panel's dimmer is presented as a serious travel-channel subject, with solemn commentary on each control visible on the screen. No object is arranged in front of the light, so its different settings produce no visible comparison.",
+    "conceptKey": "led-panel-dimmer-controls-narrated-without-subject",
+    "potential": 28,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-176",
+    "title": "Can a Reflector Reflect When the Lamp Is Off?",
+    "premise": "An inconsequential investigation tests a reflector against a dark surface in a parked cabin, then searches the shot for proof that it is reflective. The light source never enters the experiment, which ends with the question technically unanswered.",
+    "conceptKey": "reflector-reflectivity-investigation-without-light-source",
+    "potential": 32,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-177",
+    "title": "A Diffusion Sheet Makes the Shadow Easier to Read",
+    "premise": "At a parked break, a traveler lights a plain travel mug with a bare LED panel, then repeats the close-up with a diffusion sheet between lamp and subject. The softened shadow gives a clear, useful look at what one small modifier changes in an otherwise ordinary product shot.",
+    "conceptKey": "diffusion-sheet-softens-shadow-on-travel-mug",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-178",
+    "title": "White and Silver Reflectors Give the Same Object Different Edges",
+    "premise": "A small object stays in place while a white reflector and then a silver reflector bounce light onto its shaded side. Comparing the softer and brighter fill makes a practical difference between two simple surfaces easy to see.",
+    "conceptKey": "white-versus-silver-reflector-fill-comparison",
+    "potential": 61,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-179",
+    "title": "One Cheap Lamp and One Costly Panel Share a Color Card",
+    "premise": "A neutral color card is filmed under an inexpensive lamp and a costly adjustable panel, with the same framing and exposure for each. The restrained comparison shows what matching a light source can change in a close-up, without turning the price tag into a promise about the finished channel.",
+    "conceptKey": "budget-lamp-versus-premium-panel-color-card",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-180",
+    "title": "A Studio Made to Read One Lighting Receipt",
+    "premise": "A traveler builds an elaborate three-light setup to review the receipt for the lighting kit, covering private details before filming the total. As diffusion and reflected fill make the cramped print legible, the grand equipment showcase becomes a wry, useful lesson in how much work a clear image actually needs.",
+    "conceptKey": "three-light-receipt-review-turns-gear-showcase-into-lighting-lesson",
+    "potential": 88,
+    "locations": [],
+    "authorBatch": 18
+  },
+  {
+    "id": "video-181",
+    "title": "One Bar Longer Than the Explanation",
+    "premise": "At a parked break, the camera watches one spare battery's charge indicator gain a bar, then checks it again after a cut. The narration has nothing new to add when the display does.",
+    "conceptKey": "spare-battery-indicator-gains-one-bar-without-context",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-182",
+    "title": "The Charging Cable Measured in Elbows",
+    "premise": "A traveler measures one charging cable using elbow spans, loses count, and starts the measurement over from the other end. The final length is still not compared with anything useful.",
+    "conceptKey": "charging-cable-length-measured-in-elbow-spans",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-183",
+    "title": "The Adapter Guide Ends at the Adapter",
+    "premise": "A parked-car tutorial introduces a travel charger's adapters by shape and gives each one a careful close-up. It stops before showing what any of them connect to.",
+    "conceptKey": "charger-adapter-tutorial-stops-before-a-connection",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-184",
+    "title": "The Label Under the Label",
+    "premise": "Two old tape labels overlap on a charging cable, each with a different guess about which device it belongs to. The traveler peels back one corner, finds another strip underneath, and leaves the mystery intact.",
+    "conceptKey": "overlapping-conflicting-labels-on-charging-cable",
+    "potential": 32,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-185",
+    "title": "A Charger Light Waits for Its Close-Up",
+    "premise": "The charger sits in the foreground while its tiny status light stays hidden behind the battery. The voice-over reports each color confidently, and the camera never finds a view that confirms it.",
+    "conceptKey": "charger-status-light-hidden-behind-battery-in-frame",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-186",
+    "title": "The Charger Serial Number, Read Slowly",
+    "premise": "A traveler reads the charger's long serial number aloud, pauses to check one character, and begins again from the first digit. The number remains the only specification the video explains.",
+    "conceptKey": "charger-serial-number-read-aloud-twice",
+    "potential": 26,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-187",
+    "title": "Camera Says Ready, Charger Says Almost",
+    "premise": "At a parked stop, the camera's battery icon and the separate charger's indicator describe two batteries at different stages. Putting both displays in view makes it easier to tell which battery is ready for the next shot and which one still needs time.",
+    "conceptKey": "camera-and-charger-indicators-show-different-battery-states",
+    "potential": 54,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-188",
+    "title": "The Adapter's Fit Is Not Its Whole Job",
+    "premise": "A traveler lines up the travel charger, its adapter, and the camera battery charger to show the actual path between them. The visual check explains why a plug fitting into a socket does not by itself tell you what the connection is for.",
+    "conceptKey": "charger-adapter-fit-versus-connection-purpose",
+    "potential": 61,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-189",
+    "title": "One Power Source, Three Turns",
+    "premise": "During one ordinary parked break, the camera battery charger, external monitor, and camera take turns using the same available power source. The sequence makes the kit's competing needs visible without pretending every accessory can be ready at once.",
+    "conceptKey": "shared-power-source-taking-turns-across-video-accessories",
+    "potential": 48,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-190",
+    "title": "We Bought the Charger to Film the Charger",
+    "premise": "The V&H charging kit arrives with enough adapters and cables to make a first travel-channel setup feel inevitable, but the first recording only shows a spare battery charging. As the traveler figures out which connection serves the battery, camera, and monitor, the gear's self-important demonstration becomes the channel's first clear and useful guide, with no guarantee that anyone will see it.",
+    "conceptKey": "charging-kit-demonstration-becomes-first-useful-setup-guide",
+    "potential": 92,
+    "locations": [],
+    "authorBatch": 19
+  },
+  {
+    "id": "video-191",
+    "title": "The Receipt Gets Added Up One More Time",
+    "premise": "During a parked break, the traveler enters one routine receipt's total into a calculator, clears it, and adds the same line items again. Both answers agree, so the rest of the segment is an unusually patient view of the same number.",
+    "conceptKey": "same-receipt-total-recalculated-twice",
+    "potential": 21,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-192",
+    "title": "Cashback for a Store We Already Passed",
+    "premise": "A phone shows a small reward tied to a shop the traveler has already left behind. The video gives the balance a slow, hopeful update without learning when or where it can be used.",
+    "conceptKey": "cashback-reward-tied-to-passed-store",
+    "potential": 27,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-193",
+    "title": "The Receipt Total Disappears in Every Shot",
+    "premise": "From a parked seat, the camera tries to frame a folded receipt's total but keeps focusing on the glove box and window glare. The narrator reads the amount while the video never lets anyone verify it.",
+    "conceptKey": "receipt-total-lost-to-focus-and-glare",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-194",
+    "title": "A Budget Column Needs Its Own Smaller Budget",
+    "premise": "The traveler gives one ordinary purchase a homemade category, then makes subcategories because the first label feels too broad. After a long explanation, the receipt is still filed under 'other.'",
+    "conceptKey": "overbuilt-subcategories-for-single-household-expense",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-195",
+    "title": "The Five-Cent Win Gets a Press Conference",
+    "premise": "After noticing a tiny saving on an ordinary purchase, the traveler sets up a serious announcement and thanks an unseen committee for the victory. The celebratory speech lasts longer than the transaction being celebrated.",
+    "conceptKey": "overlong-celebration-of-tiny-purchase-savings",
+    "potential": 34,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-196",
+    "title": "The Receipt Fades Before We Finish Reviewing It",
+    "premise": "A traveler returns to an ordinary receipt after it has faded in the parked car's sun, then tries to read the remaining lines at three zoom levels. Each close-up shows less information than the previous one, and nobody remembers the total.",
+    "conceptKey": "sun-faded-receipt-review-loses-the-total",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-197",
+    "title": "The Same Small Purchase Follows Changing Stops",
+    "premise": "Receipts from several ordinary breaks show one familiar, inexpensive purchase turning up again as the traveler's surroundings and daily routine change. The slips form a quiet record of a comfort that stayed recognizable across a trip full of unfamiliar places.",
+    "conceptKey": "repeat-small-purchase-records-routine-through-travel",
+    "potential": 52,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-198",
+    "title": "The Cashback Credit Arrives After Its Scene",
+    "premise": "A routine receipt turns up in an earlier clip, then days later the traveler's phone shows a promotional credit linked to that purchase. Cutting the notification back beside the old footage makes a modest reward feel like an unnecessary sequel.",
+    "conceptKey": "delayed-cashback-notification-reenters-earlier-footage",
+    "potential": 57,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-199",
+    "title": "Where the Fuel Receipt's Total Actually Comes From",
+    "premise": "On a parked break, the traveler traces the lines on one ordinary fuel receipt from gallons to tax to final amount. The small breakdown makes a familiar total easier to understand without recommending a different station or spending routine.",
+    "conceptKey": "fuel-receipt-lines-explain-final-purchase-total",
+    "potential": 63,
+    "locations": [],
+    "authorBatch": 20
+  },
+  {
+    "id": "video-200",
+    "title": "The Sponsor's Money Is in Every Category",
+    "premise": "During a parked budget review, a traveler adds a blank possible-sponsorship line to ordinary household needs, then assigns the same future income to a repair, snacks, and the next filming day because each use sounds reasonable. Watching the imaginary money get spent more than once is funny until the traveler deletes the line and gives the real receipt its actual place on the page, a small story about planning in a future tense while living on a present one.",
+    "conceptKey": "imaginary-sponsorship-income-spent-across-budget-categories",
+    "potential": 92,
+    "locations": [],
+    "authorBatch": 20
+  }
+]

@@ -1,4 +1,16 @@
-# ASCII Art Asset Credits
+# Asset Credits
+
+## Fonts
+
+- [Kode Mono](https://fonts.google.com/specimen/Kode+Mono) by Isa Ozler — headings, brand, and prominent values.
+- [Chivo Mono](https://fonts.google.com/specimen/Chivo+Mono) by Omnibus-Type — body text, controls, and game data.
+
+Both fonts are distributed under the SIL Open Font License 1.1. The Latin WOFF2
+variable fonts (weights 400–700) are sourced from Google Fonts and served locally
+from `src/wwwroot/fonts/`, alongside each font's license. Decorative ASCII art
+retains the system monospace stack to preserve its character alignment.
+
+## ASCII art
 
 The scene art in `src/Renderer/SceneArt.cs` is a mix of original hand-authored ASCII
 and ASCII **converted from public-domain photographs**. Conversions were produced with a

@@ -23,7 +23,7 @@ using WolfCurses;
 namespace OregonTrailDotNet
 {
     /// <summary>
-    ///     Primary game simulation singleton. Purpose of this class is to control game specific modules that are independent
+    ///     Journey simulation. Purpose of this class is to control game specific modules that are independent
     ///     of the simulations ability to manage itself, process ticks, and input.
     /// </summary>
     public class GameSimulationApp : SimulationApp
@@ -41,10 +41,33 @@ namespace OregonTrailDotNet
         public TrailModule Trail { get; private set; }
 
         /// <summary>
-        ///     Singleton instance for the entire game simulation, does not block the calling thread though only listens for
-        ///     commands.
+        ///     Simulation in the current execution context. Each journey worker has an independent context, allowing the
+        ///     existing rules to resolve their journey without a process-wide singleton or cross-journey engine lock.
         /// </summary>
-        public static GameSimulationApp Instance { get; private set; }
+        private static readonly AsyncLocal<GameSimulationApp> Current = new();
+
+        public static GameSimulationApp Instance
+        {
+            get => Current.Value;
+            private set => Current.Value = value;
+        }
+
+        /// <summary>
+        ///     Selects the simulation that the legacy engine's static accessors should resolve to. The web host owns
+        ///     several independent workers; activation is local to the calling worker and flows across async awaits.
+        /// </summary>
+        internal static void Activate(GameSimulationApp instance)
+        {
+            Instance = instance;
+        }
+
+        internal long FixedTicks { get; private set; }
+
+        public override void OnTick(bool systemTick, bool skipDay = false)
+        {
+            base.OnTick(systemTick, skipDay);
+            if (!systemTick) FixedTicks++;
+        }
 
         /// <summary>
         ///     Manages time in a linear since from the provided ticks in base simulation class. Handles days, months, and years.
@@ -90,7 +113,7 @@ namespace OregonTrailDotNet
         ///     The currently-visible screen's arrow-navigable option list, if it has one. Screens without a menu
         ///     (free-text input, dialogs mid-render, etc.) must set this to <c>null</c> so stale highlighting/Enter
         ///     behavior from a previous screen doesn't bleed through. Set every render pass by whichever
-        ///     Window/Form is currently on top; consumed by <see cref="Program" />'s key-handling loop.
+        ///     Window/Form is currently on top; consumed by the web session adapter.
         /// </summary>
         public ArrowMenu ActiveMenu { get; set; }
 
@@ -98,7 +121,7 @@ namespace OregonTrailDotNet
         ///     Invoked when the player presses the Left arrow, if the currently-visible screen wants to handle it (e.g.
         ///     the Store decrements the highlighted item's pending quantity). Set every render pass by whichever
         ///     Window/Form is on top and nulled otherwise so stale handlers never bleed through; consumed by
-        ///     <see cref="Program" />'s key-handling loop.
+        ///     the web session adapter.
         /// </summary>
         public Action OnLeftPressed { get; set; }
 
@@ -206,11 +229,11 @@ namespace OregonTrailDotNet
         protected override void OnPreDestroy()
         {
             // Notify modules of impending doom allowing them to save data.
-            Scoring.Destroy();
-            Tombstone.Destroy();
-            Time.Destroy();
-            EventDirector.Destroy();
-            Trail.Destroy();
+            Scoring?.Destroy();
+            Tombstone?.Destroy();
+            Time?.Destroy();
+            EventDirector?.Destroy();
+            Trail?.Destroy();
 
             // Null the destroyed instances.
             Scoring = null;

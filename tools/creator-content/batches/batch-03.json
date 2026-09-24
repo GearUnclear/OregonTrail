@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-021",
+    "title": "The Crumb Count on One Napkin",
+    "premise": "After a parked snack break, we move five crumbs into rows on a paper napkin and count them twice. The answer is the same, and the next shot is the napkin.",
+    "conceptKey": "parked-snack-crumb-row-count",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-022",
+    "title": "The Wrapper Fold Gets One More Fold",
+    "premise": "An empty snack wrapper is pressed flat and folded into increasingly small rectangles. We keep the shot through the last crease, then set it beside another small rectangle.",
+    "conceptKey": "empty-snack-wrapper-folding-sequence",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-023",
+    "title": "Reading the Same Portion Label Again",
+    "premise": "We zoom in on one serving-size line, read it, pan away, and return to it after a cut. The package has not added any information.",
+    "conceptKey": "repeated-reading-of-one-serving-label",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-024",
+    "title": "About Eighteen Pieces, Apparently",
+    "premise": "The camera lingers on a package that defines a serving as about eighteen pieces. We never open a second package to check how approximate that count is.",
+    "conceptKey": "package-serving-count-approximation",
+    "potential": 28,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-025",
+    "title": "The Wrapper Color Under the Dome Light",
+    "premise": "A snack wrapper is held beneath the parked car's dome light, turned once, and held there again. Its color looks a little different from each angle.",
+    "conceptKey": "snack-wrapper-color-under-cabin-light",
+    "potential": 11,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-026",
+    "title": "A Cracker Breaks at the Same Notch",
+    "premise": "One cracker is pressed over a napkin until it breaks along a shallow groove. We repeat the close-up and get the same result.",
+    "conceptKey": "single-cracker-groove-break-repeat",
+    "potential": 32,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-027",
+    "title": "One Bag, Three Portion Guesses",
+    "premise": "Before opening a familiar package at a parked stop, the travelers estimate how many servings it contains from its size. The printed portion count settles their friendly disagreement and shows how package size and serving count can describe different things.",
+    "conceptKey": "package-size-versus-serving-count-guess",
+    "potential": 48,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-028",
+    "title": "The Wrapper's Flavor Words, Translated",
+    "premise": "The family reads a packaged snack's elaborate flavor description, then gives it plain words after everyone tries a small piece. The same flavor survives the edit, but the notes become less poetic.",
+    "conceptKey": "marketing-flavor-description-plain-language-review",
+    "potential": 55,
+    "locations": [],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-029",
+    "title": "Buc-ee's Has a Serving Size for Every Pause",
+    "premise": "At Buc-ee's, we record the serving counts printed on a row of packaged snacks, without reviewing the store's food or doing an eating challenge. The aisle turns a quick stop into a small catalog of how many pieces each package calls one portion.",
+    "conceptKey": "bucees-packaged-snack-serving-count-catalog",
+    "potential": 62,
+    "locations": ["bucees"],
+    "authorBatch": 3
+  },
+  {
+    "id": "video-030",
+    "title": "The Snack Ranking Ends With the One Everyone Shares",
+    "premise": "We set out to rank a few familiar packaged snacks by flavor, then ask the family to choose one to share at an ordinary parked break. The favorite shifts with each vote until a plain, easy-to-divide pack wins, turning a small review into a portrait of how people negotiate the last of something without a grand speech.",
+    "conceptKey": "family-snack-flavor-ranking-becomes-sharing-choice",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 3
+  }
+]

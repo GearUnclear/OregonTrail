@@ -26,8 +26,9 @@ namespace OregonTrailDotNet.Entity.Item
         ///     Serves as a generic reference item that represents a given amount of snacks. This could be from any food sweep or
         ///     known fair-food resource marked as such.
         /// </summary>
-        // Price: $1.50 a pound -- bulk gas-station/road-trip snack food at 2028 prices.
-        public static SimItem Food => new SimItem(Entities.Food, "Snacks", "pounds", "pound", 2000, 1.50f, 1, 1, 0, 1, 25);
+        // Price: $2 a pound. Purchasable prices stay in whole dollars because cash is intentionally modeled as an integer
+        // inventory quantity; fractional prices would make the receipt disagree with the amount actually debited at checkout.
+        public static SimItem Food => new SimItem(Entities.Food, "Snacks", "pounds", "pound", 2000, 2f, 1, 1, 0, 1, 25);
 
         /// <summary>
         ///     Represents the SUV entity, this is not used as the actual vehicle the people travel in but rather a reference to a

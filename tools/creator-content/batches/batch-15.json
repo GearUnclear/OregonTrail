@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-141",
+    "title": "A Guest Wi-Fi Tutorial That Never Reaches the Internet",
+    "premise": "At a parked break, a traveler starts a basic walkthrough of a guest Wi-Fi sign-in page. Each restart returns to the welcome screen, so the lesson ends before a webpage loads.",
+    "conceptKey": "guest-wifi-tutorial-restarts-at-welcome-screen",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-142",
+    "title": "Thank You for That Brief Return, Wi-Fi",
+    "premise": "A dropped connection returns long enough for the traveler to deliver a formal thank-you speech to the phone's Wi-Fi icon. The signal disappears before the speech reaches its point.",
+    "conceptKey": "self-important-thank-you-speech-to-returning-wifi",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-143",
+    "title": "The Signal Reading Is Outside the Frame",
+    "premise": "At a parked stop, a traveler records the phone's connection-status page but crops off the only bar that changes. The narration carefully explains a display the viewer never gets to see.",
+    "conceptKey": "phone-signal-reading-cropped-from-screen-recording",
+    "potential": 12,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-144",
+    "title": "A Glossary for the Status Screen",
+    "premise": "The traveler records a tiny glossary for three connection labels while parked, rephrasing each one twice without opening the browser. The terms are the entire result.",
+    "conceptKey": "repeated-glossary-for-network-status-labels",
+    "potential": 23,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-145",
+    "title": "The Old Network Wins the Auto-Join Lottery",
+    "premise": "At a parked break, the phone keeps choosing a familiar guest network whose sign-in has expired. The traveler watches it reconnect twice, then leaves the menu without deciding what should happen next.",
+    "conceptKey": "expired-guest-network-keeps-winning-auto-join",
+    "potential": 19,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-146",
+    "title": "The Upload ETA Gets a Full Broadcast",
+    "premise": "During a parked wait, a traveler reads every update to one file's estimated upload time as breaking news. The estimate grows, shrinks, and still has no ending by the time the report signs off.",
+    "conceptKey": "overlong-live-commentary-on-shifting-upload-estimate",
+    "potential": 15,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-147",
+    "title": "The Signal Bars Are Not a Delivery Receipt",
+    "premise": "Over two ordinary parked waits, a traveler compares the phone's reception icon with whether a short clip has actually arrived. The gap shows that visible signal and confirmed delivery answer different questions.",
+    "conceptKey": "phone-reception-bars-versus-confirmed-upload-delivery",
+    "potential": 52,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-148",
+    "title": "Joining the Guest Network Is Only Step One",
+    "premise": "At a generic public connection, the phone joins Wi-Fi but the browser still redirects to a separate sign-in page before ordinary browsing works. Following that small sequence shows why a connected device can still be waiting for access.",
+    "conceptKey": "guest-wifi-association-before-captive-portal-access",
+    "potential": 61,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-149",
+    "title": "A Loaded Page and a Live Page Part Company",
+    "premise": "While parked, an article that was already loaded remains readable after the connection drops, while a new page cannot be fetched. The contrast shows the difference between content already on the device and a live connection.",
+    "conceptKey": "already-loaded-webpage-versus-new-live-page-offline",
+    "potential": 48,
+    "locations": [],
+    "authorBatch": 15
+  },
+  {
+    "id": "video-150",
+    "title": "The Check-In Arrives After the Road Has Changed",
+    "premise": "A traveler sends a brief clip as a same-day check-in, but the upload stays queued through several ordinary stops. When it finally reaches an off-road contact, the reply refers to details from an earlier part of the trip, turning ordinary network delay into a quiet record of distance.",
+    "conceptKey": "delayed-check-in-video-delivery-receives-outdated-reply",
+    "potential": 91,
+    "locations": [],
+    "authorBatch": 15
+  }
+]

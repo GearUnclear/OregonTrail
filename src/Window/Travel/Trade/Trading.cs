@@ -24,7 +24,7 @@ namespace OregonTrailDotNet.Window.Travel.Trade
         /// <summary>
         ///     Representation of text that shows current supplies and the trade offer if one exists.
         /// </summary>
-        private static StringBuilder _supplyPrompt;
+        private readonly StringBuilder _supplyPrompt;
 
         /// <summary>
         ///     Determines if the player is able to make the current trade offer with the supplies they have available in their
@@ -42,6 +42,11 @@ namespace OregonTrailDotNet.Window.Travel.Trade
         ///     means nobody wants to trade with the player at this time.
         /// </summary>
         private List<TradeOffer> _trades;
+
+        /// <summary>The active offer as domain data for browser presentation.</summary>
+        public TradeOffer SemanticOffer => _trades != null && _tradeIndex >= 0 && _tradeIndex < _trades.Count
+            ? _trades[_tradeIndex] : null;
+        public bool SemanticCanTrade => _playerCanTrade;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Trading" /> class.

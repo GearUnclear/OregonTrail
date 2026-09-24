@@ -1,0 +1,54 @@
+[
+  {
+    "directory": "tuning-1",
+    "steady_factor": 1.2,
+    "modern_pct": 3,
+    "crossing_pct": 1,
+    "food": [
+      3,
+      2,
+      1
+    ],
+    "trials_per_policy": 300,
+    "seed": 20001
+  },
+  {
+    "directory": "tuning-2",
+    "steady_factor": 1.2,
+    "modern_pct": 3,
+    "crossing_pct": 1,
+    "food": [
+      2,
+      1.5,
+      1
+    ],
+    "trials_per_policy": 500,
+    "seed": 21001
+  },
+  {
+    "directory": "tuning-3",
+    "steady_factor": 1.2,
+    "modern_pct": 1,
+    "crossing_pct": 1,
+    "food": [
+      2,
+      1.5,
+      1
+    ],
+    "trials_per_policy": 500,
+    "seed": 22001
+  },
+  {
+    "directory": "tuning-4",
+    "steady_factor": 1.25,
+    "modern_pct": 1,
+    "crossing_pct": 0.5,
+    "food": [
+      2,
+      1.5,
+      1
+    ],
+    "trials_per_policy": 500,
+    "seed": 23001
+  }
+]

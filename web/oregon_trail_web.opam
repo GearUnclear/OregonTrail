@@ -1,0 +1,18 @@
+opam-version: "2.0"
+synopsis: "Bonsai browser interface for Oregon Trail"
+authors: ["Oregon Trail contributors"]
+maintainer: "Oregon Trail contributors"
+license: "MIT"
+homepage: "https://github.com/Maxwolf/OregonTrail"
+bug-reports: "https://github.com/Maxwolf/OregonTrail/issues"
+depends: [
+  "ocaml" {>= "5.1.0"}
+  "dune" {>= "3.11"}
+  "bonsai" {= "v0.17.0"}
+  "core" {= "v0.17.0"}
+  "js_of_ocaml" {>= "5.1.1" & < "5.7.0"}
+  "ppx_jane" {= "v0.17.0"}
+]
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+]

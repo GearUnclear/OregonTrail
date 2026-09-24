@@ -1,0 +1,34 @@
+{
+  "geoReviewCandidates": [],
+  "counts": {
+    "ideas": 200,
+    "acceptedBatches": 20,
+    "generic": 192,
+    "geoLocked": 8,
+    "weak": 120,
+    "middling": 60,
+    "great": 20
+  },
+  "scores": {
+    "minimum": 8,
+    "maximum": 94,
+    "mean": 38.06
+  },
+  "locationCounts": {
+    "bucees": 3,
+    "cape-coral": 1,
+    "iowa-fair": 1,
+    "pigeon-gorge": 2,
+    "wall-drug": 1
+  },
+  "lexicalReviewCandidates": [
+    {
+      "a": "video-028",
+      "b": "video-168",
+      "titleA": "The Wrapper's Flavor Words, Translated",
+      "titleB": "The Camera Manual, Translated Into Words We Use",
+      "similarity": 0.308
+    }
+  ],
+  "note": "Human semantic and geography audit is recorded in review.md; lexical candidates are not automatically rejected."
+}

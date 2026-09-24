@@ -1,6 +1,8 @@
 ﻿// Created by Ron 'Maxwolf' McDowell (ron.mcdowell@gmail.com) 
 // Timestamp 01/03/2016@1:50 AM
 
+using System.Collections.Generic;
+using OregonTrailDotNet.Module.Scoring;
 using WolfCurses.Window;
 
 namespace OregonTrailDotNet.Window.GameOver
@@ -11,6 +13,13 @@ namespace OregonTrailDotNet.Window.GameOver
     /// </summary>
     public sealed class GameOverInfo : WindowData
     {
-        // Nothing to see here, move along...
+        public Highscore FinalScore { get; set; }
+        public int BasePoints { get; set; }
+        public int ChoiceScoreDelta { get; set; }
+        public int Multiplier { get; set; }
+        public IReadOnlyList<ScoreLine> ScoreLines { get; set; }
+        public IReadOnlyList<string> Epilogue { get; set; }
     }
+
+    public sealed record ScoreLine(int Quantity, string Description, int Points);
 }

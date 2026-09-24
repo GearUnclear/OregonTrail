@@ -1,0 +1,9 @@
+[Unit]
+Description=On-demand proxy for The Asphalt Trail web app (idles out after 30 min)
+Requires=oregon-web.service
+After=oregon-web.service
+
+[Service]
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd --exit-idle-time=30min 127.0.0.1:7682
+PrivateTmp=true
+PrivateNetwork=false

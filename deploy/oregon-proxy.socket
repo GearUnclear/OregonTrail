@@ -1,0 +1,8 @@
+[Unit]
+Description=Socket for The Asphalt Trail on-demand proxy
+
+[Socket]
+ListenStream=127.0.0.1:7681
+
+[Install]
+WantedBy=sockets.target

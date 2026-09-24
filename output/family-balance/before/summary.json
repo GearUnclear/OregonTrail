@@ -1,0 +1,29 @@
+[
+  {
+    "name": "steady_family",
+    "options": {},
+    "seed": 40001,
+    "party_size": 4,
+    "trials": 2000,
+    "wins": 1034,
+    "win_pct": 51.7,
+    "ci95": [
+      49.51,
+      53.88
+    ],
+    "outcomes": {
+      "win": 1034,
+      "death": 940,
+      "stranded": 26
+    },
+    "median_days_wins": 45.0,
+    "mean_living_wins": 2.29,
+    "full_party_wins": 208,
+    "full_party_pct": 10.4,
+    "full_party_ci95": [
+      9.14,
+      11.81
+    ],
+    "median_score_wins": 2024.5
+  }
+]

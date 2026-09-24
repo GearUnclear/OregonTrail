@@ -1,0 +1,7 @@
+{
+  "date": "2026-09-24",
+  "git_head": "ef94e39e9af36e9c99822f1c44f2b4405fd63cc2",
+  "source_sha256": "a4875290e510244bc679bca6729a2cc0856b7d2e502a49cb1bf01d1510399afa",
+  "source_file_count": 273,
+  "note": "Includes existing uncommitted workspace changes; hash covers live C# rules and runner."
+}

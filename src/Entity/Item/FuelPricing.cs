@@ -58,11 +58,13 @@ namespace OregonTrailDotNet.Entity.Item
         }
 
         /// <summary>
-        ///     Current per-can price of gas at the player's location, base cost scaled by the journey price curve.
+        ///     Current per-can price of gas at the player's location, base cost scaled by the journey price curve. The result
+        ///     is a whole-dollar price because the cash ledger stores whole dollars; this keeps the displayed receipt and the
+        ///     checkout debit exactly equal.
         /// </summary>
         public static float CurrentCost()
         {
-            return (float) Math.Round(Parts.GasBaseCost * Multiplier(), 2);
+            return (float) Math.Round(Parts.GasBaseCost * Multiplier(), 0, MidpointRounding.AwayFromZero);
         }
 
         /// <summary>

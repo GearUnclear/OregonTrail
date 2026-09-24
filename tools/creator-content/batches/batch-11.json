@@ -1,0 +1,92 @@
+[
+  {
+    "id": "video-101",
+    "title": "The Service Sticker Sits a Little Crooked",
+    "premise": "In a parked close-up, a windshield service sticker sits a few degrees off level. We hold the frame long enough to establish that it is still crooked.",
+    "conceptKey": "windshield-service-sticker-alignment",
+    "potential": 14,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-102",
+    "title": "Finding Maintenance in the Owner's Manual",
+    "premise": "We search the owner's manual index for the heading 'Maintenance' and land on a page number. The video stops before the page earns its close-up.",
+    "conceptKey": "manual-index-search-stops-at-page-number",
+    "potential": 22,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-103",
+    "title": "Counting Letters in a Dashboard Reminder",
+    "premise": "A parked dashboard shows a short service reminder while the camera counts its characters twice. The count agrees both times, and the reminder remains unexplored.",
+    "conceptKey": "dashboard-service-reminder-character-count",
+    "potential": 8,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-104",
+    "title": "One Faded Label on the Spare Alternator",
+    "premise": "The spare alternator's box has a faded parts label, so the camera zooms in and loses focus. We put the box back without discovering what the last line says.",
+    "conceptKey": "faded-spare-alternator-box-label",
+    "potential": 18,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-105",
+    "title": "The Vehicle Notes Log Starts With a Blank Page",
+    "premise": "A traveler opens a small vehicle log to its first blank page and writes the heading 'Vehicle Notes.' The camera gives the heading an unusually long establishing shot.",
+    "conceptKey": "vehicle-notes-log-first-blank-page",
+    "potential": 25,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-106",
+    "title": "The Dashboard Reminder Hides Behind a Steering Wheel",
+    "premise": "From the passenger seat of a parked SUV, the camera tries two ordinary angles to show a dashboard service reminder. The steering wheel blocks the same corner of the message both times.",
+    "conceptKey": "steering-wheel-obscures-dashboard-service-reminder",
+    "potential": 31,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-107",
+    "title": "The Manual's Maintenance Chart Has Two Columns",
+    "premise": "A parked-car tour finds the owner's manual maintenance chart and points out its time and mileage columns without interpreting any service interval. Seeing both kinds of reminder side by side makes the schedule easier to read.",
+    "conceptKey": "manual-maintenance-chart-time-and-mileage-columns",
+    "potential": 47,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-108",
+    "title": "Turning Spare-Part Codes Into Names We Can Say",
+    "premise": "A traveler reads the printed identifiers on the carried spare parts, then adds plain-language names beside the codes in a vehicle log. The simple glossary makes the alternator, transmission part, and spare tire easier to talk about without showing how to install or repair anything.",
+    "conceptKey": "plain-language-glossary-for-spare-part-identifiers",
+    "potential": 58,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-109",
+    "title": "Two Different Sources for the Same Maintenance Reminder",
+    "premise": "A traveler compares the note on the windshield service sticker with the message on the dashboard, showing where each one came from and how each is worded. The video treats them as separate records and leaves any disagreement unresolved.",
+    "conceptKey": "windshield-sticker-and-dashboard-reminder-sources",
+    "potential": 63,
+    "locations": [],
+    "authorBatch": 11
+  },
+  {
+    "id": "video-110",
+    "title": "A Car With a Service Schedule Gets an Unscheduled Life",
+    "premise": "The windshield sticker assigns the SUV a tidy next-service mileage while closures and detours keep scrambling the family's days. At ordinary stops, one traveler copies the current odometer beside that original note, and the growing line of numbers becomes a modest record of trying to keep one future appointment in view.",
+    "conceptKey": "service-mileage-note-tracks-unplanned-trip",
+    "potential": 92,
+    "locations": [],
+    "authorBatch": 11
+  }
+]

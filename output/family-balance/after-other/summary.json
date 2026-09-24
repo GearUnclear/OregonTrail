@@ -1,0 +1,185 @@
+[
+  {
+    "name": "steady_4",
+    "options": {},
+    "seed": 45001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 431,
+    "win_pct": 86.2,
+    "ci95": [
+      82.9,
+      88.95
+    ],
+    "outcomes": {
+      "win": 431,
+      "death": 66,
+      "stranded": 3
+    },
+    "median_days_wins": 38,
+    "mean_living_wins": 2.83,
+    "full_party_wins": 193,
+    "full_party_pct": 38.6,
+    "full_party_ci95": [
+      34.44,
+      42.94
+    ],
+    "median_score_wins": 2300
+  },
+  {
+    "name": "strenuous_4",
+    "options": {
+      "pace": 2
+    },
+    "seed": 45001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 422,
+    "win_pct": 84.4,
+    "ci95": [
+      80.96,
+      87.32
+    ],
+    "outcomes": {
+      "death": 74,
+      "win": 422,
+      "stranded": 4
+    },
+    "median_days_wins": 37.0,
+    "mean_living_wins": 2.91,
+    "full_party_wins": 205,
+    "full_party_pct": 41.0,
+    "full_party_ci95": [
+      36.77,
+      45.36
+    ],
+    "median_score_wins": 2289.0
+  },
+  {
+    "name": "grueling_11",
+    "options": {
+      "pace": 3,
+      "clothes": 11
+    },
+    "seed": 45001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 447,
+    "win_pct": 89.4,
+    "ci95": [
+      86.39,
+      91.8
+    ],
+    "outcomes": {
+      "death": 50,
+      "win": 447,
+      "stranded": 3
+    },
+    "median_days_wins": 34,
+    "mean_living_wins": 3.02,
+    "full_party_wins": 235,
+    "full_party_pct": 47.0,
+    "full_party_ci95": [
+      42.66,
+      51.38
+    ],
+    "median_score_wins": 1879
+  },
+  {
+    "name": "carpenter_steady",
+    "options": {
+      "profession": 2,
+      "transmissions": 0
+    },
+    "seed": 45001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 386,
+    "win_pct": 77.2,
+    "ci95": [
+      73.32,
+      80.66
+    ],
+    "outcomes": {
+      "win": 386,
+      "death": 99,
+      "stranded": 15
+    },
+    "median_days_wins": 38.0,
+    "mean_living_wins": 2.89,
+    "full_party_wins": 184,
+    "full_party_pct": 36.8,
+    "full_party_ci95": [
+      32.69,
+      41.11
+    ],
+    "median_score_wins": 4259.0
+  },
+  {
+    "name": "farmer_steady",
+    "options": {
+      "profession": 3,
+      "pack": 1,
+      "clothes": 4,
+      "food": 296,
+      "tires": 0,
+      "alternators": 0,
+      "transmissions": 0
+    },
+    "seed": 45001,
+    "party_size": 4,
+    "trials": 500,
+    "wins": 268,
+    "win_pct": 53.6,
+    "ci95": [
+      49.22,
+      57.93
+    ],
+    "outcomes": {
+      "win": 268,
+      "death": 212,
+      "stranded": 20
+    },
+    "median_days_wins": 38.0,
+    "mean_living_wins": 2.66,
+    "full_party_wins": 102,
+    "full_party_pct": 20.4,
+    "full_party_ci95": [
+      17.1,
+      24.15
+    ],
+    "median_score_wins": 1003.5
+  },
+  {
+    "name": "meager_3_people",
+    "options": {
+      "vehicle": 3,
+      "food": 196,
+      "transmissions": 0,
+      "ration": 2
+    },
+    "seed": 45001,
+    "party_size": 3,
+    "trials": 500,
+    "wins": 355,
+    "win_pct": 71.0,
+    "ci95": [
+      66.87,
+      74.81
+    ],
+    "outcomes": {
+      "win": 355,
+      "death": 141,
+      "stranded": 4
+    },
+    "median_days_wins": 35,
+    "mean_living_wins": 1.95,
+    "full_party_wins": 110,
+    "full_party_pct": 22.0,
+    "full_party_ci95": [
+      18.59,
+      25.84
+    ],
+    "median_score_wins": 1377
+  }
+]

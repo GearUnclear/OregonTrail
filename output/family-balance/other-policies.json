@@ -1,0 +1,29 @@
+{
+  "steady_4": {},
+  "strenuous_4": {
+    "pace": 2
+  },
+  "grueling_11": {
+    "pace": 3,
+    "clothes": 11
+  },
+  "carpenter_steady": {
+    "profession": 2,
+    "transmissions": 0
+  },
+  "farmer_steady": {
+    "profession": 3,
+    "pack": 1,
+    "clothes": 4,
+    "food": 296,
+    "tires": 0,
+    "alternators": 0,
+    "transmissions": 0
+  },
+  "meager_3_people": {
+    "vehicle": 3,
+    "food": 196,
+    "transmissions": 0,
+    "ration": 2
+  }
+}

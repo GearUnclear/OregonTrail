@@ -101,9 +101,9 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
             // Build up representation of arrival to new location, depending on location it can change.
             if (game.Trail.IsFirstLocation)
             {
-                // First point of interest has slightly different message about pulling out.
+                // Opening supplies are loaded; the first road leg has not started yet.
                 pointReached.AppendLine(
-                    $"{Environment.NewLine}Pulling out of the driveway in {game.Time.CurrentYear}...{Environment.NewLine}");
+                    $"{Environment.NewLine}Supplies loaded. Ready to leave Cape Coral in {game.Time.CurrentYear}.{Environment.NewLine}");
             }
             else if (game.Trail.LocationIndex < game.Trail.Locations.Count)
             {

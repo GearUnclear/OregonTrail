@@ -45,16 +45,27 @@ namespace OregonTrailDotNet.Window.Travel.Store
         /// <summary>
         ///     Returns the total cost of all the transactions this receipt information object represents.
         /// </summary>
-        public float TotalTransactionCost
+        public int TotalTransactionCost
         {
             get
             {
-                // Loop through all transactions and multiply amount by cost.
-                float totalCost = 0;
+                // Cash is an integer inventory quantity. Enforce the same whole-dollar contract on every store line so the
+                // semantic receipt can never promise a fractional balance that checkout cannot represent.
+                var totalCost = 0;
                 foreach (var item in _totalTransactions)
-                    totalCost += item.Value.Quantity*item.Value.Cost;
+                {
+                    var lineCost = item.Value.Quantity * item.Value.Cost;
+                    var wholeDollarLineCost = (int) Math.Round(lineCost, MidpointRounding.AwayFromZero);
+                    if (Math.Abs(lineCost - wholeDollarLineCost) > 0.001f)
+                    {
+                        throw new InvalidOperationException(
+                            $"Store item {item.Value.Name} has a fractional-dollar line price; " +
+                            "the whole-dollar cash ledger cannot represent it.");
+                    }
 
-                // Cast to unsigned integer and return.
+                    totalCost = checked(totalCost + wholeDollarLineCost);
+                }
+
                 return totalCost;
             }
         }
