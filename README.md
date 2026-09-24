@@ -24,7 +24,9 @@ The browser animates the selected vehicle, wheels, road markings, and passing sc
 
 Click or tap commands, use **1–9** for numbered actions, **↑/↓** to move between them, and **Enter** to activate a focused control or submit a form. **?** opens the field guide; **Escape** closes it. The opening story has five chapters. All four vehicles have distinct silhouettes and comparison facts. Travel centers include quantity controls and a live receipt with cash and cargo limits. No fonts, images, or scripts are fetched from third-party services.
 
-Select **Plan your trip** on the title screen to read the opening story. Chapter one, **Notice of non-renewal**, contains the original insurance-company letter, smiling cartoon sun, and HOA clubhouse joke. Use **Next chapter** to read the remaining chapters before choosing your background.
+Select **Plan your trip** on the title screen to read the opening story. Chapter one, **Notice of non-renewal**, opens with the original Sunshine State Mutual notice and ASCII sun: “UNINSURABLE AT ANY PREMIUM.” and “HAVE A SUNNY DAY!” The story about the letter and the HOA clubhouse joke follows. Use **Next chapter** to read the remaining chapters before choosing your background.
+
+Reaching Seattle brings back the same notice and sun with the original callback: “Sunshine State Mutual regrets to inform you your new ZIP code is also under review.” Continue to tally your final Net Worth and Clout score.
 
 **RUG.RUN:** Choose **Launch a crypto coin** from the travel menu while parked at a stop or between stops. Name a fictional coin, choose a narrative and seed capital, then run six different hype campaigns during a 120-second market. Campaigns take time, cost road cash, and lose impact with repetition. Live candles, volume, liquidity, credibility, wallet suspicion, and the market feed help time the **PULL OUT / RUG IT** button. Withdrawing takes three market ticks; the final cash payout includes price impact and fees. Most launches lose money. Letting the listing expire triggers a distressed sale; a collapsed pool returns nothing.
 

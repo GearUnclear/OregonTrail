@@ -539,6 +539,16 @@
     return panel;
   }
 
+  function insuranceNotice() {
+    const notice = scene("smilingSun");
+    notice.classList.add("insurance-notice");
+    append(notice, append(element("figcaption", "insurance-notice__copy"),
+      element("p", "insurance-notice__company", "~ SUNSHINE STATE MUTUAL ~"),
+      element("p", "", "* UNINSURABLE AT ANY PREMIUM. *"),
+      element("p", "insurance-notice__signoff", '"HAVE A SUNNY DAY!"')));
+    return notice;
+  }
+
   function storyPanel(pages) {
     const titles = ["Notice of non-renewal", "What fits in the car", "The country in between", "Uphill from the sea", "History is graded on a curve"];
     const panel = element("section", "story-panel");
@@ -546,6 +556,7 @@
     heading.id = "story-title";
     heading.tabIndex = -1;
     append(panel, element("span", "eyebrow", `Chapter ${String(storyPage + 1).padStart(2, "0")} / ${String(pages.length).padStart(2, "0")}`), heading);
+    if (storyPage === 0) panel.append(insuranceNotice());
     const copy = description(pages[storyPage]);
     copy.className = "story-copy";
     panel.append(copy);
@@ -735,7 +746,8 @@
     const body = element("div", `screen-body screen-body--${screen.kind}`);
     if (screen.kind === "river") body.append(scene("river"));
     else if (screen.kind === "event") body.append(scene("event"));
-    else if (screen.kind === "game-over") body.append(scene(screen.id.endsWith("gamewin") || (state.score && state.hud.livingPartyCount > 0) ? "seattle" : "end"));
+    else if (screen.id.endsWith("gamewin")) body.append(insuranceNotice());
+    else if (screen.kind === "game-over") body.append(scene(state.score && state.hud.livingPartyCount > 0 ? "seattle" : "end"));
     else if (screen.id.endsWith("tombstoneview")) body.append(scene("end"));
     else if (screen.kind === "activity") body.append(screen.id.endsWith("crossingtick") ? scene("river") : drivingScene());
     if (screen.story?.length) {

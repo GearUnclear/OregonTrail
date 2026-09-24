@@ -774,7 +774,9 @@ namespace OregonTrailDotNet.Web
                     new ScreenDescriptor("event", Humanize(name), EventDescription(userData as RandomEventInfo), input),
 
                 "GameWin" => new ScreenDescriptor("game-over", "Seattle reached",
-                    "The party made it to the end of the route.", null),
+                    "Congratulations! You have made it to Seattle!\n\n" +
+                    "Sunshine State Mutual regrets to inform you your new ZIP code is also under review.\n\n" +
+                    "Let's tally your final Net Worth and Clout score.", null),
                 "GameFail" => new ScreenDescriptor("game-over", "The trip ended early",
                     "The party can no longer continue.", null),
                 "FinalPoints" => new ScreenDescriptor("game-over", "Final score",

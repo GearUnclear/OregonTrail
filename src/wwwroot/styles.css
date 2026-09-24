@@ -182,6 +182,11 @@ button, input, summary, a { touch-action: manipulation; }
 .input-hint { grid-column: 1 / -1; color: var(--muted); font-size: 10px; }
 .story-panel { border-block: 1px dashed var(--line); padding: 25px 0 0; }
 .story-title { margin: 13px 0 24px; font-size: 22px; font-weight: 400; letter-spacing: -.04em; color: var(--amber); }
+.insurance-notice { max-width: 28rem; margin: 0 auto 28px; padding: 20px 12px; border: 1px solid var(--line); color: var(--amber); }
+.insurance-notice .ascii-art { font-size: clamp(5px, 4cqw, 12px); line-height: 1; }
+.insurance-notice__copy { margin-top: 20px; font-size: 11px; line-height: 1.8; text-align: center; }
+.insurance-notice__company { color: var(--ink); }
+.insurance-notice__signoff { margin-top: 8px; color: var(--acid); }
 .story-copy { max-width: 65ch; font-size: 14px; line-height: 1.9; }
 .story-copy p { margin-bottom: 20px; }
 .story-copy p:last-child { color: var(--acid); }
