@@ -64,7 +64,12 @@ internal sealed class GameEngine : IGameEngine
             if (!ValidateRequest(binding, request, out var input, out var message))
                 return Rejected("invalid-value", message, Snapshot);
 
-            if (binding.Kind == PresentationActionKind.Crypto)
+            if (binding.Kind == PresentationActionKind.FoodGrab)
+            {
+                if (_game.CurrentForm is not Window.Travel.Hunt.Hunting hunt || !hunt.Sweep.TryGrab(int.Parse(input)))
+                    return Rejected("invalid-value", "That tray has passed. Watch for the next one.", Snapshot);
+            }
+            else if (binding.Kind == PresentationActionKind.Crypto)
             {
                 if (_game.CurrentForm is not Window.Travel.Crypto.CryptoDesk desk || !desk.Execute(binding.LegacyValue, input))
                     return Rejected("invalid-value", binding.LegacyValue == "rename"

@@ -17,7 +17,11 @@ namespace OregonTrailDotNet.Web
         DrivingStateDto Driving = null,
         string JourneyId = null,
         CryptoDeskDto Crypto = null,
-        CreatorDeskDto Creator = null);
+        CreatorDeskDto Creator = null,
+        FoodSweepDto FoodSweep = null);
+
+    public sealed record FoodSweepDto(int Round, int TotalRounds, string TrayName, int TrayPounds,
+        int ZoneStart, int ZoneEnd, int Duration, int Pounds, string Feedback, bool Resolved, string GrabActionId);
 
     public sealed record DrivingStateDto(
         bool IsDriving,

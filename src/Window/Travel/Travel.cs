@@ -1,4 +1,4 @@
-﻿// Created by Ron 'Maxwolf' McDowell (ron.mcdowell@gmail.com) 
+// Created by Ron 'Maxwolf' McDowell (ron.mcdowell@gmail.com)
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
@@ -12,7 +12,7 @@ using OregonTrailDotNet.Window.Travel.Command;
 using OregonTrailDotNet.Window.Travel.Decision;
 using OregonTrailDotNet.Window.Travel.Dialog;
 using OregonTrailDotNet.Window.Travel.DoorDash.Help;
-using OregonTrailDotNet.Window.Travel.Hunt.Help;
+using OregonTrailDotNet.Window.Travel.Hunt;
 using OregonTrailDotNet.Window.Travel.Rest;
 using OregonTrailDotNet.Window.Travel.RiverCrossing.Help;
 using OregonTrailDotNet.Window.Travel.Trade;
@@ -150,7 +150,7 @@ namespace OregonTrailDotNet.Window.Travel
         /// </summary>
         internal void HuntForFood()
         {
-            SetForm(typeof(HuntingPrompt));
+            SetForm(typeof(Hunting));
         }
 
         /// <summary>

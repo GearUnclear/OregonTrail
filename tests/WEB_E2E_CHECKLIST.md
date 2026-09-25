@@ -26,9 +26,12 @@
 - Open supplies and map/status views, acknowledge them, change pace and rations, and choose a rest duration. Confirm numeric limits and validation.
 - Continue travelling. Confirm server-pushed timed progress changes while focus and any in-progress input remain stable; unchanged snapshots must not replace DOM nodes or reset controls.
 - Check that driving animates the selected vehicle's wheels and road markings, with exhaust on combustion vehicles and a battery indicator on the EV. Parked, resting, and disabled vehicles must not show spinning wheels or moving road markings.
+- Turn CRT off while driving: car and road motion must continue. Check the separate Pause/Play animation control, its saved preference, reduced-motion defaults, and explicit Play override at 320px width.
 - Stop travelling and ensure the next travel menu reflects the updated date, mileage, resources, and available location actions.
 - Exercise a river choice when reached and verify river facts and legal actions are presented as a `river` view.
-- Exercise hunting and DoorDash when available. Check timers/progress, action enablement, expiry, results, and keyboard operation.
+- Exercise the food sweep from the roadside menu: it opens directly into a timing track with no text field. Tap Grab or press Space in the striped zone; check early/late misses, automatic tray expiry, inline feedback, the 100 lb cap, and one result screen. Completing and collecting the haul spends exactly one day and awards food once.
+- At 390px and 320px widths, keep the marker and Grab button visible together; test touch taps, Space, held-key suppression, reduced motion, and reconnect. No horizontal overflow or intermediate hit/miss dialogs.
+- Exercise DoorDash when available. Check timers/progress, action enablement, expiry, results, and keyboard operation.
 
 ## Events and end state
 

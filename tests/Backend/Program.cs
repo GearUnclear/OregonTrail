@@ -17,6 +17,8 @@ static async Task Throws<T>(Func<Task> action) where T : Exception
 
 if (args.Contains("--creator-rules")) { CreatorTests.RunRules(); return; }
 if (args.Contains("--creator-balance")) { CreatorTests.RunBalance(false); return; }
+if (args.Contains("--food-sweep")) { FoodSweepTests.Run(); return; }
+FoodSweepTests.Run();
 if (args.Contains("--food-rules")) { FoodTests.Run(); return; }
 FoodTests.Run();
 CreatorTests.RunRules();

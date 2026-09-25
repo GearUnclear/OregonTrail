@@ -552,3 +552,15 @@ button, input, summary, a { touch-action: manipulation; }
   .route-progress__fill, .activity-meter__fill { background: Highlight; }
   .game-button, .choice-card, .local-button { border: 1px solid ButtonText; }
 }
+
+/* Food sweep: motion communicates timing, so it remains available with decorative effects off. */
+.food-sweep { gap: 1.2rem; }
+.food-sweep__stats { display: flex; justify-content: space-between; gap: 1rem; }
+.food-sweep__tray { text-align: center; margin: .5rem 0; }
+.food-sweep__track { position: relative; height: 5rem; margin: 1rem .7rem; border: 2px solid currentColor; background: #121e1a; }
+.food-sweep__zone { position: absolute; top: 0; bottom: 0; display: grid; place-items: center; color: #d4ffd5; font-weight: bold; border-inline: 2px solid #a6f3ae; background: repeating-linear-gradient(135deg, #2b683e, #2b683e 5px, #204d31 5px, #204d31 10px); font-size: .75rem; }
+.food-sweep__marker { position: absolute; top: -.65rem; bottom: -.3rem; width: .25rem; background: #fff5cb; color: #fff5cb; transform: translateX(-50%); font-size: 1.5rem; text-indent: -.55rem; }
+.food-sweep__cue { min-height: 1.8em; text-align: center; font-size: 1.3rem; font-weight: bold; margin: 0; }
+.food-sweep__cue[data-ready="true"] { color: #c5ffc7; text-decoration: underline; }
+.food-sweep__grab { width: 100%; min-height: 4rem; touch-action: manipulation; font-size: 1.2rem; }
+.food-sweep__feedback { min-height: 2.8em; margin: 0; text-align: center; }

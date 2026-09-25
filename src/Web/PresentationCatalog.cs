@@ -16,6 +16,7 @@ namespace OregonTrailDotNet.Web
 {
     internal enum PresentationActionKind
     {
+        FoodGrab,
         Submit,
         Select,
         AdjustLeft,
@@ -75,7 +76,10 @@ namespace OregonTrailDotNet.Web
             var bindings = new Dictionary<string, PresentationActionBinding>(StringComparer.Ordinal);
             var cryptoDesk = currentForm as Window.Travel.Crypto.CryptoDesk;
             var creatorDesk = currentForm as Window.Travel.Creator.CreatorDesk;
-            var actions = creatorDesk != null
+            var sweep = (currentForm as Window.Travel.Hunt.Hunting)?.Sweep;
+            var actions = sweep != null
+                ? BuildFoodActions(sweep, bindings)
+                : creatorDesk != null
                 ? BuildCreatorActions(creatorDesk, bindings)
                 : cryptoDesk != null
                 ? BuildCryptoActions(cryptoDesk, bindings)
@@ -159,7 +163,11 @@ namespace OregonTrailDotNet.Web
                 BuildScore(userData as GameOverInfo),
                 BuildDriving(game, currentForm),
                 Crypto: BuildCrypto(cryptoDesk),
-                Creator: BuildCreator(creatorDesk, game));
+                Creator: BuildCreator(creatorDesk, game),
+                FoodSweep: sweep == null ? null : new FoodSweepDto(sweep.Round, Window.Travel.Hunt.HuntManager.TrayCount,
+                    sweep.TrayName, sweep.TrayPounds, sweep.ZoneStart, sweep.ZoneEnd,
+                    Window.Travel.Hunt.HuntManager.PassMilliseconds, sweep.KillWeight, sweep.Feedback,
+                    sweep.Resolved, $"food.grab.{sweep.Round}"));
 
             // Revision describes the entire semantic snapshot, not only the action surface. This lets timed activity,
             // inventory, health, and route progress update incrementally even while the focused form stays the same. The
@@ -167,6 +175,17 @@ namespace OregonTrailDotNet.Web
             var surfaceKey = JsonSerializer.Serialize(snapshot with { Revision = 0 });
 
             return new PresentationFrame(snapshot, bindings, surfaceKey, currentForm);
+        }
+
+        private static List<GameActionDto> BuildFoodActions(Window.Travel.Hunt.HuntManager sweep,
+            IDictionary<string, PresentationActionBinding> bindings)
+        {
+            var id = $"food.grab.{sweep.Round}";
+            if (!sweep.Resolved)
+                bindings[id] = new PresentationActionBinding(PresentationActionKind.FoodGrab,
+                    Input: new InputSpecDto("number", "Grab time", "", true, 0,
+                        Window.Travel.Hunt.HuntManager.PassMilliseconds, null));
+            return new List<GameActionDto> { new GameActionDto(id, "Grab!", "primary", !sweep.Resolved, false) };
         }
 
         private static DrivingStateDto BuildDriving(GameSimulationApp game, object currentForm)
@@ -366,11 +385,9 @@ namespace OregonTrailDotNet.Web
 
             if (simpleName == "Hunting" && userData is TravelInfo huntInfo && huntInfo.Hunt != null)
             {
-                var remaining = Field<int>(huntInfo.Hunt, "_secondsRemaining");
-                activityLabel = "Food sweep";
-                activityCurrent = Math.Clamp(Window.Travel.Hunt.HuntManager.HUNTINGTIME - remaining, 0,
-                    Window.Travel.Hunt.HuntManager.HUNTINGTIME);
-                activityTotal = Window.Travel.Hunt.HuntManager.HUNTINGTIME;
+                activityLabel = "Trays";
+                activityCurrent = huntInfo.Hunt.Round;
+                activityTotal = Window.Travel.Hunt.HuntManager.TrayCount;
             }
             else if (simpleName == "DoorDash" && userData is TravelInfo dashInfo && dashInfo.DoorDash != null)
             {
@@ -746,10 +763,6 @@ namespace OregonTrailDotNet.Web
 
                 "Hunting" => new ScreenDescriptor("activity", "Food sweep",
                     HuntingDescription(userData as TravelInfo), input),
-                "HuntingPrompt" => new ScreenDescriptor("dialog", "Search for food",
-                    "A timed food sweep can add supplies, but it costs time and ammunition.", null),
-                "PreyHit" or "PreyMissed" or "PreyFlee" or "ScrambleMishap" => new ScreenDescriptor("activity",
-                    Humanize(name), HuntingDescription(userData as TravelInfo), null),
                 "HuntingResult" => new ScreenDescriptor("activity", "Food sweep results",
                     HuntingResultDescription(userData as TravelInfo), null),
 
@@ -830,8 +843,6 @@ namespace OregonTrailDotNet.Web
                 "EpitaphEditor" => new InputSpecDto("text", "Next epitaph word", "A word, or leave blank to finish", false,
                     null, null, 30),
                 "RestAmount" => new InputSpecDto("number", "Days to rest", "0–9", true, 0, 9, null),
-                "Hunting" when (userData as TravelInfo)?.Hunt?.PreyAvailable == true =>
-                    new InputSpecDto("text", "Grab word", "Type the displayed word", true, null, null, 24),
                 "TomHollandEncounter" => new InputSpecDto("text", "Response", "Type your response", false,
                     null, null, 80),
                 _ => null
@@ -1034,20 +1045,14 @@ namespace OregonTrailDotNet.Web
 
         private static string HuntingDescription(TravelInfo info)
         {
-            var hunt = info?.Hunt;
-            if (hunt == null)
-                return "Watch for a tray and respond before another shopper reaches it.";
-
-            return hunt.PreyAvailable
-                ? $"Type “{hunt.ShootingWord.ToString().ToLowerInvariant()}” before the tray gets away."
-                : "Watch for a tray to become available.";
+            return "Catch passing trays before the crowd does.";
         }
 
         private static string HuntingResultDescription(TravelInfo info)
         {
             var pounds = info?.Hunt?.KillWeight ?? 0;
             return pounds > 0
-                ? $"The party recovered {pounds:N0} pounds of food before cargo limits."
+                ? $"The party recovered {pounds:N0} pounds of food. One trail day spent. Continue to load the haul."
                 : "The party did not recover any food this time.";
         }
 

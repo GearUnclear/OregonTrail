@@ -13,11 +13,20 @@
   let helpOpen = false;
   let helpReturnKey = null;
   let effects = true;
+  let vehicleMotionPreference = null;
   let sceneStep = 0;
   let live = null;
   let queuedState = null;
+  let foodRoundKey = "";
+  let foodRoundStarted = 0;
+  let foodStoppedAt = null;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   try { effects = localStorage.getItem("asphalt-effects") !== "off"; } catch { /* Storage is optional. */ }
+  try {
+    const saved = localStorage.getItem("asphalt-vehicle-motion");
+    if (saved === "on" || saved === "off") vehicleMotionPreference = saved === "on";
+  } catch { /* Storage is optional. */ }
+  const vehicleMotionEnabled = () => vehicleMotionPreference ?? !reducedMotion.matches;
   document.documentElement.dataset.effects = effects ? "on" : "off";
   const announcement = element("div", "sr-only");
   announcement.setAttribute("role", "status");
@@ -85,6 +94,15 @@
       element("span", "", state.hud.vehicleName),
       element("span", "", `${integer(driving?.milesRemaining ?? state.progress.milesToNextLocation)} mi to ${driving?.destination || state.progress.nextLocation || "Seattle"}`),
       element("span", "driving-pace", `${state.hud.pace} pace · ${state.hud.weather}`));
+    if (moving) {
+      const motionButton = localButton(vehicleMotionEnabled() ? "Pause animation" : "Play animation", "vehicle-motion", () => {
+        vehicleMotionPreference = !vehicleMotionEnabled();
+        try { localStorage.setItem("asphalt-vehicle-motion", vehicleMotionPreference ? "on" : "off"); } catch { /* Optional preference. */ }
+        render(false);
+      });
+      motionButton.setAttribute("aria-label", vehicleMotionEnabled() ? "Pause car and road animation" : "Play car and road animation");
+      telemetry.append(motionButton);
+    }
     figure.append(telemetry);
     return figure;
   }
@@ -100,7 +118,7 @@
   }
 
   function updateVehicleArt(art) {
-    const animate = effects && !reducedMotion.matches && online;
+    const animate = vehicleMotionEnabled() && online;
     const preview = art.closest(".choice-card:not(:disabled):is(:hover, :focus-visible)");
     const frame = window.TrailScenes.vehicleFrame(art.dataset.vehicleId,
       animate ? sceneStep : 0,
@@ -109,20 +127,25 @@
     if (art.textContent !== frame) art.textContent = frame;
   }
 
-  // One clock for decorative characters only; game state and focused controls stay untouched.
+  // Travel motion has its own preference and clock, independent of CRT effects and food timing.
   let lastFrame = 0;
   function animateScene(timestamp) {
-    if (!document.hidden && online && !reducedMotion.matches && effects && timestamp - lastFrame >= 100) {
+    requestAnimationFrame(animateScene);
+    if (!document.hidden && online && vehicleMotionEnabled() && timestamp - lastFrame >= 100) {
       sceneStep++;
       lastFrame = timestamp;
       root.querySelectorAll('.ascii-art[data-moving="true"], .choice-card:is(:hover, :focus-visible) .ascii-art').forEach(updateVehicleArt);
     }
-    requestAnimationFrame(animateScene);
   }
   requestAnimationFrame(animateScene);
+  function animateFoodScene(timestamp) {
+    requestAnimationFrame(animateFoodScene);
+    animateFood(timestamp);
+  }
+  requestAnimationFrame(animateFoodScene);
   reducedMotion.addEventListener("change", () => {
     root.querySelectorAll(".ascii-art[data-vehicle-id]").forEach(updateVehicleArt);
-    if (state?.crypto) render(false);
+    if (state) render(false);
   });
 
   function localButton(label, key, callback, className = "") {
@@ -228,6 +251,12 @@
     const previousCryptoPhase = state?.crypto?.phase;
     const previousCreator = state?.creator;
     state = incoming;
+    const foodKey = state.foodSweep ? `${state.journeyId}:${state.foodSweep.grabActionId}` : "";
+    if (foodKey !== foodRoundKey) {
+      foodRoundKey = foodKey;
+      foodRoundStarted = performance.now();
+      foodStoppedAt = null;
+    }
     online = true;
     if (!sameJourney || previousScreen !== state.screen.id) {
       draftScreen = state.screen.id;
@@ -737,10 +766,65 @@
     return body;
   }
 
+  function grabFood() {
+    const sweep = state?.foodSweep;
+    if (!sweep || sweep.resolved || busy || !online || document.hidden || helpOpen) return;
+    const elapsed = Math.round(performance.now() - foodRoundStarted);
+    if (elapsed > sweep.duration) return;
+    foodStoppedAt = elapsed;
+    sendAction(sweep.grabActionId, null, elapsed);
+  }
+
+  function animateFood(timestamp) {
+    const sweep = state?.foodSweep;
+    if (!sweep || document.hidden || !online) return;
+    const elapsed = foodStoppedAt ?? (timestamp - foodRoundStarted);
+    const marker = root.querySelector(".food-sweep__marker");
+    if (marker) marker.style.left = `${clamp(elapsed / sweep.duration * 100, 0, 100)}%`;
+    const cue = root.querySelector(".food-sweep__cue");
+    const inZone = elapsed >= sweep.zoneStart && elapsed <= sweep.zoneEnd;
+    if (cue) {
+      const message = sweep.resolved ? sweep.feedback : elapsed > sweep.duration ? "Tray passed…"
+        : inZone ? "GRAB NOW!" : elapsed < sweep.zoneStart ? "Wait for it…" : "Too late…";
+      if (cue.textContent !== message) cue.textContent = message;
+      cue.dataset.ready = String(inZone && !sweep.resolved);
+    }
+    const button = root.querySelector(".food-sweep__grab");
+    if (button) button.disabled = busy || sweep.resolved || elapsed > sweep.duration;
+  }
+
+  function foodSweepBody(sweep) {
+    const body = element("div", "screen-body food-sweep");
+    append(body, append(element("div", "food-sweep__stats"),
+      labeledValue("Tray", `${sweep.round} / ${sweep.totalRounds}`),
+      labeledValue("Packed", `${sweep.pounds} / 100 lb`)),
+      element("h2", "food-sweep__tray", `${sweep.trayName} · ${sweep.trayPounds} lb`),
+      element("p", "", "Tap Grab or press Space as the marker enters the striped zone. One shot per tray."));
+    const track = element("div", "food-sweep__track");
+    track.setAttribute("aria-hidden", "true");
+    const zone = element("div", "food-sweep__zone", "GRAB");
+    zone.style.left = `${sweep.zoneStart / sweep.duration * 100}%`;
+    zone.style.width = `${(sweep.zoneEnd - sweep.zoneStart) / sweep.duration * 100}%`;
+    const marker = element("span", "food-sweep__marker", "▼");
+    marker.style.left = `${clamp((foodStoppedAt ?? performance.now() - foodRoundStarted) / sweep.duration * 100, 0, 100)}%`;
+    append(track, zone, marker);
+    const cue = element("p", "food-sweep__cue", sweep.resolved ? sweep.feedback : "Wait for it…");
+    cue.setAttribute("role", "status");
+    const button = actionButton(findAction(sweep.grabActionId), { className: "food-sweep__grab", label: "GRAB! [Space]" });
+    button.dataset.focusKey = "food-grab";
+    button.onclick = grabFood;
+    const feedback = element("p", "food-sweep__feedback", sweep.resolved ? "" : sweep.feedback);
+    feedback.setAttribute("role", "status");
+    append(body, track, cue, button, feedback,
+      element("p", "scene-caption", "One trail day · Up to 100 lb · Bigger trays need tighter timing"));
+    return body;
+  }
+
   function screenBody() {
     const screen = state.screen;
     if (screen.kind === "crypto" && state.crypto) return window.TrailCrypto.body(state.crypto, cryptoUi());
     if (screen.kind === "creator" && state.creator) return window.TrailCreator.body(state.creator, cryptoUi());
+    if (state.foodSweep) return foodSweepBody(state.foodSweep);
     if (screen.kind === "store" && state.store) return storeBody(state.store);
     if (screen.kind === "travel") return travelBody();
     const body = element("div", `screen-body screen-body--${screen.kind}`);
@@ -912,7 +996,7 @@
           render(false);
         }, "effects-toggle"),
         localButton("[ ? ]", "controls", () => { helpReturnKey = "controls"; helpOpen = true; render(false); })));
-    header.querySelector(".effects-toggle").setAttribute("aria-label", "CRT scanlines and ASCII animation");
+    header.querySelector(".effects-toggle").setAttribute("aria-label", "CRT visual effects");
     header.querySelector(".effects-toggle").setAttribute("aria-pressed", String(effects));
     header.querySelector('[data-focus-key="controls"]').setAttribute("aria-label", "Keyboard controls and field guide");
     app.append(header);
@@ -991,7 +1075,8 @@
       requestAnimationFrame(() => {
         const heading = creatorHeading || (cryptoResult ? root.querySelector("#crypto-result-title") : root.querySelector("[data-screen-focus]"));
         heading?.focus({ preventScroll: true });
-        if (heading && heading.getBoundingClientRect().top < 0) heading.scrollIntoView({ block: "start" });
+        if (state.foodSweep) root.querySelector(".food-sweep")?.scrollIntoView({ block: "center" });
+        else if (heading && heading.getBoundingClientRect().top < 0) heading.scrollIntoView({ block: "start" });
         else if (creatorHeading && creatorHeading.getBoundingClientRect().bottom > innerHeight)
           creatorHeading.scrollIntoView({ block: "nearest" });
       });
@@ -1012,6 +1097,11 @@
     if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.repeat || !state) return;
     const active = document.activeElement;
     if (active?.matches("input, textarea, select, [contenteditable=true]") || helpOpen) return;
+    if (event.code === "Space" && state.foodSweep) {
+      event.preventDefault();
+      grabFood();
+      return;
+    }
     if (event.key === "?") {
       event.preventDefault();
       helpReturnKey = active?.dataset?.focusKey;
