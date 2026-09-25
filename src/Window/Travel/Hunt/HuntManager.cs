@@ -8,7 +8,8 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
     {
         public const int MAXFOOD = 100;
         public const int TrayCount = 8;
-        public const int PassMilliseconds = 3000;
+        public const int PassMilliseconds = 1800;
+        private const int InputGraceMilliseconds = 750;
         private readonly Func<long> _clock;
         private readonly Random _random;
         private long _started;
@@ -39,8 +40,8 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
             TrayPounds = _random.Next(10, 26);
             var names = new[] { "Sandwich platter", "Bakery box", "Fruit tray", "Pasta pan", "Snack crate" };
             TrayName = names[_random.Next(names.Length)];
-            ZoneStart = _random.Next(1100, 2201);
-            ZoneEnd = ZoneStart + (TrayPounds >= 20 ? 340 : 480);
+            ZoneStart = _random.Next(500, 1251);
+            ZoneEnd = ZoneStart + (TrayPounds >= 20 ? 180 : 260);
             _started = _clock();
             Resolved = false;
         }
@@ -51,7 +52,7 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
         {
             var age = _clock() - _started;
             if (Resolved || ShouldEndHunt || elapsed < 0 || elapsed > PassMilliseconds ||
-                elapsed > age + 100 || age - elapsed > 1500) return false;
+                elapsed > age + 100 || age - elapsed > InputGraceMilliseconds) return false;
             var hit = elapsed >= ZoneStart && elapsed <= ZoneEnd;
             var gained = Math.Min(TrayPounds, MAXFOOD - KillWeight);
             if (hit)
@@ -68,13 +69,13 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
         private void Resolve()
         {
             Resolved = true;
-            _nextTray = _clock() + 700;
+            _nextTray = _clock() + 350;
         }
 
         public void OnTick(bool systemTick, bool skipDay)
         {
             if (skipDay || ShouldEndHunt) return;
-            if (!Resolved && _clock() - _started >= PassMilliseconds + 1500)
+            if (!Resolved && _clock() - _started >= PassMilliseconds + InputGraceMilliseconds)
             {
                 Feedback = "Missed it! Another shopper took the tray.";
                 Resolve();

@@ -39,8 +39,8 @@ internal sealed class GameEngine : IGameEngine
             var seconds = _game.Simulation?.FixedTicks;
             PulseOnce();
             _game.Simulation = GameSimulationApp.Instance;
-            // System pulses settle queued input. Only a fixed game tick or a recent action needs projection.
-            if (_settlingPulses > 0 || seconds != _game.Simulation?.FixedTicks)
+            // Food sweep transitions must reach the browser promptly so its marker starts with each tray.
+            if (_settlingPulses > 0 || Snapshot.FoodSweep != null || seconds != _game.Simulation?.FixedTicks)
             {
                 if (_settlingPulses > 0) _settlingPulses--;
                 CapturePresentation(false);

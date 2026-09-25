@@ -16,14 +16,14 @@ internal static class FoodSweepTests
         Check(sweep.TryGrab(sweep.ZoneStart) && sweep.KillWeight > 0, "zone edge hits");
         var food = sweep.KillWeight;
         Check(!sweep.TryGrab(sweep.ZoneStart) && sweep.KillWeight == food, "duplicate grab cannot award twice");
-        now += 699;
+        now += 349;
         sweep.OnTick(true, false);
         Check(sweep.Round == 1 && sweep.Resolved, "feedback stays visible before next tray");
         now++;
         sweep.OnTick(true, false);
         Check(sweep.Round == 2 && !sweep.Resolved, "next tray arrives without input");
         Check(sweep.TryGrab(0) && sweep.KillWeight == food, "early attempt misses");
-        now += 700;
+        now += 350;
         sweep.OnTick(true, false);
         now += sweep.ZoneEnd + 1;
         Check(sweep.TryGrab(sweep.ZoneEnd + 1) && sweep.KillWeight == food, "late attempt misses");
@@ -39,11 +39,20 @@ internal static class FoodSweepTests
         {
             now += sweep.ZoneEnd;
             Check(sweep.TryGrab(sweep.ZoneEnd), "last millisecond in zone hits");
-            now += 700;
+            now += 350;
             sweep.OnTick(true, false);
         }
         Check(sweep.KillWeight == 100 && sweep.Round <= 8, "perfect play stops at carry cap");
         Check(!sweep.TryGrab(0), "completed sweep rejects inputs");
+        now = 0;
+        sweep = new HuntManager(new Random(42), () => now);
+        while (!sweep.ShouldEndHunt && now <= 24000)
+        {
+            now += 50;
+            sweep.OnTick(true, false);
+        }
+        Check(sweep.ShouldEndHunt && sweep.Round == 8 && sweep.KillWeight == 0,
+            "idle sweep finishes all eight trays within 24 seconds");
         Console.WriteLine("PASS food sweep timing, early/late misses, replay, timeout, carry cap");
     }
 }
