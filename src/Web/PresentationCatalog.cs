@@ -773,7 +773,7 @@ namespace OregonTrailDotNet.Web
                 "CreatorDesk" => new ScreenDescriptor("creator", "DEAD AIR",
                     "A YouTube travel channel. A family on the road. An equipment budget with no adult supervision.", null),
                 "DoorDashPrompt" => new ScreenDescriptor("dialog", "Drive for delivery apps",
-                    "A delivery shift earns cash while consuming fuel, tires, and time.", null),
+                    "Starting a delivery shift commits one full trail day, even if you clock out early or complete no deliveries. Normal daily food use still applies. Deliveries can also consume fuel and tires.", null),
                 "DoorDashResult" => new ScreenDescriptor("activity", "Shift results",
                     DoorDashResultDescription(userData as TravelInfo), null),
 
@@ -1079,10 +1079,11 @@ namespace OregonTrailDotNet.Web
         {
             var shift = info?.DoorDash;
             if (shift == null)
-                return "The delivery shift is complete.";
+                return "The delivery shift is complete. One trail day was spent; normal daily food use applied.";
 
             return $"The shift earned {Usd(shift.GrossEarned)} from {shift.DeliveriesDone} deliveries, " +
-                   $"using {shift.CansBurned} gas cans and {shift.TiresWorn} spare tires.";
+                   $"using {shift.CansBurned} gas cans and {shift.TiresWorn} spare tires. " +
+                   "One trail day was spent; normal daily food use applied, even for an early clock-out.";
         }
 
         private static string EventTitle(RandomEventInfo info)
