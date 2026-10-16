@@ -150,7 +150,7 @@ namespace OregonTrailDotNet.Window.Travel
         /// </summary>
         internal void HuntForFood()
         {
-            SetForm(typeof(Hunting));
+            SetForm(typeof(HuntReady));
         }
 
         /// <summary>
