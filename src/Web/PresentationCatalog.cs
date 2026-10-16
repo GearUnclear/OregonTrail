@@ -26,6 +26,7 @@ namespace OregonTrailDotNet.Web
         StoreAdjust,
         StoreSet,
         SkipIntro,
+        SkipStoreGuide,
         PrepareDeparture,
         Crypto,
         Creator,
@@ -570,6 +571,13 @@ namespace OregonTrailDotNet.Web
                 actions.Add(new GameActionDto(actionId, "Pack the car at home", "primary", true, false));
                 bindings[actionId] = new PresentationActionBinding(PresentationActionKind.PrepareDeparture);
                 return actions;
+            }
+
+            if (currentForm is Window.Travel.Store.Help.StoreWelcome)
+            {
+                const string skip = "setup.skip-store-guide";
+                actions.Add(new GameActionDto(skip, "Skip guide and open shop", "secondary", true, false));
+                bindings[skip] = new PresentationActionBinding(PresentationActionKind.SkipStoreGuide);
             }
 
             var menu = game.ActiveMenu;
