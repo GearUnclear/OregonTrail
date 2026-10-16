@@ -66,14 +66,16 @@ public sealed class CreatorChannel
     public bool CanFilm => Career.Started && Career.Draft == null && _balance() >= ProductionCost;
     public bool CanWithdraw => Career.Unpaid >= PayoutMinimum;
 
+    // These are opaque platform allegations, not claims that invented events occurred in the footage.
+    // Keep six entries and the same random draw so this copy change does not alter career outcomes.
     private static readonly string[] Incidents =
     {
-        "A family member swore in the background while you were explaining wholesome van life.",
-        "A man living on the street exposed himself in the distant background. You missed it in the edit.",
-        "The radio played a copyrighted chorus under your heartfelt monologue.",
-        "Your passenger demonstrated a hand gesture the advertiser review bot understood immediately.",
-        "A roadside billboard put an adult-service phone number directly behind your face.",
-        "Your family argument survived the edit under a track called Peaceful Journey."
+        "The automated review alleged background profanity, but supplied no timestamp. Your edit may not contain what it claims.",
+        "The automated review alleged background nudity, but supplied no timestamp. The appeal form offers no way to ask where.",
+        "A copyright bot claimed an unidentified audio fragment. Its report does not say whether the clip actually contains music.",
+        "The advertiser bot alleged an offensive gesture. It declined to identify a frame, person, or gesture.",
+        "The review system alleged adult-service advertising. It provided neither a frame nor the supposed text.",
+        "The review bot marked the clip unsuitable for advertisers. Its explanation is an explanation-shaped blank space."
     };
 
     public CreatorChannel(Random random, Func<int> balance, Action<int> wallet, CreatorCareer career,
