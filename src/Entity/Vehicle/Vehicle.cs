@@ -897,10 +897,11 @@ namespace OregonTrailDotNet.Entity.Vehicle
         /// <returns>TRUE if the vehicle has this item, FALSE if it does not have it or does but not enough quantity for trade.</returns>
         public bool ContainsItem(SimItem wantedItem)
         {
+            if (wantedItem == null || wantedItem.Quantity <= 0) return false;
             // Loop through vehicle inventory.
             foreach (var simItem in Inventory)
                 if ((simItem.Value.Name == wantedItem.Name) && (simItem.Value.Category == wantedItem.Category) &&
-                    (simItem.Value.Quantity >= wantedItem.MinQuantity))
+                    (simItem.Value.Quantity >= wantedItem.Quantity))
                     return true;
 
             return false;
