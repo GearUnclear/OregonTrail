@@ -890,11 +890,15 @@ namespace OregonTrailDotNet.Entity.Vehicle
             return destroyedItems;
         }
 
-        /// <summary>
-        ///     Determines if the vehicles inventory contains the inputted item in the specified quantity.
-        /// </summary>
-        /// <param name="wantedItem">Item wanted configured with desired quantity.</param>
-        /// <returns>TRUE if the vehicle has this item, FALSE if it does not have it or does but not enough quantity for trade.</returns>
+        /// <summary>Whether the full offered stack fits without truncation; this does not mutate inventory.</summary>
+        internal bool CanReceiveItem(SimItem offeredItem)
+        {
+            return offeredItem != null && offeredItem.Quantity > 0 &&
+                   Inventory.TryGetValue(offeredItem.Category, out var held) &&
+                   offeredItem.Quantity <= held.MaxQuantity - held.Quantity;
+        }
+
+        /// <summary>Whether inventory contains the requested item.</summary>
         public bool ContainsItem(SimItem wantedItem)
         {
             // Loop through vehicle inventory.
