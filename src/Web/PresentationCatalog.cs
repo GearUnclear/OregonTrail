@@ -1109,6 +1109,7 @@ namespace OregonTrailDotNet.Web
                 "SufferingExhaustion" => "Celebratory gunfire",
                 "TyphoidFever" => "Heat exhaustion",
                 "MlmHun" => "MLM roadside pitch",
+                "WolfAttack" => "Feral-hog attack",
                 _ => Humanize(name)
             };
         }
