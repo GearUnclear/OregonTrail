@@ -713,7 +713,7 @@ namespace OregonTrailDotNet.Web
                     "Harder starting circumstances multiply the final score: DoorDash drivers earn double clout and faith-walk streamers earn triple clout on arrival.", null),
 
                 "Store" => new ScreenDescriptor("store", $"{location} Travel Center",
-                    "At filling rations, each traveler eats 3 lb of snacks per travel day. Use the bulk buttons to pack for several days, then leave the store to purchase within your cash and cargo limits.", null),
+                    $"At filling rations, each traveler eats {OregonTrailDotNet.Entity.Person.FoodRations.PoundsPerPerson(OregonTrailDotNet.Entity.Person.RationLevel.Filling):0.##} lb of snacks per day, including days spent resting or on activities. Use the bulk buttons to pack for several days, then leave the store to purchase within your cash and cargo limits.", null),
                 "StoreWelcome" => new ScreenDescriptor("dialog", "Stock up for the road",
                     StoreWelcomeDescription(currentForm, location), null),
                 "StoreDebtWarning" => new ScreenDescriptor("dialog", "That receipt costs too much",
