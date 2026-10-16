@@ -1,8 +1,10 @@
-﻿// Created by Ron 'Maxwolf' McDowell (ron.mcdowell@gmail.com) 
+// Created by Ron 'Maxwolf' McDowell (ron.mcdowell@gmail.com)
 // Timestamp 01/03/2016@1:50 AM
 
 using System;
 using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 using WolfCurses.Window;
 using WolfCurses.Window.Form;
 
@@ -118,7 +120,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
             {
                 // Only fill out names for slots that are empty.
                 for (var i = 0; i < GameSimulationApp.Instance.Vehicle.MaxPartySize - UserData.PlayerNameIndex; i++)
-                    UserData.PlayerNames.Insert(UserData.PlayerNameIndex, GetPlayerName());
+                    UserData.PlayerNames.Insert(UserData.PlayerNameIndex, GetPlayerName(UserData.PlayerNames, GameSimulationApp.Instance.Random));
 
                 // Attach state to confirm randomized name selection, skipping manual entry with the return.
                 SetForm(typeof(ConfirmPlayerNames));
@@ -141,7 +143,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
         /// <returns>
         ///     The <see cref="string" />.
         /// </returns>
-        private static string GetPlayerName()
+        internal static string GetPlayerName(IEnumerable<string> existingNames, Random random)
         {
             string[] names =
             {
@@ -149,7 +151,15 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
                 "Kristy", "Sharice", "Joanna", "Chrystal", "Genevie", "Angela", "Ruthann", "Viva", "Iris", "Anderson",
                 "Siobhan", "Karey", "Jolie", "Carlene", "Lekisha", "Buck"
             };
-            return names[GameSimulationApp.Instance.Random.Next(names.Length)];
+            var used = new HashSet<string>(existingNames.Select(name => name.Trim()), StringComparer.OrdinalIgnoreCase);
+            var available = names.Where(name => !used.Contains(name)).ToArray();
+            if (available.Length > 0)
+                return available[random.Next(available.Length)];
+
+            // Keep generation bounded even if a future party size exhausts the catalog.
+            var suffix = 1;
+            while (used.Contains($"Traveler {suffix}")) suffix++;
+            return $"Traveler {suffix}";
         }
     }
 }
