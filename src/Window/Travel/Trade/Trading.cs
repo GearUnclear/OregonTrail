@@ -255,6 +255,14 @@ namespace OregonTrailDotNet.Window.Travel.Trade
             {
                 case DialogResponse.Yes:
                 {
+                    // Recheck the actual requested amount immediately before any mutation.
+                    var offer = SemanticOffer;
+                    if (offer == null || !GameSimulationApp.Instance.Vehicle.ContainsItem(offer.WantedItem))
+                    {
+                        _playerCanTrade = false;
+                        ClearForm();
+                        return;
+                    }
                     // Remove the quantity of item from the vehicle inventory the trader wants.
                     GameSimulationApp.Instance.Vehicle.Inventory[_trades[_tradeIndex].WantedItem.Category].ReduceQuantity(
                         _trades[_tradeIndex].WantedItem.Quantity);
