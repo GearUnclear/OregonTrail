@@ -34,6 +34,7 @@
       let source = null;
       let timer = null;
       let watchdog = null;
+      let reconciliation = null;
       let stopped = false;
       let inFlight = null;
       let retryDelay = 1000;
@@ -42,6 +43,13 @@
       function healthy() {
         retryDelay = 1000;
         onConnection(true);
+      }
+      // Heartbeats prove transport liveness, not that the visible snapshot is current.
+      // A conditional read also repairs an OPEN stream that silently misses state events.
+      function armReconciliation() {
+        clearTimeout(reconciliation);
+        if (stopped || document.hidden || navigator.onLine === false) return;
+        reconciliation = setTimeout(() => { reconciliation = null; refresh(); }, 15000);
       }
       function armWatchdog() {
         clearTimeout(watchdog);
@@ -69,6 +77,7 @@
             if (!state?.screen || !Number.isSafeInteger(state.revision)) throw new Error("Invalid live state");
             healthy();
             onState(state);
+            armReconciliation();
             clearTimeout(timer);
             timer = null;
             armWatchdog();
@@ -104,6 +113,7 @@
             onConnection(true);
             if (state) onState(state);
             connect();
+            armReconciliation();
             // Successful fallback snapshots stay frequent enough to show travel, while network failures back off.
             retryDelay = Math.min(retryDelay, 3000);
             if (!source || source.readyState !== EventSource.OPEN) scheduleFallback();
@@ -121,6 +131,8 @@
         generation++;
         clearTimeout(timer);
         clearTimeout(watchdog);
+        clearTimeout(reconciliation);
+        reconciliation = null;
         timer = null;
         source?.close();
         source = null;
@@ -144,6 +156,7 @@
           source?.close();
           clearTimeout(timer);
           clearTimeout(watchdog);
+          clearTimeout(reconciliation);
           document.removeEventListener("visibilitychange", visibility);
           window.removeEventListener("online", refresh);
           window.removeEventListener("offline", disconnect);
