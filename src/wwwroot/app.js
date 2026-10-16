@@ -300,22 +300,26 @@
   }
 
   function routeProgress(progress) {
-    const percent = progress.totalMiles > 0
-      ? clamp(Math.round(100 * progress.milesTraveled / progress.totalMiles), 0, 100)
-      : 0;
+    // Odometer includes discarded per-leg overshoot. It is not route completion.
+    // Use the currently selected route's stop sequence, including inserted fork choices.
+    const stops = progress.stops || [];
+    const totalLegs = Math.max(0, stops.length - 1);
+    const completedLegs = clamp(progress.currentStopIndex || 0, 0, totalLegs);
+    const percent = totalLegs > 0 ? Math.floor(100 * completedLegs / totalLegs) : 0;
     const track = element("div", "route-progress__track");
     track.setAttribute("role", "progressbar");
-    track.setAttribute("aria-label", "Journey mileage");
+    track.setAttribute("aria-label", "Route legs completed");
     track.setAttribute("aria-valuemin", "0");
-    track.setAttribute("aria-valuemax", String(progress.totalMiles));
-    track.setAttribute("aria-valuenow", String(clamp(progress.milesTraveled, 0, progress.totalMiles)));
+    track.setAttribute("aria-valuemax", String(Math.max(1, totalLegs)));
+    track.setAttribute("aria-valuenow", String(completedLegs));
     const fill = element("span", "route-progress__fill");
     fill.style.width = `${percent}%`;
     return append(element("div", "route-progress"),
       append(element("div", "route-progress__labels"),
-        element("strong", "", `${integer(progress.milesTraveled)} / ${integer(progress.totalMiles)} mi`),
-        element("span", "", `${percent}% of route`)),
-      append(track, fill));
+        element("strong", "", `${integer(completedLegs)} / ${integer(totalLegs)} legs complete`),
+        element("span", "", `${percent}% of route stops`)),
+      append(track, fill),
+      element("p", "", `Odometer: ${integer(progress.milesTraveled)} mi. Route progress is measured by stops, not this reading.`));
   }
 
   function routeStops(progress, full = false) {
