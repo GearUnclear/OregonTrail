@@ -622,6 +622,10 @@
       })
       : localButton("Next chapter →", "story-next", () => change(storyPage + 1), "game-button game-button--solid story-advance");
     append(controls, prev, element("span", "story-position", `${storyPage + 1} / ${pages.length}`), next);
+    if (!lastChapter) {
+      const begin = state.screen.actions.find((action) => action.kind === "primary");
+      if (begin) controls.append(actionButton(begin, { label: "Skip story and choose background →" }));
+    }
     panel.append(controls);
     return panel;
   }
