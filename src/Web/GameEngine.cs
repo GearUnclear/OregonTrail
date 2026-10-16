@@ -144,6 +144,9 @@ internal sealed class GameEngine : IGameEngine
             case PresentationActionKind.StoreSet:
                 InvokeStore(game, "SetQuantity", binding.StoreItem, int.Parse(input));
                 break;
+            case PresentationActionKind.SkipStoreGuide:
+                if (game.CurrentForm is Window.Travel.Store.Help.StoreWelcome guide) guide.SkipToStore();
+                break;
             case PresentationActionKind.SkipIntro:
                 AdvanceIntro(game);
                 break;
