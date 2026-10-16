@@ -15,6 +15,8 @@ static async Task Throws<T>(Func<Task> action) where T : Exception
     throw new Exception($"Expected {typeof(T).Name}");
 }
 
+if (args.Contains("--party-names")) { PartyNameTests.Run(); return; }
+PartyNameTests.Run();
 if (args.Contains("--creator-rules")) { CreatorTests.RunRules(); return; }
 if (args.Contains("--creator-balance")) { CreatorTests.RunBalance(false); return; }
 if (args.Contains("--food-sweep")) { FoodSweepTests.Run(); return; }
