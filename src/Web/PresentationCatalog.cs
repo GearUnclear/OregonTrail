@@ -1,9 +1,11 @@
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using OregonTrailDotNet.Entity;
 using OregonTrailDotNet.Entity.Item;
+using OregonTrailDotNet.Entity.Person;
 using OregonTrailDotNet.Module.Scoring;
 using OregonTrailDotNet.Window.GameOver;
 using OregonTrailDotNet.Window.Graveyard;
@@ -713,7 +715,7 @@ namespace OregonTrailDotNet.Web
                     "Harder starting circumstances multiply the final score: DoorDash drivers earn double clout and faith-walk streamers earn triple clout on arrival.", null),
 
                 "Store" => new ScreenDescriptor("store", $"{location} Travel Center",
-                    $"At filling rations, each traveler eats {OregonTrailDotNet.Entity.Person.FoodRations.PoundsPerPerson(OregonTrailDotNet.Entity.Person.RationLevel.Filling):0.##} lb of snacks per day, including days spent resting or on activities. Use the bulk buttons to pack for several days, then leave the store to purchase within your cash and cargo limits.", null),
+                    $"{StoreFoodGuidance(game)} Use the bulk buttons to pack for several days, then leave the store to purchase within your cash and cargo limits.", null),
                 "StoreWelcome" => new ScreenDescriptor("dialog", "Stock up for the road",
                     StoreWelcomeDescription(currentForm, location), null),
                 "StoreDebtWarning" => new ScreenDescriptor("dialog", "That receipt costs too much",
@@ -856,6 +858,13 @@ namespace OregonTrailDotNet.Web
                 "The road ahead",
                 "Your Cape Coral home has been declared uninsurable. Read the story of the move west, then choose the life you are bringing with you.",
                 null);
+        }
+
+        private static string StoreFoodGuidance(GameSimulationApp game)
+        {
+            var ration = game.Vehicle?.Ration ?? RationLevel.Filling;
+            var pounds = FoodRations.PoundsPerPerson(ration).ToString("0.##", CultureInfo.InvariantCulture);
+            return $"At {Humanize(ration.ToString()).ToLowerInvariant()} rations, each traveler eats {pounds} lb of snacks per day, including days spent resting or on activities.";
         }
 
         private static string StoreWelcomeDescription(object currentForm, string location)
