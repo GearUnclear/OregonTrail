@@ -52,7 +52,11 @@ public sealed class CreatorChannel
     public const int ViewThreshold = 10000;
     public const int PayoutMinimum = 10;
     public const double DemonetizationChance = .15;
-    internal const double BreakoutChance = .095;
+    internal const double BreakoutChance = .03;
+    /// <summary>Hidden potential at which an idea can convert subscribers and break out.</summary>
+    internal const int GoodIdeaPotential = 80;
+    /// <summary>Share of filming days that land a good idea while both kinds remain eligible.</summary>
+    internal const double GoodIdeaChance = .32;
     private readonly Func<int> _balance;
     private readonly Action<int> _wallet;
     private readonly IReadOnlyList<VideoIdea> _ideas;
@@ -150,8 +154,12 @@ public sealed class CreatorChannel
         if (!CanFilm) return false;
         var eligible = _ideas.Where(i => CreatorCatalog.Eligible(i, locationId, arrived)).ToArray();
         if (eligible.Length == 0) return false;
-        var fresh = eligible.Where(i => !Career.FilmedIdeas.Contains(i.Id)).ToArray();
-        if (fresh.Length == 0) fresh = eligible;
+        // Good and bad ideas are drawn as separate pools so the good share holds after the scarce good ideas are used.
+        var good = eligible.Where(i => i.Potential >= GoodIdeaPotential).ToArray();
+        var bad = eligible.Where(i => i.Potential < GoodIdeaPotential).ToArray();
+        var pool = good.Length == 0 ? bad : bad.Length == 0 ? good : Random.NextDouble() < GoodIdeaChance ? good : bad;
+        var fresh = pool.Where(i => !Career.FilmedIdeas.Contains(i.Id)).ToArray();
+        if (fresh.Length == 0) fresh = pool;
         var idea = fresh[Random.Next(fresh.Length)];
         _wallet(-ProductionCost);
         Career.ProductionSpent += ProductionCost;
@@ -176,10 +184,10 @@ public sealed class CreatorChannel
         if (draft == null) return false;
         var potential = draft.Idea.Potential;
         // A dull topic has a hard demand ceiling, even for an established channel with expensive equipment.
-        var topicLimit = potential < 36 ? 360 : potential < 80 ? 2400 : 2_000_000;
+        var topicLimit = potential < 36 ? 360 : potential < GoodIdeaPotential ? 2400 : 2_000_000;
         var breakout = Random.NextDouble() < BreakoutChance;
         var interest = Random.NextDouble();
-        var discoveryDemand = potential < 36 ? 12 + interest * 160 : potential < 80 ? 70 + interest * 950 :
+        var discoveryDemand = potential < 36 ? 12 + interest * 160 : potential < GoodIdeaPotential ? 70 + interest * 950 :
             breakout ? 65000 + Math.Pow(interest, 2) * 650000 : 600 + interest * 5500;
         var regularDemand = (int)(Career.Subscribers * (.04 + Random.NextDouble() * .46));
         var outsiderDemand = (int)(discoveryDemand * Career.AlgorithmScore * (.65 + potential / 140.0));
@@ -188,8 +196,9 @@ public sealed class CreatorChannel
         var discovery = views - regular;
         var conversionRoll = Random.NextDouble();
         var conversion = Random.NextDouble();
+        // Good ideas arrive often enough to tempt; rare breakouts and modest conversion keep 12- and 24-upload careers mostly a loss.
         var gained = conversionRoll < .28 ? 0 : (int)(discovery *
-            (potential >= 80 ? .012 + conversion * .032 : .0005 + conversion * .006));
+            (potential >= GoodIdeaPotential ? .005 + conversion * .014 : .0005 + conversion * .006));
         var lost = Math.Min(Career.Subscribers, (int)(Career.Subscribers * Random.NextDouble() *
             (potential < 36 ? .045 : .012)));
         // Subscriber response and discovery response each move the hidden recommender in both directions.
