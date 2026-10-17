@@ -56,7 +56,7 @@
   {
     "id": "video-197",
     "title": "The Same Small Purchase Follows Changing Stops",
-    "premise": "Receipts from several ordinary breaks show one familiar, inexpensive purchase turning up again as the traveler's surroundings and daily routine change. The slips form a quiet record of a comfort that stayed recognizable across a trip full of unfamiliar places.",
+    "premise": "Receipts from a dozen stops show the same cheap purchase over and over: one particular pack of gum. The surroundings keep changing, and the gum is the only thing on the trip that hasn't.",
     "conceptKey": "repeat-small-purchase-records-routine-through-travel",
     "potential": 52,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-198",
     "title": "The Cashback Credit Arrives After Its Scene",
-    "premise": "A routine receipt turns up in an earlier clip, then days later the traveler's phone shows a promotional credit linked to that purchase. Cutting the notification back beside the old footage makes a modest reward feel like an unnecessary sequel.",
+    "premise": "A receipt shows up in the background of an old clip. Days later the phone announces a tiny cashback credit for that purchase, and the editor cuts it in like a sequel nobody asked for.",
     "conceptKey": "delayed-cashback-notification-reenters-earlier-footage",
     "potential": 57,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-199",
     "title": "Where the Fuel Receipt's Total Actually Comes From",
-    "premise": "On a parked break, the traveler traces the lines on one ordinary fuel receipt from gallons to tax to final amount. The small breakdown makes a familiar total easier to understand without recommending a different station or spending routine.",
+    "premise": "On a parked break, a traveler traces one fuel receipt line by line, from gallons to price to tax to total. Every line makes sense, and the total still hurts.",
     "conceptKey": "fuel-receipt-lines-explain-final-purchase-total",
     "potential": 63,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-200",
     "title": "The Sponsor's Money Is in Every Category",
-    "premise": "During a parked budget review, a traveler adds a blank possible-sponsorship line to ordinary household needs, then assigns the same future income to a repair, snacks, and the next filming day because each use sounds reasonable. Watching the imaginary money get spent more than once is funny until the traveler deletes the line and gives the real receipt its actual place on the page, a small story about planning in a future tense while living on a present one.",
+    "premise": "In a parked budget review, a traveler adds a line for possible sponsorship money, then assigns it to the repair, the snacks, and the next filming day. It's funny until they've spent the same imaginary money three times, delete the line, and write in what the receipts actually say.",
     "conceptKey": "imaginary-sponsorship-income-spent-across-budget-categories",
     "potential": 92,
     "locations": [],

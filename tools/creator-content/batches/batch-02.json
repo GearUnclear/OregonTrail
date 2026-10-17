@@ -2,7 +2,7 @@
   {
     "id": "video-011",
     "title": "The Last Inch Above the Bins",
-    "premise": "A parked-car camera study watches the stack rise into its unused headroom. One shallow bag moves once, and the rest of the episode admires the newly available inch.",
+    "premise": "The camera studies the gap between the cargo stack and the roof. One shallow bag moves, and the rest of the episode admires the inch it freed up.",
     "conceptKey": "unused-vertical-cargo-clearance",
     "potential": 15,
     "locations": [],
@@ -47,7 +47,7 @@
   {
     "id": "video-016",
     "title": "The Slight Slope at the Back of the Trunk",
-    "premise": "An empty flat tote slides after an ordinary rearrangement, so it gets moved back to its original place. We keep filming the unchanged cargo floor.",
+    "premise": "An empty tote slides toward the hatch, gets moved back, and slides again. We keep filming the cargo floor long after the tote has made its point.",
     "conceptKey": "sloped-trunk-floor-bag-slide",
     "potential": 31,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-018",
     "title": "The Crates Change Shape as Supplies Run Down",
-    "premise": "Over several ordinary stops, partly emptied boxes stop stacking square, and the family rearranges the cargo to use the new gaps. The before-and-after layouts show how the shape of a load changes without reviewing what's inside it.",
+    "premise": "As supplies run down, half-empty boxes sag and stop stacking square. The family repacks the trunk around the new gaps, and the load slowly takes the shape of what's left.",
     "conceptKey": "cargo-geometry-after-supply-depletion",
     "potential": 58,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-019",
     "title": "Tall Stack or Wide Footprint?",
-    "premise": "With the SUV parked, the same sealed containers are arranged in a tall column and then spread across the cargo floor. The comparison is mostly about how much room each layout leaves for the next bag.",
+    "premise": "The same sealed containers go up in a tall column, then get spread flat across the cargo floor. The tower saves floor space right up until someone needs the bottom crate.",
     "conceptKey": "vertical-vs-horizontal-cargo-layout",
     "potential": 63,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-020",
     "title": "The Trunk Stops Being a Puzzle",
-    "premise": "At first, every ordinary stop begins with lifting bins to reach the one kit needed next. We film a complete unload and reload, then put the soonest-needed crates nearest the hatch, turning a tiring pile into a layout the family can repeat; tomorrow's inconvenience gets top billing.",
+    "premise": "Every stop starts with unloading half the trunk to reach one kit. The family films a full unload and reload, puts tomorrow's needs nearest the hatch, and gets ten minutes of every stop back.",
     "conceptKey": "reusable-hatch-first-packing-order",
     "potential": 91,
     "locations": [],

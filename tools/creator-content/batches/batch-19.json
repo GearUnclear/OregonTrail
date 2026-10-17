@@ -56,7 +56,7 @@
   {
     "id": "video-187",
     "title": "Camera Says Ready, Charger Says Almost",
-    "premise": "At a parked stop, the camera's battery icon and the separate charger's indicator describe two batteries at different stages. Putting both displays in view makes it easier to tell which battery is ready for the next shot and which one still needs time.",
+    "premise": "The camera says its battery is full and the charger says the other one is almost there. With both displays in frame, the traveler finally knows which battery to grab, about four minutes too late.",
     "conceptKey": "camera-and-charger-indicators-show-different-battery-states",
     "potential": 54,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-188",
     "title": "The Adapter's Fit Is Not Its Whole Job",
-    "premise": "A traveler lines up the travel charger, its adapter, and the camera battery charger to show the actual path between them. The visual check explains why a plug fitting into a socket does not by itself tell you what the connection is for.",
+    "premise": "The travel charger, its adapter, and the camera battery charger get lined up to show which cable actually goes where. Plenty of plugs fit. One of them charges the battery.",
     "conceptKey": "charger-adapter-fit-versus-connection-purpose",
     "potential": 61,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-189",
     "title": "One Power Source, Three Turns",
-    "premise": "During one ordinary parked break, the camera battery charger, external monitor, and camera take turns using the same available power source. The sequence makes the kit's competing needs visible without pretending every accessory can be ready at once.",
+    "premise": "One power source, three devices: the battery charger, the monitor, and the camera take turns during a parked break. Something is always at 40 percent.",
     "conceptKey": "shared-power-source-taking-turns-across-video-accessories",
     "potential": 48,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-190",
     "title": "We Bought the Charger to Film the Charger",
-    "premise": "The V&H charging kit arrives with enough adapters and cables to make a first travel-channel setup feel inevitable, but the first recording only shows a spare battery charging. As the traveler figures out which connection serves the battery, camera, and monitor, the gear's self-important demonstration becomes the channel's first clear and useful guide, with no guarantee that anyone will see it.",
+    "premise": "The V&H charging kit comes with enough cables to feel like the start of a real channel, and the first thing it films is a spare battery charging. Working out which cable feeds the battery, camera, and monitor, the traveler accidentally makes the channel's first useful tutorial, which nobody is guaranteed to watch.",
     "conceptKey": "charging-kit-demonstration-becomes-first-useful-setup-guide",
     "potential": 92,
     "locations": [],

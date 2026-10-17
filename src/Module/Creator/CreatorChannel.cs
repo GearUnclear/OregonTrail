@@ -132,7 +132,7 @@ public sealed class CreatorChannel
             Career.Orders.Remove(order);
             var gear = CreatorCatalog.Gear.Single(g => g.Id == order.GearId);
             Notice($"Delivered: {gear.Name}. " + (gear.Category == "camera"
-                ? "Select it in your camera bag to use it." : "Compatible supporting gear is fitted automatically."));
+                ? "It is in the camera bag. Switch to it there." : "Fitted automatically, if it works with your camera."));
         }
     }
 
@@ -141,7 +141,7 @@ public sealed class CreatorChannel
         if (!Career.Started || id == Career.ActiveCameraId || !Career.Owned.Contains(id) ||
             id != "phone" && !CreatorCatalog.Gear.Any(g => g.Id == id && g.Category == "camera")) return false;
         Career.ActiveCameraId = id;
-        Notice($"Camera bag: {Camera.Name}. Existing footage keeps the kit it was filmed on.");
+        Notice($"In use: {Camera.Name}. Footage you already have keeps the camera it was shot on.");
         return true;
     }
 
@@ -254,7 +254,7 @@ public sealed class CreatorChannel
         var amount = (int)Math.Floor(Career.Unpaid);
         Career.PaidOut += amount;
         _wallet(amount);
-        Notice($"${amount} transferred to road cash. Any remaining cents stay in the channel account.");
+        Notice($"${amount} moved to road cash. The leftover cents stay with the channel.");
         return true;
     }
 
@@ -271,7 +271,7 @@ public sealed class CreatorChannel
         if (!Career.Monetized && Career.Subscribers >= SubscriberThreshold && Career.TotalViews >= ViewThreshold)
         {
             Career.Monetized = true;
-            Notice("Partner status unlocked. Eligible uploads can now earn ads; earlier unpaid videos are not paid retroactively.");
+            Notice("Partner status unlocked. Uploads from here on can earn ad money. Nothing earlier gets paid.");
         }
     }
 

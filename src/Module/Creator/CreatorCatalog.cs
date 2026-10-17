@@ -53,21 +53,21 @@ public static class CreatorCatalog
         new("pocket-used", "camera", "ReCertified Pocket 1080", 129, 65000, "Fixed 28mm · 1080p · mystery stain", "Tested to power on. Further questions cost extra."),
         new("action", "camera", "GoBroke Adventure 4K", 249, 95000, "Fixed ultrawide · splash resistant", "Make every parking lot look like an extreme sport."),
         new("compact", "camera", "VlogStar Fixed-Lens Deluxe", 499, 150000, "24–70mm equivalent · face tracking", "Tracks your face while you explain the purchase."),
-        new("mirrorless", "camera", "Almost Alpha E10 Creator Kit", 749, 240000, "VH-E mount · 16–50mm kit lens · clean HDMI", "Interchangeable lenses. Non-interchangeable regrets.", "VH-E", true),
+        new("mirrorless", "camera", "Almost Alpha E10 Creator Kit", 749, 240000, "VH-E mount · 16–50mm kit lens · clean HDMI", "The lens comes off. The payments don't.", "VH-E", true),
         new("full-frame", "camera", "DebtFrame E7 IV Body + Kit", 1899, 650000, "VH-E mount · full frame · kit lens · clean HDMI", "Full-frame coverage of your empty checking account.", "VH-E", true),
         new("cinema", "camera", "CineMortgage C6 Starter Kit", 3499, 1200000, "VH-C mount · 6K RAW · kit lens · clean HDMI", "The word cinema appears seven times on the box.", "VH-C", true),
         new("light-clip", "light", "InfluenceClip USB Ring", 19, 2000, "3-inch ring · cool white · USB", "A halo for someone financing gas with ad revenue."),
         new("light-pocket", "light", "Pocket RGB Emotional Support", 69, 6000, "2500–9000K · 12 dramatic presets", "Police-light mode does not confer police powers."),
         new("light-panel", "light", "Bi-Color Parking Lot Panel", 159, 14000, "30W panel · 95 CRI · soft case", "Your cereal deserves flattering key light."),
         new("light-tube", "light", "RGB Tube of Professionalism", 299, 22000, "2-foot tube · internal battery", "A $299 stick that glows. Victor calls it essential."),
-        new("light-cob", "light", "Daylight COB 200D + Softbox", 599, 45000, "200W · Bowens mount · mains power", "Nearly as bright as the sun, less portable."),
+        new("light-cob", "light", "Daylight COB 200D + Softbox", 599, 45000, "200W · Bowens mount · mains power", "Nearly as bright as the sun and only slightly easier to pack."),
         new("light-cinema", "light", "Sun Replacement 600 Pro", 1499, 85000, "600W daylight · rolling hard case", "Requires power, space, and an explanation to your family."),
         new("sd-basic", "storage", "64GB V30 Reasonable Card", 14, 1500, "64GB · U3/V30 · full-size SD", "The adapter is the part you will lose."),
         new("sd-v60", "storage", "256GB V60 Ambition Card", 59, 6000, "256GB · UHS-II · V60", "Enough room for 83 takes of hello guys."),
         new("sd-v90", "storage", "512GB V90 Future-Proofish", 179, 16000, "512GB · V90 · gold label", "Future-proof until Tuesday's press release."),
         new("ssd", "storage", "4TB Rugged Backup Brick", 329, 28000, "4TB SSD · rubber bumper · USB-C", "Back up the backup of the thing nobody watched."),
         new("battery-usb", "power", "10,000mAh Almost Enough", 25, 2500, "USB-C PD · pocket bank", "One more take before the dashboard battery warning."),
-        new("battery-kit", "power", "Two Batteries and a Prayer", 79, 8000, "Universal regulated camera power kit", "Includes charger. Includes hope. No viewers included."),
+        new("battery-kit", "power", "Two Batteries and a Prayer", 79, 8000, "Universal regulated camera power kit", "Includes charger. Viewers sold separately."),
         new("battery-vmount", "power", "99Wh V-Mount Status Symbol", 219, 20000, "USB-C / D-Tap · mounting plate", "Exactly the battery your battery needed."),
         new("battery-station", "power", "1kWh Portable Wall Outlet", 799, 45000, "1000Wh · AC inverter · heavy", "The road trip now has an electrical department."),
         new("monitor-basic", "monitor", "5-inch Focus Anxiety Display", 169, 12000, "HDMI · focus peaking · sun hood", "See your mistakes on a second screen.", Hdmi: true),
@@ -83,7 +83,7 @@ public static class CreatorCatalog
         new("mic-wired", "audio", "Lapel Mic With Long Cable", 29, 3500, "TRRS/USB-C · foam windscreen", "Now the family argument has excellent intelligibility."),
         new("mic-wireless", "audio", "Dual Wireless Overshare Kit", 249, 19000, "2 transmitters · safety track", "The safety track cannot save you from what was said."),
         new("tripod", "support", "Tabletop Tripod of Resolve", 24, 2000, "Mini ball head · phone clamp", "Three legs. One questionable career move."),
-        new("gimbal", "support", "Three-Axis Financial Instability", 299, 25000, "Mirrorless/phone stabilizer · case", "Stabilizes footage, not income.")
+        new("gimbal", "support", "Three-Axis Financial Instability", 299, 25000, "Mirrorless/phone stabilizer · case", "Smooth footage of an unsteady financial situation.")
     };
 
     public static bool Eligible(VideoIdea idea, string locationId, bool arrived) =>

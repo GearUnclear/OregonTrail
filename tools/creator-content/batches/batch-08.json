@@ -56,7 +56,7 @@
   {
     "id": "video-077",
     "title": "The Scale Bar Changes the Size of a Long Day",
-    "premise": "A traveler uses the atlas scale bar to compare a short-looking stretch on paper with the distance it represents, without recommending a route. The simple check makes the map's compact view easier to read.",
+    "premise": "A traveler holds a thumb against the atlas scale bar, then against a stretch of road that looks like a short hop. The thumb says it's most of a day.",
     "conceptKey": "atlas-scale-bar-relates-paper-distance-to-miles",
     "potential": 63,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-078",
     "title": "The Same Destination at Two Map Zooms",
-    "premise": "At a parked stop, the traveler compares a navigation screen's regional overview with its closer view of the same destination. The route looks simple at one scale and becomes a string of small turns at the other, a useful reminder that each view answers a different question.",
+    "premise": "At a parked stop, the navigation overview shows the destination as one smooth line. Zoom in and the same trip becomes forty small turns, two of them already closed.",
     "conceptKey": "navigation-screen-destination-overview-versus-close-zoom",
     "potential": 52,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-079",
     "title": "The Atlas Index Sends Us Back to the Grid",
-    "premise": "A traveler finds a place name in the road atlas index, follows its letter-and-number reference to the map grid, and locates it without searching the whole state. The small method is useful whenever a printed map feels like too much page at once.",
+    "premise": "A traveler looks up a town in the atlas index, follows its letter-and-number code to the grid, and finds it in seconds. It's a small skill the phone made everyone forget.",
     "conceptKey": "atlas-index-grid-reference-finds-place",
     "potential": 46,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-080",
     "title": "The Map Changes From a Plan Into a Record",
-    "premise": "A traveler begins with a tidy line drawn toward a safer destination, then adds brief notes wherever closures and changing conditions alter the day's plan. By the end, the map is less a promise about the road ahead than a clear record of how an ordinary household kept adapting while moving on.",
+    "premise": "The trip starts with a neat line drawn toward a safer destination. Every closure and detour gets a note in the margin, and by the end the map is mostly margin.",
     "conceptKey": "route-map-evolves-from-plan-into-record-of-adjustment",
     "potential": 92,
     "locations": [],

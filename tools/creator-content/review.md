@@ -29,3 +29,7 @@ The user reduced the target to 200 ideas during authoring. All 20 actual Luna/xh
 The complete structural audit passes: 200 unique IDs, normalized titles and semantic keys; 120 weak, 60 middling and 20 great ideas; 192 generic ideas and eight location-specific ideas. Every central record matches the corresponding author submission and manifest IDs. The named-location scan has no unresolved candidates.
 
 The lexical scan identifies one pair: video-028 versus video-168. Full-premise review confirms different substantive concepts: translating exaggerated snack flavor marketing after tasting it versus explaining camera manual terminology through demonstrated operating choices. Shared plain-language translation does not make those videos duplicates. No other unresolved semantic overlap was found.
+
+## Copy edit, October 2026
+
+A later editorial pass rewrote 83 premises, mostly middling and great ideas whose closing sentences explained the lesson ("a useful reminder that...", "turning X into a quiet portrait of..."). Each rewrite keeps its idea's action, concept key, score, author batch and lock; no title, ID or non-text field changed. The edits were applied identically to the runtime pool and each author's batch file so the provenance audit still compares equal. Weak ideas were mostly left as written, since their flatness is the joke.

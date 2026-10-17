@@ -56,7 +56,7 @@
   {
     "id": "video-037",
     "title": "Which Vessel Stays Cold Until the Next Stop?",
-    "premise": "A plain cup and an insulated bottle start with equally cold water during one parked stretch, then are compared at ordinary stops. Their changing temperatures give a useful sense of how much the vessel affects the small pleasure of a cold drink.",
+    "premise": "A plain cup and an insulated bottle start with the same cold water and get checked at every stop. By the third stop, only one of them is still worth drinking.",
     "conceptKey": "cold-water-temperature-cup-versus-insulated-bottle",
     "potential": 54,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-038",
     "title": "The Wide-Mouth Bottle Wins at Refill Time",
-    "premise": "At three ordinary refill stops, the camera follows a wide-mouth bottle as it gets topped up with ice and water. Its small advantage becomes clear when the ice is easier to add than it would be through a narrow opening.",
+    "premise": "At three refill stops, the wide-mouth bottle takes its ice in one scoop while the narrow one takes it a cube at a time. That's the whole video. It holds up.",
     "conceptKey": "wide-mouth-bottle-ice-refill-ease",
     "potential": 58,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-039",
     "title": "The Bottle Dries Before the Drink Warms",
-    "premise": "We follow one chilled bottle through ordinary breaks as its condensation fades while the water inside stays cool. The mismatch makes a simple point: a dry bottle is not automatically a warm drink.",
+    "premise": "A chilled bottle sweats, then dries off over a few stops while the water inside stays cold. The outside of a bottle is a bad thermometer.",
     "conceptKey": "bottle-exterior-dries-before-water-warms",
     "potential": 43,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-040",
     "title": "The Bottle Everyone Reaches For",
-    "premise": "A plain bottle and an insulated one begin the trip as equals, but at ordinary stops the family keeps choosing the clear bottle because anyone can see what remains and refill it. By the end, the modest container has quietly become the shared favorite, a useful reminder that visibility can matter more than a promise on a label.",
+    "premise": "A clear plastic bottle and a pricey insulated one start the trip as equals. By the end everyone grabs the clear one, because you can see how much is left, and the insulated bottle rides in the door pocket, cold and ignored.",
     "conceptKey": "clear-visible-water-bottle-becomes-shared-favorite",
     "potential": 88,
     "locations": [],
