@@ -196,9 +196,9 @@ public sealed class CreatorChannel
         var discovery = views - regular;
         var conversionRoll = Random.NextDouble();
         var conversion = Random.NextDouble();
-        // Good ideas arrive often enough to tempt; rare breakouts and modest conversion keep the 12-upload career mostly a loss.
+        // Good ideas arrive often enough to tempt; rare breakouts and modest conversion keep 12- and 24-upload careers mostly a loss.
         var gained = conversionRoll < .28 ? 0 : (int)(discovery *
-            (potential >= GoodIdeaPotential ? .006 + conversion * .016 : .0005 + conversion * .006));
+            (potential >= GoodIdeaPotential ? .005 + conversion * .014 : .0005 + conversion * .006));
         var lost = Math.Min(Career.Subscribers, (int)(Career.Subscribers * Random.NextDouble() *
             (potential < 36 ? .045 : .012)));
         // Subscriber response and discovery response each move the hidden recommender in both directions.
