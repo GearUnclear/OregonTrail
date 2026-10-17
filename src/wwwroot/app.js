@@ -424,6 +424,16 @@
     return append(details, summary, body);
   }
 
+  // The creator rail keeps its ledger (and transfer command) open; the reference cards fold on phones.
+  function creatorRail(folded) {
+    const rail = window.TrailCreator.rail(state.creator, cryptoUi());
+    if (folded) for (const [selector, title] of [[".creator-partner", "Fictional partner program"], [".creator-field-notes", "Production notes"]]) {
+      const card = rail.querySelector(selector);
+      if (card) card.replaceWith(foldPanel(card, title, true));
+    }
+    return rail;
+  }
+
   function partyPanel(folded = false) {
     const card = element("section", "rail-card party-card");
     append(card, panelHeading("03 / Passenger manifest", "The people you carry"));
@@ -1074,7 +1084,7 @@
     } else if (screen.kind === "crypto" && state.crypto) {
       append(rail, foldPanel(window.TrailCrypto.rail(state.crypto, cryptoUi()), "Founder dossier", fold), readinessPanel(fold));
     } else if (screen.kind === "creator" && state.creator) {
-      append(rail, window.TrailCreator.rail(state.creator, cryptoUi()), readinessPanel(fold));
+      append(rail, creatorRail(fold), readinessPanel(fold));
     } else {
       append(rail, foldPanel(routePanel(state.progress), "The road ahead", fold), readinessPanel(fold), partyPanel(true), cargoPanel(true));
     }
