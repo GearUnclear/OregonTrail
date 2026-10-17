@@ -25,7 +25,9 @@ internal static class CheckpointEpilogueTests
 
         Check(joined.Contains("Forty families who had vouched for you"), "joined run recap names the abandoned caravan");
         Check(!solo.Contains("families") && !solo.Contains("caravan"), "solo run recap must not mention a caravan");
-        Check(solo.Contains("going it alone"), "solo run recap reflects traveling alone");
+        Check(solo.Contains("There was no one to tell."), "solo run recap reflects traveling alone");
+        Check(never == "You took a logging road around the Cascadia line and never told anyone.",
+            "unoffered run recap is the bare opening");
         Check(!never.Contains("families") && !never.Contains("caravan"), "unoffered run recap must not mention a caravan");
         Check(joined != solo && solo != never && joined != never, "each caravan outcome gets its own recap");
         foreach (var line in new[] { joined, solo, never })

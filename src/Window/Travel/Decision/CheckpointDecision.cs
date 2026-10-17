@@ -122,10 +122,8 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                 "join" => opening + indent +
                           "Forty families who had vouched for you sat idling at the barrier, waiting" + indent +
                           "on a car that was already three ridges east.",
-                "solo" => opening + indent +
-                          "Nobody was waiting for you at the barrier. That was the whole point of" + indent +
-                          "going it alone.",
-                _ => opening + indent + "There was no one to tell."
+                "solo" => opening + indent + "There was no one to tell.",
+                _ => opening
             };
         }
 
