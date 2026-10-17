@@ -189,8 +189,9 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                         // Waiting a day lets the floodwater actually recede a little, so "wait" is a real
                         // (if slow) option instead of a no-op: a deep crossing becomes safely fordable over
                         // several days. River data persists until the crossing finishes, so this sticks.
+                        // Drops 2-4 feet a day (was 1-3), so even the deepest water clears in a few days.
                         UserData.River.RiverDepth = Math.Max(1,
-                            UserData.River.RiverDepth - GameSimulationApp.Instance.Random.Next(1, 4));
+                            UserData.River.RiverDepth - GameSimulationApp.Instance.Random.Next(2, 5));
 
                         // Resting by a river only increments a single day at a time.
                         UserData.DaysToRest = 1;

@@ -24,7 +24,7 @@ public static class CreatorCatalog
     {
         ["Cape Coral, FL"] = "cape-coral",
         ["I-40 Pigeon River Gorge Washout"] = "pigeon-gorge",
-        ["I-10 Francine Flood Crossing"] = "francine-flood",
+        ["I-10 Francine Floodline"] = "francine-flood",
         ["Buc-ee's, Sevierville TN"] = "bucees",
         ["Touchdown Jesus, Monroe OH"] = "touchdown-jesus",
         ["Wall Drug, SD"] = "wall-drug",
