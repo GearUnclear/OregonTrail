@@ -33,7 +33,7 @@ These create a lot of journeys and submit actions, so never point them at produc
 
 ### What ships
 
-Everything in `src/wwwroot/` is published to `publish/wwwroot/`: the page, the scripts and stylesheets, `favicon.svg`, and the `fonts/` folder with the font license texts. Adding a file there is enough to ship it. The publish directory also contains the app (`OregonTrailDotNet.dll`, its dependencies, and a native launcher), an unused IIS `web.config`, and a copy of `Module/Creator/video-ideas.json`. The game reads the video ideas from a resource embedded in the dll, not from that file.
+Everything in `src/wwwroot/` is published to `publish/wwwroot/`: the page, the scripts and stylesheets, `favicon.svg`, and the `fonts/` folder with the font license texts. Adding a file there is enough to ship it. The publish directory also contains the app (`OregonTrailDotNet.dll`, its dependencies, and a native launcher), an unused IIS `web.config`, and a loose copy of `Module/Creator/video-ideas.json`. The game reads the video ideas from a resource embedded in the dll, not from that file (#64).
 
 Deploy the whole publish directory at once to `/opt/oregon-trail-web/current`, so the server and browser code always come from the same release. The host looks for `wwwroot/index.html` next to the dll first, so the release directory serves its own assets whatever the working directory is.
 
@@ -52,7 +52,7 @@ The checked-in units provide:
 - `deploy/oregon-web.service`: the app, running as the unprivileged `oregon` user. It has `StopWhenUnneeded=yes`, so it stops when the proxy exits and starts again on the next request. That stop wipes every journey, since they all live in memory.
 - `deploy/wagenhoffer-dev-le-ssl.conf`: the HTTPS virtual host with the `/oregon/` reverse proxy.
 
-Apache strips `/oregon/` before forwarding. The app doesn't know about the prefix: the browser uses relative URLs for assets, actions, and the stream, and the app sees requests at `/`. One side effect is that the `asphalt_trail_session` cookie (HttpOnly, SameSite=Lax, 12-hour Max-Age) is set with `Path=/`, which covers the whole `wagenhoffer.dev` site.
+Apache strips `/oregon/` before forwarding. The app doesn't know about the prefix: the browser uses relative URLs for assets, actions, and the stream, and the app sees requests at `/`. One side effect is that the `asphalt_trail_session` cookie (HttpOnly, SameSite=Lax, 12-hour Max-Age) is set with `Path=/`, which covers the whole `wagenhoffer.dev` site (#63).
 
 SSE uses ordinary HTTP, without a WebSocket upgrade. The stream opens with `retry: 3000`, sends the current state right away, and sends `event: heartbeat` every 15 seconds while nothing changes. The browser gives up on a stream after 40 seconds with no state or heartbeat and reconnects. Keep proxy timeouts above that, and disable compression and buffering for the event path:
 
@@ -116,9 +116,9 @@ These options live under `GameHost` in configuration. The repository has no `app
 | `CommandCapacity` | `32` | 1-1024 | Per-journey command queue. When it's full, requests get 429 with `Retry-After: 3`. |
 | `MaximumStreamsPerSession` | `4` | 1-16 | More tabs than this get 429 on the stream and fall back to polling `GET /api/game` about every 3 seconds. |
 | `SessionLifetime` | `12:00:00` | > 0 | A journey with no open stream and no requests for this long is removed. A sweep runs every 30 seconds. |
-| `DisconnectGracePeriod` | `00:00:30` | >= 0 | The clock stops this long after the last stream closes or the last request arrives. |
+| `DisconnectGracePeriod` | `00:00:30` | >= 0 | Once no stream is open, the clock stops this long after the last request or stream close. |
 
-The cookie's 12-hour Max-Age is fixed in `src/Web/GameEndpoints.cs` and doesn't follow `SessionLifetime`. Request bodies are capped at 16 KB.
+The cookie's 12-hour Max-Age is fixed in `src/Web/GameEndpoints.cs` and doesn't follow `SessionLifetime` (#63). Request bodies are capped at 16 KB.
 
 One worker owns each simulation, so commands and clock ticks never overlap within a journey, and separate journeys run independently. Reads and streams share one cached copy of each snapshot. A slow stream holds at most one pending snapshot and skips to the latest. Cancelling a request releases its stream. If a journey's game logic throws, only that journey stops: the next sweep removes it, and the browser starts a new journey when it reconnects. `expectedJourneyId` keeps a command written before a restart from applying to the new journey.
 
