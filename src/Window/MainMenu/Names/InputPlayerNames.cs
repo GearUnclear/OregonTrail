@@ -24,6 +24,9 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
         /// </summary>
         private StringBuilder _inputNamesHelp;
 
+        /// <summary>Explains why the last typed name was refused, shown until a usable name is entered.</summary>
+        private string _rejection;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="InputPlayerNames" /> class.
         ///     This constructor will be used by the other one
@@ -108,7 +111,42 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
         /// </returns>
         public override string OnRenderForm()
         {
-            return _inputNamesHelp.ToString();
+            return _rejection == null
+                ? _inputNamesHelp.ToString()
+                : $"{_inputNamesHelp}{Environment.NewLine}{_rejection}";
+        }
+
+        /// <summary>
+        ///     Returns why a typed name cannot join the party, or null when it can. Blank input is always allowed because it
+        ///     generates the remaining names.
+        /// </summary>
+        internal string RejectionFor(string input)
+        {
+            var match = MatchingName(UserData.PlayerNames.Take(UserData.PlayerNameIndex), input);
+            return match == null ? null : $"{match.Trim()} is already in the party. Choose a different name.";
+        }
+
+        /// <summary>
+        ///     Reduces a name to the letters and digits the console input buffer keeps, so "Mary Ann", "maryann" and
+        ///     "Mary-Ann" compare the same way they would be stored.
+        /// </summary>
+        internal static string NameKey(string name)
+        {
+            return new string((name ?? string.Empty).Where(char.IsLetterOrDigit).ToArray());
+        }
+
+        /// <summary>True when a non-blank name matches an existing one, ignoring case, whitespace and punctuation.</summary>
+        internal static bool IsNameTaken(IEnumerable<string> existingNames, string candidate)
+        {
+            return MatchingName(existingNames, candidate) != null;
+        }
+
+        private static string MatchingName(IEnumerable<string> existingNames, string candidate)
+        {
+            var key = NameKey(candidate);
+            return key.Length == 0
+                ? null
+                : existingNames.FirstOrDefault(name => string.Equals(NameKey(name), key, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>Fired when the game Windows current state is not null and input buffer does not match any known command.</summary>
@@ -128,8 +166,16 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
                 return;
             }
 
+            // Refuse a name already in the party so event and death messages stay unambiguous.
+            var rejection = RejectionFor(input);
+            if (rejection != null)
+            {
+                _rejection = rejection;
+                return;
+            }
+
             // Add the name to list since we will have something at this point even if randomly generated.
-            UserData.PlayerNames.Insert(UserData.PlayerNameIndex, input);
+            UserData.PlayerNames.Insert(UserData.PlayerNameIndex, input.Trim());
             UserData.PlayerNameIndex++;
 
             // Change the state to either confirm or input the next name based on index of name we are entering.
@@ -152,14 +198,14 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
                 "Kristy", "Sharice", "Joanna", "Chrystal", "Genevie", "Angela", "Ruthann", "Viva", "Iris", "Anderson",
                 "Siobhan", "Karey", "Jolie", "Carlene", "Lekisha", "Buck"
             };
-            var used = new HashSet<string>(existingNames.Select(name => name.Trim()), StringComparer.OrdinalIgnoreCase);
-            var available = names.Where(name => !used.Contains(name)).ToArray();
+            var used = new HashSet<string>(existingNames.Select(NameKey), StringComparer.OrdinalIgnoreCase);
+            var available = names.Where(name => !used.Contains(NameKey(name))).ToArray();
             if (available.Length > 0)
                 return available[random.Next(available.Length)];
 
             // Keep generation bounded even if a future party size exhausts the catalog.
             var suffix = 1;
-            while (used.Contains($"Traveler {suffix}")) suffix++;
+            while (used.Contains(NameKey($"Traveler {suffix}"))) suffix++;
             return $"Traveler {suffix}";
         }
     }
