@@ -33,6 +33,14 @@ case "${WEB_VERIFY_SKIP_NODE:-}" in
 esac
 
 required_commands=(dotnet curl grep sed)
+if command -v sha256sum >/dev/null 2>&1; then
+  sha256_command=(sha256sum)
+elif command -v shasum >/dev/null 2>&1; then
+  sha256_command=(shasum -a 256)
+else
+  echo "Required command is unavailable: sha256sum (or shasum)" >&2
+  exit 2
+fi
 if ((skip_node == 0)); then
   required_commands+=(node)
 fi
@@ -122,6 +130,13 @@ reject_pattern "preformatted terminal node" 'Vdom\.Node\.pre\b'
 reject_pattern "horizontal gameplay overflow in production CSS" 'overflow-x[[:space:]]*:'
 # Health styling and warnings must come from the semantic healthKey, never the display label.
 reject_pattern "health logic derived from its display label" '\.health\??\.(toLowerCase|toUpperCase|trim|includes|startsWith)\b'
+
+# The host fingerprints asset URLs from file contents (src/Web/BrowserShell.cs); hand-typed versions go stale.
+if matches=$(grep -n -E -- '(href|src)="[^"]*\?v=' "$repo_dir/src/wwwroot/index.html"); then
+  echo "Hand-typed ?v= cache-busting in src/wwwroot/index.html; the host adds content hashes itself." >&2
+  echo "$matches" >&2
+  static_failures=1
+fi
 
 if ((static_failures != 0)); then
   exit 1
@@ -375,6 +390,50 @@ curl --silent --show-error --fail --output "$verify_tmp/creator.css" "$base_url/
 
 if [[ ! -s "$css_file" || ! -s "$js_file" || ! -s "$scenes_file" || ! -s "$verify_tmp/creator.js" || ! -s "$verify_tmp/creator.css" ]]; then
   echo "The root page did not serve non-empty CSS and browser assets." >&2
+  exit 1
+fi
+
+echo "Checking content-hashed asset URLs and cache headers..."
+# Prints the lowercased value of one response header from a curl --dump-header file.
+header_value() {
+  { grep -i -m 1 -- "^$2:" "$1" || true; } | cut -d: -f2- | tr -d '\r' | sed 's/^[[:space:]]*//' | tr '[:upper:]' '[:lower:]'
+}
+
+assert_header() {
+  local url=$1
+  local header=$2
+  local expected=$3
+  local headers_file="$verify_tmp/headers.txt"
+  shift 3
+  curl --silent --show-error --fail --output /dev/null --dump-header "$headers_file" "$@" "$url"
+  local actual
+  actual=$(header_value "$headers_file" "$header")
+  if [[ "$actual" != "$expected" ]]; then
+    echo "$url returned $header '$actual' instead of '$expected'." >&2
+    exit 1
+  fi
+}
+
+for asset in styles.css creator.css bridge.js scenes.js crypto.js creator.js app.js favicon.svg; do
+  asset_hash=$("${sha256_command[@]}" "$repo_dir/src/wwwroot/$asset" | cut -c1-12)
+  assert_contains "$index_html" "\"$asset?v=$asset_hash\"" "content-hashed reference to $asset"
+  assert_header "$base_url/$asset?v=$asset_hash" cache-control 'public, max-age=31536000, immutable'
+done
+
+assert_header "$base_url/" cache-control 'no-cache'
+assert_header "$base_url/index.html" cache-control 'no-cache'
+assert_header "$base_url/app.js" cache-control 'no-cache'
+assert_header "$base_url/app.js?v=stale" cache-control 'no-cache'
+assert_header "$base_url/" content-encoding 'gzip' --header 'Accept-Encoding: gzip'
+
+compressed_index=$(curl --silent --show-error --fail --compressed "$base_url/")
+if [[ "$compressed_index" != "$index_html" ]]; then
+  echo "The compressed shell differs from the uncompressed shell." >&2
+  exit 1
+fi
+
+if [[ "$(curl --silent --show-error --fail "$base_url/index.html")" != "$index_html" ]]; then
+  echo "/index.html differs from the shell served at /." >&2
   exit 1
 fi
 

@@ -37,13 +37,15 @@ internal static class Program
         // Only loopback proxies are trusted by default. Apache sends X-Forwarded-Proto for the public HTTPS path.
         app.UseForwardedHeaders();
         app.UseResponseCompression();
-        app.UseDefaultFiles();
+        // index.html is served with content-hashed asset URLs and is always revalidated; see BrowserShell.
+        var shell = new BrowserShell(app.Environment.WebRootFileProvider);
+        app.Use((context, next) => BrowserShell.IsShellRequest(context.Request) ? shell.WriteShellAsync(context) : next(context));
         app.UseStaticFiles(new StaticFileOptions
         {
-            OnPrepareResponse = context => context.Context.Response.Headers.CacheControl = "no-cache"
+            OnPrepareResponse = context => context.Context.Response.Headers.CacheControl = shell.CacheControlFor(context.Context.Request)
         });
         app.MapGameEndpoints();
-        app.MapFallbackToFile("index.html");
+        app.MapFallback(shell.WriteShellAsync);
         await app.RunAsync();
     }
 

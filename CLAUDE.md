@@ -12,7 +12,7 @@ A browser-based Oregon Trail clone. The game rules and screen state machine are 
 dotnet run --project src/OregonTrailDotNet.csproj
 ```
 
-`src/wwwroot/app.js`, `bridge.js`, `styles.css`, and `index.html` ship directly with the .NET publish output. Run `./tools/verify_web_rewrite.sh` before publishing; it runs the `tests/*.cjs` node tests (Node.js required; `WEB_VERIFY_SKIP_NODE=1` skips them with a warning and is not a release sign-off), then starts its own host on an OS-assigned free loopback port (`WEB_VERIFY_PORT` pins one and fails if it is taken) and checks the typed API, revision rules, and browser assets. The randomized full journey is covered by the manual browser checklist in `tests/WEB_E2E_CHECKLIST.md` until a deterministic fixture exists.
+`src/wwwroot/app.js`, `bridge.js`, `styles.css`, and `index.html` ship directly with the .NET publish output. Never hand-type `?v=` cache-busters in `index.html`: `Web/BrowserShell.cs` serves it `no-cache` with content hashes on local CSS/JS/SVG references, and only current-hash asset requests are long-cacheable. Run `./tools/verify_web_rewrite.sh` before publishing; it runs the `tests/*.cjs` node tests (Node.js required; `WEB_VERIFY_SKIP_NODE=1` skips them with a warning and is not a release sign-off), then starts its own host on an OS-assigned free loopback port (`WEB_VERIFY_PORT` pins one and fails if it is taken) and checks the typed API, revision rules, and browser assets. The randomized full journey is covered by the manual browser checklist in `tests/WEB_E2E_CHECKLIST.md` until a deterministic fixture exists.
 
 ## Architecture
 
