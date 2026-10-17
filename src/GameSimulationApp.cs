@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using OregonTrailDotNet.Entity.Person;
 using OregonTrailDotNet.Entity.Vehicle;
@@ -19,6 +20,7 @@ using OregonTrailDotNet.Window.MainMenu;
 using OregonTrailDotNet.Window.RandomEvent;
 using OregonTrailDotNet.Window.Travel;
 using WolfCurses;
+using WolfCurses.Core;
 
 namespace OregonTrailDotNet
 {
@@ -201,16 +203,41 @@ namespace OregonTrailDotNet
         /// <summary>
         ///     Creates new instance of game simulation. Complains if instance already exists.
         /// </summary>
-        public static void Create()
+        public static void Create() => Create(null);
+
+        /// <summary>
+        ///     Creates a new simulation. A seed is test-only (#69): it fixes the journey's random stream before the first
+        ///     tick generates the route, so the same seed and the same actions replay the same journey.
+        /// </summary>
+        internal static void Create(int? seed)
         {
             if (Instance != null)
                 throw new InvalidOperationException(
                     "Unable to create new instance of game simulation since it already exists!");
 
             Instance = new GameSimulationApp();
+            if (seed.HasValue)
+                Instance.UseSeed(seed.Value);
             // WolfCurses only scans the entry assembly for forms; register ours wherever the game is hosted (#40).
             GameStateRegistry.RegisterForms(Instance.WindowManager);
             Instance.OnPostCreate();
+        }
+
+        /// <summary>
+        ///     WolfCurses seeds its <see cref="WolfCurses.Core.Randomizer" /> from the clock and has no seed parameter, so a
+        ///     seeded journey replaces the generator inside it. The creator channel, crypto market, and food sweep
+        ///     generators are all drawn from this one, so the seed reaches them too.
+        /// </summary>
+        private static readonly FieldInfo RandomizerGenerator =
+            typeof(Randomizer).GetField("_random", BindingFlags.Instance | BindingFlags.NonPublic);
+
+        private void UseSeed(int seed)
+        {
+            // The package version is pinned; fail loudly rather than start a "seeded" journey that is not.
+            if (RandomizerGenerator?.FieldType != typeof(Random))
+                throw new InvalidOperationException(
+                    "WolfCurses' Randomizer layout changed; a journey seed cannot be applied. Re-check GameSimulationApp.UseSeed.");
+            RandomizerGenerator.SetValue(Random, new Random(seed));
         }
 
         /// <summary>

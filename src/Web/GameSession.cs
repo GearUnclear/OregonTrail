@@ -13,20 +13,32 @@ public sealed class GameSession(IOptions<GameHostOptions> options, ILogger<GameS
     /// <summary>How long an idle journey lives; also the session cookie's Max-Age.</summary>
     internal TimeSpan SessionLifetime => _options.SessionLifetime;
 
-    internal JourneyWorker GetOrCreate(string sessionId)
+    /// <summary>True only on a Development host configured with <c>GameHost:TestSeeds</c> (#69).</summary>
+    internal bool TestSeedsEnabled => _options.TestSeeds;
+
+    /// <summary>
+    /// Returns the session's journey, starting one if needed. A test seed is honored only when it starts the journey:
+    /// a live journey is never re-seeded, and a host without <c>GameHost:TestSeeds</c> refuses every seed.
+    /// </summary>
+    internal JourneyWorker GetOrCreate(string sessionId, int? testSeed = null)
     {
+        if (testSeed.HasValue && !_options.TestSeeds)
+            throw new GameSeedException($"{TestSeeds.Header} is not accepted on this host.");
         lock (_registryGate)
         {
             if (_closing) throw new GameCapacityException("The server is restarting. Reconnect in a moment.");
             if (_games.TryGetValue(sessionId, out var existing))
             {
+                if (testSeed.HasValue)
+                    throw new GameSeedException($"{TestSeeds.Header} only starts a new journey. Send it without a session cookie.");
                 existing.Touch();
                 return existing;
             }
             // Never evict another player's live journey to admit a new visitor.
             if (_games.Count >= _options.MaximumSessions)
                 throw new GameCapacityException("The server is full right now. Try again in a minute.");
-            var game = new JourneyWorker(_options, logger);
+            var game = new JourneyWorker(_options, logger, testSeed.HasValue ? new GameEngine(testSeed) : null);
+            if (testSeed.HasValue) logger.LogInformation("Started a test journey with seed {Seed}", testSeed.Value);
             _games.Add(sessionId, game);
             return game;
         }

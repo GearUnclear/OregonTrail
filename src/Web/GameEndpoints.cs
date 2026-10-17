@@ -12,7 +12,14 @@ internal static class GameEndpoints
         {
             var context = invocation.HttpContext;
             context.Response.Headers.CacheControl = "private, no-store";
+            // Test-only (#69): an X-Test-Seed header is refused unless the Development host enabled GameHost:TestSeeds.
+            if (TestSeeds.Read(context, context.RequestServices.GetRequiredService<GameSession>().TestSeedsEnabled) is { } refused)
+                return refused;
             try { return await next(invocation); }
+            catch (GameSeedException exception)
+            {
+                return Results.Problem(exception.Message, statusCode: StatusCodes.Status400BadRequest);
+            }
             catch (GameCapacityException exception)
             {
                 context.Response.Headers.RetryAfter = "30";
@@ -29,7 +36,7 @@ internal static class GameEndpoints
         {
             // Page loads and the client's periodic reconciliation reads renew the cookie's Max-Age.
             var sessionId = SessionCookie.GetOrIssue(context, sessions.SessionLifetime, renew: true);
-            var publication = await sessions.GetOrCreate(sessionId).ReadAsync(cancellationToken);
+            var publication = await sessions.GetOrCreate(sessionId, TestSeeds.Requested(context)).ReadAsync(cancellationToken);
             context.Response.Headers.ETag = publication.ETag;
             return context.Request.Headers.IfNoneMatch.Contains(publication.ETag)
                 ? Results.StatusCode(StatusCodes.Status304NotModified)
@@ -39,7 +46,8 @@ internal static class GameEndpoints
         api.MapPost("/actions", async (HttpContext context, GameActionRequest request,
             GameSession sessions, CancellationToken cancellationToken) =>
         {
-            var response = await sessions.GetOrCreate(SessionCookie.GetOrIssue(context, sessions.SessionLifetime)).DispatchAsync(request, cancellationToken);
+            var response = await sessions.GetOrCreate(SessionCookie.GetOrIssue(context, sessions.SessionLifetime),
+                TestSeeds.Requested(context)).DispatchAsync(request, cancellationToken);
             var status = response.ErrorCode switch
             {
                 "stale-revision" => StatusCodes.Status409Conflict,
@@ -58,7 +66,7 @@ internal static class GameEndpoints
         // Renew the cookie and subscribe before sending headers: Set-Cookie must precede the first write, and capacity
         // errors remain normal JSON HTTP errors.
         var sessionId = SessionCookie.GetOrIssue(context, sessions.SessionLifetime, renew: true);
-        using var subscription = await sessions.GetOrCreate(sessionId).SubscribeAsync(cancellationToken);
+        using var subscription = await sessions.GetOrCreate(sessionId, TestSeeds.Requested(context)).SubscribeAsync(cancellationToken);
         context.Response.ContentType = "text/event-stream";
         context.Response.Headers.CacheControl = "private, no-cache, no-transform";
         context.Response.Headers["X-Accel-Buffering"] = "no";

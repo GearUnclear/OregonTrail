@@ -83,6 +83,16 @@ python3 tests/food_sweep_integration.py http://127.0.0.1:18764
 
 These cover concurrent journeys staying independent, command conflicts, stream reconnects, all four vehicle setups, stores, and starting and stopping the car. The backend harness covers bounded queues, slow subscribers, cancellation, idle clocks, and shutdown.
 
+Rare outcomes need a fixed seed to test over HTTP. `tests/seeded_integration.py` runs against its own host, started in Development with the test-only `GameHost__TestSeeds=true`:
+
+```bash
+ASPNETCORE_ENVIRONMENT=Development GameHost__TestSeeds=true \
+    dotnet ./publish/OregonTrailDotNet.dll --urls http://127.0.0.1:18765
+python3 tests/seeded_integration.py http://127.0.0.1:18765
+```
+
+The request that starts a journey sends `X-Test-Seed: <n>`, and every random generator in that journey follows from the seed. The suite plays one seed to a viral upload and sells it to Viral Hog with `creator.license-accept`, and another through a river crossing that drowns two passengers. It plays each seed in two journeys at once and requires the same screens from both. The backend harness replays a seeded journey under different tick timings and checks the guards. A normal host refuses the header with 400, and a host won't start with the option on outside Development. [DEPLOYMENT.md](DEPLOYMENT.md#seeded-test-journeys) lists what still depends on wall-clock time and how to find a new seed.
+
 The backend harness also plays 9,000 deterministic crypto launches across three narratives, three stake sizes, and hold, hype, and timed-exit strategies, checking campaign timing, cash accounting, validation, and settlement. The crypto HTTP checks hit the real live stream, replay protection, campaign locks, payouts, and the trail-day cost.
 
 The creator checks cover gear compatibility, gear only raising the ceiling, random audience sources, hidden recommendations, exactly-once payouts, half-view reuploads, filming locations, and 20,000 moderation samples. The balance harness runs 40,000 careers with phone-only, cheap-light, mirrorless, and longer-filming strategies. The target is that roughly 8% of frugal **12-upload phone careers** turn a profit, re-editing flagged videos and counting ad income minus production costs. Buying gear, filming longer, and dying on the road all change those odds. The video-idea sources and duplicate checks live in `tools/creator-content/`; run `python3 tools/creator-content/pool.py audit --complete` to audit the full pool.

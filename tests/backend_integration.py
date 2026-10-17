@@ -236,6 +236,9 @@ def main():
     assert status == 200 and 'Set-Cookie' not in headers
     assert health.request('/api/missing')[0] == 404
     check_session_cookie()
+    # Test seeds (#69) exist only on a Development host that opts in; this suite runs against an ordinary host.
+    status, _, headers = Client().request(headers={'X-Test-Seed': '1'})
+    assert status == 400 and 'Set-Cookie' not in headers, 'An ordinary host refuses a seed without starting a journey'
 
     clients = [Client() for _ in range(16)]
     started = time.perf_counter()

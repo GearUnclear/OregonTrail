@@ -62,8 +62,9 @@ namespace OregonTrailDotNet.Window.Travel.TalkToPeople
             else
                 advice = new List<Advice>(AdviceRegistry.Ending);
 
-            // Grab single random piece of advice from that collection.
-            var randomAdvice = _advice ??= advice.PickRandom(1).FirstOrDefault();
+            // Grab single random piece of advice from that collection. WolfCurses' PickRandom shuffles by Guid, which
+            // a seeded journey could not replay, so draw from the journey's generator instead.
+            var randomAdvice = _advice ??= advice.Count == 0 ? null : advice[game.Random.Next(advice.Count)];
 
             // Render out the advice to the form.
             return randomAdvice == null

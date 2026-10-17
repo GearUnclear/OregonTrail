@@ -371,6 +371,13 @@ assert_contains "$stale_json" '"accepted":false' 'rejected stale action'
 assert_contains "$stale_json" '"errorCode":"stale-revision"' 'stale revision error code'
 assert_contains "$stale_json" '"state":{' 'fresh state in stale response'
 
+# Seeded journeys (#69) are test-only. A host without GameHost:TestSeeds must refuse the header and start nothing.
+seed_status=$(curl --silent --output /dev/null --write-out '%{http_code}' --header 'X-Test-Seed: 1' "$base_url/api/game")
+if [[ "$seed_status" != '400' ]]; then
+  echo "A request with X-Test-Seed returned HTTP $seed_status instead of 400; is GameHost__TestSeeds set in this environment?" >&2
+  exit 1
+fi
+
 echo "Checking browser shell and assets..."
 index_html=$(curl --silent --show-error --fail "$base_url/")
 assert_contains "$index_html" 'id="app"' 'application mount point'
