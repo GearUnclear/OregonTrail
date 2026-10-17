@@ -1208,7 +1208,7 @@ namespace OregonTrailDotNet.Web
             var source = info?.SourceEntity?.Name;
             return string.IsNullOrWhiteSpace(source)
                 ? "Something happened on the road."
-                : $"Something happened involving {source}.";
+                : $"Something happened involving {Window.MainMenu.Names.InputPlayerNames.EndSentence(source)}";
         }
 
         private static string EventDelayDescription(RandomEventInfo info)
