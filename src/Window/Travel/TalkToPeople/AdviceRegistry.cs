@@ -132,7 +132,7 @@ namespace OregonTrailDotNet.Window.Travel.TalkToPeople
                     new Advice("A boy sitting on the gas cans",
                         "My job every day's keeping the cans full. Stations go dark when the grid\ndrops, so I hoard extra five-gallon cans in a box under the back seat. Back in\nFlorida I siphoned what I could whenever a pump still worked."),
                     new Advice("A man shouldering a rifle",
-                        "Well, friend, this is where we part. I'm turning off for the open-carry\nWalmart -- free gun-safety class with every rifle, which means they hand you\nthe rifle. You've got the sovereign-citizen crossing ahead, and I hear that's\nno picnic. Text us soon as you reach Seattle."),
+                        "Well, friend, this is where we part. I'm turning off for the open-carry\nWalmart -- free gun-safety class with every rifle. The class is a sticker on\nthe stock that says THIS END TOWARD PROBLEM. You've got the sovereign-citizen\ncrossing ahead, and I hear that's no picnic. Text us soon as you reach Seattle."),
                     new Advice("A woman loading groceries",
                         "Hear there's a No Kings march rolling through -- couple million folks,\npeaceful, point being we don't have a king, been saying it two hundred and\nfifty years. Thank heaven for this Walmart restock. Sorry to be saying goodbye\nto the folks turning off for California."),
                     new Advice("A fellow traveler",

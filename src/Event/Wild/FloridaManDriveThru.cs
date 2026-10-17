@@ -26,7 +26,7 @@ namespace OregonTrailDotNet.Event.Wild
             // Change event text depending on if items were scattered or not.
             return destroyedItems.Count > 0
                 ? TryKillPassengers("bitten")
-                : "the gator was fine. Nobody hurt.";
+                : "no bites. The gator was fine.";
         }
 
         /// <summary>

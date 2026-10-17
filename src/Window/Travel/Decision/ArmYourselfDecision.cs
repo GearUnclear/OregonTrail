@@ -114,8 +114,8 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                         passenger.HealEntirely();
                     game.Choices.Record("arm", "kit", 50,
                         "You bought the thing that stops bleeding instead of the thing that starts it.\n" +
-                        "The vest stopped exactly one thing the whole trip, which is one more than most\n" +
-                        "of the guns in that aisle ever will.");
+                        "The vest never stopped anything. The tourniquet got used once, in a rest-stop\n" +
+                        "parking lot, on a stranger who had bought the pistol.");
                     ClearForm();
                     break;
             }
