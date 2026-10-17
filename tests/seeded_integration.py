@@ -11,6 +11,12 @@ outcome, find a new seed with the search mode and update the constant:
 
     python3 tests/seeded_integration.py http://127.0.0.1:18764 --search viral 0 120
     python3 tests/seeded_integration.py http://127.0.0.1:18764 --search river 0 60
+
+Each line of search output is one seed. For viral, pick a seed whose "upload" isn't null and set VIRAL_SEED and
+VIRAL_UPLOAD to it. For river, pick one with "lostPassengers" above 0 and set RIVER_SEED. Every searched seed is a
+journey the host keeps for SessionLifetime, and the host admits only MaximumSessions (256 by default), so start the
+seeded host with GameHost__MaximumSessions=4096 for long searches, or restart it between them. Changes to how the
+creator channel or crypto desk seed their generators (#71) move VIRAL_SEED, so search again after them.
 """
 import concurrent.futures
 import json
@@ -22,7 +28,7 @@ from backend_integration import Client
 
 SEED_HEADER = 'X-Test-Seed'
 # Picked with --search. VIRAL_SEED's 32nd upload from Cape Coral goes viral and draws a Viral Hog offer (a viral
-# roll is about 0.16% per upload, and the channel has only 60 possible streams; see the PR for #69).
+# roll is about 0.16% per upload, and until #71 the channel has only 60 possible streams).
 # RIVER_SEED gunning it through the first river crossing drowns two passengers.
 VIRAL_SEED, VIRAL_UPLOAD = 34, 32
 RIVER_SEED = 2
