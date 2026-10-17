@@ -21,6 +21,10 @@
   let foodRoundStarted = 0;
   let foodStoppedAt = null;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  // Phone-width layout: the rail folds away and the store checkout docks beside the rows.
+  // Keep this breakpoint in sync with the compact block in styles.css.
+  const compactQuery = window.matchMedia("(max-width: 600px)");
+  const compact = () => compactQuery.matches;
   try { effects = localStorage.getItem("asphalt-effects") !== "off"; } catch { /* Storage is optional. */ }
   try {
     const saved = localStorage.getItem("asphalt-vehicle-motion");
@@ -147,6 +151,7 @@
     root.querySelectorAll(".ascii-art[data-vehicle-id]").forEach(updateVehicleArt);
     if (state) render(false);
   });
+  compactQuery.addEventListener("change", () => { if (state) render(false); });
 
   function localButton(label, key, callback, className = "") {
     const button = element("button", `local-button ${className}`, label);
@@ -380,7 +385,7 @@
       element("span", "signal__detail", detail));
   }
 
-  function readinessPanel() {
+  function readinessPanel(folded = false) {
     const hud = state.hud;
     const gas = inventoryCount("gas");
     const snacks = hud.foodPoundsRemaining ?? inventoryCount("snacks");
@@ -403,7 +408,10 @@
     const modes = element("div", "mode-pair");
     append(modes, labeledValue("Pace", hud.pace || "—"), labeledValue("Rations", hud.rations || "—"));
     card.append(modes);
-    return card;
+    // The folded phone summary flags the same conditions the full card marks as low.
+    const warning = hud.vehicleIssue ? "Car trouble · " : gas < 6 || (hasParty && foodDays < 3) ? "Running low · " : "";
+    return foldPanel(card, `Vital signs · ${warning}${integer(gas)} cans of gas · ${hasParty
+      ? `${integer(foodDays)} ${integer(foodDays) === "1" ? "day" : "days"} of food` : `${integer(snacks)} lb of food`}`, folded);
   }
 
   function foldPanel(card, title, folded) {
@@ -414,6 +422,16 @@
     const body = element("div", "rail-fold__body");
     body.append(...card.childNodes);
     return append(details, summary, body);
+  }
+
+  // The creator rail keeps its ledger (and transfer command) open; the reference cards fold on phones.
+  function creatorRail(folded) {
+    const rail = window.TrailCreator.rail(state.creator, cryptoUi());
+    if (folded) for (const [selector, title] of [[".creator-partner", "Fictional partner program"], [".creator-field-notes", "Production notes"]]) {
+      const card = rail.querySelector(selector);
+      if (card) card.replaceWith(foldPanel(card, title, true));
+    }
+    return rail;
   }
 
   function partyPanel(folded = false) {
@@ -453,7 +471,7 @@
     return foldPanel(card, "Cargo manifest", folded);
   }
 
-  function setupPanel() {
+  function setupPanel(folded = false) {
     const panel = element("section", "rail-card setup-card");
     append(panel, panelHeading("Travel advisory / 2028", "A one-way proposition."), scene("vehicle"),
       element("p", "card-note", "You have a paid-off car and a folder of important documents. The country between here and Seattle files catastrophe under weather."));
@@ -464,7 +482,7 @@
       labeledValue("Distance", `~${integer(state.progress.totalMiles)} miles`));
     panel.append(points);
     panel.append(element("p", "advisory-note", "Keep fuel in the tank, food in the cooler, and someone alive at the wheel."));
-    return panel;
+    return foldPanel(panel, "Travel advisory", folded);
   }
 
   function actionCard(action) {
@@ -721,7 +739,7 @@
     return card;
   }
 
-  function storeBody(store) {
+  function storeBody(store, docked = false) {
     const body = element("div", "store-body");
     const heading = append(element("div", "section-header"),
       element("h2", "", "Stock the vehicle"),
@@ -733,11 +751,14 @@
       labeledValue("Cargo", `${integer(store.cargoWeight)} / ${integer(store.cargoCapacity)} lb`));
     const list = element("div", "shop-list");
     for (const row of store.rows) list.append(storeRow(row));
-    append(body, heading, budget, list);
+    const checkout = docked ? findAction("store.checkout") : null;
+    // On phones the receipt sits far below the rows, so totals and checkout ride along at the bottom.
+    append(body, heading, docked ? null : budget, list, checkout ? append(element("div", "store-dock"), budget,
+      actionButton(checkout, { className: "game-button--solid game-button--wide", label: "Buy supplies & leave →" })) : null);
     return body;
   }
 
-  function receiptPanel(store) {
+  function receiptPanel(store, folded = false) {
     const card = element("section", "rail-card receipt-card");
     append(card, panelHeading("Travel center / Receipt", "Your loadout"), scene("store"));
     const chosen = store.rows.filter((row) => row.quantity > 0);
@@ -758,10 +779,10 @@
       (store.rows.find((row) => row.itemId === "snacks")?.quantity || 0);
     if (state.hud.foodPerDay > 0) card.append(element("p", "card-note",
       `${Math.floor(projectedSnacks / state.hud.foodPerDay)} days of food after checkout at current rations.`));
-    const checkout = findAction("store.checkout");
+    const checkout = folded ? null : findAction("store.checkout");
     if (checkout) card.append(actionButton(checkout, { className: "game-button--solid game-button--wide", label: "Buy supplies & leave →" }));
     card.append(element("p", "card-note", "Nothing goes in the car until you check out."));
-    return card;
+    return foldPanel(card, `Receipt · ${chosen.length} ${chosen.length === 1 ? "item" : "items"} · ${money(store.pendingTotal)}`, folded);
   }
 
   function travelBody() {
@@ -845,7 +866,7 @@
     if (screen.kind === "crypto" && state.crypto) return window.TrailCrypto.body(state.crypto, cryptoUi());
     if (screen.kind === "creator" && state.creator) return window.TrailCreator.body(state.creator, cryptoUi());
     if (state.foodSweep) return foodSweepBody(state.foodSweep);
-    if (screen.kind === "store" && state.store) return storeBody(state.store);
+    if (screen.kind === "store" && state.store) return storeBody(state.store, compact());
     if (screen.kind === "travel") return travelBody();
     const body = element("div", `screen-body screen-body--${screen.kind}`);
     if (screen.kind === "river") body.append(scene("river"));
@@ -1054,16 +1075,18 @@
     play.append(screenBody());
     const rail = element("aside", "game-rail");
     rail.setAttribute("aria-label", "Journey details");
+    // Phones fold every rail card so the journey details stay one tap away below the screen.
+    const fold = compact();
     if (!tripStarted || screen.leaderboard) {
-      append(rail, setupPanel(), state.party.length ? partyPanel() : null);
+      append(rail, setupPanel(fold), state.party.length ? partyPanel(fold) : null);
     } else if (screen.kind === "store" && state.store) {
-      append(rail, receiptPanel(state.store), readinessPanel(), partyPanel(true));
+      append(rail, receiptPanel(state.store, fold), readinessPanel(fold), partyPanel(true));
     } else if (screen.kind === "crypto" && state.crypto) {
-      append(rail, window.TrailCrypto.rail(state.crypto, cryptoUi()), readinessPanel());
+      append(rail, foldPanel(window.TrailCrypto.rail(state.crypto, cryptoUi()), "Founder dossier", fold), readinessPanel(fold));
     } else if (screen.kind === "creator" && state.creator) {
-      append(rail, window.TrailCreator.rail(state.creator, cryptoUi()), readinessPanel());
+      append(rail, creatorRail(fold), readinessPanel(fold));
     } else {
-      append(rail, routePanel(state.progress), readinessPanel(), partyPanel(true), cargoPanel(true));
+      append(rail, foldPanel(routePanel(state.progress), "The road ahead", fold), readinessPanel(fold), partyPanel(true), cargoPanel(true));
     }
     append(layout, play, rail);
     app.append(home ? homeScreen() : layout);

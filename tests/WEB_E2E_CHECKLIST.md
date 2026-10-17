@@ -63,6 +63,7 @@
 - Check visible labels, logical heading order, focus visibility, screen-change focus management, disabled states, status announcements, and non-colour error cues.
 - Run an accessibility scanner when one is available; no scanner dependency is committed to this repository.
 - Test 320 px, 375 px, 768 px, and desktop widths. There must be no page or gameplay-region horizontal scrolling, clipped actions, or controls smaller than 44 by 44 CSS pixels.
+- At 600 px and narrower (phone layout): the top bar is one line, the HUD is two lines (location and cash, then date and weather), and journey rail cards start folded. The travel Drive button, story chapter controls, single-command dialogs, and store totals with checkout stay docked at the bottom edge until their natural position scrolls into view. The connection notice appears only while reconnecting. Layouts at 601 px and wider must look unchanged.
 - Test 200% browser zoom and reduced-motion mode.
 
 ## Future automation seam

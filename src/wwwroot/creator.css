@@ -161,18 +161,18 @@
 .creator-ledger-lines dd { text-align: right; margin: 0; }
 .creator-ledger > .game-button { font-size: 10px; margin: 18px 0 10px; }
 .creator-ledger > .card-note { font-size: 10px; }
-.creator-partner > .creator-badge { margin-bottom: 5px; }
+.creator-partner .creator-badge { margin-bottom: 5px; }
 .creator-partner-progress { display: grid; gap: 10px; margin: 19px 0; font-size: 9px; }
 .creator-partner-progress strong { font-weight: 400; color: var(--creator-sage); }
 .creator-partner-progress progress { width: 100%; height: 5px; display: block; border: 0; border-radius: 0; background: #293423; accent-color: var(--creator-sage); }
 .creator-partner-progress progress::-webkit-progress-bar { background: #293423; }
 .creator-partner-progress progress::-webkit-progress-value { background: var(--creator-sage); }
 .creator-partner-progress progress::-moz-progress-bar { background: var(--creator-sage); }
-.creator-partner > .card-note { font-size: 10px; }
-.creator-partner > .creator-fineprint { margin-top: 18px; }
-.creator-field-notes > .labeled-value { margin-bottom: 18px; }
-.creator-field-notes > p { margin-top: 16px; font-size: 10px; }
-.creator-field-notes > .creator-fineprint { font-size: 9px; }
+.creator-partner .card-note { font-size: 10px; }
+.creator-partner .creator-fineprint { margin-top: 18px; }
+.creator-field-notes .labeled-value { margin-bottom: 18px; }
+.creator-field-notes p { margin-top: 16px; font-size: 10px; }
+.creator-field-notes .creator-fineprint { font-size: 9px; }
 @media (min-width: 901px) and (max-width: 1150px) {
   .game--creator .game-layout { grid-template-columns: minmax(0, 1fr) 255px; gap: 18px; }
   .game--creator .play-panel { padding: 24px 18px; }

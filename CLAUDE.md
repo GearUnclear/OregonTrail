@@ -105,6 +105,7 @@ The `RandomEvent` window's `EventExecutor` form runs `Execute → Render → OnP
 - "Windows" / "modes" in comments and method names mean these **state-machine windows, not the OS**.
 - Top-level Windows are a hardcoded whitelist (`AllowedWindows`); events self-register by reflection (`[DirectorEvent]`). Know which registration model applies before adding either.
 - The web interface uses a terminal and ASCII visual language. Keep gameplay in semantic responsive elements; reserve preformatted text for decorative, aria-hidden character art in `scenes.js`. Never introduce horizontal gameplay scrolling or parse terminal frames for game state.
+- Phones (≤600px) get a separate compact layout: the "Phone layout (#31)" block at the end of `styles.css` plus `compactQuery` in `app.js`, which folds the rail cards and docks the store checkout. Keep the two breakpoints identical. Change wider layouts outside that block.
 
 ## Local credentials (NOT in the repo)
 
