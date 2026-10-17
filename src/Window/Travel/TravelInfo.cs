@@ -144,7 +144,7 @@ namespace OregonTrailDotNet.Window.Travel
                 return;
 
             // Drawn from the journey's generator, like the creator and crypto desks, so a seeded journey fixes the trays.
-            Hunt = new HuntManager(new Random(GameSimulationApp.Instance.Random.Next(int.MaxValue)),
+            Hunt = new HuntManager(new Random(GameSimulationApp.Instance.NextGeneratorSeed()),
                 () => Environment.TickCount64);
         }
 

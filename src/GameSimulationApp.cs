@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using OregonTrailDotNet.Entity.Person;
 using OregonTrailDotNet.Entity.Vehicle;
@@ -207,7 +208,8 @@ namespace OregonTrailDotNet
 
         /// <summary>
         ///     Creates a new simulation. A seed is test-only (#69): it fixes the journey's random stream before the first
-        ///     tick generates the route, so the same seed and the same actions replay the same journey.
+        ///     tick generates the route, so the same seed and the same actions replay the same journey. Without one, the
+        ///     journey gets a full-range random seed (#71) instead of one of WolfCurses' 4096 clock seeds.
         /// </summary>
         internal static void Create(int? seed)
         {
@@ -218,27 +220,42 @@ namespace OregonTrailDotNet
             Instance = new GameSimulationApp();
             if (seed.HasValue)
                 Instance.UseSeed(seed.Value);
+            else if (CanSeedJourneys)
+                Instance.UseSeed(RandomNumberGenerator.GetInt32(int.MaxValue));
             // WolfCurses only scans the entry assembly for forms; register ours wherever the game is hosted (#40).
             GameStateRegistry.RegisterForms(Instance.WindowManager);
             Instance.OnPostCreate();
         }
 
         /// <summary>
-        ///     WolfCurses seeds its <see cref="WolfCurses.Core.Randomizer" /> from the clock and has no seed parameter, so a
-        ///     seeded journey replaces the generator inside it. The creator channel, crypto market, and food sweep
-        ///     generators are all drawn from this one, so the seed reaches them too.
+        ///     WolfCurses seeds its <see cref="WolfCurses.Core.Randomizer" /> with <c>(int)DateTime.Now.Ticks &amp; 0xFFF</c>
+        ///     and has no seed parameter, so every journey replaces the generator inside it. The creator channel, crypto
+        ///     market, food sweep, and random party names are all drawn from this one, so the seed reaches them too.
         /// </summary>
         private static readonly FieldInfo RandomizerGenerator =
             typeof(Randomizer).GetField("_random", BindingFlags.Instance | BindingFlags.NonPublic);
 
+        /// <summary>
+        ///     False only if a WolfCurses upgrade moved the generator. Unseeded journeys then keep WolfCurses' clock seed,
+        ///     which is weak but playable, and the host logs a warning at startup. A test seed still throws.
+        /// </summary>
+        internal static bool CanSeedJourneys => RandomizerGenerator?.FieldType == typeof(Random);
+
         private void UseSeed(int seed)
         {
             // The package version is pinned; fail loudly rather than start a "seeded" journey that is not.
-            if (RandomizerGenerator?.FieldType != typeof(Random))
+            if (!CanSeedJourneys)
                 throw new InvalidOperationException(
                     "WolfCurses' Randomizer layout changed; a journey seed cannot be applied. Re-check GameSimulationApp.UseSeed.");
             RandomizerGenerator.SetValue(Random, new Random(seed));
         }
+
+        /// <summary>
+        ///     Seed for a generator the journey hands to a sub-system, drawn from the whole non-negative int range.
+        ///     WolfCurses' <c>Randomizer.Next()</c> with no argument is <c>Next(60)</c>, which leaves only 60 possible
+        ///     streams (#71). It costs one draw from the journey's generator, the same as any other <c>Next</c>.
+        /// </summary>
+        internal int NextGeneratorSeed() => Random.Next(int.MaxValue);
 
         /// <summary>
         ///     Fired after the simulation instance has been created, allowing us to call it using the instance of the simulation

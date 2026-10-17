@@ -23,6 +23,8 @@ if (args.Contains("--session-cookie")) { await SessionCookieTests.Run(); return;
 await SessionCookieTests.Run();
 if (args.Contains("--seeded-journeys")) { await SeededJourneyTests.Run(); return; }
 await SeededJourneyTests.Run();
+if (args.Contains("--seed-spread")) { JourneySeedSpreadTests.Run(); return; }
+JourneySeedSpreadTests.Run();
 if (args.Contains("--trade-capacity")) { TradeCapacityTests.Run(); return; }
 TradeCapacityTests.Run();
 if (args.Contains("--party-names")) { PartyNameTests.Run(); return; }

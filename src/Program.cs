@@ -44,6 +44,10 @@ internal static class Program
         var app = builder.Build();
         if (testSeeds)
             app.Logger.LogWarning("GameHost:TestSeeds is on: new journeys accept {Header}. This host is for tests only.", TestSeeds.Header);
+        // #71: journeys normally get a full-range seed. If a WolfCurses upgrade moved its generator, they still start,
+        // on WolfCurses' own clock seed (only 4096 streams), and test seeds are refused per journey.
+        if (!GameSimulationApp.CanSeedJourneys)
+            app.Logger.LogWarning("WolfCurses' Randomizer layout changed: journeys fall back to its 4096 clock seeds. Re-check GameSimulationApp.UseSeed.");
         // Only loopback proxies are trusted (the ASP.NET default). Apache sends X-Forwarded-Proto for the public HTTPS
         // scheme and X-Forwarded-Prefix for the /oregon path it strips; the prefix becomes PathBase and scopes the cookie.
         // A prefix that is not a plain path is dropped first, so it can never reach PathBase or the cookie.

@@ -21,7 +21,7 @@ public sealed class CryptoDesk : Form<TravelInfo>
         var game = GameSimulationApp.Instance;
         game.ActiveMenu = null;
         game.Vehicle.Status = VehicleStatus.Stopped;
-        Exchange = new CryptoExchange(new Random(game.Random.Next()),
+        Exchange = new CryptoExchange(new Random(game.NextGeneratorSeed()),
             () => game.Vehicle.Inventory[Entities.Cash].Quantity,
             delta =>
             {

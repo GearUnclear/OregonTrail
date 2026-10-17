@@ -11,7 +11,7 @@ internal sealed class GameEngine : IGameEngine
     private Random _restartSeeds;
     public GameSnapshotDto Snapshot { get; private set; }
 
-    /// <param name="seed">Test-only (#69). Null, as in production, keeps WolfCurses' clock-seeded generator.</param>
+    /// <param name="seed">Test-only (#69). Null, as in production, gives each simulation a fresh full-range random seed (#71).</param>
     public GameEngine(int? seed = null) => _seed = seed;
 
     /// <summary>

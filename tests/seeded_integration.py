@@ -16,7 +16,7 @@ Each line of search output is one seed. For viral, pick a seed whose "upload" is
 VIRAL_UPLOAD to it. For river, pick one with "lostPassengers" above 0 and set RIVER_SEED. Every searched seed is a
 journey the host keeps for SessionLifetime, and the host admits only MaximumSessions (256 by default), so start the
 seeded host with GameHost__MaximumSessions=4096 for long searches, or restart it between them. Changes to how the
-creator channel or crypto desk seed their generators (#71) move VIRAL_SEED, so search again after them.
+creator channel or crypto desk seed their generators move VIRAL_SEED, so search again after them; #71 did.
 """
 import concurrent.futures
 import json
@@ -28,9 +28,10 @@ from backend_integration import Client
 
 SEED_HEADER = 'X-Test-Seed'
 # Picked with --search. VIRAL_SEED's 32nd upload from Cape Coral goes viral and draws a Viral Hog offer (a viral
-# roll is about 0.16% per upload, and until #71 the channel has only 60 possible streams).
+# roll is about 0.16% per upload, and most seeds lose the party before 60 uploads). Seed 52 goes viral on its
+# first upload, but 32 filming days replay far more of the journey.
 # RIVER_SEED gunning it through the first river crossing drowns two passengers.
-VIRAL_SEED, VIRAL_UPLOAD = 34, 32
+VIRAL_SEED, VIRAL_UPLOAD = 105, 32
 RIVER_SEED = 2
 MAX_UPLOADS = 60
 # A settled screen that a fixed (one-second) game tick can still change must hold still for longer than two ticks.
