@@ -28,7 +28,7 @@ namespace OregonTrailDotNet
         private static readonly PropertyInfo LoadedFormsProperty =
             typeof(FormFactory).GetProperty("LoadedForms", BindingFlags.Instance | BindingFlags.NonPublic);
 
-        /// <summary>Non-generic game types decorated with the attribute, read from the game assembly.</summary>
+        /// <summary>Game-assembly types decorated with the attribute, including abstract ones; callers filter.</summary>
         internal static IEnumerable<Type> TypesWith<TAttribute>(bool inherit) where TAttribute : Attribute
         {
             return GameAssembly.DefinedTypes
