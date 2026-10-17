@@ -132,13 +132,19 @@ def prepare_trip(client, vehicle='minivan', name='Driver', packing=1):
             assert packed and visited_store, 'Departure follows packing and shopping'
             return
         elif screen['input'] and screen['id'].endswith('inputplayernames'):
-            # Text with no letters or digits is refused, as are unsupported symbols and overlong names; once a name is
-            # typed, so is a copy that differs only by case, spacing or punctuation.
+            # Text with no letters or digits is refused, as are unsupported symbols and overlong names (stored or raw, with
+            # one message); a zero-width non-joiner anywhere but between two letters is refused like other format
+            # characters. Once a name is typed, so is a copy that differs only by case, spacing, punctuation or a non-joiner.
+            too_long = f"Names must be {screen['input']['maxLength']} characters or fewer."
             refused = [('!!!', 'at least one letter or number'), ('Bo <b>', 'letters, numbers, spaces'),
-                       ('x' * (screen['input']['maxLength'] + 1), 'characters or fewer'),
-                       ('x' * 129, 'characters or fewer'), ('-Bo', 'start with a letter or number'),
-                       ('Bo‍B', 'letters, numbers, spaces'), ('‮Bob', 'letters, numbers, spaces')]
-            if typed_names:
+                       ('x' * (screen['input']['maxLength'] + 1), too_long),
+                       ('x' * 129, too_long), ('-Bo', 'start with a letter or number'),
+                       ('Bo‍B', 'letters, numbers, spaces'), ('‮Bob', 'letters, numbers, spaces'),
+                       ('\u200cBob', 'letters, numbers, spaces'), ('Bob\u200c', 'letters, numbers, spaces'),
+                       ('Bo\u200c\u200cb', 'letters, numbers, spaces')]
+            if typed_names and '\u200c' in typed_names[0]:
+                refused.append((typed_names[0].replace('\u200c', ''), 'already in the party'))
+            elif typed_names:
                 refused.append((f'  {typed_names[0][:2].upper()} {typed_names[0][2:]} ', 'already in the party'))
             if len(typed_names) > 1:
                 refused.append(('MARYANN', 'Mary Ann is already in the party'))
@@ -254,13 +260,15 @@ def main():
         assert setup['hud']['healthKey'] is None and setup['hud']['health'] is None, \
             'No party health is reported before anyone is seated'
     print('PASS setup HUD reports no party health', flush=True)
+    # One leader has a Persian name that needs a zero-width non-joiner between letters; it is stored as typed.
+    leaders = [vehicles[0], 'می\u200cخواهم', vehicles[2], vehicles[3]]
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-        list(pool.map(lambda trip: prepare_trip(trip[0], trip[1], trip[1], trip[2]),
-                      zip(drivers, vehicles, [1, 0, 2, 1])))
-    for driver, vehicle in zip(drivers, vehicles):
+        list(pool.map(lambda trip: prepare_trip(trip[0], trip[1], trip[2], trip[3]),
+                      zip(drivers, vehicles, leaders, [1, 0, 2, 1])))
+    for driver, vehicle, leader in zip(drivers, vehicles, leaders):
         assert driver.state['hud']['vehicleId'] == vehicle
         names = [person['name'] for person in driver.state['party']]
-        assert names == expected_party(vehicle, len(names)), names
+        assert names == expected_party(leader, len(names)), names
         health_keys = {'good', 'fair', 'poor', 'very-poor', 'dead'}
         assert driver.state['hud']['healthKey'] in health_keys, 'HUD carries a semantic health key'
         assert driver.state['hud']['health'], 'HUD carries a party health label once the party exists'
