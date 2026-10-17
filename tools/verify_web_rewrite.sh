@@ -4,7 +4,9 @@ set -euo pipefail
 repo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 project="$repo_dir/src/OregonTrailDotNet.csproj"
 web_app="$repo_dir/src/wwwroot/app.js"
-verify_port=${WEB_VERIFY_PORT:-18763}
+# By default Kestrel binds port 0 and the OS assigns a free loopback port, so parallel runs never collide.
+# WEB_VERIFY_PORT pins a specific port; if it is already taken the host fails to bind and this script fails.
+verify_port=${WEB_VERIFY_PORT:-0}
 
 case "$verify_port" in
   ''|*[!0-9]*)
@@ -13,13 +15,34 @@ case "$verify_port" in
     ;;
 esac
 
-if ((verify_port < 1 || verify_port > 65535)); then
+if [[ -n "${WEB_VERIFY_PORT:-}" ]] && ((verify_port < 1 || verify_port > 65535)); then
   echo "WEB_VERIFY_PORT must be between 1 and 65535." >&2
   exit 2
 fi
 
-for command in dotnet curl grep sed; do
+# WEB_VERIFY_SKIP_NODE=1 skips the tests/*.cjs browser unit tests on machines without Node.js.
+# It is an escape hatch, not a pass: the run warns loudly and must not be used to sign off a release.
+skip_node=0
+case "${WEB_VERIFY_SKIP_NODE:-}" in
+  '' | 0) ;;
+  1) skip_node=1 ;;
+  *)
+    echo "WEB_VERIFY_SKIP_NODE must be 0 or 1." >&2
+    exit 2
+    ;;
+esac
+
+required_commands=(dotnet curl grep sed)
+if ((skip_node == 0)); then
+  required_commands+=(node)
+fi
+
+for command in "${required_commands[@]}"; do
   if ! command -v "$command" >/dev/null 2>&1; then
+    if [[ "$command" == node ]]; then
+      echo "Required command is unavailable: node (set WEB_VERIFY_SKIP_NODE=1 to skip the browser unit tests)." >&2
+      exit 2
+    fi
     echo "Required command is unavailable: $command" >&2
     exit 2
   fi
@@ -30,12 +53,18 @@ host_pid=''
 
 cleanup() {
   if [[ -n "$host_pid" ]] && kill -0 "$host_pid" 2>/dev/null; then
-    kill "$host_pid" 2>/dev/null || true
+    # host_pid is the `dotnet run` wrapper; it forwards SIGTERM, but also signal the app it spawned directly.
+    local app_pids
+    app_pids=$(pgrep -P "$host_pid" 2>/dev/null || true)
+    kill "$host_pid" $app_pids 2>/dev/null || true
     wait "$host_pid" 2>/dev/null || true
   fi
   rm -rf -- "$verify_tmp"
 }
-trap cleanup EXIT INT TERM
+# Interrupts must end the run: a trap that only cleaned up would let the script continue and report a result.
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
 task_dotnet_home=${DOTNET_CLI_HOME:-"$verify_tmp/dotnet-home"}
 # Keep restored packages outside the disposable CLI home. project.assets.json points at these
@@ -103,31 +132,87 @@ if [[ ! -s "$web_app" ]]; then
   exit 1
 fi
 
+if ((skip_node == 1)); then
+  echo "WARNING: WEB_VERIFY_SKIP_NODE=1 -- the tests/*.cjs browser unit tests were NOT run." >&2
+  echo "WARNING: this verification is incomplete; do not use it to approve a release." >&2
+else
+  echo "Running browser unit tests..."
+  shopt -s nullglob
+  node_tests=("$repo_dir"/tests/*.cjs)
+  shopt -u nullglob
+  if ((${#node_tests[@]} == 0)); then
+    echo "No browser unit tests found in $repo_dir/tests/*.cjs." >&2
+    exit 1
+  fi
+  for node_test in "${node_tests[@]}"; do
+    echo "  node ${node_test#"$repo_dir"/}"
+    if ! node "$node_test"; then
+      echo "Browser unit test failed: $node_test" >&2
+      exit 1
+    fi
+  done
+fi
+
 echo "Building the .NET web host..."
 dotnet build "$project" --configuration Release --nologo ${WEB_VERIFY_NO_RESTORE:+--no-restore}
 
-base_url="http://127.0.0.1:$verify_port"
 host_log="$verify_tmp/host.log"
 cookie_jar="$verify_tmp/cookies.txt"
 other_cookie_jar="$verify_tmp/other-cookies.txt"
 
-echo "Starting the web host on $base_url..."
+# Create the log before launching: the background job opens its redirect asynchronously.
+: >"$host_log"
+echo "Starting the web host on http://127.0.0.1:$verify_port (0 = OS-assigned free port)..."
 dotnet run \
   --project "$project" \
   --configuration Release \
   --no-build \
-  --urls "$base_url" >"$host_log" 2>&1 &
+  --urls "http://127.0.0.1:$verify_port" >"$host_log" 2>&1 &
 host_pid=$!
 
-ready=0
-for ((attempt = 0; attempt < 120; attempt++)); do
-  if curl --silent --fail --max-time 5 --cookie "$cookie_jar" --cookie-jar "$cookie_jar" \
-    "$base_url/api/game" >/dev/null 2>&1; then
-    ready=1
+# The only trusted source for the URL is the log of the host this script started. Never probe a port first:
+# a server someone else left running on it would answer and be tested instead.
+base_url=''
+for ((attempt = 0; attempt < 240; attempt++)); do
+  if ! kill -0 "$host_pid" 2>/dev/null; then
     break
   fi
 
+  base_url=$(sed -n 's/.*Now listening on: \(http:\/\/127\.0\.0\.1:[0-9][0-9]*\).*/\1/p' "$host_log" | head -n 1 || true)
+  if [[ -n "$base_url" ]]; then
+    break
+  fi
+
+  sleep 0.25
+done
+
+if [[ -z "$base_url" ]] || ! kill -0 "$host_pid" 2>/dev/null; then
+  echo "The web host did not bind http://127.0.0.1:$verify_port (is the port already in use?)." >&2
+  sed -n '1,240p' "$host_log" >&2
+  exit 1
+fi
+
+if [[ "$verify_port" != 0 && "$base_url" != "http://127.0.0.1:$verify_port" ]]; then
+  echo "The web host bound $base_url instead of the requested port $verify_port." >&2
+  exit 1
+fi
+
+echo "Web host (pid $host_pid) is listening on $base_url."
+
+assert_host_alive() {
   if ! kill -0 "$host_pid" 2>/dev/null; then
+    echo "The web host started by this script (pid $host_pid) exited; refusing to trust $base_url." >&2
+    sed -n '1,240p' "$host_log" >&2
+    exit 1
+  fi
+}
+
+ready=0
+for ((attempt = 0; attempt < 120; attempt++)); do
+  assert_host_alive
+  if curl --silent --fail --max-time 5 --cookie "$cookie_jar" --cookie-jar "$cookie_jar" \
+    "$base_url/api/game" >/dev/null 2>&1; then
+    ready=1
     break
   fi
 
@@ -293,4 +378,9 @@ if [[ ! -s "$css_file" || ! -s "$js_file" || ! -s "$scenes_file" || ! -s "$verif
   exit 1
 fi
 
+assert_host_alive
+if ((skip_node == 1)); then
+  echo "Web rewrite verification passed WITHOUT the browser unit tests (WEB_VERIFY_SKIP_NODE=1)." >&2
+  exit 0
+fi
 echo "Web rewrite verification passed."
