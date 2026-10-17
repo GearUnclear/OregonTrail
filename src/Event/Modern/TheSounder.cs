@@ -22,7 +22,7 @@ namespace OregonTrailDotNet.Event.Modern
         {
             return "You pull off at a shuttered rural station before dawn and send " +
                    $"{victim.Name} across the lot for the restroom key. The forty-hog " +
-                   "sounder living in the dumpster comes out all at once, at ankle " +
+                   "sounder working the dumpster comes out all at once, at ankle " +
                    "height. They make it eleven feet from " +
                    "the car, which the county will later note is farther than most.";
         }

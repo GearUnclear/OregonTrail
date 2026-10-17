@@ -30,9 +30,9 @@ namespace OregonTrailDotNet.Event.Modern
         {
             return "You are inside the diner for eleven minutes. Sometime this week the\n" +
                    "lot changed hands and grew new signs, and your car is already on the\n" +
-                   "hook when you walk out. The drop fee is cash only, the yard closes in\n" +
-                   $"four minutes, and the fee is ${amountLost}. The number on the sign\n" +
-                   "goes to a voicemail box that is full.";
+                   $"hook when you walk out. The drop fee is ${amountLost}, cash only, and the\n" +
+                   "yard closes in four minutes. The number on the sign goes to a\n" +
+                   "voicemail box that is full.";
         }
     }
 }

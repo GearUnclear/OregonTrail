@@ -23,7 +23,7 @@ namespace OregonTrailDotNet.Event.Modern
                    "code to grab dinner two blocks up -- no helmet, because who rents a\n" +
                    "helmet. A pothole the app never flagged stops the front wheel. The\n" +
                    "rider keeps going until the curb stops their head. Something in how\n" +
-                   "they talk afterward never comes all the way back.";
+                   "they talk afterward doesn't come all the way back.";
         }
     }
 }

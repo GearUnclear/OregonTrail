@@ -24,7 +24,7 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>The <see cref="string" />.</returns>
         protected override string OnPostCreateItems(IDictionary<Entities, int> createdItems)
         {
-            return createdItems.Count > 0 ? $"Inside:{Environment.NewLine}" : "Someone already picked it clean.";
+            return createdItems.Count > 0 ? $"Inside:{Environment.NewLine}" : "It's already been picked clean.";
         }
 
         /// <summary>
