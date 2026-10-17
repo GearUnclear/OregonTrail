@@ -258,8 +258,11 @@ namespace OregonTrailDotNet.Window.Travel.Trade
             {
                 case DialogResponse.Yes:
                 {
-                    // Refuse before debiting: AddQuantity would silently discard overflow.
-                    if (!SemanticRewardFits)
+                    // Recheck the full payment and reward capacity immediately before any mutation: ReduceQuantity
+                    // floors at zero and AddQuantity silently discards overflow.
+                    var offer = SemanticOffer;
+                    if (offer == null || !GameSimulationApp.Instance.Vehicle.ContainsItem(offer.WantedItem) ||
+                        !SemanticRewardFits)
                     {
                         _playerCanTrade = false;
                         ClearForm();

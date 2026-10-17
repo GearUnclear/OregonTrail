@@ -578,8 +578,9 @@ namespace OregonTrailDotNet.Entity.Vehicle
         /// <returns>TRUE if the spare part existed and vehicle was repaired, FALSE if no spare exists and vehicle still broken.</returns>
         public bool TryUseSparePart()
         {
-            // Skip if the vehicle does not contain part to fix vehicle.
-            if (!ContainsItem(BrokenPart))
+            // Skip if the vehicle does not contain one spare of the broken part. BrokenPart carries the installed count
+            // (four tires), so request a single spare rather than the whole installed set.
+            if ((BrokenPart == null) || !ContainsItem(new SimItem(BrokenPart, 1)))
                 return false;
 
             // Remove one (1) of the spare parts of the broken part category.
@@ -905,10 +906,11 @@ namespace OregonTrailDotNet.Entity.Vehicle
         /// <returns>TRUE if the vehicle has this item, FALSE if it does not have it or does but not enough quantity for trade.</returns>
         public bool ContainsItem(SimItem wantedItem)
         {
+            if (wantedItem == null || wantedItem.Quantity <= 0) return false;
             // Loop through vehicle inventory.
             foreach (var simItem in Inventory)
                 if ((simItem.Value.Name == wantedItem.Name) && (simItem.Value.Category == wantedItem.Category) &&
-                    (simItem.Value.Quantity >= wantedItem.MinQuantity))
+                    (simItem.Value.Quantity >= wantedItem.Quantity))
                     return true;
 
             return false;
