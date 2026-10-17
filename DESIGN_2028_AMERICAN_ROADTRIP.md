@@ -84,7 +84,7 @@ allows — **all 4–6 choices preserved:**
 | # | Original | 2028 reskin | Odds (UNCHANGED) | Real basis |
 |---|---|---|---|---|
 | Ford | attempt to ford | **"GUN IT THROUGH THE HIGH WATER"** — free, fast | depth >3 ft past half-width → guaranteed `VehicleWashOut`; `CrossingResult` still 50% `StuckInMud` | Helene's I-40 collapse |
-| Float | caulk & float | **"SEAL THE DOORS, TAKE THE WASHED-OUT SHOULDER DETOUR"** — free, DIY | depth >5 ft + 50% past half-width → `VehicleFloods` (drowned supplies + `ReduceMileage`) | Francine flooding I-10 |
+| Float | caulk & float | **"SEAL THE DOORS, TAKE THE WASHED-OUT SHOULDER DETOUR"** — free, DIY | depth >5 ft + 50% past half-width → `VehicleFloods` (drowned supplies; its BASIC `ReduceMileage` line is a no-op because the crossing parks the car) | Francine flooding I-10 |
 | Ferry | take a ferry | **"PAY FOR THE NATIONAL GUARD HIGH-WATER CONVOY / CALTRANS ARMED RESUPPLY RUN"** — price feels like a surprise ambulance bill | `FerryCost $3-7`, `delay 1-3 days` via Resting; `>=` affordability; deduct in `CrossingTick` | Caltrans convoy runs on slid-out Hwy 1 |
 | Guide | hire an Indian | **"HIRE A SOVEREIGN-CITIZEN LOCAL WHO 'ISN'T DRIVING, HE'S TRAVELING'"** — paid in **3-7 crates of MLM leggings** (the clothing slot), the only barter he takes | `HasEnoughClothingToTrade` gate + clothing deduction unchanged | Volusia County "I'm traveling not driving" stop |
 | Wait | wait for conditions | **"WAIT FOR THE WATER TO RECEDE / FEMA TO REOPEN"** | `DaysToRest=1` → Resting (events still tick) | CA atmospheric-river closures |

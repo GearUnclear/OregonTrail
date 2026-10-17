@@ -49,8 +49,11 @@ namespace OregonTrailDotNet.Event.Weather
             // Cast the source entity as vehicle.
             var vehicle = eventExecutor.SourceEntity as Entity.Vehicle.Vehicle;
 
-            // Reduce the total possible mileage of the vehicle this turn.
-            vehicle?.ReduceMileage(vehicle.Mileage - 5 - GameSimulationApp.Instance.Random.Next()*10);
+            // Lose 5-15 miles. Ported from the 1978 BASIC "TOTAL_MILES=TOTAL_MILES-5-RND(0)*10", where RND is a
+            // 0-1 fraction; WolfCurses' Random.Next() is an integer in [0, 60), so the bounds are explicit.
+            // Weather rolls from the location tick, before Vehicle.OnTick, so this comes off the carried mileage that
+            // today's distance is built from (ahead of the pace multiplier and the random halving).
+            vehicle?.ReduceMileage(GameSimulationApp.Instance.Random.Next(5, 16));
         }
 
         /// <summary>
