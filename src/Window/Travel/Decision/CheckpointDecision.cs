@@ -141,7 +141,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     }
 
                     game.Choices.Record("checkpoint", "comply", complyDelta,
-                        "You handed over every document and every fear, and they stamped you a" +
+                        "You opened the trunk, handed over every paper you had, and got stamped a" +
                         Environment.NewLine + "    " +
                         "resident of a state still deciding whether it wanted you.");
                     ClearForm();
@@ -210,11 +210,11 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                         runDelta += -800 - 600;
 
                     game.Choices.Record("checkpoint", "run", runDelta,
-                        "You slipped around the Cascadia line on a logging road and told no one" +
+                        "You took a logging road around the Cascadia line and never told anyone." +
                         Environment.NewLine + "    " +
-                        "where you'd been; if the caravan had vouched for you, their forty horns" +
+                        "If the caravan had vouched for you, you left forty families idling at the" +
                         Environment.NewLine + "    " +
-                        "did not sound when you left them at the last exit.");
+                        "barrier without so much as a honk.");
                     ClearForm();
                     break;
 

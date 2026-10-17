@@ -64,14 +64,14 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _armPrompt.AppendLine(string.Empty);
             _armPrompt.AppendLine(
                 "Whatever you carry into the Cascades, the people at the checkpoints will\n" +
-                "notice - and remember. No option here is clean, and everyone in line knows it.");
+                "notice, and they will remember.");
             _armPrompt.AppendLine(string.Empty);
 
             _menu.SetOptions(new[]
             {
                 new ArrowMenuOption("1. Buy the pistol and a box of shells", "1"),
                 new ArrowMenuOption("2. Refuse on principle - walk out empty-handed", "2"),
-                new ArrowMenuOption("3. Buy the trauma kit and a vest instead - split the difference", "3")
+                new ArrowMenuOption("3. Buy a trauma kit and a vest instead", "3")
             });
             GameSimulationApp.Instance.ActiveMenu = _menu;
             _armPrompt.Append(_menu.Render());
@@ -95,8 +95,8 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     game.Vehicle.Inventory[Entities.Cash].ReduceQuantity(300);
                     game.Choices.Record("arm", "armed", -300,
                         "You slept a little better with the weight in the glovebox and worried a lot\n" +
-                        "more every time a light flashed behind you; the gun rode west as a question\n" +
-                        "the family never agreed on.");
+                        "more every time headlights came up behind you. The family argued about that\n" +
+                        "gun for two thousand miles and never settled it.");
                     ClearForm();
                     break;
                 case 2:
@@ -113,9 +113,9 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     foreach (var passenger in game.Vehicle.Passengers)
                         passenger.HealEntirely();
                     game.Choices.Record("arm", "kit", 50,
-                        "You bought the thing that saves a life instead of the thing that takes one,\n" +
-                        "and the vest stopped exactly one thing on the whole trip - which is one more\n" +
-                        "than the gun stopped for anyone honest about it.");
+                        "You bought the thing that stops bleeding instead of the thing that starts it.\n" +
+                        "The vest stopped exactly one thing the whole trip, which is one more than most\n" +
+                        "of the guns in that aisle ever will.");
                     ClearForm();
                     break;
             }
