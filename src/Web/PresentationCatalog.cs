@@ -770,7 +770,7 @@ namespace OregonTrailDotNet.Web
                     RiverDescription(userData as TravelInfo), null),
 
                 "HuntReady" => new ScreenDescriptor("dialog", "Ready for the food sweep?",
-                    "Click Grab or press Space while the marker is inside the striped zone. You get one attempt per tray, eight trays in all. Read this first: the timer starts only when you choose Ready. Completing the sweep spends one trail day; Not now spends none.", null),
+                    "Tap Grab or press Space while the marker is inside the striped zone. You get one attempt per tray, eight trays in all. Read this first: the timer starts only when you choose Ready. Completing the sweep spends one trail day; Not now spends none.", null),
                 "Hunting" => new ScreenDescriptor("activity", "Food sweep",
                     HuntingDescription(userData as TravelInfo), input),
                 "HuntingResult" => new ScreenDescriptor("activity", "Food sweep results",

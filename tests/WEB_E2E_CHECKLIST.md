@@ -29,7 +29,7 @@
 - Turn CRT off while driving: car and road motion must continue. Check the separate Pause/Play animation control, its saved preference, reduced-motion defaults, and explicit Play override at 320px width.
 - Stop travelling and ensure the next travel menu reflects the updated date, mileage, resources, and available location actions.
 - Exercise a river choice when reached and verify river facts and legal actions are presented as a `river` view.
-- Exercise the food sweep from the roadside menu: it opens directly into a timing track with no text field. Tap Grab or press Space in the striped zone; check early/late misses, automatic tray expiry, inline feedback, the 100 lb cap, and one result screen. Completing and collecting the haul spends exactly one day and awards food once.
+- Exercise the food sweep from the roadside menu: it first shows an untimed ready screen; confirm the marker does not move there and that Not now returns to travel without spending a day. Ready / Start sweep opens the timing track with no text field. Tap Grab or press Space in the striped zone; check early/late misses, automatic tray expiry, inline feedback, the 100 lb cap, and one result screen. Completing and collecting the haul spends exactly one day and awards food once.
 - At 390px and 320px widths, keep the marker and Grab button visible together; test touch taps, Space, held-key suppression, reduced motion, and reconnect. No horizontal overflow or intermediate hit/miss dialogs.
 - Exercise DoorDash when available. Check timers/progress, action enablement, expiry, results, and keyboard operation.
 
