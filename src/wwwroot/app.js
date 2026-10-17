@@ -395,7 +395,7 @@
         ? `${integer(foodDays)} days at ${hud.foodPerDay} lb/day` : "Party not assembled",
       hasParty && foodDays < 3 ? "low" : "normal"),
       signal("Party", `${hud.livingPartyCount} alive`, hud.health || "Health unknown",
-        hud.livingPartyCount && hud.health?.toLowerCase() !== "good" ? "watch" : "normal"),
+        hud.livingPartyCount && hud.healthKey !== "good" ? "watch" : "normal"),
       signal("Cargo", `${integer(hud.cargoWeight)} / ${integer(hud.cargoCapacity)} lb`,
         "Loaded in vehicle", hud.cargoCapacity && hud.cargoWeight >= hud.cargoCapacity ? "watch" : "normal"));
     card.append(grid);
@@ -430,7 +430,7 @@
         append(element("span", "party-member__identity"),
           element("strong", "", person.name),
           element("small", "", person.isLeader ? `${person.profession} · Driver` : person.profession)),
-        element("span", `health health--${person.health.toLowerCase()}`, person.health)));
+        element("span", `health health--${person.healthKey || "unknown"}`, person.health)));
     }
     card.append(list);
     return foldPanel(card, "Passenger manifest", folded);

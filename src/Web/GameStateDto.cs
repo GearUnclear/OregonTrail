@@ -61,13 +61,15 @@ namespace OregonTrailDotNet.Web
         int FoodDaysRemaining,
         string VehicleIssue,
         string VehicleId = null,
-        decimal? FoodPoundsRemaining = null);
+        decimal? FoodPoundsRemaining = null,
+        string HealthKey = null);
 
     public sealed record PartyMemberDto(
         string Name,
         bool IsLeader,
         string Profession,
-        string Health);
+        string Health,
+        string HealthKey);
 
     public sealed record InventoryItemDto(
         string ItemId,

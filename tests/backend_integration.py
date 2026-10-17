@@ -220,6 +220,10 @@ def main():
     for driver, vehicle in zip(drivers, vehicles):
         assert driver.state['hud']['vehicleId'] == vehicle
         assert all(person['name'] == vehicle for person in driver.state['party'])
+        health_keys = {'good', 'fair', 'poor', 'very-poor', 'dead'}
+        assert driver.state['hud']['healthKey'] in health_keys, 'HUD carries a semantic health key'
+        assert all(person['healthKey'] in health_keys for person in driver.state['party']), \
+            'Each passenger carries a semantic health key'
         assert not driver.state['driving']['isDriving']
         hud = driver.state['hud']
         assert hud['foodPerDay'] == 2 * hud['livingPartyCount'], 'Filling uses two pounds per living passenger'
