@@ -36,6 +36,9 @@ public sealed class CreatorDesk : Form<TravelInfo>
     public bool Execute(string command, string input)
     {
         if (_left || Channel == null) return false;
+        // A pending Viral Hog offer is a modal choice: nothing else, including leaving, until it is answered.
+        // Neither answer costs a trail day; publishing already happened on this day.
+        if (Channel.Career.LicensePending && command is not ("license-accept" or "license-decline")) return false;
         var game = GameSimulationApp.Instance;
         var day = game.TotalTurns;
         var spendsDay = false;
@@ -64,6 +67,8 @@ public sealed class CreatorDesk : Form<TravelInfo>
         }
         else if (command == "publish") accepted = Channel.Publish(day);
         else if (command == "discard") accepted = Channel.Discard();
+        else if (command == "license-accept") accepted = Channel.AcceptLicense();
+        else if (command == "license-decline") accepted = Channel.DeclineLicense();
         else if (command == "withdraw") accepted = Channel.Withdraw();
         else if (command == "wait-order") spendsDay = accepted = Channel.WaitForOrders();
         else if (command.StartsWith("buy.")) accepted = Channel.Buy(command[4..], day);

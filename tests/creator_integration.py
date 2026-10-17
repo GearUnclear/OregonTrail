@@ -89,6 +89,9 @@ def main():
     reject(player, 'creator.publish')
     reject(player, 'creator.withdraw')
     reject(player, 'creator.reedit.1')
+    reject(player, 'creator.license-accept')
+    reject(player, 'creator.license-decline')
+    assert player.state['creator']['license'] is None
 
     start = player.refresh()
     stream = Stream(player)
@@ -120,16 +123,38 @@ def main():
         assert state['creator']['stats']['uploads'] == 1 and state['creator']['draft'] is None
         video = state['creator']['videos'][0]
         assert video['views'] == video['subscriberViews'] + video['discoveryViews']
-        assert video['views'] <= draft['ceiling']
+        assert video['views'] <= draft['ceiling'] or video['viral'], 'Only a viral video escapes the kit ceiling'
+        offer = state['creator']['license']
+        advertised = {a['actionId'] for a in state['screen']['actions']}
+        if offer:
+            # 0.16% per upload: rare, but exercise the real modal path when it happens.
+            assert video['viral'] and offer['videoId'] == video['id']
+            assert advertised == {'creator.license-accept', 'creator.license-decline'}, advertised
+            assert 'rpm' not in offer and 'revenue' not in offer and video['rpm'] == 0, 'Held ad money stays hidden'
+            reject(player, 'creator.film')
+            reject(player, 'creator.leave')
+            cash, turns = player.state['hud']['balance'], player.state['hud']['turns']
+            accept_body = act(player, 'creator.license-accept')
+            assert player.state['hud']['balance'] == cash + offer['offer'] and player.state['hud']['turns'] == turns
+            assert player.state['creator']['license'] is None and player.state['creator']['videos'][0]['licensed']
+            status, stale, _ = player.request('/api/game/actions', accept_body)
+            assert status == 409 and not stale['accepted'], 'License replay rejected'
+            reject(player, 'creator.license-accept')
+            state = settle_studio(player)
+            video = state['creator']['videos'][0]
+        else:
+            assert not video['viral'] and not any(a.startswith('creator.license') for a in advertised), \
+                'License answers are advertised only while an offer is pending'
+            reject(player, 'creator.license-accept')
         assert video['location'] == draft['location']
         status, stale, _ = player.request('/api/game/actions', publish_body)
         assert status == 409 and not stale['accepted'], 'Publish replay rejected'
         reject(player, 'creator.publish')
         streamed = stream.next(lambda s: (s.get('creator') or {}).get('stats', {}).get('uploads') == 1)
-        assert streamed['creator']['videos'][0] == video, 'Stream carries authoritative analytics'
+        assert offer or streamed['creator']['videos'][0] == video, 'Stream carries authoritative analytics'
 
         assert_public_payload(state)
-        if video['demonetized']:
+        if video['demonetized'] and not video['licensed']:
             old_turns = state['hud']['turns']
             old_subs = state['creator']['stats']['subscribers']
             act(player, f'creator.reedit.{video["id"]}')

@@ -287,6 +287,8 @@
     if (sameJourney && previousCreator && creator) {
       if (!previousCreator.started && creator.started) creatorFocus = "#creator-channel-title";
       else if (!previousCreator.draft && creator.draft) creatorFocus = "#creator-draft-title";
+      else if (!previousCreator.license && creator.license) creatorFocus = "#creator-license-title";
+      else if (previousCreator.license && !creator.license) creatorFocus = `#creator-video-${previousCreator.license.videoId}`;
       else if (creator.stats.uploads > previousCreator.stats.uploads)
         creatorFocus = `#creator-video-${creator.videos[0].id}`;
       else if (creator.stats.reuploads > previousCreator.stats.reuploads) {

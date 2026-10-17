@@ -8,7 +8,12 @@ public sealed record CreatorNotice(int Id, string Text);
 public sealed record CreatorVideo(int Id, string Title, string Premise, string Location, int FilmedDay,
     int PublishedDay, int Views, int SubscriberViews, int DiscoveryViews, int SubscribersGained, int SubscribersLost,
     int OriginalViews, int Ceiling, string Camera, bool Demonetized, string Incident, bool Reedited,
-    decimal Revenue, decimal Rpm, string Feedback);
+    decimal Revenue, decimal Rpm, string Feedback, bool Viral = false, bool Licensed = false, int LicensePaid = 0);
+/// <summary>
+/// Server-only Viral Hog offer. The ad rate and the ad money the video would earn stay here until the player
+/// answers, so declining is a real gamble. Only <see cref="Offer"/> is shown before the decision.
+/// </summary>
+internal sealed record CreatorLicenseOffer(int VideoId, int Offer, decimal Revenue, decimal Rpm);
 
 /// <summary>Entire career belongs to one journey. Neither idea potential nor recommendation score leaves the server.</summary>
 public sealed class CreatorCareer
@@ -26,6 +31,9 @@ public sealed class CreatorCareer
     public int ProductionSpent { get; internal set; }
     public decimal Revenue { get; internal set; }
     public int PaidOut { get; internal set; }
+    /// <summary>Viral Hog lump sums, paid straight to road cash. Channel income, but never ad revenue.</summary>
+    public int LicenseIncome { get; internal set; }
+    public int ViralHits { get; internal set; }
     public bool Monetized { get; internal set; }
     public string ActiveCameraId { get; internal set; } = "phone";
     public CreatorDraft Draft { get; internal set; }
@@ -34,11 +42,13 @@ public sealed class CreatorCareer
     public HashSet<string> Owned { get; } = new() { "phone" };
     public List<CreatorNotice> Notices { get; } = new();
     internal HashSet<string> FilmedIdeas { get; } = new();
+    internal CreatorLicenseOffer License { get; set; }
+    public bool LicensePending => License != null;
     internal double AlgorithmScore { get; set; } = 1;
     internal Random Random { get; set; }
     internal int NoticeId { get; set; }
     public decimal Unpaid => Revenue - PaidOut;
-    public decimal Net => Revenue - GearSpent - ProductionSpent;
+    public decimal Net => Revenue + LicenseIncome - GearSpent - ProductionSpent;
 }
 
 /// <summary>
@@ -57,6 +67,17 @@ public sealed class CreatorChannel
     internal const int GoodIdeaPotential = 80;
     /// <summary>Share of filming days that land a good idea while both kinds remain eligible.</summary>
     internal const double GoodIdeaChance = .32;
+    /// <summary>
+    /// Rare jackpot, rolled once per original upload of a good idea only. Separate from breakout: a breakout is a
+    /// strong algorithm push that the kit ceiling still caps; a viral video escapes the ceiling and draws Viral Hog.
+    /// </summary>
+    internal const double ViralChance = .005;
+    internal const int ViralMinimumViews = 200_000;
+    internal const int ViralViewSpread = 800_000;
+    public const int RpmMinimum = 3;
+    public const int RpmMaximum = 7;
+    /// <summary>Viral Hog pays this per 1,000 views, between the lowest and average ad rate, rounded to $25.</summary>
+    public const decimal LicenseRatePerThousand = 4m;
     private readonly Func<int> _balance;
     private readonly Action<int> _wallet;
     private readonly IReadOnlyList<VideoIdea> _ideas;
@@ -67,8 +88,8 @@ public sealed class CreatorChannel
     public int Ceiling => Camera.Ceiling + CreatorCatalog.Gear
         .Where(g => g.Category != "camera" && Career.Owned.Contains(g.Id) && Compatible(g))
         .GroupBy(g => g.Category).Sum(group => group.Max(g => g.Ceiling));
-    public bool CanFilm => Career.Started && Career.Draft == null && _balance() >= ProductionCost;
-    public bool CanWithdraw => Career.Unpaid >= PayoutMinimum;
+    public bool CanFilm => Career.Started && !Career.LicensePending && Career.Draft == null && _balance() >= ProductionCost;
+    public bool CanWithdraw => !Career.LicensePending && Career.Unpaid >= PayoutMinimum;
 
     // These are opaque platform allegations, not claims that invented events occurred in the footage.
     // Keep six entries and the same random draw so this copy change does not alter career outcomes.
@@ -110,6 +131,7 @@ public sealed class CreatorChannel
     public string BuyBlock(CreatorGear gear)
     {
         if (!Career.Started) return "Create a channel first";
+        if (Career.LicensePending) return "Answer Viral Hog first";
         if (Career.Owned.Contains(gear.Id)) return "Owned";
         if (Career.Orders.Any(o => o.GearId == gear.Id)) return "In transit";
         if (gear.Category == "lens" && !Compatible(gear)) return $"Requires an active {gear.Mount} camera";
@@ -142,7 +164,7 @@ public sealed class CreatorChannel
 
     public bool Equip(string id)
     {
-        if (!Career.Started || id == Career.ActiveCameraId || !Career.Owned.Contains(id) ||
+        if (!Career.Started || Career.LicensePending || id == Career.ActiveCameraId || !Career.Owned.Contains(id) ||
             id != "phone" && !CreatorCatalog.Gear.Any(g => g.Id == id && g.Category == "camera")) return false;
         Career.ActiveCameraId = id;
         Notice($"In use: {Camera.Name}. Footage you already have keeps the camera it was shot on.");
@@ -186,12 +208,17 @@ public sealed class CreatorChannel
         // A dull topic has a hard demand ceiling, even for an established channel with expensive equipment.
         var topicLimit = potential < 36 ? 360 : potential < GoodIdeaPotential ? 2400 : 2_000_000;
         var breakout = Random.NextDouble() < BreakoutChance;
+        // Bad ideas never draw this roll, so their RNG stream and outcomes are unchanged.
+        var viral = potential >= GoodIdeaPotential && Random.NextDouble() < ViralChance;
         var interest = Random.NextDouble();
         var discoveryDemand = potential < 36 ? 12 + interest * 160 : potential < GoodIdeaPotential ? 70 + interest * 950 :
             breakout ? 65000 + Math.Pow(interest, 2) * 650000 : 600 + interest * 5500;
         var regularDemand = (int)(Career.Subscribers * (.04 + Random.NextDouble() * .46));
-        var outsiderDemand = (int)(discoveryDemand * Career.AlgorithmScore * (.65 + potential / 140.0));
-        var views = Math.Min(Math.Min(topicLimit, draft.Ceiling), Math.Max(0, regularDemand + outsiderDemand));
+        // Viral strangers ignore the recommender, the topic limit, and the kit ceiling: a phone can hit the jackpot.
+        var outsiderDemand = viral ? ViralMinimumViews + (int)(Math.Pow(interest, 2) * ViralViewSpread) :
+            (int)(discoveryDemand * Career.AlgorithmScore * (.65 + potential / 140.0));
+        var views = viral ? regularDemand + outsiderDemand :
+            Math.Min(Math.Min(topicLimit, draft.Ceiling), Math.Max(0, regularDemand + outsiderDemand));
         var regular = Math.Min(views, regularDemand);
         var discovery = views - regular;
         var conversionRoll = Random.NextDouble();
@@ -210,7 +237,7 @@ public sealed class CreatorChannel
         var demonetized = Random.NextDouble() < DemonetizationChance;
         // Draw all incident/RPM randomness even for an unrestricted video: equipment cannot change the RNG stream.
         var incident = Incidents[Random.Next(Incidents.Length)];
-        var rpm = Math.Round((decimal)(3 + Random.NextDouble() * 4), 2);
+        var rpm = Math.Round((decimal)(RpmMinimum + Random.NextDouble() * (RpmMaximum - RpmMinimum)), 2);
         Career.Subscribers = Math.Clamp(Career.Subscribers + gained - lost, 0, 10_000_000);
         Career.Uploads++;
         Career.TotalViews += views;
@@ -218,25 +245,76 @@ public sealed class CreatorChannel
         Career.DiscoveryViews += discovery;
         CheckMonetization();
         var revenue = Career.Monetized && !demonetized ? Math.Round(views / 1000m * rpm, 2) : 0;
-        Career.Revenue += revenue;
-        var feedback = views >= 10000 ? "Discovery picked it up. The family is suddenly referred to as the team." :
+        // A viral video's ad money is held, unseen, until the player answers Viral Hog.
+        if (viral)
+        {
+            Career.ViralHits++;
+            Career.License = new CreatorLicenseOffer(Career.Uploads, LicenseOffer(views), revenue, rpm);
+        }
+        else Career.Revenue += revenue;
+        var feedback = viral ? "It went viral. Several hundred thousand strangers now have opinions about your family's worst afternoon." :
+            views >= 10000 ? "Discovery picked it up. The family is suddenly referred to as the team." :
             potential < 36 ? "The people who clicked mostly wanted to know when it would end." :
             views < 500 ? "Uploaded successfully. The internet continued with its day." :
             "A few strangers stayed. Victor recommends a better lens.";
         var video = new CreatorVideo(Career.Uploads, draft.Idea.Title, draft.Idea.Premise, draft.Location,
             draft.FilmedDay, day, views, regular, discovery, gained, lost, views, draft.Ceiling, draft.Camera,
-            demonetized, demonetized ? incident : null, false, revenue, rpm, feedback);
+            demonetized, demonetized ? incident : null, false, viral ? 0 : revenue, viral ? 0 : rpm, feedback, viral);
         Career.Videos.Insert(0, video);
         if (Career.Videos.Count > 60) Career.Videos.RemoveAt(60);
         Career.Draft = null;
         Notice($"Published “{video.Title}”: {views:N0} views; {gained:N0} new subscribers, {lost:N0} left." +
             (demonetized ? " Limited ads: read the review flag in your video library." : ""));
+        if (viral)
+            Notice($"Viral Hog is calling about “{video.Title}”. They want to buy it for ${Career.License.Offer:N0}, today.");
+        return true;
+    }
+
+    /// <summary>Lump sum for a viral video's rights, from its views only. Ad status and RPM never change it.</summary>
+    internal static int LicenseOffer(int views) =>
+        (int)(Math.Round(views / 1000m * LicenseRatePerThousand / 25m, MidpointRounding.AwayFromZero) * 25);
+
+    /// <summary>Sell the viral video. Pays road cash once and forfeits its ad money and its one re-edit.</summary>
+    public bool AcceptLicense()
+    {
+        var offer = Career.License;
+        if (offer == null) return false;
+        Career.License = null;
+        var index = Career.Videos.FindIndex(v => v.Id == offer.VideoId);
+        Career.LicenseIncome += offer.Offer;
+        _wallet(offer.Offer);
+        if (index >= 0)
+        {
+            var video = Career.Videos[index];
+            Career.Videos[index] = video with { Licensed = true, LicensePaid = offer.Offer, Revenue = 0, Rpm = offer.Rpm,
+                Feedback = offer.Revenue > 0
+                    ? $"Viral Hog owns it now, and your face in it. At this video's ad rate you would have earned ${offer.Revenue:N2}. They expect to make far more."
+                    : "Viral Hog owns it now, and your face in it. It would have earned you nothing in ads. They expect to make a great deal." };
+        }
+        Notice($"Viral Hog paid ${offer.Offer:N0} into road cash. The clip, its ad money, and any re-edit are theirs forever, in every format yet invented.");
+        return true;
+    }
+
+    /// <summary>Keep the viral video. The held ad money is released under the normal rules, exactly once.</summary>
+    public bool DeclineLicense()
+    {
+        var offer = Career.License;
+        if (offer == null) return false;
+        Career.License = null;
+        Career.Revenue += offer.Revenue;
+        var index = Career.Videos.FindIndex(v => v.Id == offer.VideoId);
+        if (index >= 0)
+            Career.Videos[index] = Career.Videos[index] with { Revenue = offer.Revenue, Rpm = offer.Rpm };
+        Notice(offer.Revenue > 0
+            ? $"You kept it. Ads paid ${offer.Revenue:N2} at ${offer.Rpm:N2} per 1,000 views. Viral Hog said it would be in touch, in a tone."
+            : "You kept it. It earned nothing in ads. Viral Hog thanked you for your time and hung up.");
         return true;
     }
 
     public bool Reedit(int id, int day)
     {
-        var index = Career.Videos.FindIndex(v => v.Id == id && v.Demonetized && !v.Reedited);
+        if (Career.LicensePending) return false;
+        var index = Career.Videos.FindIndex(v => v.Id == id && v.Demonetized && !v.Reedited && !v.Licensed);
         if (index < 0) return false;
         var video = Career.Videos[index];
         var views = video.OriginalViews / 2;
@@ -269,7 +347,7 @@ public sealed class CreatorChannel
 
     public bool WaitForOrders()
     {
-        if (!Career.Started || Career.Orders.Count == 0) return false;
+        if (!Career.Started || Career.LicensePending || Career.Orders.Count == 0) return false;
         Career.DaysWorked++;
         Notice("A day watching the parcel tracker. The family still needs to eat.");
         return true;
