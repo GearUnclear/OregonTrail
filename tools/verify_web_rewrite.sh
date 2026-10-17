@@ -91,6 +91,8 @@ reject_pattern "preformatted terminal node" 'Vdom\.Node\.pre\b'
 # Decorative ASCII scenes are intentional. Gameplay still uses semantic elements and advertised actions;
 # never reintroduce rendered terminal frames as the browser's data or layout contract.
 reject_pattern "horizontal gameplay overflow in production CSS" 'overflow-x[[:space:]]*:'
+# Health styling and warnings must come from the semantic healthKey, never the display label.
+reject_pattern "health logic derived from its display label" '\.health\??\.(toLowerCase|toUpperCase|trim|includes|startsWith)\b'
 
 if ((static_failures != 0)); then
   exit 1
@@ -157,6 +159,7 @@ assert_snapshot_shape() {
   assert_contains "$json" '"running":' "$context running flag"
   assert_contains "$json" '"hud":{' "$context HUD object"
   assert_contains "$json" '"party":[' "$context party array"
+  assert_contains "$json" '"healthKey":' "$context semantic health key"
   assert_contains "$json" '"inventory":[' "$context inventory array"
   assert_contains "$json" '"progress":{' "$context progress object"
   assert_contains "$json" '"store":' "$context nullable store payload"

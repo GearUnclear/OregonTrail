@@ -347,7 +347,8 @@ namespace OregonTrailDotNet.Web
                 foodPerDay > 0 ? (int)(foodQuantity / foodPerDay) : 0,
                 vehicle?.BrokenPart?.Name,
                 model?.Choice.ToString().ToLowerInvariant(),
-                foodQuantity);
+                foodQuantity,
+                vehicle != null ? HealthKey(vehicle.PassengerHealthStatus) : null);
         }
 
         private static IReadOnlyList<PartyMemberDto> BuildParty(GameSimulationApp game)
@@ -357,7 +358,8 @@ namespace OregonTrailDotNet.Web
                     person.Name,
                     person.Leader,
                     ProfessionName(person.Profession.ToString()),
-                    Humanize(person.HealthStatus.ToString())))
+                    Humanize(person.HealthStatus.ToString()),
+                    HealthKey(person.HealthStatus)))
                 .ToArray() ?? Array.Empty<PartyMemberDto>();
         }
 
@@ -1279,6 +1281,19 @@ namespace OregonTrailDotNet.Web
             return tombstone == null ? "A memorial on the shoulder."
                 : $"Here lies {tombstone.PlayerName}.\n\n{tombstone.Epitaph}\n\nMile {tombstone.MileMarker:N0}.";
         }
+
+        /// <summary>
+        ///     Stable semantic health key for client logic and styling; display labels may be reworded freely.
+        /// </summary>
+        private static string HealthKey(HealthStatus status) => status switch
+        {
+            HealthStatus.Good => "good",
+            HealthStatus.Fair => "fair",
+            HealthStatus.Poor => "poor",
+            HealthStatus.VeryPoor => "very-poor",
+            HealthStatus.Dead => "dead",
+            _ => "unknown"
+        };
 
         private static string Humanize(string value)
         {

@@ -239,7 +239,7 @@ button, input, summary, a { touch-action: manipulation; }
 .health { grid-column: 2; color: var(--amber); font-size: 10px; line-height: 1.8; }
 .health::before { content: "> "; }
 .health--good { color: var(--acid); }
-.health--dead, .health--poor { color: var(--danger); }
+.health--dead, .health--poor, .health--very-poor { color: var(--danger); }
 .cargo-list, .receipt-lines { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 12px; font-size: 11px; line-height: 1.6; }
 .cargo-list dt, .receipt-lines dt { color: var(--muted); }
 .cargo-list dd, .receipt-lines dd { margin: 0; text-align: right; }
