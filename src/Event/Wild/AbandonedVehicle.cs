@@ -24,7 +24,7 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>The <see cref="string" />.</returns>
         protected override string OnPostCreateItems(IDictionary<Entities, int> createdItems)
         {
-            return createdItems.Count > 0 ? $"and find:{Environment.NewLine}" : "but it is empty";
+            return createdItems.Count > 0 ? $"Inside:{Environment.NewLine}" : "It's already been picked clean.";
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace OregonTrailDotNet.Event.Wild
         protected override string OnPreCreateItems()
         {
             var eventText = new StringBuilder();
-            eventText.AppendLine("You find a car abandoned on the shoulder,");
+            eventText.AppendLine("Somebody ditched a car on the shoulder.");
             return eventText.ToString();
         }
     }

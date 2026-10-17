@@ -33,8 +33,8 @@ namespace OregonTrailDotNet.Event.Wild
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return "A commune fella walks three miles alongside you with a recruitment pitch. You\n" +
-                   "just keep walking.";
+            return "A commune fella jogs beside the car through three miles of construction\n" +
+                   "traffic, pitching the whole way. You never get above 4 mph.";
         }
     }
 }

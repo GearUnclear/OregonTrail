@@ -23,9 +23,8 @@ namespace OregonTrailDotNet.Event.Modern
             return "The podcast was very clear about the cortisol benefits, so\n" +
                    $"{victim.Name} wades into the snowmelt reservoir behind the rest area\n" +
                    "for a two-minute cold plunge and a breathing protocol learned from a\n" +
-                   "reel. Cold-water shock does not care about the protocol; the gasp\n" +
-                   "reflex fires underwater. They are dragged out in time, but not soon\n" +
-                   "enough to come away undamaged.";
+                   "reel. The gasp reflex goes off at second one, underwater. A trucker\n" +
+                   "hauls them out still breathing, which is the good news.";
         }
     }
 }

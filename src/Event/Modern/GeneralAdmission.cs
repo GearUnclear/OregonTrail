@@ -21,10 +21,10 @@ namespace OregonTrailDotNet.Event.Modern
         {
             return "The convoy detours into a sold-out roadside festival because the\n" +
                    "tickets were free and the headliner is trending. The floor has no\n" +
-                   "barriers and no aisles, just forward. When the beat drops the\n" +
-                   $"crowd inhales as one organism and {victim.Name}'s feet leave the\n" +
-                   "ground without permission -- upright, eyes open, and already gone,\n" +
-                   "held vertical by ten thousand people there to have a good time.";
+                   "barriers and no aisles, only forward. When the beat drops the crowd\n" +
+                   $"surges and {victim.Name}'s feet leave the ground. They die standing\n" +
+                   "up, eyes open, held there by ten thousand people who came to have a\n" +
+                   "good time.";
         }
     }
 }

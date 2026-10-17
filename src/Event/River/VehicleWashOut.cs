@@ -55,9 +55,9 @@ namespace OregonTrailDotNet.Event.River
         protected override string OnPreDestroyItems()
         {
             var eventText = new StringBuilder();
-            eventText.AppendLine("The car was washed off");
-            eventText.AppendLine("the interstate gunning it");
-            eventText.Append("through the high water, results");
+            eventText.AppendLine("You gun it through the high");
+            eventText.AppendLine("water and the current shoves");
+            eventText.Append("the car off the interstate, resulting in");
             return eventText.ToString();
         }
     }
