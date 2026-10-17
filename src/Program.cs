@@ -55,6 +55,7 @@ internal static class Program
             Path.Combine(Directory.GetCurrentDirectory(), "src", "wwwroot"),
             Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")
         };
-        return candidates.FirstOrDefault(Directory.Exists) ?? candidates[0];
+        // A stale or partial output folder (for example an empty bin/.../wwwroot) must not shadow the real assets.
+        return candidates.FirstOrDefault(candidate => File.Exists(Path.Combine(candidate, "index.html"))) ?? candidates[0];
     }
 }
