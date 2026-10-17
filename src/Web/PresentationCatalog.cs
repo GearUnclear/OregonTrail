@@ -629,9 +629,12 @@ namespace OregonTrailDotNet.Web
             else
             {
                 var actionId = $"{screenId}.continue";
-                var label = currentForm?.GetType().Name == "ContinueOnTrail"
-                    ? "Stop driving and check status"
-                    : "Continue";
+                var label = currentForm?.GetType().Name switch
+                {
+                    "ContinueOnTrail" => "Stop driving and check status",
+                    "DoorDashPrompt" when HasGasForDoorDash(game) => "Start shift \u00b7 1 trail day",
+                    _ => "Continue"
+                };
                 actions.Add(new GameActionDto(actionId, label, "continue", true, false));
                 bindings[actionId] = new PresentationActionBinding(PresentationActionKind.Submit, string.Empty);
             }
@@ -773,7 +776,9 @@ namespace OregonTrailDotNet.Web
                 "CreatorDesk" => new ScreenDescriptor("creator", "DEAD AIR",
                     "A YouTube travel channel. A family on the road. An equipment budget with no adult supervision.", null),
                 "DoorDashPrompt" => new ScreenDescriptor("dialog", "Drive for delivery apps",
-                    "A delivery shift earns cash while consuming fuel, tires, and time.", null),
+                    HasGasForDoorDash(game)
+                        ? "A shift takes one full trail day, even if you clock out early or complete no deliveries. Normal daily food use still applies. Deliveries also burn your own fuel and wear your tires."
+                        : "You have no gas cans. Fill up at a travel center before starting a delivery shift.", null),
                 "DoorDashResult" => new ScreenDescriptor("activity", "Shift results",
                     DoorDashResultDescription(userData as TravelInfo), null),
 
@@ -1077,12 +1082,21 @@ namespace OregonTrailDotNet.Web
 
         private static string DoorDashResultDescription(TravelInfo info)
         {
+            const string timeSpent = "The shift took one trail day, and the party ate its normal daily food.";
             var shift = info?.DoorDash;
             if (shift == null)
-                return "The delivery shift is complete.";
+                return $"The delivery shift is complete. {timeSpent}";
 
             return $"The shift earned {Usd(shift.GrossEarned)} from {shift.DeliveriesDone} deliveries, " +
-                   $"using {shift.CansBurned} gas cans and {shift.TiresWorn} spare tires.";
+                   $"using {shift.CansBurned} gas cans and {shift.TiresWorn} spare tires. {timeSpent}";
+        }
+
+        /// <summary>Mirrors <c>DoorDashPrompt</c>'s fuel check, which decides whether its dialog starts a shift.</summary>
+        private static bool HasGasForDoorDash(GameSimulationApp game)
+        {
+            return game?.Vehicle?.Inventory != null &&
+                   game.Vehicle.Inventory.TryGetValue(Entities.Animal, out var gas) &&
+                   gas.Quantity > 0;
         }
 
         private static string EventTitle(RandomEventInfo info)
