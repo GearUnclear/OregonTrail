@@ -90,8 +90,9 @@ class Stream:
 
 
 # Seats after the leader are typed with the spacing and punctuation a player would use; the snapshot stores them trimmed
-# with inner runs of spaces collapsed, but otherwise exactly as typed.
-SEAT_NAMES = [('  Mary   Ann  ', 'Mary Ann'), ('Jo-Ann', 'Jo-Ann'), ("D\u2019Angelo Jr.", "D'Angelo Jr.")]
+# with inner runs of spaces collapsed, but otherwise exactly as typed. The padded first seat is longer than the advertised
+# limit before trimming, which only counts the stored name.
+SEAT_NAMES = [(' ' * 20 + 'Mary   Ann' + ' ' * 20, 'Mary Ann'), ('Jo-Ann', 'Jo-Ann'), ("D\u2019Angelo Jr.", "D'Angelo Jr.")]
 
 
 def expected_party(name, size):
@@ -134,7 +135,9 @@ def prepare_trip(client, vehicle='minivan', name='Driver', packing=1):
             # Text with no letters or digits is refused, as are unsupported symbols and overlong names; once a name is
             # typed, so is a copy that differs only by case, spacing or punctuation.
             refused = [('!!!', 'at least one letter or number'), ('Bo <b>', 'letters, numbers, spaces'),
-                       ('x' * (screen['input']['maxLength'] + 1), 'characters or fewer')]
+                       ('x' * (screen['input']['maxLength'] + 1), 'characters or fewer'),
+                       ('x' * 129, 'characters or fewer'), ('-Bo', 'start with a letter or number'),
+                       ('Bo‍B', 'letters, numbers, spaces'), ('‮Bob', 'letters, numbers, spaces')]
             if typed_names:
                 refused.append((f'  {typed_names[0][:2].upper()} {typed_names[0][2:]} ', 'already in the party'))
             if len(typed_names) > 1:

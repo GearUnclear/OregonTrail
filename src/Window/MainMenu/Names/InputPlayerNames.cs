@@ -4,6 +4,7 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using WolfCurses.Window;
@@ -19,8 +20,14 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
     [ParentWindow(typeof(MainMenu))]
     public sealed class InputPlayerNames : Form<NewGameInfo>
     {
-        /// <summary>Longest stored name, counted after trimming and collapsing spaces.</summary>
-        internal const int NameMaxLength = 24;
+        /// <summary>Longest stored name in UTF-16 units (what a browser text field counts), after trimming and collapsing spaces.</summary>
+        internal const int NameMaxLength = 32;
+
+        /// <summary>
+        ///     Bound on the raw typed text before normalization, so padding that trims away is not refused but the
+        ///     normalizer never runs on an arbitrarily large request.
+        /// </summary>
+        internal const int RawNameMaxLength = 128;
 
         private static readonly Regex Whitespace = new Regex(@"\s+", RegexOptions.CultureInvariant);
 
@@ -134,18 +141,24 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
         /// <summary>
         ///     Returns why a typed name cannot join a party already holding <paramref name="existingNames" />, or null when it
         ///     can. Blank input is allowed; text with no letters or digits would leave nothing to call the traveler, so it is
-        ///     refused, as are characters outside <see cref="IsNameCharacter" /> and names longer than
-        ///     <see cref="NameMaxLength" /> once normalized.
+        ///     refused, as are characters outside <see cref="HasOnlyNameCharacters" />, names that start with punctuation
+        ///     (the party rail shows the first character as an avatar) and names longer than <see cref="NameMaxLength" />
+        ///     once normalized.
         /// </summary>
         internal static string RejectionFor(IEnumerable<string> existingNames, string input)
         {
             if (string.IsNullOrWhiteSpace(input))
                 return null;
+            // An unpaired surrogate would make Unicode normalization throw.
+            if (input.EnumerateRunes().Any(rune => rune == Rune.ReplacementChar))
+                return "Names can use letters, numbers, spaces, hyphens, apostrophes and periods.";
             var name = NormalizeName(input);
             if (NameKey(name).Length == 0)
                 return "Names need at least one letter or number.";
-            if (!name.All(IsNameCharacter))
+            if (!HasOnlyNameCharacters(name))
                 return "Names can use letters, numbers, spaces, hyphens, apostrophes and periods.";
+            if (!IsLetterOrDigit(name.EnumerateRunes().First()))
+                return "Names must start with a letter or number.";
             if (name.Length > NameMaxLength)
                 return $"Names must be {NameMaxLength} characters or fewer.";
 
@@ -164,19 +177,43 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
             return Whitespace.Replace(name, " ").Trim();
         }
 
-        /// <summary>Letters (any script), digits, and the space, hyphen, apostrophe and period that names commonly use.</summary>
-        internal static bool IsNameCharacter(char character)
+        /// <summary>
+        ///     True when every character is a letter (any script, including ones outside the Basic Multilingual Plane), a
+        ///     digit, a combining mark directly after a letter or mark (Devanagari vowel signs, accents with no composed
+        ///     form), or the space, hyphen, apostrophe or period that names commonly use. Control and format characters such
+        ///     as zero-width joiners and bidirectional overrides are refused, as are unpaired surrogates.
+        /// </summary>
+        internal static bool HasOnlyNameCharacters(string name)
         {
-            return char.IsLetterOrDigit(character) || character is ' ' or '-' or '\'' or '.';
+            var previousCanCarryMark = false;
+            foreach (var rune in name.EnumerateRunes())
+            {
+                if (rune == Rune.ReplacementChar) return false;
+                var isMark = IsCombiningMark(rune);
+                if (isMark ? !previousCanCarryMark : !IsLetterOrDigit(rune) && rune.Value is not (' ' or '-' or '\'' or '.'))
+                    return false;
+                previousCanCarryMark = isMark || Rune.IsLetter(rune);
+            }
+            return true;
         }
 
+        private static bool IsLetterOrDigit(Rune rune) => Rune.IsLetter(rune) || Rune.IsDigit(rune);
+
+        private static bool IsCombiningMark(Rune rune) => Rune.GetUnicodeCategory(rune) is
+            UnicodeCategory.NonSpacingMark or UnicodeCategory.SpacingCombiningMark;
+
         /// <summary>
-        ///     Reduces a name to its letters and digits (all the console input buffer keeps), so "Mary Ann", "maryann" and
-        ///     "Mary-Ann" count as the same traveler even though the browser stores each with its spacing and punctuation.
+        ///     Reduces a name to its letters, digits and combining marks (the console input buffer keeps only letters and
+        ///     digits), so "Mary Ann", "maryann" and "Mary-Ann" count as the same traveler even though the browser stores each
+        ///     with its spacing and punctuation.
         /// </summary>
         internal static string NameKey(string name)
         {
-            return new string((name ?? string.Empty).Where(char.IsLetterOrDigit).ToArray());
+            var key = new StringBuilder();
+            foreach (var rune in (name ?? string.Empty).EnumerateRunes())
+                if (IsLetterOrDigit(rune) || IsCombiningMark(rune))
+                    key.Append(rune.ToString());
+            return key.ToString();
         }
 
         /// <summary>True when a non-blank name matches an existing one, ignoring case, whitespace and punctuation.</summary>

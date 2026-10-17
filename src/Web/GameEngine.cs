@@ -61,7 +61,11 @@ internal sealed class GameEngine : IGameEngine
                 return Rejected("stale-revision", "Something changed while you were choosing. Check the screen and try again.", Snapshot);
             if (!_game.Bindings.TryGetValue(request.ActionId, out var binding))
                 return Rejected("invalid-action", "You can't do that from this screen.", Snapshot);
-            if (!ValidateRequest(binding, request, out var input, out var message))
+            // Party names count their advertised limit after trimming and collapsing spaces, so only bound the raw text here.
+            var rawMaxLength = _game.CurrentForm is Window.MainMenu.Names.InputPlayerNames
+                ? Window.MainMenu.Names.InputPlayerNames.RawNameMaxLength
+                : (int?)null;
+            if (!ValidateRequest(binding, request, rawMaxLength, out var input, out var message))
                 return Rejected("invalid-value", message, Snapshot);
 
             if (binding.Kind == PresentationActionKind.FoodGrab)
@@ -220,6 +224,7 @@ internal sealed class GameEngine : IGameEngine
     private static bool ValidateRequest(
         PresentationActionBinding binding,
         GameActionRequest request,
+        int? rawMaxLength,
         out string input,
         out string message)
     {
@@ -263,9 +268,10 @@ internal sealed class GameEngine : IGameEngine
             return false;
         }
 
-        if (spec.MaxLength.HasValue && input.Length > spec.MaxLength.Value)
+        var maxLength = rawMaxLength ?? spec.MaxLength;
+        if (maxLength.HasValue && input.Length > maxLength.Value)
         {
-            message = $"{spec.Label} must be {spec.MaxLength.Value} characters or fewer.";
+            message = $"{spec.Label} must be {spec.MaxLength ?? maxLength.Value} characters or fewer.";
             return false;
         }
 
