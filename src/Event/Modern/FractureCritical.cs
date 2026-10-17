@@ -19,8 +19,8 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>The flavor line describing the specific multi-car catastrophe.</summary>
         protected override string OnPileup()
         {
-            return "The bridge is posted 'FRACTURE CRITICAL -- INSPECTION PENDING,' which " +
-                   "everyone reads as a formality and nobody reads as a warning. Halfway " +
+            return "The bridge is posted 'FRACTURE CRITICAL -- INSPECTION PENDING.' The " +
+                   "sign is old enough to have its own graffiti. Halfway " +
                    "across, a gusset plate that has been rusting since the last " +
                    "administration lets go, and the deck stops being a bridge and becomes " +
                    "a series of falling pieces with cars on them.";

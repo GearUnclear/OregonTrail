@@ -29,8 +29,8 @@ namespace OregonTrailDotNet.Entity.Vehicle
                     return new VehicleModel(
                         VehicleChoice.Minivan,
                         "Beige Minivan",
-                        "Balanced, boring, and reliable. The family hauler nobody dreams about but " +
-                        "everybody survives in.",
+                        "Boring and reliable. Nobody wants one, and most people who drive one " +
+                        "survive.",
                         1200f,
                         1.0d,
                         1.0d,
@@ -40,8 +40,8 @@ namespace OregonTrailDotNet.Entity.Vehicle
                     return new VehicleModel(
                         VehicleChoice.PickupCamper,
                         "Lifted Pickup with Camper Shell",
-                        "Hauls everything you own and then some, but it is slow and thirsty at the " +
-                        "pump the whole way there.",
+                        "Hauls everything you own, slowly, and stops at every gas station between " +
+                        "here and Seattle.",
                         6500f,
                         0.9d,
                         0.7d,
@@ -62,10 +62,9 @@ namespace OregonTrailDotNet.Entity.Vehicle
                     return new VehicleModel(
                         VehicleChoice.ElectricHatchback,
                         "Secondhand EV Hatchback",
-                        "Fastest and most fuel-efficient of the four thanks to instant torque, but it " +
-                        "has the least room for people or cargo, and still keeps a gas generator " +
-                        "riding along in back for when the 2028 EV charging network between Florida " +
-                        "and Seattle fails to materialize.",
+                        "Fastest and most fuel-efficient of the four, with the least room for people " +
+                        "or cargo. A gas generator rides in back for when the promised Florida-to-" +
+                        "Seattle charging network doesn't show up.",
                         5000f,
                         1.2d,
                         1.6d,

@@ -63,8 +63,8 @@ namespace OregonTrailDotNet.Event.Weather
         {
             var floodPrompt = new StringBuilder();
             floodPrompt.Clear();
-            floodPrompt.AppendLine("An ice storm fails the grid; the lights and heat go out for days");
-            floodPrompt.Append("and it results in");
+            floodPrompt.AppendLine("An ice storm takes down the grid. No lights,");
+            floodPrompt.Append("no heat for days, resulting in");
             return floodPrompt.ToString();
         }
     }

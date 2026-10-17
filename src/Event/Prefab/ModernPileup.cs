@@ -68,7 +68,7 @@ namespace OregonTrailDotNet.Event.Prefab
             else if (hurt > 0)
                 story.Append(hurt == 1 ? "One traveler was badly hurt." : $"{hurt} travelers were badly hurt.");
             else
-                story.Append("The convoy walks away shaken but whole.");
+                story.Append("Somehow, everyone walks away from it.");
 
             _outcome = story.ToString();
         }

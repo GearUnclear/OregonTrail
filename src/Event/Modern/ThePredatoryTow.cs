@@ -28,12 +28,11 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes the indignity, given how much was actually taken.</summary>
         protected override string OnDrain(int amountLost)
         {
-            return "You are inside the diner for eleven minutes. The lot's signage\n" +
-                   "changed ownership at some point you were not consulted about, and\n" +
-                   "the truck is already hooked when you come out. Releasing it 'from\n" +
-                   "the hook' is a cash-only fee, the yard closes in four minutes, and\n" +
-                   $"the number is ${amountLost}. There is no one to argue with; there\n" +
-                   "was never supposed to be.";
+            return "You are inside the diner for eleven minutes. Sometime this week the\n" +
+                   "lot changed hands and grew new signs, and your car is already on the\n" +
+                   "hook when you walk out. The drop fee is cash only, the yard closes in\n" +
+                   $"four minutes, and the fee is ${amountLost}. The number on the sign\n" +
+                   "goes to a voicemail box that is full.";
         }
     }
 }

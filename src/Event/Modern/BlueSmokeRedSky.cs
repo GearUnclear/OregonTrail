@@ -29,11 +29,10 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes the indignity, given how much was actually taken.</summary>
         protected override string OnDrain(int amountLost)
         {
-            return "A cousin's roadside gender-reveal insists on the blue smoke cannon\n" +
-                   "despite the burn ban and the wind, and the dry grass at the\n" +
-                   "trailhead takes it personally. The fire is small, the citations are\n" +
-                   "not, and as the nearest adults with a vehicle registration you are\n" +
-                   $"named in the paperwork. ${amountLost} goes to the county for\n" +
+            return "Your cousin fires the blue smoke cannon at a roadside gender reveal,\n" +
+                   "burn ban and 30-mph wind be damned. Four acres of trailhead grass\n" +
+                   "go up. Your plates were the only ones the deputy could read, so\n" +
+                   $"your name is on the citation. ${amountLost} goes to the county as\n" +
                    "restitution. It's a boy.";
         }
     }

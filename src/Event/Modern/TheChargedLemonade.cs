@@ -20,11 +20,11 @@ namespace OregonTrailDotNet.Event.Modern
         /// <summary>Describes how this particular passenger met their end.</summary>
         protected override string OnDeath(Entity.Person.Person victim)
         {
-            return $"At the highway bread-bowl franchise, {victim.Name} fills up\n" +
-                   "free-refill on the neon 'Electrolyte Lemonade' -- same dispenser\n" +
-                   "as the regular stuff, four cups before the on-ramp. Somewhere past\n" +
-                   "mile 300 a heart nobody knew had a long-QT problem simply stops\n" +
-                   "keeping time. The receipt lists it as a beverage.";
+            return $"At the highway bread-bowl franchise, {victim.Name} keeps\n" +
+                   "refilling the neon 'Electrolyte Lemonade.' Same dispenser as the\n" +
+                   "regular stuff, free refills, four cups before the on-ramp. Past\n" +
+                   "mile 300, a long-QT heart nobody knew about stops keeping time.\n" +
+                   "The receipt lists it as a beverage.";
         }
     }
 }

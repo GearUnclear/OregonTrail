@@ -33,7 +33,7 @@ namespace OregonTrailDotNet.Event.Vehicle
         /// </returns>
         protected override string OnLostTimeReason()
         {
-            return $"You get stuck in the mud on the{Environment.NewLine}shoulder, making you lose a day.";
+            return $"You sink to the axles in shoulder{Environment.NewLine}mud and lose a day digging out.";
         }
     }
 }

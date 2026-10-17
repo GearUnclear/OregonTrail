@@ -21,9 +21,9 @@ namespace OregonTrailDotNet.Event.Modern
         {
             return $"At the charging stop {victim.Name} unlocks a shared e-scooter with a QR\n" +
                    "code to grab dinner two blocks up -- no helmet, because who rents a\n" +
-                   "helmet. A pothole the app did not mention stops the front wheel and\n" +
-                   "not the rider. The curb wins the introduction to the skull, and\n" +
-                   "something in how they talk afterward does not come all the way back.";
+                   "helmet. A pothole the app never flagged stops the front wheel. The\n" +
+                   "rider keeps going until the curb stops their head. Something in how\n" +
+                   "they talk afterward never comes all the way back.";
         }
     }
 }

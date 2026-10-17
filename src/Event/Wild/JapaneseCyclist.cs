@@ -42,7 +42,7 @@ namespace OregonTrailDotNet.Event.Wild
         /// <returns>Text user interface string that can be used to explain what the event did when executed.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "an 80-year-old cyclist who rode up from San Diego on only 'Please. Rest.\nWater.' shares the road; the family hosting him sends everyone off with more\nfood";
+            return "an 80-year-old cyclist riding up from San Diego, whose English is\n'Please. Rest. Water.', shares the road; the family hosting him sends\neveryone off with more food";
         }
     }
 }

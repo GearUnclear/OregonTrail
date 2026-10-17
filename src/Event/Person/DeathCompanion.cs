@@ -104,7 +104,7 @@ namespace OregonTrailDotNet.Event.Person
 
             // The 21 victims of the Great Boston Molasses Flood (1919) - killed by a wave from a burst molasses tank. Documented.
             new AbsurdDeath(
-                "A bulk corn-syrup storage tank behind the travel plaza fuel apron ruptured\nwithout warning and the wave it released crossed the lot at thirty-five miles\nan hour, taking everyone on the apron with it; it's in the incident report,\nit's accurate, and no one ever believes it.",
+                "A bulk corn-syrup storage tank behind the travel plaza fuel apron ruptured\nwithout warning and the wave it released crossed the lot at thirty-five miles\nan hour, taking everyone on the apron with it. It is all in the incident\nreport, and nobody who reads it believes a word.",
                 v =>
                 {
                     var n = Deplete(v, Entities.Clothes, 3);
