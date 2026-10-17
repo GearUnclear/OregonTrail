@@ -289,7 +289,9 @@ public sealed class CreatorChannel
             Career.Videos[index] = video with { Licensed = true, LicensePaid = offer.Offer, Revenue = 0, Rpm = offer.Rpm,
                 Feedback = offer.Revenue > 0
                     ? $"Viral Hog owns it now, and your face in it. At this video's ad rate you would have earned ${offer.Revenue:N2}. They expect to make far more."
-                    : "Viral Hog owns it now, and your face in it. It would have earned you nothing in ads. They expect to make a great deal." };
+                    : video.Demonetized && Career.Monetized
+                        ? "Viral Hog owns it now, and your face in it. Ad review had limited it, and the re-edit that might have paid is theirs too. They expect to make a great deal."
+                        : "Viral Hog owns it now, and your face in it. It would have earned you nothing in ads. They expect to make a great deal." };
         }
         Notice($"Viral Hog paid ${offer.Offer:N0} into road cash. The clip, its ad money, and any re-edit are theirs forever, in every format yet invented.");
         return true;

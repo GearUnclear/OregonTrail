@@ -178,7 +178,7 @@
     heading.id = "creator-license-title";
     heading.tabIndex = -1;
     const keep = !offer.monetized
-      ? ["$0", `Your channel isn't partnered yet, so ${integer(offer.views)} views pay nothing in ads. Keeping it is for the subscribers and your pride. You already have both.`]
+      ? ["$0", `Your channel isn't partnered yet, so ${integer(offer.views)} views pay nothing in ads. Keeping it gets you pride, which doesn't buy gas. The subscribers stay either way.`]
       : offer.limitedAds
         ? ["$0 as is", `Ad review limited this upload. One re-edit (a trail day) would bring back ${integer(offer.reeditViews)} views, worth roughly ${money(offer.reeditLow)}–${money(offer.reeditHigh)}.`]
         : [`${money(offer.adLow)}–${money(offer.adHigh)}`, `Ads pay ${money(offer.rpmMinimum)}–${money(offer.rpmMaximum)} per 1,000 views on this channel. You find out this video's rate after you decide.`];
