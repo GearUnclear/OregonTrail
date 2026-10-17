@@ -185,7 +185,7 @@
     if (!state || busy || !action?.enabled) return;
     pendingFocusKey = document.activeElement?.dataset?.focusKey || null;
     busy = true;
-    state = { ...state, responseMessage: "" };
+    state = { ...state, responseMessage: "", responseFromAction: false };
     render(false);
     api.action(actionId, state.revision, state.journeyId, text, value,
       (json) => {
@@ -240,11 +240,15 @@
     }
   }
 
-  function retainedResponseMessage(previous, incoming, fromAction) {
-    return !fromAction && previous?.journeyId === incoming.journeyId &&
-      previous?.screen?.id === incoming.screen?.id
-      ? previous?.responseMessage || incoming.responseMessage || ""
-      : incoming.responseMessage || "";
+  // Ticking screens must not erase an action's feedback before it can be read. Keep it until the
+  // next explicit attempt or a journey/screen transition; never replay. Connection notices from
+  // showError are not action feedback and still clear on the next live state.
+  function withRetainedResponse(previous, incoming, fromAction) {
+    const keep = !fromAction && previous?.responseFromAction &&
+      previous.journeyId === incoming.journeyId && previous.screen?.id === incoming.screen?.id;
+    return keep
+      ? { ...incoming, responseMessage: previous.responseMessage, responseFromAction: true }
+      : { ...incoming, responseMessage: incoming.responseMessage || "", responseFromAction: fromAction };
   }
 
   function acceptState(incoming, fromAction = false) {
@@ -252,16 +256,13 @@
     const sameJourney = state?.journeyId === incoming.journeyId;
     if (sameJourney && state && incoming.revision < state.revision) return;
     if (sameJourney && state && incoming.revision === state.revision && !fromAction) {
-      if (!online) { state = { ...incoming, responseMessage: retainedResponseMessage(state, incoming, false) }; online = true; render(false); }
+      if (!online) { state = withRetainedResponse(state, incoming, false); online = true; render(false); }
       return;
     }
     const previousScreen = state?.screen.id;
     const previousCryptoPhase = state?.crypto?.phase;
     const previousCreator = state?.creator;
-    // Ticking screens must not erase an action rejection before it can be read.
-    // Keep it until the next explicit attempt or a journey/screen transition; never replay.
-    const responseMessage = retainedResponseMessage(state, incoming, fromAction);
-    state = { ...incoming, responseMessage };
+    state = withRetainedResponse(state, incoming, fromAction);
     const foodKey = state.foodSweep ? `${state.journeyId}:${state.foodSweep.grabActionId}` : "";
     if (foodKey !== foodRoundKey) {
       foodRoundKey = foodKey;
@@ -302,7 +303,7 @@
       root.querySelector("button").addEventListener("click", requestState);
       return;
     }
-    state = { ...state, responseMessage: message };
+    state = { ...state, responseMessage: message, responseFromAction: false };
     render(false);
   }
 
