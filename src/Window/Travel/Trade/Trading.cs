@@ -47,6 +47,8 @@ namespace OregonTrailDotNet.Window.Travel.Trade
         public TradeOffer SemanticOffer => _trades != null && _tradeIndex >= 0 && _tradeIndex < _trades.Count
             ? _trades[_tradeIndex] : null;
         public bool SemanticCanTrade => _playerCanTrade;
+        public bool SemanticRewardFits => SemanticOffer != null &&
+            GameSimulationApp.Instance.Vehicle.CanReceiveItem(SemanticOffer.OfferedItem);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Trading" /> class.
@@ -189,7 +191,8 @@ namespace OregonTrailDotNet.Window.Travel.Trade
 
             // Check if the player has the item in question the trader wants.
             _playerCanTrade = (_trades.Count > 0) &&
-                             GameSimulationApp.Instance.Vehicle.ContainsItem(_trades[_tradeIndex].WantedItem);
+                             GameSimulationApp.Instance.Vehicle.ContainsItem(_trades[_tradeIndex].WantedItem) &&
+                             GameSimulationApp.Instance.Vehicle.CanReceiveItem(_trades[_tradeIndex].OfferedItem);
 
             // Select one of the trades to use, or say there are none if none generated.
             if (_trades.Count > 0)
@@ -202,7 +205,7 @@ namespace OregonTrailDotNet.Window.Travel.Trade
                 // Depending if the player has enough of what the trader wants we change up last part of message.
                 _supplyPrompt.Append(_playerCanTrade
                     ? $"{wrapText.WordWrap()}{Environment.NewLine}Are you willing to swap? Y/N"
-                    : $"{wrapText.WordWrap()}{Environment.NewLine}You don't have this.{Environment.NewLine}{Environment.NewLine}");
+                    : $"{wrapText.WordWrap()}{Environment.NewLine}{(SemanticRewardFits ? "You don't have this." : "You cannot carry the full offered amount. No supplies have been exchanged.")}{Environment.NewLine}{Environment.NewLine}");
             }
             else
             {
@@ -255,6 +258,13 @@ namespace OregonTrailDotNet.Window.Travel.Trade
             {
                 case DialogResponse.Yes:
                 {
+                    // Refuse before debiting: AddQuantity would silently discard overflow.
+                    if (!SemanticRewardFits)
+                    {
+                        _playerCanTrade = false;
+                        ClearForm();
+                        return;
+                    }
                     // Remove the quantity of item from the vehicle inventory the trader wants.
                     GameSimulationApp.Instance.Vehicle.Inventory[_trades[_tradeIndex].WantedItem.Category].ReduceQuantity(
                         _trades[_tradeIndex].WantedItem.Quantity);

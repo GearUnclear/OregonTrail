@@ -890,6 +890,14 @@ namespace OregonTrailDotNet.Entity.Vehicle
             return destroyedItems;
         }
 
+        /// <summary>Whether the full offered stack fits without truncation; this does not mutate inventory.</summary>
+        internal bool CanReceiveItem(SimItem offeredItem)
+        {
+            return offeredItem != null && offeredItem.Quantity > 0 &&
+                   Inventory.TryGetValue(offeredItem.Category, out var held) &&
+                   offeredItem.Quantity <= held.MaxQuantity - held.Quantity;
+        }
+
         /// <summary>
         ///     Determines if the vehicles inventory contains the inputted item in the specified quantity.
         /// </summary>

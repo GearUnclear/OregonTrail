@@ -1170,7 +1170,9 @@ namespace OregonTrailDotNet.Web
             return offer == null ? "Nobody's working their downline here right now."
                 : $"A hun from the parking-lot MLM wants {offer.WantedItem.Quantity:N0} {offer.WantedItem.Name.ToLowerInvariant()}. " +
                   $"She'll swap you {offer.OfferedItem.Quantity:N0} {offer.OfferedItem.Name.ToLowerInvariant()}, hon — ground floor, only goes up from here.\n\n" +
-                  (trading.SemanticCanTrade ? "Are you willing to swap?" : "You don't have the supplies for this trade.");
+                  (trading.SemanticCanTrade ? "Are you willing to swap?" : !trading.SemanticRewardFits
+                      ? "You cannot carry the full offered amount. No supplies have been exchanged."
+                      : "You don't have the supplies for this trade.");
         }
 
         private static string TollDescription(TravelInfo info, GameSimulationApp game)
