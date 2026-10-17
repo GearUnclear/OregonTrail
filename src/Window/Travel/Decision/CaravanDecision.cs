@@ -118,9 +118,9 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                             passenger.HealEntirely();
 
                     game.Choices.Record("caravan", "join", 600,
-                        "You gave the pool your surplus and your speed, and when the axle finally " +
-                        "snapped in Wyoming there were forty strangers who stopped -- a debt the " +
-                        "hoarders behind you never got to call in.");
+                        "You gave the pool your surplus and your speed. When the axle snapped in " +
+                        "Wyoming, forty strangers pulled over without being asked. Nobody pulled " +
+                        "over for the hoarders behind you.");
                     ClearForm();
                     break;
 

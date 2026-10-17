@@ -61,7 +61,7 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
                 Grabs++;
             }
             Feedback = hit ? $"Got it! +{gained} lb." : elapsed < ZoneStart
-                ? "Too early! The tray slipped past." : "Too late! Another shopper got it.";
+                ? "Too early! The tray slipped past." : "Too late! A man in a Bluetooth headset got it.";
             Resolve();
             return true;
         }
@@ -77,7 +77,7 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
             if (skipDay || ShouldEndHunt) return;
             if (!Resolved && _clock() - _started >= PassMilliseconds + InputGraceMilliseconds)
             {
-                Feedback = "Missed it! Another shopper took the tray.";
+                Feedback = "Missed it! A church group cleared the tray.";
                 Resolve();
             }
             if (!Resolved || _clock() < _nextTray) return;

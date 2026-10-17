@@ -67,7 +67,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _menu.SetOptions(new[]
             {
                 new ArrowMenuOption("1. Blow the budget on a mega-haul -- brisket, water, the good jerky", "1"),
-                new ArrowMenuOption("2. Stay disciplined -- top off the tank, grab a little, keep the powder dry", "2"),
+                new ArrowMenuOption("2. Stay disciplined -- top off the tank, one bag of jerky, back in the car", "2"),
                 new ArrowMenuOption("3. Take the pallet gig -- haul freight to Knoxville and back", "3")
             });
             GameSimulationApp.Instance.ActiveMenu = _menu;
@@ -103,8 +103,8 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     vehicle.Inventory[Entities.Cash].ReduceQuantity(40);
                     vehicle.Inventory[Entities.Food].AddQuantity(80);
                     game.Choices.Record("bucees", "disciplined", 300,
-                        "You walked past the cathedral with your wallet shut, and the folded money you " +
-                        "kept was the reason a checkpoint later was pocket change.");
+                        "You walked past the cathedral with your wallet shut, and the cash you kept " +
+                        "turned a shakedown down the road into pocket change.");
                     break;
                 case 3:
                     // +$500 cash but -3 days on the detour and -20 health to the party.

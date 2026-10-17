@@ -196,7 +196,7 @@ namespace OregonTrailDotNet.Window.Travel.Dialog
             if (locationName.Contains("Tacoma"))
                 return "Hand-lettered signs to the horizon. Honking means solidarity here.";
             if (locationName.Contains("Seattle"))
-                return "Rain, espresso, and a 600-foot Needle. You have reached the far edge of the map.";
+                return "A 600-foot Needle, a waitlist for every apartment, and the far edge of the map.";
             return null;
         }
     }
