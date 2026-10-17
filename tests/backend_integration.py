@@ -214,6 +214,13 @@ def main():
 
     drivers = [Client() for _ in range(4)]
     vehicles = ['minivan', 'pickupcamper', 'hybridcrossover', 'electrichatchback']
+    for driver in drivers:
+        setup = driver.refresh()
+        assert setup['screen']['kind'] == 'setup' and not setup['party'], 'A new journey starts with no party'
+        assert 'healthKey' in setup['hud'], 'The HUD always carries the health key field'
+        assert setup['hud']['healthKey'] is None and setup['hud']['health'] is None, \
+            'No party health is reported before anyone is seated'
+    print('PASS setup HUD reports no party health', flush=True)
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         list(pool.map(lambda trip: prepare_trip(trip[0], trip[1], trip[1], trip[2]),
                       zip(drivers, vehicles, [1, 0, 2, 1])))
@@ -222,6 +229,7 @@ def main():
         assert all(person['name'] == vehicle for person in driver.state['party'])
         health_keys = {'good', 'fair', 'poor', 'very-poor', 'dead'}
         assert driver.state['hud']['healthKey'] in health_keys, 'HUD carries a semantic health key'
+        assert driver.state['hud']['health'], 'HUD carries a party health label once the party exists'
         assert all(person['healthKey'] in health_keys for person in driver.state['party']), \
             'Each passenger carries a semantic health key'
         assert not driver.state['driving']['isDriving']

@@ -399,7 +399,8 @@
       signal("Food", `${integer(snacks)} lb`, hasParty
         ? `${integer(foodDays)} days at ${hud.foodPerDay} lb/day` : "Party not assembled",
       hasParty && foodDays < 3 ? "low" : "normal"),
-      signal("Party", `${hud.livingPartyCount} alive`, hud.health || "Health unknown",
+      signal("Party", `${hud.livingPartyCount} alive`,
+        hud.healthKey ? hud.health || "Health unknown" : "Party not assembled",
         hud.livingPartyCount && hud.healthKey !== "good" ? "watch" : "normal"),
       signal("Cargo", `${integer(hud.cargoWeight)} / ${integer(hud.cargoCapacity)} lb`,
         "Loaded in vehicle", hud.cargoCapacity && hud.cargoWeight >= hud.cargoCapacity ? "watch" : "normal"));
