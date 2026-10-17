@@ -205,7 +205,7 @@ namespace OregonTrailDotNet.Window.Travel.Trade
                 // Depending if the player has enough of what the trader wants we change up last part of message.
                 // Same order as the browser copy: a payment shortfall is reported before a capacity problem.
                 _supplyPrompt.Append(_playerCanTrade
-                    ? $"{wrapText.WordWrap()}{Environment.NewLine}Are you willing to swap? Y/N"
+                    ? $"{wrapText.WordWrap()}{Environment.NewLine}Deal? Y/N"
                     : $"{wrapText.WordWrap()}{Environment.NewLine}{TradeRefusal(_trades[_tradeIndex]).WordWrap()}{Environment.NewLine}{Environment.NewLine}");
             }
             else
@@ -228,7 +228,7 @@ namespace OregonTrailDotNet.Window.Travel.Trade
 
             return GameSimulationApp.Instance.Vehicle.CanReceiveItem(offer.OfferedItem)
                 ? "You don't have the supplies for this trade."
-                : "You cannot carry the full offered amount. No supplies have been exchanged.";
+                : "You don't have room for all of it, so there's no deal. Nothing changed hands.";
         }
 
         /// <summary>
