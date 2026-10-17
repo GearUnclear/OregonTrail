@@ -312,8 +312,8 @@
   }
 
   function routeProgress(progress) {
-    // Odometer includes discarded per-leg overshoot. It is not route completion.
-    // Use the currently selected route's stop sequence, including inserted fork choices.
+    // The odometer keeps each leg's overshoot and the route length counts every fork branch, so neither
+    // measures completion. Count legs on the selected stop sequence, which grows when a fork inserts a stop.
     const stops = progress.stops || [];
     const totalLegs = Math.max(0, stops.length - 1);
     const completedLegs = clamp(progress.currentStopIndex || 0, 0, totalLegs);
@@ -331,7 +331,7 @@
         element("strong", "", `${integer(completedLegs)} / ${integer(totalLegs)} legs complete`),
         element("span", "", `${percent}% of route stops`)),
       append(track, fill),
-      element("p", "", `Odometer: ${integer(progress.milesTraveled)} mi. Route progress is measured by stops, not this reading.`));
+      element("p", "card-note", `Odometer ${integer(progress.milesTraveled)} mi. Progress counts stops reached, not odometer miles.`));
   }
 
   function routeStops(progress, full = false) {
