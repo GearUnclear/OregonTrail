@@ -33,7 +33,7 @@ namespace OregonTrailDotNet.Event.Weather
         /// </returns>
         protected override string OnPreDestroyItems()
         {
-            return "a derecho---";
+            return "A derecho---";
         }
     }
 }

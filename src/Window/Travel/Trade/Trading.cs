@@ -203,15 +203,32 @@ namespace OregonTrailDotNet.Window.Travel.Trade
                     $"She'll swap you {_trades[_tradeIndex].OfferedItem.Quantity:N0}\n{_trades[_tradeIndex].OfferedItem.Name.ToLowerInvariant()}, hon -- ground\nfloor, only goes up from here.";
 
                 // Depending if the player has enough of what the trader wants we change up last part of message.
+                // Same order as the browser copy: a payment shortfall is reported before a capacity problem.
                 _supplyPrompt.Append(_playerCanTrade
                     ? $"{wrapText.WordWrap()}{Environment.NewLine}Are you willing to swap? Y/N"
-                    : $"{wrapText.WordWrap()}{Environment.NewLine}{(SemanticRewardFits ? "You don't have this." : "You cannot carry the full offered amount. No supplies have been exchanged.")}{Environment.NewLine}{Environment.NewLine}");
+                    : $"{wrapText.WordWrap()}{Environment.NewLine}{TradeRefusal(_trades[_tradeIndex]).WordWrap()}{Environment.NewLine}{Environment.NewLine}");
             }
             else
             {
                 // Prompt is not shown if we have no traders generated.
                 _supplyPrompt.AppendLine($"Nobody's working their downline here right now.{Environment.NewLine}");
             }
+        }
+
+        /// <summary>
+        ///     Explains why an offer can't be accepted, matching the browser trade copy in PresentationCatalog.
+        /// </summary>
+        private static string TradeRefusal(TradeOffer offer)
+        {
+            var inventory = GameSimulationApp.Instance.Vehicle.Inventory;
+            var held = inventory.TryGetValue(offer.WantedItem.Category, out var stock) ? stock.Quantity : 0;
+            var wanted = offer.WantedItem.Name.ToLowerInvariant();
+            if (held < offer.WantedItem.Quantity)
+                return $"You only have {held:N0} {wanted}, so you can't cover this trade.";
+
+            return GameSimulationApp.Instance.Vehicle.CanReceiveItem(offer.OfferedItem)
+                ? "You don't have the supplies for this trade."
+                : "You cannot carry the full offered amount. No supplies have been exchanged.";
         }
 
         /// <summary>

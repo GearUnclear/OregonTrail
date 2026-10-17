@@ -48,7 +48,7 @@ namespace OregonTrailDotNet.Event.Vehicle
         /// <returns>Text user interface string that can be used to explain what the event did when executed.</returns>
         protected override string OnRender(RandomEventInfo userData)
         {
-            return "a gas can ruptures---you have to ditch it";
+            return "A gas can ruptures---you have to ditch it.";
         }
     }
 }
