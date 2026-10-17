@@ -6,7 +6,7 @@
 
 1. Check the browser assets with `./tools/build_web.sh`.
 2. Run `./tools/verify_web_rewrite.sh`.
-3. Start a fresh host on loopback and open its root page in a new browser context. Each browser context should receive its own `asphalt_trail_session` cookie and independent journey.
+3. Start a fresh host on loopback and open its root page in a new browser context. Each browser context should receive its own `asphalt_trail_sid` cookie and independent journey.
 4. Open a second context, mutate only the first journey, and confirm the second remains on its original revision and screen.
 5. In browser automation, select controls by accessible role and name. Avoid CSS classes and terminal copy; those are presentation details.
 

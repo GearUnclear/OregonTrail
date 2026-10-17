@@ -27,7 +27,9 @@ internal static class GameEndpoints
 
         api.MapGet("", async (HttpContext context, GameSession sessions, CancellationToken cancellationToken) =>
         {
-            var publication = await sessions.GetOrCreate(GetSessionId(context)).ReadAsync(cancellationToken);
+            // Page loads and the client's periodic reconciliation reads renew the cookie's Max-Age.
+            var sessionId = SessionCookie.GetOrIssue(context, sessions.SessionLifetime, renew: true);
+            var publication = await sessions.GetOrCreate(sessionId).ReadAsync(cancellationToken);
             context.Response.Headers.ETag = publication.ETag;
             return context.Request.Headers.IfNoneMatch.Contains(publication.ETag)
                 ? Results.StatusCode(StatusCodes.Status304NotModified)
@@ -37,7 +39,7 @@ internal static class GameEndpoints
         api.MapPost("/actions", async (HttpContext context, GameActionRequest request,
             GameSession sessions, CancellationToken cancellationToken) =>
         {
-            var response = await sessions.GetOrCreate(GetSessionId(context)).DispatchAsync(request, cancellationToken);
+            var response = await sessions.GetOrCreate(SessionCookie.GetOrIssue(context, sessions.SessionLifetime)).DispatchAsync(request, cancellationToken);
             var status = response.ErrorCode switch
             {
                 "stale-revision" => StatusCodes.Status409Conflict,
@@ -53,8 +55,10 @@ internal static class GameEndpoints
 
     private static async Task StreamAsync(HttpContext context, GameSession sessions, CancellationToken cancellationToken)
     {
-        // Subscribe before sending headers so capacity errors remain normal JSON HTTP errors.
-        using var subscription = await sessions.GetOrCreate(GetSessionId(context)).SubscribeAsync(cancellationToken);
+        // Renew the cookie and subscribe before sending headers: Set-Cookie must precede the first write, and capacity
+        // errors remain normal JSON HTTP errors.
+        var sessionId = SessionCookie.GetOrIssue(context, sessions.SessionLifetime, renew: true);
+        using var subscription = await sessions.GetOrCreate(sessionId).SubscribeAsync(cancellationToken);
         context.Response.ContentType = "text/event-stream";
         context.Response.Headers.CacheControl = "private, no-cache, no-transform";
         context.Response.Headers["X-Accel-Buffering"] = "no";
@@ -87,23 +91,5 @@ internal static class GameEndpoints
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { }
         catch (IOException) when (cancellationToken.IsCancellationRequested) { }
-    }
-
-    private static string GetSessionId(HttpContext context)
-    {
-        const string cookieName = "asphalt_trail_session";
-        if (context.Request.Cookies.TryGetValue(cookieName, out var existing) &&
-            Guid.TryParseExact(existing, "N", out _)) return existing;
-        var sessionId = Guid.NewGuid().ToString("N");
-        context.Response.Cookies.Append(cookieName, sessionId, new CookieOptions
-        {
-            HttpOnly = true,
-            IsEssential = true,
-            SameSite = SameSiteMode.Lax,
-            Secure = context.Request.IsHttps,
-            Path = context.Request.PathBase.HasValue ? context.Request.PathBase.Value + "/" : "/",
-            MaxAge = TimeSpan.FromHours(12)
-        });
-        return sessionId;
     }
 }

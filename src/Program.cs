@@ -15,8 +15,7 @@ internal static class Program
         });
         builder.Logging.AddFilter("Microsoft.AspNetCore", LogLevel.Warning);
         builder.WebHost.ConfigureKestrel(options => options.Limits.MaxRequestBodySize = 16 * 1024);
-        builder.Services.Configure<ForwardedHeadersOptions>(options =>
-            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto);
+        builder.Services.Configure<ForwardedHeadersOptions>(SessionCookie.ConfigureForwardedHeaders);
         builder.Services.AddResponseCompression(options =>
         {
             options.EnableForHttps = true;
@@ -34,7 +33,10 @@ internal static class Program
         builder.Services.ConfigureHttpJsonOptions(options => options.SerializerOptions.TypeInfoResolverChain.Insert(0, GameJsonContext.Default));
 
         var app = builder.Build();
-        // Only loopback proxies are trusted by default. Apache sends X-Forwarded-Proto for the public HTTPS path.
+        // Only loopback proxies are trusted (the ASP.NET default). Apache sends X-Forwarded-Proto for the public HTTPS
+        // scheme and X-Forwarded-Prefix for the /oregon path it strips; the prefix becomes PathBase and scopes the cookie.
+        // A prefix that is not a plain path is dropped first, so it can never reach PathBase or the cookie.
+        app.Use(SessionCookie.SanitizeForwardedPrefix);
         app.UseForwardedHeaders();
         app.UseResponseCompression();
         // index.html is served with content-hashed asset URLs and is always revalidated; see BrowserShell.
