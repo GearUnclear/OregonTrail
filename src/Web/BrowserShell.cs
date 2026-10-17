@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Net.Http.Headers;
 
 namespace OregonTrailDotNet.Web;
 
@@ -9,6 +10,8 @@ namespace OregonTrailDotNet.Web;
 /// Serves index.html with a content fingerprint (<c>?v=</c>) on every local CSS, JS, and SVG reference, so a release
 /// can never ship a changed asset under an old cache key. The shell itself is always revalidated; an asset requested
 /// with its current fingerprint may be cached for a year. URLs stay relative, so the <c>/oregon/</c> proxy prefix works.
+/// Each shell or fingerprinted request stats index.html and its referenced assets (about nine files) and rebuilds the
+/// snapshot when one changed, so edits under a running host are picked up; the published layout never changes at runtime.
 /// </summary>
 internal sealed partial class BrowserShell
 {
@@ -48,14 +51,26 @@ internal sealed partial class BrowserShell
 
         response.Headers.CacheControl = ShellCacheControl;
         response.Headers.ETag = page.ETag;
-        if (context.Request.Headers.IfNoneMatch.Contains(page.ETag))
+        var request = context.Request;
+        if ((HttpMethods.IsGet(request.Method) || HttpMethods.IsHead(request.Method)) && MatchesIfNoneMatch(request, page.ETag))
         {
             response.StatusCode = StatusCodes.Status304NotModified;
             return;
         }
 
         response.ContentType = "text/html; charset=utf-8";
+        // Response compression drops this when it encodes the body; identity and HEAD responses keep it.
+        response.ContentLength = page.Html.Length;
         if (!HttpMethods.IsHead(context.Request.Method)) await response.Body.WriteAsync(page.Html, context.RequestAborted);
+    }
+
+    /// <summary>If-None-Match uses weak comparison (RFC 9110 13.1.2), so lists, <c>*</c>, and a strong form of the tag all match.</summary>
+    private static bool MatchesIfNoneMatch(HttpRequest request, string etag)
+    {
+        var header = request.Headers.IfNoneMatch;
+        if (header.Count == 0 || !EntityTagHeaderValue.TryParseList(header, out var candidates)) return false;
+        var current = EntityTagHeaderValue.Parse(etag);
+        return candidates.Any(candidate => candidate.Equals(EntityTagHeaderValue.Any) || candidate.Compare(current, useStrongComparison: false));
     }
 
     /// <summary>Long-lived caching only for a request that names the asset's current fingerprint; everything else revalidates.</summary>

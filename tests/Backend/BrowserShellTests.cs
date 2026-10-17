@@ -50,6 +50,18 @@ internal static class BrowserShellTests
             Expect(second.ETag != first.ETag && second.ETag.StartsWith("W/\""), "Shell ETag follows its content");
             Expect(shell.CacheControlFor(Request("/app.js", appVersion)) == BrowserShell.ShellCacheControl,
                 "Superseded fingerprint is no longer long-cacheable");
+
+            // Conditional requests use weak comparison: exact, listed, strong-form, and * all revalidate to 304.
+            var tag = second.ETag;
+            foreach (var ifNoneMatch in new[] { tag, $"\"other\", {tag}", tag[2..], "*" })
+                Expect(Serve(shell, "GET", ifNoneMatch).StatusCode == StatusCodes.Status304NotModified, $"304 for If-None-Match {ifNoneMatch}");
+            var full = Serve(shell, "GET", first.ETag);
+            Expect(full.StatusCode == StatusCodes.Status200OK && full.ContentLength == second.Html.Length &&
+                ((MemoryStream)full.Body).ToArray().SequenceEqual(second.Html), "A superseded ETag gets the full current shell");
+            var head = Serve(shell, "HEAD", null);
+            Expect(head.StatusCode == StatusCodes.Status200OK && head.ContentLength == second.Html.Length && head.Body.Length == 0,
+                "HEAD reports the length without a body");
+            Expect(Serve(shell, "POST", tag).StatusCode == StatusCodes.Status200OK, "Only GET and HEAD revalidate to 304");
         }
         finally
         {
@@ -77,6 +89,17 @@ internal static class BrowserShellTests
         context.Request.Path = path;
         if (version is not null) context.Request.QueryString = new QueryString($"?v={version}");
         return context.Request;
+    }
+
+    private static HttpResponse Serve(BrowserShell shell, string method, string ifNoneMatch)
+    {
+        var context = new DefaultHttpContext();
+        context.Request.Method = method;
+        context.Request.Path = "/";
+        if (ifNoneMatch is not null) context.Request.Headers.IfNoneMatch = ifNoneMatch;
+        context.Response.Body = new MemoryStream();
+        shell.WriteShellAsync(context).GetAwaiter().GetResult();
+        return context.Response;
     }
 
     private static string Sha(string content) =>
