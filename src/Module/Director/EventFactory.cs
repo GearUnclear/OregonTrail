@@ -24,8 +24,9 @@ namespace OregonTrailDotNet.Module.Director
             // Create dictionaries for storing event reference types, history of execution, and execution count.
             EventReference = new Dictionary<EventKey, Type>();
 
-            // Collect all of the event types with the attribute decorated on them.
-            var randomEvents = AttributeExtensions.GetTypesWith<DirectorEventAttribute>(true);
+            // Collect all of the event types with the attribute decorated on them. Read the game assembly rather
+            // than WolfCurses' entry-assembly scan, so events exist wherever the game is hosted (#40).
+            var randomEvents = GameStateRegistry.TypesWith<DirectorEventAttribute>(true);
             foreach (var eventObject in randomEvents)
             {
                 // Check if the class is abstract base class, we don't want to add that.
@@ -58,6 +59,9 @@ namespace OregonTrailDotNet.Module.Director
         ///     References all of the events that have been triggered by the system in chronological order they occurred.
         /// </summary>
         private Dictionary<EventKey, Type> EventReference { get; }
+
+        /// <summary>Whether this factory knows how to create the given event type.</summary>
+        internal bool IsRegistered(Type eventType) => EventReference.ContainsValue(eventType);
 
         /// <summary>Creates a new event based on system type which we keep track of in dictionary of event references.</summary>
         /// <param name="eventType">The type of event which we should create an instance of.</param>
