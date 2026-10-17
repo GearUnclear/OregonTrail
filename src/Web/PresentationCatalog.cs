@@ -290,7 +290,7 @@ namespace OregonTrailDotNet.Web
         {
             return new GameHudDto(
                 string.Empty, 0, 0, string.Empty, string.Empty, string.Empty, string.Empty,
-                string.Empty, string.Empty, string.Empty, string.Empty, 0, 0, 0, 0, 0, null);
+                string.Empty, Health: null, string.Empty, string.Empty, 0, 0, 0, 0, 0, null);
         }
 
         private static GameScoreDto BuildScore(GameOverInfo info)
