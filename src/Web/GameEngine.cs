@@ -58,9 +58,9 @@ internal sealed class GameEngine : IGameEngine
             if (request == null || string.IsNullOrWhiteSpace(request.ActionId))
                 return Rejected("invalid-action", "An actionId is required.", Snapshot);
             if (request.ExpectedRevision != _game.Revision)
-                return Rejected("stale-revision", "The game moved to a newer state. Review it and try again.", Snapshot);
+                return Rejected("stale-revision", "Something changed while you were choosing. Check the screen and try again.", Snapshot);
             if (!_game.Bindings.TryGetValue(request.ActionId, out var binding))
-                return Rejected("invalid-action", "That action is not available on the current screen.", Snapshot);
+                return Rejected("invalid-action", "You can't do that from this screen.", Snapshot);
             if (!ValidateRequest(binding, request, out var input, out var message))
                 return Rejected("invalid-value", message, Snapshot);
 

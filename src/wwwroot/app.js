@@ -235,7 +235,7 @@
       if (!incoming?.screen || !Number.isSafeInteger(incoming.revision)) throw new Error();
       return incoming;
     } catch {
-      showError("The game sent a state this browser could not read.");
+      showError("The server sent an update this page couldn't read.");
       return null;
     }
   }
@@ -297,7 +297,7 @@
     if (!state) {
       root.replaceChildren(append(element("main", "load-state load-state--error"),
         element("span", "eyebrow", "Connection problem"),
-        element("h1", "", "The road is out of reach"),
+        element("h1", "", "Can't reach the game server"),
         element("p", "", message),
         append(element("button", "game-button game-button--solid", "Try again"))));
       root.querySelector("button").addEventListener("click", requestState);
@@ -364,7 +364,7 @@
         panel.append(element("p", "card-note", `${progress.stops.length - progress.currentStopIndex - 3} more stops after these`));
       }
     } else {
-      panel.append(element("p", "card-note", "Route details will appear when the journey begins."));
+      panel.append(element("p", "card-note", "The route shows up once you leave."));
     }
     return panel;
   }
@@ -420,7 +420,7 @@
     const card = element("section", "rail-card party-card");
     append(card, panelHeading("03 / Passenger manifest", "The people you carry"));
     if (!state.party.length) {
-      card.append(element("p", "card-note", "Name your party to see everyone riding along."));
+      card.append(element("p", "card-note", "Nobody's in the car yet."));
       return foldPanel(card, "Passenger manifest", folded);
     }
     const list = element("ul", "party-list");
@@ -441,7 +441,7 @@
     append(card, panelHeading("04 / Cargo manifest", "Supplies on board"));
     const stocked = state.inventory.filter((item) => item.quantity > 0);
     if (!stocked.length) {
-      card.append(element("p", "card-note", "No supplies packed yet."));
+      card.append(element("p", "card-note", "Nothing packed yet."));
       return foldPanel(card, "Cargo manifest", folded);
     }
     const list = element("dl", "cargo-list");
@@ -456,7 +456,7 @@
   function setupPanel() {
     const panel = element("section", "rail-card setup-card");
     append(panel, panelHeading("Travel advisory / 2028", "A one-way proposition."), scene("vehicle"),
-      element("p", "card-note", "A paid-off car. A folder of important documents. A country that treats catastrophe as a weather report."));
+      element("p", "card-note", "You have a paid-off car and a folder of important documents. The country between here and Seattle files catastrophe under weather."));
     const points = element("div", "setup-points");
     append(points,
       labeledValue("Origin", "Cape Coral, FL"),
@@ -556,7 +556,7 @@
     };
     const hint = element("p", "input-hint", input.kind === "number"
       ? `Enter a whole number from ${input.min} to ${input.max}.`
-      : `${input.required ? "" : state.screen.id.endsWith("epitapheditor") ? "Leave blank to finish the epitaph. " : "A blank response is allowed. "}${input.maxLength ? `${input.maxLength} characters maximum.` : ""}`);
+      : `${input.required ? "" : state.screen.id.endsWith("epitapheditor") ? "Leave blank to finish the epitaph. " : "You can leave this blank. "}${input.maxLength ? `Up to ${input.maxLength} characters.` : ""}`);
     hint.id = "input-hint";
     field.setAttribute("aria-describedby", hint.id);
     append(panel, label, field, submit, hint);
@@ -717,7 +717,7 @@
       className: "game-button--bulk", label: `+${bulk.actionId.split("add-")[1]}`,
     }));
     append(card, header, controls,
-      element("p", "shop-row__limit", `Up to ${integer(row.maxQuantity)} within your current budget and cargo space`));
+      element("p", "shop-row__limit", `Your cash and cargo space allow up to ${integer(row.maxQuantity)}`));
     return card;
   }
 
@@ -760,7 +760,7 @@
       `${Math.floor(projectedSnacks / state.hud.foodPerDay)} days of food after checkout at current rations.`));
     const checkout = findAction("store.checkout");
     if (checkout) card.append(actionButton(checkout, { className: "game-button--solid game-button--wide", label: "Buy supplies & leave →" }));
-    card.append(element("p", "card-note", "Supplies are loaded when you leave the store."));
+    card.append(element("p", "card-note", "Nothing goes in the car until you check out."));
     return card;
   }
 
@@ -884,7 +884,7 @@
       }
     }
     if (!actions.length && !screen.input && screen.kind === "activity") {
-      body.append(element("p", "waiting-note", "The road is moving. The next decision will appear here."));
+      body.append(element("p", "waiting-note", "Time is passing. Your next decision will show up here."));
     }
     return body;
   }
@@ -909,7 +909,7 @@
       append(element("span", ""), document.createTextNode("TRAIL"), element("span", "cursor", "_")));
     append(intro, title,
       element("p", "home-tagline", "The American dream has a check-engine light."),
-      element("p", "home-copy", "Florida is uninsurable. Seattle is uphill from the sea. Load the car, bring your people, and try to make it across the country in one piece."));
+      element("p", "home-copy", "Florida is uninsurable. Seattle is uphill from the sea. Load the car, bring your people, and try to get most of them there."));
     const choices = simpleActions(state.screen.actions, "action-list--home");
     choices.setAttribute("aria-label", "Main menu");
     intro.append(choices);
@@ -935,8 +935,8 @@
       append(controls, element("dt", "", key), element("dd", "", label));
     }
     append(dialog, controls,
-      element("p", "card-note", "Fuel keeps you moving. Snacks keep your party alive. Watch the cargo limit, rest when you need to, and read the consequences before choosing."),
-      element("p", "card-note", "Your journey stays with this browser while the server session lasts. There is no permanent save; a service restart ends the journey."));
+      element("p", "card-note", "Gas keeps the car moving and snacks keep the passengers alive. Watch the cargo limit, rest before anyone gets worse, and read the fine print before you pick."),
+      element("p", "card-note", "Your trip is tied to this browser. There's no save file: if the server restarts, or you leave the trip idle long enough, it's over."));
     const close = () => { helpOpen = false; pendingFocusKey = helpReturnKey || "controls"; render(false); };
     dialog.oncancel = (event) => { event.preventDefault(); close(); };
     dialog.append(localButton("[ Return to the road ]", "close-controls", close, "local-button--accent"));

@@ -93,7 +93,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Profession
             }
 
             options.Add(new ArrowMenuOption(
-                $"{professions.Count + 1}. Find out the differences between these choices",
+                $"{professions.Count + 1}. Compare the backgrounds",
                 (professions.Count + 1).ToString()));
 
             _menu.SetOptions(options);

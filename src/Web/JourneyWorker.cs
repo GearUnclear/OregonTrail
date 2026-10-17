@@ -67,10 +67,10 @@ internal sealed class JourneyWorker : IAsyncDisposable
     {
         var current = await ReadAsync(cancellationToken);
         if (request?.ExpectedJourneyId != _journeyId)
-            return new GameActionResponseDto(false, "stale-revision", "This journey has restarted. Review the current screen.", current.State);
+            return new GameActionResponseDto(false, "stale-revision", "This journey was restarted. Check the screen and try again.", current.State);
         var completion = new TaskCompletionSource<GameActionResponseDto>(TaskCreationOptions.RunContinuationsAsynchronously);
         if (!_mailbox.Writer.TryWrite(new Work(request, completion, cancellationToken)))
-            throw new GameBusyException("This journey is busy. Please try again shortly.");
+            throw new GameBusyException("Too many moves are queued up. Wait a second and try again.");
         // A disconnected client must not automatically replay a command whose acknowledgement it missed.
         return await completion.Task.WaitAsync(cancellationToken);
     }
@@ -154,7 +154,7 @@ internal sealed class JourneyWorker : IAsyncDisposable
                 catch (Exception exception)
                 {
                     // A partially applied rule cannot safely accept more actions. Other workers remain live.
-                    work.Completion.TrySetException(new GameBusyException("This journey could not continue. Reconnect to start again."));
+                    work.Completion.TrySetException(new GameBusyException("This journey crashed. Reconnect to start a new one."));
                     throw new InvalidOperationException("Journey action failed.", exception);
                 }
             }
@@ -164,7 +164,7 @@ internal sealed class JourneyWorker : IAsyncDisposable
         {
             Volatile.Write(ref _faulted, true);
             _logger.LogError(exception, "A journey worker failed");
-            _ready.TrySetException(new GameBusyException("The journey could not start. Please reconnect."));
+            _ready.TrySetException(new GameBusyException("The journey failed to start. Reconnect to try again."));
         }
         finally
         {

@@ -85,7 +85,7 @@
             source?.close();
             source = null;
             onConnection(false);
-            onError("The live update could not be read. Reconnecting…");
+            onError("Got a garbled update from the server. Reconnecting…");
             scheduleFallback();
           }
         });

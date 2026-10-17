@@ -66,10 +66,10 @@ namespace OregonTrailDotNet.Window.MainMenu.Options
             // Rebuilt every render pass so the arrow-key highlight stays current.
             var options = new List<ArrowMenuOption>
             {
-                new ArrowMenuOption("1. See the original Top Ten list", "1"),
-                new ArrowMenuOption("2. Erase the current Top Ten list", "2"),
-                new ArrowMenuOption("3. Erase the Tombstone messages", "3"),
-                new ArrowMenuOption("4. Return to the main menu", "4")
+                new ArrowMenuOption("1. See the original top ten", "1"),
+                new ArrowMenuOption("2. Reset the leaderboard", "2"),
+                new ArrowMenuOption("3. Erase the roadside memorials", "3"),
+                new ArrowMenuOption("4. Back to the main menu", "4")
             };
 
             _menu.SetOptions(options);

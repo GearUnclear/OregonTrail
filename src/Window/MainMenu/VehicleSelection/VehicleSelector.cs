@@ -108,7 +108,7 @@ namespace OregonTrailDotNet.Window.MainMenu.VehicleSelection
             }
 
             options.Add(new ArrowMenuOption(
-                $"{vehicles.Count + 1}. Find out the differences between these rides",
+                $"{vehicles.Count + 1}. Compare the rides",
                 (vehicles.Count + 1).ToString()));
 
             _menu.SetOptions(options);
