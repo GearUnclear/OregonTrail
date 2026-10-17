@@ -1046,21 +1046,27 @@ namespace OregonTrailDotNet.Web
         private static string FerryOfferDescription(TravelInfo info, GameSimulationApp game, bool refused)
         {
             var river = info?.River;
-            if (river == null) return RiverDescription(info);
-            var cost = $"The convoy costs {Usd(river.FerryCost)} and requires {river.FerryDelayInDays} waiting days before crossing. " +
-                       "Waiting and crossing consume trail time and normal daily food. ";
+            // FerryHelp is reachable from the information chain at every river; only describe an offer that exists.
+            if (river == null || river.FerryCost <= 0) return RiverDescription(info);
+            var delay = river.FerryDelayInDays;
+            var wait = delay > 0
+                ? $"requires {delay:N0} waiting {(delay == 1 ? "day" : "days")} before crossing. Waiting consumes trail time and normal daily food. "
+                : "can cross without waiting. ";
             var balance = game.Vehicle?.Balance ?? 0;
-            return cost + $"You have {Usd(balance)}. " +
-                   (refused ? "You do not have enough cash for this crossing. Choose another method. " : "") +
+            // The convoy only accepts a party holding more than the fare (UseFerryConfirm/CrossingTick rules).
+            var shortage = refused || balance <= river.FerryCost
+                ? $"You need more than {Usd(river.FerryCost)} in cash to board the convoy. Choose another method. "
+                : "";
+            return $"The convoy costs {Usd(river.FerryCost)} and {wait}You have {Usd(balance)}. " + shortage +
                    RiverDescription(info);
         }
 
         private static string GuideOfferDescription(TravelInfo info, GameSimulationApp game)
         {
             var river = info?.River;
-            if (river == null) return RiverDescription(info);
-            var held = game.Vehicle.Inventory[Entities.Clothes].Quantity;
-            return $"The local guide requires {river.IndianCost} crates of leggings; you have {held}. " +
+            if (river == null || river.IndianCost <= 0) return RiverDescription(info);
+            var held = game.Vehicle?.Inventory[Entities.Clothes].Quantity ?? 0;
+            return $"The local guide requires {river.IndianCost:N0} crates of leggings; you have {held:N0}. " +
                    (held < river.IndianCost ? "You do not have enough leggings. Continue returns to the crossing choices. " : "") +
                    RiverDescription(info);
         }
