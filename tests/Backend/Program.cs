@@ -19,6 +19,8 @@ if (args.Contains("--trade-capacity")) { TradeCapacityTests.Run(); return; }
 TradeCapacityTests.Run();
 if (args.Contains("--party-names")) { PartyNameTests.Run(); return; }
 PartyNameTests.Run();
+if (args.Contains("--trade-payment")) { TradePaymentTests.Run(); return; }
+TradePaymentTests.Run();
 if (args.Contains("--creator-rules")) { CreatorTests.RunRules(); return; }
 if (args.Contains("--creator-balance")) { CreatorTests.RunBalance(false); return; }
 if (args.Contains("--food-sweep")) { FoodSweepTests.Run(); return; }

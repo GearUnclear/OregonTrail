@@ -752,7 +752,7 @@ namespace OregonTrailDotNet.Web
                 "TalkToPeople" => new ScreenDescriptor("dialog", "A voice from the roadside",
                     ConversationDescription(currentForm as Window.Travel.TalkToPeople.TalkToPeople), null),
                 "Trading" => new ScreenDescriptor("choice", "The parking-lot economy",
-                    TradeDescription(currentForm as Window.Travel.Trade.Trading), null),
+                    TradeDescription(currentForm as Window.Travel.Trade.Trading, game), null),
                 "TollRoadQuestion" => new ScreenDescriptor("choice", "The price of getting through",
                     TollDescription(userData as TravelInfo, game), null),
                 "CheckSupplies" => new ScreenDescriptor("status", "Supplies",
@@ -1239,15 +1239,20 @@ namespace OregonTrailDotNet.Web
                 : $"{conversation.SemanticSpeaker}\n\n{Prose(conversation.SemanticQuote)}";
         }
 
-        private static string TradeDescription(Window.Travel.Trade.Trading trading)
+        private static string TradeDescription(Window.Travel.Trade.Trading trading, GameSimulationApp game)
         {
             var offer = trading?.SemanticOffer;
-            return offer == null ? "Nobody's working their downline here right now."
-                : $"A hun from the parking-lot MLM wants {offer.WantedItem.Quantity:N0} {offer.WantedItem.Name.ToLowerInvariant()}. " +
+            if (offer == null) return "Nobody's working their downline here right now.";
+            var held = game.Vehicle?.Inventory != null &&
+                       game.Vehicle.Inventory.TryGetValue(offer.WantedItem.Category, out var stock) ? stock.Quantity : 0;
+            return $"A hun from the parking-lot MLM wants {offer.WantedItem.Quantity:N0} {offer.WantedItem.Name.ToLowerInvariant()}. " +
                   $"She'll swap you {offer.OfferedItem.Quantity:N0} {offer.OfferedItem.Name.ToLowerInvariant()}, hon — ground floor, only goes up from here.\n\n" +
-                  (trading.SemanticCanTrade ? "Are you willing to swap?" : !trading.SemanticRewardFits
-                      ? "You cannot carry the full offered amount. No supplies have been exchanged."
-                      : "You don't have the supplies for this trade.");
+                  (trading.SemanticCanTrade ? "Are you willing to swap?"
+                      : held < offer.WantedItem.Quantity
+                          ? $"You only have {held:N0} {offer.WantedItem.Name.ToLowerInvariant()}, so you can't cover this trade."
+                          : !trading.SemanticRewardFits
+                              ? "You cannot carry the full offered amount. No supplies have been exchanged."
+                              : "You don't have the supplies for this trade.");
         }
 
         private static string TollDescription(TravelInfo info, GameSimulationApp game)
