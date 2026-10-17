@@ -107,6 +107,28 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             return _decisionPrompt.ToString();
         }
 
+        /// <summary>
+        ///     Builds the endgame recap line for running the backroad so it matches what the party did at Carhenge:
+        ///     joined Reyes' caravan, went solo, or never reached that decision at all.
+        /// </summary>
+        /// <param name="caravanChoice">The recorded "caravan" option key ("join", "solo"), or null if never offered.</param>
+        /// <returns>The epilogue line recorded for the "run" option.</returns>
+        internal static string RunEpilogue(string caravanChoice)
+        {
+            const string opening = "You took a logging road around the Cascadia line and never told anyone.";
+            var indent = Environment.NewLine + "    ";
+            return caravanChoice switch
+            {
+                "join" => opening + indent +
+                          "Forty families who had vouched for you sat idling at the barrier, waiting" + indent +
+                          "on a car that was already three ridges east.",
+                "solo" => opening + indent +
+                          "Nobody was waiting for you at the barrier. That was the whole point of" + indent +
+                          "going it alone.",
+                _ => opening + indent + "There was no one to tell."
+            };
+        }
+
         /// <summary>Fired when the game Windows current state is not null and input buffer does not match any known command.</summary>
         /// <param name="input">Contents of the input buffer which didn't match any known command in parent game mode.</param>
         public override void OnInputBufferReturned(string input)
@@ -210,11 +232,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                         runDelta += -800 - 600;
 
                     game.Choices.Record("checkpoint", "run", runDelta,
-                        "You took a logging road around the Cascadia line and never told anyone." +
-                        Environment.NewLine + "    " +
-                        "If the caravan had vouched for you, you left forty families idling at the" +
-                        Environment.NewLine + "    " +
-                        "barrier without so much as a honk.");
+                        RunEpilogue(game.Choices.GetDecision("caravan")));
                     ClearForm();
                     break;
 
