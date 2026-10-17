@@ -22,7 +22,7 @@ Each launch costs one trail day when you come back to the road. Your founder his
 
 ### DEAD AIR
 
-Start a **YouTube travel channel** anywhere on the trail, or use **Pull over / YouTube travel channel** while driving. Name the channel, then spend **one trail day and $8** filming whatever happens and publish the idea you were handed. You can carry unfinished footage to another stop. Most ideas are dull, and only the rare excellent one has any chance of breaking out. Subscriber traffic, discovery views, new subscribers, and unsubscribes all vary from upload to upload, and a hidden recommendation score reacts to both kinds of audience.
+Start a **YouTube travel channel** anywhere on the trail, or use **Pull over / YouTube travel channel** while driving. Name the channel, then spend **one trail day and $8** filming whatever happens and publish the idea you were handed. You can carry unfinished footage to another stop. About a third of the ideas you get handed are good, and even those rarely break out. Subscriber traffic, discovery views, new subscribers, and unsubscribes all vary from upload to upload, and a hidden recommendation score reacts to both kinds of audience.
 
 Gear comes from **V&H — Victor & Horoshilov**: cameras, lights from $19 to $1,499, SD cards, backup storage, batteries, HDMI monitors, mount-specific lenses, ND filters, microphones, and supports. Orders are charged right away and arrive one trail day later, whether you spend that day driving or filming. You equip delivered cameras from your bag. Compatible accessories fit automatically, and only the best item in each category counts. Gear raises the ceiling on how many people can see a video. It never makes anyone want to watch it. Footage keeps whatever equipment it was shot on.
 
