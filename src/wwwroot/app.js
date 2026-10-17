@@ -312,22 +312,26 @@
   }
 
   function routeProgress(progress) {
-    const percent = progress.totalMiles > 0
-      ? clamp(Math.round(100 * progress.milesTraveled / progress.totalMiles), 0, 100)
-      : 0;
+    // The odometer keeps each leg's overshoot and the route length counts every fork branch, so neither
+    // measures completion. Count legs on the selected stop sequence, which grows when a fork inserts a stop.
+    const stops = progress.stops || [];
+    const totalLegs = Math.max(0, stops.length - 1);
+    const completedLegs = clamp(progress.currentStopIndex || 0, 0, totalLegs);
+    const percent = totalLegs > 0 ? Math.floor(100 * completedLegs / totalLegs) : 0;
     const track = element("div", "route-progress__track");
     track.setAttribute("role", "progressbar");
-    track.setAttribute("aria-label", "Journey mileage");
+    track.setAttribute("aria-label", "Route legs completed");
     track.setAttribute("aria-valuemin", "0");
-    track.setAttribute("aria-valuemax", String(progress.totalMiles));
-    track.setAttribute("aria-valuenow", String(clamp(progress.milesTraveled, 0, progress.totalMiles)));
+    track.setAttribute("aria-valuemax", String(Math.max(1, totalLegs)));
+    track.setAttribute("aria-valuenow", String(completedLegs));
     const fill = element("span", "route-progress__fill");
     fill.style.width = `${percent}%`;
     return append(element("div", "route-progress"),
       append(element("div", "route-progress__labels"),
-        element("strong", "", `${integer(progress.milesTraveled)} / ${integer(progress.totalMiles)} mi`),
-        element("span", "", `${percent}% of route`)),
-      append(track, fill));
+        element("strong", "", `${integer(completedLegs)} / ${integer(totalLegs)} legs complete`),
+        element("span", "", `${percent}% of route stops`)),
+      append(track, fill),
+      element("p", "card-note", `Odometer ${integer(progress.milesTraveled)} mi. Progress counts stops reached, not odometer miles.`));
   }
 
   function routeStops(progress, full = false) {
