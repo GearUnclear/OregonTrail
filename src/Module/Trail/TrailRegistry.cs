@@ -28,7 +28,8 @@ namespace OregonTrailDotNet.Module.Trail
                 {
                     new Settlement("Cape Coral, FL", Climate.Moderate),
                     new RiverCrossing("I-40 Pigeon River Gorge Washout", Climate.Continental, RiverOption.FerryOperator),
-                    new RiverCrossing("I-10 Francine Flood Crossing", Climate.Continental),
+                    // Drive-by flood scene, not a second crossing straight after the first (issue #30).
+                    new Landmark("I-10 Francine Floodline", Climate.Continental),
                     new Settlement("Buc-ee's, Sevierville TN", Climate.Continental),
                     new Landmark("Touchdown Jesus, Monroe OH", Climate.Moderate),
                     new Settlement("Wall Drug, SD", Climate.Moderate),

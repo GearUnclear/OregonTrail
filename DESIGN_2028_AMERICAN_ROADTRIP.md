@@ -58,7 +58,7 @@ Each row: **original mechanic → 2028 reskin → real-world basis → what stay
 | **Food** + **Hunting** (type ShootWord; buffalo 350-500 lb; cap 100) | **Snacks** + **"Buc-ee's / Big Texan / Black Friday Food Sweep"**: type the GRAB word to seize fair food, brisket & door-buster trays | Big Texan 72oz; state-fair deep-fry arms race; Black Friday grabs | `HUNTINGTIME=30`, `MAXPREY=15`, `MAXFOOD=100`, per-prey yields (brisket=buffalo, 72oz steak=caribou), `TryShoot`/`PreyFlee`, `(int)Profession-13` accuracy — byte-identical |
 | **Store** (Matt's General Store; 7 items) | **Buc-ee's** (120 pumps) as outfitter — **firearms & ammo in the cart next to the flour** | 74,000 ft² Buc-ee's @ I-40 Exit 407; FL permitless carry | `UpdateStore` skips Cash/Person/Vehicle/Location, sells same 7; `MaxQuantity` caps; `RequiredItem` gate (no depart on 0 gas) unchanged |
 | **Ammunition** ($2/box, 20-99) | **Boxes of ammo by the flour** — no license, training, or check | FL 26th permitless state; ammo buyouts | `$2`, min 20, max 99; consumed by bandit (3-15) & snakebite (10); hunting drain formula unchanged |
-| **River crossing** | **Flooded Interstate / collapsing toll bridge** (see §4) | I-40→Pigeon River; I-10 floods; Hwy-1 slides | All `RiverGenerator` ranges & disaster thresholds identical |
+| **River crossing** | **Flooded Interstate / collapsing toll bridge** (see §4) | I-40→Pigeon River; I-10 floods; Hwy-1 slides | Disaster thresholds identical; depth and convoy-delay ranges shortened in the October 2026 crossing pass (§11) |
 | **BanditsAttack** (spends 3-15 ammo; loot→`TryKill`) | **Highway-patrol civil-asset-forfeiture stop** — dog "alerts," cash seized, no charge | Stephen Lara's $87k; OK $100k farmland cash | `ItemDestroyer` prefab unchanged; 3-15 spend, "drove them off" fallback; verb reskins seized/forfeited. `Thief` → porch-pirate/repo agent same way |
 | **IndiansHelp** (+14 Food) | **Roadside produce-stand family** takes you in, refuses payment | Stricklands hosting Japanese cyclist; Subway gifting SubwaySean | Plain `EventProduct` +14 Food, unchanged |
 | **Landmarks** (no store/chat) | **"World's Largest X" shrines**: Cadillac Ranch, Carhenge, Touchdown Jesus, Butter Cow | Real roadside monuments | `Landmark` flags stay false; `AdviceRegistry.Landmark` (12 entries); `Random.Next(32,164)` segment unchanged |
@@ -76,7 +76,7 @@ Each row: **original mechanic → 2028 reskin → real-world basis → what stay
 ## 4. The headline crossing: flooded Interstates (was: rivers)
 
 Each "river" is a **climate-broken Interstate or a collapsing toll bridge**. The header still
-prints two numbers, reskinned: **floodwater depth (ft)** (`RiverDepth` 1-19) and **washout
+prints two numbers, reskinned: **floodwater depth (ft)** (`RiverDepth` 1-12; each wait day drops it 2-4 ft) and **washout
 width = feet of missing roadbed** (`RiverWidth` 100-1499), plus weather. The menu is still built
 dynamically from `RiverCrossChoice`, so the numbering shifts by which options the location
 allows — **all 4–6 choices preserved:**
@@ -85,7 +85,7 @@ allows — **all 4–6 choices preserved:**
 |---|---|---|---|---|
 | Ford | attempt to ford | **"GUN IT THROUGH THE HIGH WATER"** — free, fast | depth >3 ft past half-width → guaranteed `VehicleWashOut`; `CrossingResult` still 50% `StuckInMud` | Helene's I-40 collapse |
 | Float | caulk & float | **"SEAL THE DOORS, TAKE THE WASHED-OUT SHOULDER DETOUR"** — free, DIY | depth >5 ft + 50% past half-width → `VehicleFloods` (drowned supplies + `ReduceMileage`) | Francine flooding I-10 |
-| Ferry | take a ferry | **"PAY FOR THE NATIONAL GUARD HIGH-WATER CONVOY / CALTRANS ARMED RESUPPLY RUN"** — price feels like a surprise ambulance bill | `FerryCost $3-7`, `delay 1-9 days` via Resting; `>=` affordability; deduct in `CrossingTick` | Caltrans convoy runs on slid-out Hwy 1 |
+| Ferry | take a ferry | **"PAY FOR THE NATIONAL GUARD HIGH-WATER CONVOY / CALTRANS ARMED RESUPPLY RUN"** — price feels like a surprise ambulance bill | `FerryCost $3-7`, `delay 1-3 days` via Resting; `>=` affordability; deduct in `CrossingTick` | Caltrans convoy runs on slid-out Hwy 1 |
 | Guide | hire an Indian | **"HIRE A SOVEREIGN-CITIZEN LOCAL WHO 'ISN'T DRIVING, HE'S TRAVELING'"** — paid in **3-7 crates of MLM leggings** (the clothing slot), the only barter he takes | `HasEnoughClothingToTrade` gate + clothing deduction unchanged | Volusia County "I'm traveling not driving" stop |
 | Wait | wait for conditions | **"WAIT FOR THE WATER TO RECEDE / FEMA TO REOPEN"** | `DaysToRest=1` → Resting (events still tick) | CA atmospheric-river closures |
 | Info | get more information | **"ASK A PASSER-BY WHY THE INTERSTATE IS IN THE RIVER"** → `FordRiverHelp` becomes the deadpan Advice hook | — | the passer-by narrator device |
@@ -99,6 +99,7 @@ its original behavior (Settlement = store+chat, Landmark = gawk-only, RiverCross
 `InsertLocation` skip-choices, Toll = price gate). Start: **Cape Coral, FL**.
 
 1. **I-40 Pigeon River Gorge Washout** *(RiverCrossing)* — Helene tore ~4 mi of I-40 into the river; repairs to ~2028.
+   - Then **I-10 Francine Floodline** *(Landmark)* — drive-by flood scene; deliberately not a second crossing right after the first.
 2. **Buc-ee's, Sevierville TN** *(Settlement)* — world's largest c-store; ammo by the flour.
 3. **Touchdown Jesus, Monroe OH** *(Landmark)* — 62-ft Styrofoam Jesus struck by lightning & burned.
 4. **Wall Drug, SD** *(Settlement)* — free-ice-water, 3,000-billboard trading post.
@@ -313,6 +314,17 @@ lethal outcomes rarer without changing their authored consequences.
 Whole-party deaths (CARNAGE / PILEUP wipes) and downstream starvation are the run-ending
 modes — all route through a proper GameFail screen rather than the soft-lock a fuel strand
 would cause. Losses are now death-dominated and even most *winners* bury someone en route.
+
+**Crossings (October 2026, issue #30):** the I-10 Francine stop is a drive-by Landmark rather than a
+second consecutive RiverCrossing, so the main route has three crossings and none are adjacent.
+Floodwater rolls 1-12 ft (was 1-19), each wait day lowers it 2-4 ft (was 1-3), and the Guard
+convoy backlog is 1-3 days (was 1-9). In the strategy-sim default policy (`banker_minivan_steady`,
+1000 seeds from 10001) arrival rises from 80.1% to 85.1% and whole-family arrival from 37.9% to
+42.3%; the 11-leggings reference loadout above (`banker_minivan_11clothes`) moves from 40.1% to
+45.7% whole-family arrival, on target. Riverside waiting falls from about 12 to 4 days per journey
+(300 traced seeds, PR #37). Low-budget `farmer_heavy` gains most (whole family 21.5% to 36.0%)
+because riverside days had cost it food plus illness and event rolls (median winning journey 37 to
+27 days); it remains the hardest realistic plan.
 
 **Also:** `RedDeadRedemption3` (ManualOnly) — a 0.02%/turn roll (`Random.Next(5000)==0`) in
 `ContinueOnTrail` deducts **$80 per living passenger** when everyone pre-orders it mid-drive.

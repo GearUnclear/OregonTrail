@@ -26,8 +26,10 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                 throw new InvalidCastException(
                     "Unable to cast location as river crossing even though it returns as one!");
 
-            // Randomly generates statistics about the river each time you cross it.
-            RiverDepth = game.Random.Next(1, 20);
+            // Randomly generates statistics about the river each time you cross it. Depth is 1-12 feet (issue #30):
+            // the old 1-19 band made 85% of crossings deep enough to force several days of waiting. Gunning it is
+            // now safe at about a quarter of crossings and the detour at about 40%; the rest still need a day or two.
+            RiverDepth = game.Random.Next(1, 13);
 
             // Determines how long the player will spend crossing river.
             RiverWidth = game.Random.Next(100, 1500);
@@ -41,7 +43,8 @@ namespace OregonTrailDotNet.Window.Travel.RiverCrossing
                 case RiverOption.FerryOperator:
                     IndianCost = 0;
                     FerryCost = game.Random.Next(3, 8);
-                    FerryDelayInDays = game.Random.Next(1, 10);
+                    // The convoy backlog is 1-3 days (was 1-9) so the safe paid option is not also a week-long stall.
+                    FerryDelayInDays = game.Random.Next(1, 4);
                     break;
                 case RiverOption.FloatAndFord:
                     IndianCost = 0;
