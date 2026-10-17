@@ -447,7 +447,7 @@
     const list = element("ul", "party-list");
     for (const person of state.party) {
       append(list, append(element("li", "party-member"),
-        append(element("span", "party-member__avatar"), document.createTextNode(person.name.slice(0, 1).toUpperCase())),
+        append(element("span", "party-member__avatar"), document.createTextNode((Array.from(person.name)[0] || "").toUpperCase())),
         append(element("span", "party-member__identity"),
           element("strong", "", person.name),
           element("small", "", person.isLeader ? `${person.profession} · Driver` : person.profession)),

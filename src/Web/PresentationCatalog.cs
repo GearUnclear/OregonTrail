@@ -876,7 +876,7 @@ namespace OregonTrailDotNet.Web
             return name switch
             {
                 "InputPlayerNames" => new InputSpecDto("text", "Passenger name", "Enter a first name", false,
-                    null, null, 40),
+                    null, null, Window.MainMenu.Names.InputPlayerNames.NameMaxLength),
                 "EpitaphEditor" => new InputSpecDto("text", "Next epitaph word", "A word, or leave blank to finish", false,
                     null, null, 30),
                 "RestAmount" => new InputSpecDto("number", "Days to rest", "0–9", true, 0, 9, null),
