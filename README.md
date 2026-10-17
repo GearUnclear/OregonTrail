@@ -71,13 +71,14 @@ dotnet run --project tests/Backend/BackendTests.csproj
 dotnet publish src/OregonTrailDotNet.csproj -c Release -o ./publish
 ```
 
-For the HTTP integration checks, start a throwaway host and run:
+For the HTTP integration checks, start a throwaway host on a spare port (not 7682, which production uses) and run the suites against it from another terminal:
 
 ```bash
-python3 tests/backend_integration.py http://127.0.0.1:8080
-python3 tests/crypto_integration.py http://127.0.0.1:8080
-python3 tests/creator_integration.py http://127.0.0.1:8080
-python3 tests/food_sweep_integration.py http://127.0.0.1:8080
+dotnet ./publish/OregonTrailDotNet.dll --urls http://127.0.0.1:18764
+python3 tests/backend_integration.py http://127.0.0.1:18764
+python3 tests/crypto_integration.py http://127.0.0.1:18764
+python3 tests/creator_integration.py http://127.0.0.1:18764
+python3 tests/food_sweep_integration.py http://127.0.0.1:18764
 ```
 
 These cover concurrent journeys staying independent, command conflicts, stream reconnects, all four vehicle setups, stores, and starting and stopping the car. The backend harness covers bounded queues, slow subscribers, cancellation, idle clocks, and shutdown.

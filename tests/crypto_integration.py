@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Exercise RUG.RUN against a disposable host, including real SSE updates and cash settlement.
-Run: python3 tests/crypto_integration.py http://127.0.0.1:18765
+Run: python3 tests/crypto_integration.py http://127.0.0.1:18764
 """
 import json
 import time
