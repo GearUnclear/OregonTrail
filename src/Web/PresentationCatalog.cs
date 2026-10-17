@@ -703,7 +703,7 @@ namespace OregonTrailDotNet.Web
                 "ProfessionSelector" => new ScreenDescriptor("setup", "Choose your background",
                     "Who you were before all this decides how much cash you start with and how much your arrival is worth.", null),
                 "VehicleSelector" => new ScreenDescriptor("setup", "Choose a ride",
-                    "You'll be living in this car for a while. Check the seats, the cargo room, and how far it gets on a can of gas.", null),
+                    "You'll be living in this car for a while. Check the price, the seats, the cargo room, and how far it gets on a can of gas.", null),
                 "InputPlayerNames" => new ScreenDescriptor("setup", "Name your party",
                     NamePrompt(userData as NewGameInfo, game), input),
                 "ConfirmPlayerNames" => new ScreenDescriptor("setup", "Confirm your party",
@@ -719,7 +719,7 @@ namespace OregonTrailDotNet.Web
                 "EraseCurrentTopTen" => new ScreenDescriptor(game.ActiveMenu?.HasOptions == true ? "choice" : "dialog", "Reset the leaderboard?",
                     "Every score from this server goes away and the original top ten comes back.", input),
                 "EraseTombstone" => new ScreenDescriptor(game.ActiveMenu?.HasOptions == true ? "choice" : "dialog", "Erase the memorials?",
-                    "Every roadside memorial gets cleared. New ones only appear when someone else dies out there.", input),
+                    "Every roadside memorial on this server gets cleared. New ones go up only when another party dies on the road.", input),
                 "MainMenu" => new ScreenDescriptor("setup", "The Asphalt Trail", "Plan the drive west.", null),
                 "RulesHelp" => new ScreenDescriptor("dialog", "How the road works",
                     $"It's about {game.Trail?.Length ?? 0:N0} miles from Cape Coral to Seattle. Gas keeps the car moving and snacks keep the party healthy. Ammunition is for trouble, leggings are what guides take as payment, and spare tires, alternators, and transmissions are for when the car gives out.", null),
@@ -930,7 +930,7 @@ namespace OregonTrailDotNet.Web
                 "ArmYourselfDecision" =>
                     "A pistol is $300. Walking out costs nothing. A trauma kit and vest is $120 and restores party health. Whatever you leave with, the Cascadia checkpoint will ask about it.",
                 "CaravanDecision" =>
-                    "The caravan moves slower and watches your back, and it changes how the checkpoint goes later. Alone, you're faster and nobody's watching.",
+                    "The caravan moves slower and watches your back, and it changes how the checkpoint goes later. Alone, you're faster and nobody has your back.",
                 "CheckpointDecision" =>
                     "What it costs to comply, assert passage, or take the backroad depends on your documents, your caravan, and what you bought in Sporting Goods.",
                 _ => "This changes your supplies, your odds, or your score right away."

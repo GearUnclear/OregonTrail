@@ -70,7 +70,7 @@ internal sealed class JourneyWorker : IAsyncDisposable
             return new GameActionResponseDto(false, "stale-revision", "This journey was restarted. Check the screen and try again.", current.State);
         var completion = new TaskCompletionSource<GameActionResponseDto>(TaskCreationOptions.RunContinuationsAsynchronously);
         if (!_mailbox.Writer.TryWrite(new Work(request, completion, cancellationToken)))
-            throw new GameBusyException("Still working on your last move. Try again in a second.");
+            throw new GameBusyException("Too many moves are queued up. Wait a second and try again.");
         // A disconnected client must not automatically replay a command whose acknowledgement it missed.
         return await completion.Task.WaitAsync(cancellationToken);
     }

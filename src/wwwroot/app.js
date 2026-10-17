@@ -884,7 +884,7 @@
       }
     }
     if (!actions.length && !screen.input && screen.kind === "activity") {
-      body.append(element("p", "waiting-note", "You're driving. The next problem will show up here."));
+      body.append(element("p", "waiting-note", "Time is passing. Your next decision will show up here."));
     }
     return body;
   }
@@ -936,7 +936,7 @@
     }
     append(dialog, controls,
       element("p", "card-note", "Gas keeps the car moving and snacks keep the passengers alive. Watch the cargo limit, rest before anyone gets worse, and read the fine print before you pick."),
-      element("p", "card-note", "Your trip lives in this browser for as long as the server stays up. There's no save file. If the server restarts, the trip is over."));
+      element("p", "card-note", "Your trip is tied to this browser. There's no save file: if the server restarts, or you leave the trip idle long enough, it's over."));
     const close = () => { helpOpen = false; pendingFocusKey = helpReturnKey || "controls"; render(false); };
     dialog.oncancel = (event) => { event.preventDefault(); close(); };
     dialog.append(localButton("[ Return to the road ]", "close-controls", close, "local-button--accent"));

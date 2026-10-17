@@ -77,6 +77,7 @@ For the HTTP integration checks, start a throwaway host and run:
 python3 tests/backend_integration.py http://127.0.0.1:8080
 python3 tests/crypto_integration.py http://127.0.0.1:8080
 python3 tests/creator_integration.py http://127.0.0.1:8080
+python3 tests/food_sweep_integration.py http://127.0.0.1:8080
 ```
 
 These cover concurrent journeys staying independent, command conflicts, stream reconnects, all four vehicle setups, stores, and starting and stopping the car. The backend harness covers bounded queues, slow subscribers, cancellation, idle clocks, and shutdown.
