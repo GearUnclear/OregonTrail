@@ -28,11 +28,22 @@ internal static class Program
             .Validate(options => options.MaximumSessions is > 0 and <= 4096 && options.CommandCapacity is > 0 and <= 1024 &&
                 options.MaximumStreamsPerSession is > 0 and <= 16 && options.SessionLifetime > TimeSpan.Zero &&
                 options.DisconnectGracePeriod >= TimeSpan.Zero, "Invalid game host limits.").ValidateOnStart();
+        // Seeded journeys are test-only (#69): refuse to start at all rather than serve them outside Development.
+        var testSeeds = builder.Configuration.GetValue<bool>("GameHost:TestSeeds");
+        try { TestSeeds.EnsureAllowed(testSeeds, builder.Environment); }
+        catch (InvalidOperationException exception)
+        {
+            await Console.Error.WriteLineAsync(exception.Message);
+            Environment.ExitCode = 1;
+            return;
+        }
         builder.Services.AddSingleton<GameSession>();
         builder.Services.AddHostedService(provider => provider.GetRequiredService<GameSession>());
         builder.Services.ConfigureHttpJsonOptions(options => options.SerializerOptions.TypeInfoResolverChain.Insert(0, GameJsonContext.Default));
 
         var app = builder.Build();
+        if (testSeeds)
+            app.Logger.LogWarning("GameHost:TestSeeds is on: new journeys accept {Header}. This host is for tests only.", TestSeeds.Header);
         // Only loopback proxies are trusted (the ASP.NET default). Apache sends X-Forwarded-Proto for the public HTTPS
         // scheme and X-Forwarded-Prefix for the /oregon path it strips; the prefix becomes PathBase and scopes the cookie.
         // A prefix that is not a plain path is dropped first, so it can never reach PathBase or the cookie.

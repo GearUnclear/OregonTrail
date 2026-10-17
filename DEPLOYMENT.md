@@ -13,7 +13,7 @@ dotnet publish src/OregonTrailDotNet.csproj -c Release -o ./publish
 
 `build_web.sh` compiles nothing. It checks that the browser files exist and, if Node.js is installed, syntax-checks the scripts. The backend harness has no package dependencies beyond the game project itself.
 
-`verify_web_rewrite.sh` builds the host from source, starts it on loopback, and checks the API contract, revision handling, the asset fingerprints, and the cache headers. It needs `dotnet`, `curl`, `node`, and `sha256sum` (or `shasum`). It tests the source tree, not `./publish`. The script lets the OS pick a free port, so it won't collide with a running service or with another run of itself. A few environment variables change its behavior:
+`verify_web_rewrite.sh` builds the host from source, starts it on loopback, and checks the API contract, revision handling, that test seeds are refused, the asset fingerprints, and the cache headers. It needs `dotnet`, `curl`, `node`, and `sha256sum` (or `shasum`). It tests the source tree, not `./publish`. The script lets the OS pick a free port, so it won't collide with a running service or with another run of itself. A few environment variables change its behavior:
 
 - `WEB_VERIFY_PORT=18764` pins the port. The script fails if that port is already taken.
 - `WEB_VERIFY_NO_RESTORE=1` skips the NuGet restore, so you can verify offline once packages are restored.
@@ -30,6 +30,36 @@ python3 tests/food_sweep_integration.py http://127.0.0.1:18764
 ```
 
 These create a lot of journeys and submit actions, so never point them at production. `GET /healthz` returns `{"status":"healthy"}` without touching the session registry, so it's safe as the production health check. `backend_integration.py` expects the default 12-hour cookie Max-Age. If the host runs with a different `SessionLifetime`, set `EXPECT_SESSION_MAX_AGE` to that lifetime in seconds.
+
+### Seeded test journeys
+
+`tests/seeded_integration.py` replays known journeys, which needs a host that accepts fixed seeds. This is for tests only. Never enable it in production. Start a separate disposable host for it:
+
+```bash
+ASPNETCORE_ENVIRONMENT=Development GameHost__TestSeeds=true \
+    dotnet ./publish/OregonTrailDotNet.dll --urls http://127.0.0.1:18765
+python3 tests/seeded_integration.py http://127.0.0.1:18765
+```
+
+On that host, a request that starts a new journey can send `X-Test-Seed: <n>`, where `n` is a whole number from 0 to 2147483647. The journey's WolfCurses random generator starts from that seed before the route is generated, and every other generator the journey owns is drawn from it: the creator channel, the crypto market, the food sweep trays, party names left blank, and roadside advice. After a game ends, the next game in the same session takes its seed from the first one, so it's reproducible too. The browser never sends the header, and nothing in the action contract changes.
+
+The guards:
+
+- `GameHost:TestSeeds` is off by default. With it on, the host refuses to start unless `ASPNETCORE_ENVIRONMENT` is `Development`. There's no override. The production unit sets no environment, so it runs as `Production`.
+- A host with the option off answers any `/api/game` request that carries the header with 400. It doesn't start a journey.
+- A seed only starts a new journey. Sending one with the cookie of a live session gets 400 and leaves that journey alone, so use a fresh cookie jar for each seeded journey. A malformed or out-of-range value also gets 400.
+- The host logs a warning at startup when the option is on.
+
+The same seed and the same actions replay the same journey, as long as the client only acts once the journey is waiting for the player. Driving, resting, crossing, and waiting out an event advance on one-second game ticks, so wait until they finish. `settle()` in the test does that. These parts still depend on wall-clock time, even with a seed:
+
+- Food sweeps. The trays are reproducible, but whether a grab lands depends on when it arrives.
+- DoorDash shifts, where offers come and go on game ticks while you decide.
+- The crypto market, which ticks once a second while the desk is open.
+- Stopping the car mid-drive. Where it stops depends on when the request arrives.
+- Animation frames on a few event screens, such as Tom Holland's lunge. They don't change outcomes.
+- `revision` and `journeyId`. The revision counts published frames, and how many there are depends on tick timing. Compare snapshots without these two fields.
+
+A seed's journey also changes whenever the rules, content, or set of event classes change. The test's header comment explains how to search for new seeds when that happens. `tools/strategy-sim/` keeps its own `--seed` handling and is unaffected.
 
 ### What ships
 
@@ -128,6 +158,7 @@ These options live under `GameHost` in configuration. The repository has no `app
 | `MaximumStreamsPerSession` | `4` | 1-16 | More tabs than this get 429 on the stream and fall back to polling `GET /api/game` about every 3 seconds. |
 | `SessionLifetime` | `12:00:00` | > 0 | A journey with no open stream and no requests for this long is removed. A sweep runs every 30 seconds. |
 | `DisconnectGracePeriod` | `00:00:30` | >= 0 | Once no stream is open, the clock stops this long after the last request or stream close. |
+| `TestSeeds` | `false` | `true` only in Development | Test-only. New journeys accept `X-Test-Seed`; see [Seeded test journeys](#seeded-test-journeys). Never set it in production. |
 
 The session cookie's Max-Age is `SessionLifetime`. Page loads, the browser's state reads (one every 15 seconds without a state event, or during fallback polling), and each stream connection renew it, so it slides with the journey's inactivity timeout instead of expiring a fixed time after the first visit. Request bodies are capped at 16 KB.
 

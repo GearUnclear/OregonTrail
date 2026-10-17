@@ -1,6 +1,6 @@
 # Web end-to-end checklist
 
-`tools/verify_web_rewrite.sh` provides build, contract, stale-revision, and asset smoke tests. Run `dotnet run --project tests/Backend/BackendTests.csproj` for worker backpressure, cancellation, idle lifecycle, and capacity checks. Run `python3 tests/backend_integration.py BASE_URL` against a disposable host for concurrent session isolation, streamed state, reconnect, all four vehicle setups, and driving transitions. The randomized WolfCurses journey does not yet expose a deterministic test scenario, so the complete gameplay path remains a manual or Playwright-assisted release check.
+`tools/verify_web_rewrite.sh` provides build, contract, stale-revision, and asset smoke tests. Run `dotnet run --project tests/Backend/BackendTests.csproj` for worker backpressure, cancellation, idle lifecycle, and capacity checks. Run `python3 tests/backend_integration.py BASE_URL` against a disposable host for concurrent session isolation, streamed state, reconnect, all four vehicle setups, and driving transitions. Run `python3 tests/seeded_integration.py BASE_URL` against a separate Development host with `GameHost__TestSeeds=true` to replay pinned seeds through a viral upload and Viral Hog sale and a deadly river crossing (see `DEPLOYMENT.md`). The complete visual gameplay path remains a manual or Playwright-assisted release check.
 
 ## Preparation
 

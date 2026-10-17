@@ -26,7 +26,6 @@ namespace OregonTrailDotNet.Window.Travel.Hunt
         public bool ShouldEndHunt { get; private set; }
         public string HuntInfo => $"Food sweep — tray {Round}/{TrayCount}. {Feedback} Haul: {KillWeight} lb.";
 
-        public HuntManager() : this(new Random(), () => Environment.TickCount64) { }
         public HuntManager(Random random, Func<long> clock)
         {
             _random = random;

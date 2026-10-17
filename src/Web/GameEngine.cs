@@ -7,12 +7,32 @@ internal sealed class GameEngine : IGameEngine
 {
     private BrowserGame _game;
     private int _settlingPulses;
+    private readonly int? _seed;
+    private Random _restartSeeds;
     public GameSnapshotDto Snapshot { get; private set; }
+
+    /// <param name="seed">Test-only (#69). Null, as in production, keeps WolfCurses' clock-seeded generator.</param>
+    public GameEngine(int? seed = null) => _seed = seed;
+
+    /// <summary>
+    /// The first simulation uses the seed itself. A new simulation after the game ends takes the next value from a
+    /// generator built from that seed, so a seeded journey stays reproducible across restarts.
+    /// </summary>
+    private int? NextSeed()
+    {
+        if (_seed == null) return null;
+        if (_restartSeeds == null)
+        {
+            _restartSeeds = new Random(_seed.Value);
+            return _seed;
+        }
+        return _restartSeeds.Next();
+    }
 
     public async Task InitializeAsync(CancellationToken cancellationToken)
     {
         GameSimulationApp.Activate(null);
-        GameSimulationApp.Create();
+        GameSimulationApp.Create(NextSeed());
         _game = new BrowserGame(GameSimulationApp.Instance);
         try
         {
@@ -178,9 +198,9 @@ internal sealed class GameEngine : IGameEngine
         return Task.CompletedTask;
     }
 
-    private static void RestartEndedGame(BrowserGame game)
+    private void RestartEndedGame(BrowserGame game)
     {
-        GameSimulationApp.Create();
+        GameSimulationApp.Create(NextSeed());
         game.Simulation = GameSimulationApp.Instance;
     }
 
