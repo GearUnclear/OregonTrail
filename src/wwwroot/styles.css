@@ -193,6 +193,7 @@ button, input, summary, a { touch-action: manipulation; }
 .story-controls { margin-top: 24px; padding: 16px 0; border-top: 1px dashed var(--line); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .story-controls .local-button:not(.story-advance) { border: 0; padding-inline: 0; }
 .story-position { color: var(--muted); font-size: 11px; }
+.story-skip { margin-top: 4px; }
 .route-progress { margin-top: 18px; }
 .route-progress__labels { display: flex; gap: 12px; justify-content: space-between; font-size: 10px; line-height: 1.7; color: var(--muted); }
 .route-progress__labels strong { color: var(--acid); font-weight: 400; }

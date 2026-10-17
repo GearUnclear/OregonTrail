@@ -26,6 +26,7 @@ namespace OregonTrailDotNet.Web
         StoreAdjust,
         StoreSet,
         SkipIntro,
+        SkipStoreGuide,
         PrepareDeparture,
         Crypto,
         Creator,
@@ -647,6 +648,14 @@ namespace OregonTrailDotNet.Web
                 };
                 actions.Add(new GameActionDto(actionId, label, "continue", true, false));
                 bindings[actionId] = new PresentationActionBinding(PresentationActionKind.Submit, string.Empty);
+            }
+
+            // Optional repeat-player shortcut listed after Continue so the guide stays the default path.
+            if (currentForm is Window.Travel.Store.Help.StoreWelcome)
+            {
+                const string skip = "setup.skip-store-guide";
+                actions.Add(new GameActionDto(skip, "Skip guide and open shop", "secondary", true, false));
+                bindings[skip] = new PresentationActionBinding(PresentationActionKind.SkipStoreGuide);
             }
 
             return actions;
