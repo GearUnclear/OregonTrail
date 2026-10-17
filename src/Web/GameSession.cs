@@ -14,7 +14,7 @@ public sealed class GameSession(IOptions<GameHostOptions> options, ILogger<GameS
     {
         lock (_registryGate)
         {
-            if (_closing) throw new GameCapacityException("The game host is restarting. Please reconnect shortly.");
+            if (_closing) throw new GameCapacityException("The server is restarting. Reconnect in a moment.");
             if (_games.TryGetValue(sessionId, out var existing))
             {
                 existing.Touch();
@@ -22,7 +22,7 @@ public sealed class GameSession(IOptions<GameHostOptions> options, ILogger<GameS
             }
             // Never evict another player's live journey to admit a new visitor.
             if (_games.Count >= _options.MaximumSessions)
-                throw new GameCapacityException("The road is busy. Please try starting your journey again shortly.");
+                throw new GameCapacityException("The server is full right now. Try again in a minute.");
             var game = new JourneyWorker(_options, logger);
             _games.Add(sessionId, game);
             return game;

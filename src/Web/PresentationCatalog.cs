@@ -279,7 +279,7 @@ namespace OregonTrailDotNet.Web
                     "game-over",
                     "game-over",
                     "End of the road",
-                    "This trip has ended. Start a new journey when you are ready.",
+                    "This trip is over. Start another one when you're ready.",
                     null,
                     actions),
                 null);
@@ -698,57 +698,63 @@ namespace OregonTrailDotNet.Web
             return name switch
             {
                 "MainMenuScreen" => new ScreenDescriptor("setup", "The Asphalt Trail",
-                    "Plan a new road trip, review the guide, or manage local records.", null),
+                    "Plan the drive west, read up on the road, or see who made it.", null),
                 "GameIntro" => IntroDescriptor(currentForm as GameIntro),
                 "ProfessionSelector" => new ScreenDescriptor("setup", "Choose your background",
-                    "Your background determines starting cash and the score multiplier at the end of the trip.", null),
+                    "Who you were before all this decides how much cash you start with and how much your arrival is worth.", null),
                 "VehicleSelector" => new ScreenDescriptor("setup", "Choose a ride",
-                    "Vehicle price, seating, cargo capacity, speed, and fuel efficiency shape the whole journey.", null),
+                    "You'll be living in this car for a while. Check the seats, the cargo room, and how far it gets on a can of gas.", null),
                 "InputPlayerNames" => new ScreenDescriptor("setup", "Name your party",
                     NamePrompt(userData as NewGameInfo, game), input),
                 "ConfirmPlayerNames" => new ScreenDescriptor("setup", "Confirm your party",
-                    "Review the passengers who will make the trip.", null),
+                    "Is this everyone? Choose No to start the names over.", null),
                 "SelectStartingMonthState" or "StartingMonth" => new ScreenDescriptor("setup", "Choose a departure month",
-                    "Departure month changes weather and conditions along the route.", null),
+                    "The month you leave decides what the weather does to you on the way.", null),
                 "CurrentTopTen" => new ScreenDescriptor("status", "Clout leaderboard",
-                    "The current top ten, including journeys finished in this session.", null),
+                    "The top ten so far, counting every trip finished since the server last restarted.", null),
                 "OriginalTopTen" => new ScreenDescriptor("status", "Original leaderboard",
-                    "The default road trip scores before this session's journeys.", null),
-                "MainMenu" => new ScreenDescriptor("setup", "The Asphalt Trail", "Plan a new journey.", null),
+                    "The scores the board shipped with, before any real players got on it.", null),
+                "ManagementOptions" => new ScreenDescriptor(game.ActiveMenu?.HasOptions == true ? "choice" : "dialog", "Local records",
+                    "The leaderboard and roadside memorials live on this server until it restarts. You can reset either one here.", input),
+                "EraseCurrentTopTen" => new ScreenDescriptor(game.ActiveMenu?.HasOptions == true ? "choice" : "dialog", "Reset the leaderboard?",
+                    "Every score from this server goes away and the original top ten comes back.", input),
+                "EraseTombstone" => new ScreenDescriptor(game.ActiveMenu?.HasOptions == true ? "choice" : "dialog", "Erase the memorials?",
+                    "Every roadside memorial gets cleared. New ones only appear when someone else dies out there.", input),
+                "MainMenu" => new ScreenDescriptor("setup", "The Asphalt Trail", "Plan the drive west.", null),
                 "RulesHelp" => new ScreenDescriptor("dialog", "How the road works",
-                    $"The drive from Cape Coral to Seattle covers about {game.Trail?.Length ?? 0:N0} miles. Gas keeps the vehicle moving; snacks protect party health; ammunition handles trouble; leggings pay guides; and spare tires, alternators, and transmissions repair breakdowns.", null),
+                    $"It's about {game.Trail?.Length ?? 0:N0} miles from Cape Coral to Seattle. Gas keeps the car moving and snacks keep the party healthy. Ammunition is for trouble, leggings are what guides take as payment, and spare tires, alternators, and transmissions are for when the car gives out.", null),
                 "ProfessionHelp" => new ScreenDescriptor("dialog", "Choose the life behind the wheel",
-                    "The crypto bro starts with the most cash and the smallest score multiplier. The DoorDash driver has middling funds and earns double clout at Seattle. The faith-walk streamer starts poorest, faces the hardest road, and earns triple clout for arriving.", null),
+                    "The crypto bro starts with the most cash and gets no bonus for arriving. The DoorDash driver has half as much and earns double clout in Seattle. The faith-walk streamer starts nearly broke, gets the hardest road, and earns triple clout for making it at all.", null),
                 "VehicleHelp" => new ScreenDescriptor("dialog", "Compare the rides",
-                    "The minivan is balanced and seats four. The pickup carries the most but is slow and thirsty. The hybrid is quick and efficient with three seats. The EV hatchback is fastest and most efficient, but has the least cargo room and also seats three.", null),
+                    "The minivan is the balanced pick and seats four. The pickup hauls the most but is slow and drinks gas. The hybrid is quick and efficient and seats three. The EV hatchback is the fastest and most efficient, with the least cargo room and three seats.", null),
                 "StartMonthHelp" => new ScreenDescriptor("dialog", "When to leave",
-                    "Leave too early and heat domes and fuel shortages are still severe. Leave too late and mountain passes may ice over before Seattle. A middle departure balances clear roads with cooler weather.", null),
+                    "Leave too early and you drive into heat domes and fuel shortages. Leave too late and the mountain passes ice over before you reach Seattle. Somewhere in the middle, the roads are clear and the weather is merely unpleasant.", null),
                 "InitialItemsHelp" => new ScreenDescriptor("dialog", "Prepare before leaving",
-                    $"Pack the car at home, then stock up before leaving Cape Coral. The party has {Usd(game.Vehicle?.Balance ?? 0)}, but does not need to spend it all at the first travel center.", null),
+                    $"Pack the car at home, then stock up before you leave Cape Coral. You have {Usd(game.Vehicle?.Balance ?? 0)}. The first travel center would love for you to spend all of it. You don't have to.", null),
                 "StoreHelp" => new ScreenDescriptor("dialog", "Shopping at the travel center",
-                    "Use each row's quantity controls to build a receipt. Cash and cargo limits update immediately; supplies are loaded when the party leaves the store.", null),
+                    "Set a quantity on each row to build your receipt. Cash and cargo totals update as you go. Nothing goes in the car until you leave the store.", null),
                 "PointsDistributionHelp" => new ScreenDescriptor("dialog", "Party score",
-                    "Every person who reaches Seattle earns clout, and a healthy arrival is worth more.", null),
+                    "Everyone who reaches Seattle alive earns clout. Arriving healthy earns more.", null),
                 "PointsAwardHelp" => new ScreenDescriptor("dialog", "Supply score",
-                    "Supplies carried safely to Seattle add to the final clout score and help the party start over in the new city.", null),
+                    "Whatever supplies survive the trip count toward your final clout. You'll need them to start over in Seattle, too.", null),
                 "PointsMultiplyerHelp" => new ScreenDescriptor("dialog", "Background multiplier",
-                    "Harder starting circumstances multiply the final score: DoorDash drivers earn double clout and faith-walk streamers earn triple clout on arrival.", null),
+                    "The harder your start, the bigger the multiplier. DoorDash drivers earn double clout on arrival. Faith-walk streamers earn triple.", null),
 
                 "Store" => new ScreenDescriptor("store", $"{location} Travel Center",
-                    $"{StoreFoodGuidance(game)} Use the bulk buttons to pack for several days, then leave the store to purchase within your cash and cargo limits.", null),
+                    $"{StoreFoodGuidance(game)} The bulk buttons pack several days at once. You pay when you leave, and only up to what your cash and cargo space allow.", null),
                 "StoreWelcome" => new ScreenDescriptor("dialog", "Stock up for the road",
                     StoreWelcomeDescription(currentForm, location), null),
-                "StoreDebtWarning" => new ScreenDescriptor("dialog", "That receipt costs too much",
-                    "Reduce the pending quantities before checking out.", null),
-                "RequiredItem" => new ScreenDescriptor("dialog", "A required supply is missing",
+                "StoreDebtWarning" => new ScreenDescriptor("dialog", "You can't afford this receipt",
+                    "Put something back before you check out.", null),
+                "RequiredItem" => new ScreenDescriptor("dialog", "You're missing something you need",
                     RequiredItemDescription(userData as TravelInfo), null),
 
                 "TravelMenu" => new ScreenDescriptor("travel", location,
                     game.Trail?.CurrentLocation?.Status.ToString() == "Departed"
                         ? $"You are {game.Trail.DistanceToNextLocation:N0} miles from {nextLocation}."
-                        : "Choose what the party should do before the next leg.", null),
+                        : "Decide what to do before the next leg.", null),
                 "ContinueOnTrail" => new ScreenDescriptor("activity", $"Driving toward {nextLocation}",
-                    "The party is moving. Size up the situation at any time to pull over and review the journey.", null),
+                    "You're on the road. Stop whenever you want to check on the party and the car.", null),
                 "TalkToPeople" => new ScreenDescriptor("dialog", "A voice from the roadside",
                     ConversationDescription(currentForm as Window.Travel.TalkToPeople.TalkToPeople), null),
                 "Trading" => new ScreenDescriptor("choice", "The parking-lot economy",
@@ -756,19 +762,19 @@ namespace OregonTrailDotNet.Web
                 "TollRoadQuestion" => new ScreenDescriptor("choice", "The price of getting through",
                     TollDescription(userData as TravelInfo, game), null),
                 "CheckSupplies" => new ScreenDescriptor("status", "Supplies",
-                    "Review every item currently loaded in the vehicle.", null),
+                    "Everything that's in the car right now.", null),
                 "LookAtMap" => new ScreenDescriptor("status", "Route progress",
-                    $"The party has reached {game.Trail?.LocationIndex + 1 ?? 0} of {game.Trail?.Locations.Count ?? 0} route locations.", null),
+                    $"You've reached {game.Trail?.LocationIndex + 1 ?? 0} of {game.Trail?.Locations.Count ?? 0} stops on the route.", null),
                 "ChangePace" => new ScreenDescriptor("choice", "Change travel pace",
-                    $"The current pace is {game.Vehicle?.Pace}. Faster travel puts more strain on the party.", null),
+                    $"Current pace: {game.Vehicle?.Pace}. Driving harder covers more ground and wears the party down faster.", null),
                 "ChangeRations" => new ScreenDescriptor("choice", "Change rations",
-                    $"The current ration level is {game.Vehicle?.Ration}. Smaller meals conserve food at a health cost.", null),
+                    $"Current rations: {game.Vehicle?.Ration}. Smaller meals stretch the food and cost the party health.", null),
                 "PaceHelp" => new ScreenDescriptor("dialog", "Travel pace guide",
-                    "Steady travel makes reliable progress in roughly eight hours without extra fatigue. Strenuous travel means about twelve hours and greater fatigue. Grueling travel pushes toward sixteen hours, little sleep, and serious health costs.", null),
+                    "Steady means about eight hours of driving a day with no extra fatigue. Strenuous is about twelve, and everyone gets more tired. Grueling is close to sixteen hours, almost no sleep, and real damage to the party's health.", null),
                 "RestAmount" => new ScreenDescriptor("activity", "Rest the party",
-                    "Choose between zero and nine days to rest.", input),
+                    "Rest for zero to nine days. Everyone still eats while you wait.", input),
                 "Resting" => new ScreenDescriptor("activity", "Resting",
-                    $"The party is recovering. {Math.Max(0, (userData as TravelInfo)?.DaysToRest ?? 0)} days remain.", null),
+                    $"The party is resting. {Math.Max(0, (userData as TravelInfo)?.DaysToRest ?? 0)} days left.", null),
 
                 "RiverCross" => new ScreenDescriptor("river", $"Crossing at {location}",
                     RiverDescription(userData as TravelInfo), null),
@@ -784,7 +790,7 @@ namespace OregonTrailDotNet.Web
                     RiverDescription(userData as TravelInfo), null),
 
                 "HuntReady" => new ScreenDescriptor("dialog", "Ready for the food sweep?",
-                    "Tap Grab or press Space while the marker is inside the striped zone. You get one attempt per tray, eight trays in all. Read this first: the timer starts only when you choose Ready. Completing the sweep spends one trail day; Not now spends none.", null),
+                    "Tap Grab or press Space while the marker is inside the striped zone. You get one try per tray, eight trays in all. The timer doesn't start until you choose Ready. Finishing the sweep takes one trail day. Not now costs nothing.", null),
                 "Hunting" => new ScreenDescriptor("activity", "Food sweep",
                     HuntingDescription(userData as TravelInfo), input),
                 "HuntingResult" => new ScreenDescriptor("activity", "Food sweep results",
@@ -798,14 +804,14 @@ namespace OregonTrailDotNet.Web
                     "A YouTube travel channel. A family on the road. An equipment budget with no adult supervision.", null),
                 "DoorDashPrompt" => new ScreenDescriptor("dialog", "Drive for delivery apps",
                     HasGasForDoorDash(game)
-                        ? "A shift takes one full trail day, even if you clock out early or complete no deliveries. Normal daily food use still applies. Deliveries also burn your own fuel and wear your tires."
-                        : "You have no gas cans. Fill up at a travel center before starting a delivery shift.", null),
+                        ? "A shift takes one full trail day, even if you clock out early or never get an order. The party still eats that day. Every delivery burns your own gas and wears your own tires."
+                        : "You're out of gas cans. Buy some at a travel center before you start a shift.", null),
                 "DoorDashResult" => new ScreenDescriptor("activity", "Shift results",
                     DoorDashResultDescription(userData as TravelInfo), null),
 
                 "EventExecutor" => new ScreenDescriptor("event", EventTitle(userData as RandomEventInfo),
                     EventDescription(userData as RandomEventInfo), null),
-                "EventSkipDay" => new ScreenDescriptor("activity", "Recovering from an event",
+                "EventSkipDay" => new ScreenDescriptor("activity", "Waiting it out",
                     EventDelayDescription(userData as RandomEventInfo), null),
                 "VehicleBrokenPrompt" or "VehicleNoSparePart" or "VehicleUseSparePart" =>
                     new ScreenDescriptor("event", "Vehicle trouble", EventDescription(userData as RandomEventInfo), null),
@@ -813,44 +819,44 @@ namespace OregonTrailDotNet.Web
                     new ScreenDescriptor("event", Humanize(name), EventDescription(userData as RandomEventInfo), input),
 
                 "GameWin" => new ScreenDescriptor("game-over", "Seattle reached",
-                    "Congratulations! You have made it to Seattle!\n\n" +
+                    "You made it to Seattle.\n\n" +
                     "Sunshine State Mutual regrets to inform you your new ZIP code is also under review.\n\n" +
-                    "Let's tally your final Net Worth and Clout score.", null),
-                "GameFail" => new ScreenDescriptor("game-over", "The trip ended early",
-                    "The party can no longer continue.", null),
+                    "Now count what's left: your final Net Worth and Clout.", null),
+                "GameFail" => new ScreenDescriptor("game-over", "The road trip is over",
+                    "Nobody reached Seattle. Sunshine State Mutual has closed your policy, and your GoFundMe has been quietly marked \"campaign ended.\"", null),
                 "FinalPoints" => new ScreenDescriptor("game-over", "Final score",
-                    "Review the party, supplies, and route decisions that determine the final clout score.", null),
+                    "What you had left at the end, and what it was worth.", null),
                 "EpitaphEditor" => new ScreenDescriptor("game-over", "Write an epitaph",
-                    $"Add one word at a time. Submit an empty line when the eulogy is done. The memorial holds 64 characters.\n\nEpitaph so far: {(currentForm as EpitaphEditor)?.SemanticEpitaph ?? string.Empty}", input),
+                    $"Write it one word at a time and submit a blank line when you're done. The marker fits 64 characters.\n\nEpitaph so far: {(currentForm as EpitaphEditor)?.SemanticEpitaph ?? string.Empty}", input),
                 "EpitaphConfirm" => new ScreenDescriptor("game-over", "Their roadside memorial",
-                    $"{MemorialDescription(userData as TombstoneInfo, game)}\n\nWould you like to change this epitaph?", null),
+                    $"{MemorialDescription(userData as TombstoneInfo, game)}\n\nDo you want to change the epitaph?", null),
                 "TombstoneView" => new ScreenDescriptor(game.Vehicle?.PassengerLivingCount > 0 ? "dialog" : "game-over", "By the side of the road",
                     MemorialDescription(userData as TombstoneInfo, game), null),
                 "EpitaphQuestion" => new ScreenDescriptor("game-over", "Leave a few words behind",
-                    "Would you like to write an epitaph for the roadside memorial?", null),
+                    "Do you want to write an epitaph for their roadside marker?", null),
                 "TombstoneQuestion" => new ScreenDescriptor("dialog", "Someone stopped here for good",
-                    "You pass a roadside memorial. Would you like to look closer?", null),
+                    "There's a memorial on the shoulder. Pull over and read it?", null),
 
                 "LocationArrive" => new ScreenDescriptor("dialog", $"Arrived at {location}",
                     game.Trail?.IsFirstLocation == true
-                        ? "Supplies are loaded. The party is ready to leave Cape Coral."
-                        : "Choose whether to stop and look around before continuing.", null),
+                        ? "The car is packed. Time to leave Cape Coral."
+                        : "Do you want to stop and look around?", null),
                 "LocationDepart" => new ScreenDescriptor("dialog", $"Leaving {location}",
                     $"The next leg heads toward {nextLocation}.", null),
                 "LocationFork" => new ScreenDescriptor("choice", "Choose a route",
-                    "The route divides here. Each branch changes the locations ahead.", null),
-                "UnableToContinue" => new ScreenDescriptor("dialog", "The vehicle cannot continue",
+                    "The road splits here. Each branch runs through different stops.", null),
+                "UnableToContinue" => new ScreenDescriptor("dialog", "The car won't go",
                     game.Vehicle?.BrokenPart == null
-                        ? "The party must address the vehicle problem before moving."
-                        : $"The {game.Vehicle.BrokenPart.Name} needs attention before the party can move.", null),
+                        ? "The car isn't going anywhere until you fix it."
+                        : $"The car isn't going anywhere until you deal with the {game.Vehicle.BrokenPart.Name}.", null),
 
                 _ when fullName.Contains(".Decision.", StringComparison.Ordinal) =>
                     new ScreenDescriptor("choice", DecisionTitle(name), DecisionDescription(name), input),
                 _ when fullName.Contains(".Help.", StringComparison.Ordinal) =>
-                    new ScreenDescriptor("dialog", Humanize(name), "Review this guidance, then continue.", null),
+                    new ScreenDescriptor("dialog", Humanize(name), "Read this, then continue.", null),
                 _ when fullName.Contains(".GameOver.", StringComparison.Ordinal) ||
                        fullName.Contains(".Graveyard.", StringComparison.Ordinal) =>
-                    new ScreenDescriptor("game-over", Humanize(name), "Review the result and continue when ready.", input),
+                    new ScreenDescriptor("game-over", Humanize(name), "Continue when you're ready.", input),
                 _ when fullName.Contains(".RandomEvent.", StringComparison.Ordinal) =>
                     new ScreenDescriptor("event", EventTitle(userData as RandomEventInfo), EventDescription(userData as RandomEventInfo), input),
                 _ when fullName.Contains(".RiverCrossing.", StringComparison.Ordinal) =>
@@ -880,7 +886,7 @@ namespace OregonTrailDotNet.Web
             return new ScreenDescriptor(
                 "setup",
                 "The road ahead",
-                "Your Cape Coral home has been declared uninsurable. Read the story of the move west, then choose the life you are bringing with you.",
+                "Your Cape Coral home has been declared uninsurable. Read how it came to this, then pick the life you're bringing with you.",
                 null);
         }
 
@@ -888,14 +894,14 @@ namespace OregonTrailDotNet.Web
         {
             var ration = game.Vehicle?.Ration ?? RationLevel.Filling;
             var pounds = FoodRations.PoundsPerPerson(ration).ToString("0.##", CultureInfo.InvariantCulture);
-            return $"At {Humanize(ration.ToString()).ToLowerInvariant()} rations, each traveler eats {pounds} lb of snacks per day, including days spent resting or on activities.";
+            return $"At {Humanize(ration.ToString()).ToLowerInvariant()} rations, each person eats {pounds} lb of snacks a day, whether you're driving, resting, or off doing something else.";
         }
 
         private static string StoreWelcomeDescription(object currentForm, string location)
         {
             return Field<int>(currentForm, "_adviceCount") <= 0
-                ? $"Page 1 of 2. The {location} travel center carries five-gallon gas cans to keep the car moving and crates of MLM leggings for cold weather and trade."
-                : "Page 2 of 2. Stock snacks for the party, ammunition for roadside trouble, and spare tires, alternators, and transmissions for breakdowns.";
+                ? $"Page 1 of 2. The {location} travel center sells five-gallon gas cans, which keep the car moving, and crates of MLM leggings, which keep you warm and work as currency out here."
+                : "Page 2 of 2. You'll also want snacks for the party, ammunition for trouble on the road, and spare tires, alternators, and transmissions for when the car breaks down.";
         }
 
         private static string DecisionTitle(string name)
@@ -918,16 +924,16 @@ namespace OregonTrailDotNet.Web
             return name switch
             {
                 "PackTheCarDecision" =>
-                    "You are still at home in Cape Coral, packing before the first supply stop. Resellables add $600 for shopping but displace 80 lb of snacks at checkout; traveling light protects party health and documents. Mateo can join if there is an open seat.",
+                    "You're still in the driveway in Cape Coral. Packing resellables gives you $600 more to shop with, but they take up 80 lb of snack space at checkout. Traveling light keeps the party healthier and the documents safe. Mateo can come if there's an open seat.",
                 "BuceesHaulDecision" =>
-                    "Choose between a $400 mega-haul, a $40 fuel-and-snack stop, or a freight shift that earns $500 but costs three days and party health.",
+                    "Spend $400 on a mega-haul, $40 on gas and snacks, or work a freight shift that pays $500 and costs three days and some of the party's health.",
                 "ArmYourselfDecision" =>
-                    "A pistol costs $300, refusing costs nothing, and a trauma kit with a vest costs $120 and restores party health. This choice also affects the Cascadia checkpoint.",
+                    "A pistol is $300. Walking out costs nothing. A trauma kit and vest is $120 and restores party health. Whatever you leave with, the Cascadia checkpoint will ask about it.",
                 "CaravanDecision" =>
-                    "Joining the slower convoy changes safety and the later checkpoint; traveling alone is faster but more exposed.",
+                    "The caravan moves slower and watches your back, and it changes how the checkpoint goes later. Alone, you're faster and nobody's watching.",
                 "CheckpointDecision" =>
-                    "Your documents, caravan, and Sporting Goods choice all affect the cost and risk of complying, asserting passage, or taking the backroad.",
-                _ => "This choice immediately changes supplies, risk, or the final score."
+                    "What it costs to comply, assert passage, or take the backroad depends on your documents, your caravan, and what you bought in Sporting Goods.",
+                _ => "This changes your supplies, your odds, or your score right away."
             };
         }
 
@@ -980,9 +986,9 @@ namespace OregonTrailDotNet.Web
 
             return (screenName, index) switch
             {
-                ("ProfessionSelector", 0) => "The most money for supplies, with a standard final score.",
-                ("ProfessionSelector", 1) => "Less starting cash, but a doubled score if the party reaches Seattle.",
-                ("ProfessionSelector", 2) => "The hardest start, with a tripled score if the party arrives.",
+                ("ProfessionSelector", 0) => "The most cash to start. No score bonus.",
+                ("ProfessionSelector", 1) => "Half the cash. Double the score if you reach Seattle.",
+                ("ProfessionSelector", 2) => "Barely any cash. Triple the score if you get there at all.",
                 _ => null
             };
         }
@@ -1050,19 +1056,19 @@ namespace OregonTrailDotNet.Web
         private static string NamePrompt(NewGameInfo info, GameSimulationApp game)
         {
             if (info == null)
-                return "Enter the names of the people making the trip.";
+                return "Name the people making the trip.";
 
             var seat = Math.Min(info.PlayerNameIndex + 1, game.Vehicle?.MaxPartySize ?? GameSimulationApp.MAXPLAYERS);
             return seat == 1
-                ? "Enter the driver's first name, or submit an empty name to generate the party."
-                : $"Enter passenger {seat}'s first name, or submit an empty name to generate the remaining party.";
+                ? "Who's driving? Enter a first name, or leave it blank and the game will name everyone."
+                : $"Who's in seat {seat}? Enter a first name, or leave it blank and the game will fill the remaining seats.";
         }
 
         private static string RequiredItemDescription(TravelInfo info)
         {
             var item = info?.Store?.SelectedItem;
             return item == null
-                ? "Add the required road supply before leaving the store."
+                ? "Add the missing supply before you leave the store."
                 : $"Add {item.Name} before leaving the store.";
         }
 
@@ -1070,10 +1076,10 @@ namespace OregonTrailDotNet.Web
         {
             var river = info?.River;
             if (river == null)
-                return "Review the crossing conditions and choose a safe route.";
+                return "Check the water, then pick a way across.";
 
             return $"The washed-out roadbed is {river.RiverWidth:N0} feet across and {river.RiverDepth:N0} feet deep. " +
-                   "Choose a crossing method based on cost, delay, and risk.";
+                   "Every way across costs money, time, or luck.";
         }
 
         private static string FerryOfferDescription(TravelInfo info, GameSimulationApp game, bool refused)
@@ -1083,14 +1089,14 @@ namespace OregonTrailDotNet.Web
             if (river == null || river.FerryCost <= 0) return RiverDescription(info);
             var delay = river.FerryDelayInDays;
             var wait = delay > 0
-                ? $"requires {delay:N0} waiting {(delay == 1 ? "day" : "days")} before crossing. Waiting consumes trail time and normal daily food. "
-                : "can cross without waiting. ";
+                ? $"Then you wait {delay:N0} {(delay == 1 ? "day" : "days")} for it to leave. Those are trail days, and the party eats through them. "
+                : "It leaves right away. ";
             var balance = game.Vehicle?.Balance ?? 0;
             // The convoy only accepts a party holding more than the fare (UseFerryConfirm/CrossingTick rules).
             var shortage = refused || balance <= river.FerryCost
-                ? $"You need more than {Usd(river.FerryCost)} in cash to board the convoy. Choose another method. "
+                ? $"The convoy only takes parties carrying more than {Usd(river.FerryCost)} in cash. Pick another way across. "
                 : "";
-            return $"The convoy costs {Usd(river.FerryCost)} and {wait}You have {Usd(balance)}. " + shortage +
+            return $"The convoy costs {Usd(river.FerryCost)}. {wait}You have {Usd(balance)}. " + shortage +
                    RiverDescription(info);
         }
 
@@ -1099,8 +1105,8 @@ namespace OregonTrailDotNet.Web
             var river = info?.River;
             if (river == null || river.IndianCost <= 0) return RiverDescription(info);
             var held = game.Vehicle?.Inventory[Entities.Clothes].Quantity ?? 0;
-            return $"The local guide requires {river.IndianCost:N0} crates of leggings; you have {held:N0}. " +
-                   (held < river.IndianCost ? "You do not have enough leggings. Continue returns to the crossing choices. " : "") +
+            return $"The local guide wants {river.IndianCost:N0} crates of leggings. You have {held:N0}. " +
+                   (held < river.IndianCost ? "That's not enough. Continue takes you back to the crossing options. " : "") +
                    RiverDescription(info);
         }
 
@@ -1113,8 +1119,8 @@ namespace OregonTrailDotNet.Web
         {
             var pounds = info?.Hunt?.KillWeight ?? 0;
             return pounds > 0
-                ? $"The party recovered {pounds:N0} pounds of food. One trail day spent. Continue to load the haul."
-                : "The party did not recover any food this time.";
+                ? $"You came away with {pounds:N0} pounds of food. It took the whole day. Continue to load the haul."
+                : "You came away with nothing.";
         }
 
         private static string DoorDashDescription(TravelInfo info)
@@ -1125,26 +1131,26 @@ namespace OregonTrailDotNet.Web
 
             if (!shift.HasOffer)
             {
-                return $"Waiting for an offer. The shift has earned {Usd(shift.GrossEarned)} from " +
-                       $"{shift.DeliveriesDone} deliveries. You can clock out at any time.";
+                return $"Waiting for an offer. So far this shift: {Usd(shift.GrossEarned)} from " +
+                       $"{shift.DeliveriesDone} deliveries. You can clock out whenever you want.";
             }
 
             var offer = Field<Window.Travel.DoorDash.DeliveryOffer>(shift, "_currentOffer");
             return offer == null
                 ? "A delivery offer is waiting. Accept it, reject it, or clock out."
-                : $"{offer.Restaurant} to {offer.Dropoff}: {Usd(offer.BasePay)} base pay plus an estimated " +
-                  $"{Usd(offer.EstimatedTip)} tip for {offer.PaidDistance} paid miles. Accept, reject, or clock out.";
+                : $"{offer.Restaurant} to {offer.Dropoff}: {Usd(offer.BasePay)} base pay, plus a tip the app estimates at " +
+                  $"{Usd(offer.EstimatedTip)}, for {offer.PaidDistance} paid miles. Accept, reject, or clock out.";
         }
 
         private static string DoorDashResultDescription(TravelInfo info)
         {
-            const string timeSpent = "The shift took one trail day, and the party ate its normal daily food.";
+            const string timeSpent = "The shift took one trail day, and the party ate like it does any other day.";
             var shift = info?.DoorDash;
             if (shift == null)
-                return $"The delivery shift is complete. {timeSpent}";
+                return $"Shift over. {timeSpent}";
 
-            return $"The shift earned {Usd(shift.GrossEarned)} from {shift.DeliveriesDone} deliveries, " +
-                   $"using {shift.CansBurned} gas cans and {shift.TiresWorn} spare tires. {timeSpent}";
+            return $"You made {Usd(shift.GrossEarned)} on {shift.DeliveriesDone} deliveries and burned " +
+                   $"{shift.CansBurned} gas cans and {shift.TiresWorn} spare tires doing it. {timeSpent}";
         }
 
         /// <summary>Mirrors <c>DoorDashPrompt</c>'s fuel check, which decides whether its dialog starts a shift.</summary>
@@ -1196,8 +1202,8 @@ namespace OregonTrailDotNet.Web
 
             var source = info?.SourceEntity?.Name;
             return string.IsNullOrWhiteSpace(source)
-                ? "An event has changed the trip. Review the outcome before continuing."
-                : $"An event involving {source} has changed the trip. Review the outcome before continuing.";
+                ? "Something happened on the road."
+                : $"Something happened involving {source}.";
         }
 
         private static string EventDelayDescription(RandomEventInfo info)
@@ -1205,14 +1211,14 @@ namespace OregonTrailDotNet.Web
             var eventText = EventDescription(info);
             return info == null || info.DaysToSkip <= 0
                 ? eventText
-                : $"{eventText} {info.DaysToSkip} days remain in the delay.";
+                : $"{eventText} {info.DaysToSkip} days of delay left.";
         }
 
         private static string DefaultDescription(bool hasChoices)
         {
             return hasChoices
-                ? "Choose one of the available actions to continue."
-                : "Review the current situation and continue when ready.";
+                ? "Choose what to do next."
+                : "Continue when you're ready.";
         }
 
         private static string MenuLabel(string text)
@@ -1247,17 +1253,17 @@ namespace OregonTrailDotNet.Web
                        game.Vehicle.Inventory.TryGetValue(offer.WantedItem.Category, out var stock) ? stock.Quantity : 0;
             return $"A hun from the parking-lot MLM wants {offer.WantedItem.Quantity:N0} {offer.WantedItem.Name.ToLowerInvariant()}. " +
                   $"She'll swap you {offer.OfferedItem.Quantity:N0} {offer.OfferedItem.Name.ToLowerInvariant()}, hon — ground floor, only goes up from here.\n\n" +
-                  (trading.SemanticCanTrade ? "Are you willing to swap?"
+                  (trading.SemanticCanTrade ? "Deal?"
                       : held < offer.WantedItem.Quantity
                           ? $"You only have {held:N0} {offer.WantedItem.Name.ToLowerInvariant()}, so you can't cover this trade."
                           : !trading.SemanticRewardFits
-                              ? "You cannot carry the full offered amount. No supplies have been exchanged."
+                              ? "You don't have room for all of it, so there's no deal. Nothing changed hands."
                               : "You don't have the supplies for this trade.");
         }
 
         private static string TollDescription(TravelInfo info, GameSimulationApp game)
         {
-            if (info?.Toll == null) return "The express lane has a price. Review the crossing before continuing.";
+            if (info?.Toll == null) return "The express lane costs money. Check the price before you go.";
             return $"The express lane just billed {Usd(info.Toll.Cost)} to use {info.Toll.Road?.Name ?? game.Trail.CurrentLocation.Name}.\n\n" +
                 (game.Vehicle.Balance >= info.Toll.Cost ? "The price showed up only after you committed. Pay it?"
                     : "You don't have enough cash for the express lane.");

@@ -75,13 +75,13 @@ namespace OregonTrailDotNet.Window.MainMenu
             new[]
             {
                 "Between you and the Pacific lies the country as it",
-                "really is in 2028: gloriously, defiantly itself.",
+                "really is in 2028: the same as ever, only louder.",
                 "",
                 "You will refuel at a Buc-ee's the size of a regional",
                 "airport. You will photograph a sixty-foot fiberglass",
                 "Jesus with both arms raised. You will ford an Interstate",
-                "where a river used to be merely a suggestion. You will",
-                "be waved through some towns and waved AT in others.",
+                "that has quietly become a river. You will be waved",
+                "through some towns and waved AT in others.",
                 "",
                 "There are no covered wagons out here. There are toll",
                 "lanes, open-carry greeters, sovereign citizens with",
