@@ -110,15 +110,18 @@ namespace OregonTrailDotNet.Window.Travel.Store.Help
             return _storeHelp.ToString();
         }
 
-        /// <summary>Fired when the game Windows current state is not null and input buffer does not match any known command.</summary>
-        /// <param name="input">Contents of the input buffer which didn't match any known command in parent game Windows.</param>
-        /// <summary>Optional browser shortcut; never purchases supplies or advances a day.</summary>
+        /// <summary>
+        ///     Optional browser shortcut past the remaining advice panels straight into the store. Never purchases supplies
+        ///     or advances a day.
+        /// </summary>
         public void SkipToStore()
         {
             _hasReadAdvice = true;
             SetForm(typeof(Store));
         }
 
+        /// <summary>Fired when the game Windows current state is not null and input buffer does not match any known command.</summary>
+        /// <param name="input">Contents of the input buffer which didn't match any known command in parent game Windows.</param>
         public override void OnInputBufferReturned(string input)
         {
             // On the last advice panel we flip a normal boolean to know we are definitely done here.
