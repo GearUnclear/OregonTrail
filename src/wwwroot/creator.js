@@ -122,19 +122,24 @@
     return block;
   }
 
-  function videoCard(video, ui, latest = false) {
+  function videoCard(video, ui, latest = false, pending = false) {
     const { element: el, append, integer, money } = ui;
-    const card = el("article", `creator-video ${video.demonetized ? "creator-video--flagged" : ""}`);
+    const card = el("article", `creator-video ${video.demonetized && !video.licensed ? "creator-video--flagged" : ""} ${video.viral ? "creator-video--viral" : ""}`);
     card.dataset.nodeKey = `creator-video-${video.id}`;
+    const badges = el("span", "creator-badges");
+    if (video.viral) badges.append(el("span", "creator-badge creator-badge--viral", "WENT VIRAL"));
+    badges.append(el("span", `creator-badge ${video.demonetized && !video.licensed ? "creator-badge--warning" : ""}`,
+      video.licensed ? "SOLD TO VIRAL HOG" : pending ? "OFFER PENDING" : video.demonetized ? "DEMONETIZED" :
+        video.reedited ? "REUPLOADED" : video.revenue > 0 ? "EARNING ADS" : "PUBLISHED"));
     append(card, append(el("div", "creator-row"),
       el("span", "eyebrow", `${latest ? "LATEST UPLOAD / " : ""}#${String(video.id).padStart(3, "0")} · DAY ${video.publishedDay}`),
-      el("span", `creator-badge ${video.demonetized ? "creator-badge--warning" : ""}`,
-        video.demonetized ? "DEMONETIZED" : video.reedited ? "REUPLOADED" : video.revenue > 0 ? "EARNING ADS" : "PUBLISHED")),
+      badges),
       el("h3", "", video.title), el("p", "creator-video__premise", video.premise),
       append(el("div", "creator-video__numbers"),
         append(el("div"), el("strong", "creator-view-count", integer(video.views)), el("span", "card-note", video.reedited ? "reupload views" : "views")),
         ui.labeledValue("Subscriber change", `+${integer(video.subscribersGained)} / −${integer(video.subscribersLost)}`),
-        ui.labeledValue("Ad revenue", money(video.revenue))),
+        video.licensed ? ui.labeledValue("Viral Hog paid", money(video.licensePaid)) :
+          ui.labeledValue("Ad revenue", pending ? "On hold" : money(video.revenue))),
       sources(video.subscriberViews, video.discoveryViews, ui),
       el("p", "creator-feedback", video.feedback));
     const details = el("details", "creator-video__details");
@@ -151,7 +156,9 @@
     if (video.incident) {
       const incident = el("div", "creator-incident");
       append(incident, el("strong", "", video.reedited ? "FLAG CLEARED" : "AD REVIEW / FLAGGED"), el("p", "", video.incident));
-      if (video.demonetized && !video.reedited) append(incident,
+      if (video.licensed) incident.append(el("p", "card-note", "Viral Hog owns the video now, flag included. There is nothing left for you to re-edit."));
+      else if (pending) incident.append(el("p", "card-note", "If you keep this video, you can re-edit it once later, as usual. If you sell it, you can't."));
+      else if (video.demonetized && !video.reedited) append(incident,
         el("p", "card-note", `Spend one trail day re-editing around the flag. The replacement will get exactly ${integer(Math.floor(video.originalViews / 2))} views: half the original, rounded down. One re-edit only.`),
         command(`creator.reedit.${video.id}`, ui, { className: "game-button--wide", noShortcut: !latest }));
       card.append(incident);
@@ -159,6 +166,34 @@
     const title = card.querySelector("h3");
     title.id = `creator-video-${video.id}`;
     title.tabIndex = -1;
+    return card;
+  }
+
+  function licenseOffer(data, ui) {
+    const { element: el, append, integer, money } = ui;
+    const offer = data.license;
+    const card = section("Viral Hog would like to own this.", "LICENSING OFFER / VIRAL HOG", ui, "creator-license");
+    card.dataset.nodeKey = `creator-license-${offer.videoId}`;
+    const heading = card.querySelector("h2");
+    heading.id = "creator-license-title";
+    heading.tabIndex = -1;
+    const keep = !offer.monetized
+      ? ["$0", `Your channel isn't partnered yet, so ${integer(offer.views)} views pay nothing in ads. Keeping it gets you pride, which doesn't buy gas. The subscribers stay either way.`]
+      : offer.limitedAds
+        ? ["$0 as is", `Ad review limited this upload. One re-edit (a trail day) would bring back ${integer(offer.reeditViews)} views, worth roughly ${money(offer.reeditLow)}–${money(offer.reeditHigh)}.`]
+        : [`${money(offer.adLow)}–${money(offer.adHigh)}`, `Ads pay ${money(offer.rpmMinimum)}–${money(offer.rpmMaximum)} per 1,000 views on this channel. You find out this video's rate after you decide.`];
+    append(card,
+      el("p", "", `“${offer.title}” has ${integer(offer.views)} views. Viral Hog wants to buy the rights outright, today, for cash.`),
+      append(el("div", "creator-license__terms"),
+        append(el("div", "creator-license__option creator-license__option--sell"), el("span", "eyebrow", "SELL IT"),
+          el("strong", "creator-license__amount", money(offer.offer)),
+          el("p", "card-note", `Guaranteed, into road cash now. That's ${money(offer.ratePerThousand)} per 1,000 views. You give up this video's ad money and its re-edit.`)),
+        append(el("div", "creator-license__option"), el("span", "eyebrow", "KEEP IT"),
+          el("strong", "creator-license__amount", keep[0]), el("p", "card-note", keep[1]))),
+      append(el("div", "creator-actions"),
+        command(offer.acceptActionId, ui, { className: "game-button--solid" }), command(offer.declineActionId, ui)),
+      el("p", "card-note", "Either answer is instant. No trail day. The views and subscribers you already got stay yours."),
+      el("p", "creator-fineprint", "Viral Hog acquires the clip, the raw footage, and the faces of everyone in the car, worldwide, forever, in every format now known or later invented. They plan to make many times this offer from it. You may not post it again, react to it, or look that surprised in public."));
     return card;
   }
 
@@ -391,6 +426,12 @@
     page.append(header);
     if (!data.started) { page.append(onboarding(data, ui)); return page; }
     append(page, stats(data, ui));
+    if (data.license) {
+      // The offer is modal on the server: only its two answers are advertised until one is chosen.
+      const video = data.videos.find(v => v.id === data.license.videoId);
+      append(page, licenseOffer(data, ui), video ? videoCard(video, ui, true, true) : null, notices(data, ui));
+      return page;
+    }
     const nav = el("nav", "creator-tabs");
     nav.setAttribute("aria-label", "Travel channel sections");
     for (const tab of ["studio", "shop", "library"]) {
@@ -429,10 +470,11 @@
       ["Equipment orders", `−${money(data.stats.gearSpent)}`, ""],
       ["Production costs", `−${money(data.stats.productionSpent)}`, ""],
       ["Lifetime ad earnings", money(data.stats.revenue), "creator-positive"],
+      ...(data.stats.licenseIncome ? [["Sold to Viral Hog", money(data.stats.licenseIncome), "creator-positive"]] : []),
       ["Already paid to road", money(data.stats.paidOut), ""],
       ["Unpaid ad balance", money(data.stats.unpaid), "creator-positive"],
     ]) append(list, el("dt", "", label), el("dd", tone, value));
-    append(ledger, list, el("p", "card-note", "Net is every ad dollar earned minus gear and production. It includes unpaid earnings, which can't buy gas until you transfer them."));
+    append(ledger, list, el("p", "card-note", data.stats.licenseIncome ? "Net is every ad dollar and Viral Hog payment minus gear and production. It includes unpaid ad earnings, which can't buy gas until you transfer them." : "Net is every ad dollar earned minus gear and production. It includes unpaid earnings, which can't buy gas until you transfer them."));
     if (data.started) append(ledger, command("creator.withdraw", ui, { className: "game-button--wide", noShortcut: true }),
       el("p", "card-note", `${money(data.partner.payoutMinimum)} minimum. Whole dollars transfer to road cash; cents remain here.`));
     const partner = el("section", "rail-card creator-partner");

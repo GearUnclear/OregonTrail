@@ -29,14 +29,19 @@ if (args.Contains("--trade-copy")) { TradeCopyTests.Run(); return; }
 TradeCopyTests.Run();
 if (args.Contains("--checkpoint-epilogue")) { CheckpointEpilogueTests.Run(); return; }
 CheckpointEpilogueTests.Run();
-if (args.Contains("--creator-rules")) { CreatorTests.RunRules(); return; }
+if (args.Contains("--creator-rules")) { CreatorTests.RunRules(); CreatorTests.RunViral(); return; }
+if (args.Contains("--creator-viral")) { CreatorTests.RunViral(); await CreatorJourneyTests.Run(); return; }
+if (args.Contains("--creator-journey")) { await CreatorJourneyTests.Run(); return; }
 if (args.Contains("--creator-balance")) { CreatorTests.RunBalance(false); return; }
+if (args.Contains("--creator-viral-policies")) { foreach (var p in new[] { "rational", "accept", "decline" }) CreatorTests.RunBalance(false, p); return; }
 if (args.Contains("--food-sweep")) { FoodSweepTests.Run(); return; }
 if (args.Contains("--event-reports")) { EventReportTests.Run(); return; }
 FoodSweepTests.Run();
 if (args.Contains("--food-rules")) { FoodTests.Run(); return; }
 FoodTests.Run();
 CreatorTests.RunRules();
+CreatorTests.RunViral();
+await CreatorJourneyTests.Run();
 CreatorTests.RunCatalog();
 CreatorTests.RunBalance();
 CryptoTests.Run();

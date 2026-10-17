@@ -1,5 +1,9 @@
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using OregonTrailDotNet.Module.Creator;
+using OregonTrailDotNet.Web;
+using OregonTrailDotNet.Window.Travel.Creator;
 
 internal static class CreatorTests
 {
@@ -95,9 +99,10 @@ internal static class CreatorTests
             }
         }
 
-        // Force a breakout + moderation hit, retaining genuine production and payout paths.
+        // Force a breakout + moderation hit, retaining genuine production and payout paths. The second value is the
+        // good-idea viral roll, kept off so this stays an ordinary, ceiling-capped breakout.
         var jackpot = new Wallet(1000);
-        channel = jackpot.Open(new SequenceRandom(0, .99, .5, .8, .9, .1, .7, .1, .5), null, Idea(95));
+        channel = jackpot.Open(new SequenceRandom(0, .99, .99, .5, .8, .9, .1, .7, .1, .5), null, Idea(95));
         channel.Start("Probably Fine");
         channel.Film(null, false, "Road", 0); channel.Publish(1);
         var flagged = channel.Career.Videos.Single();
@@ -158,6 +163,152 @@ internal static class CreatorTests
         Console.WriteLine($"PASS creator rules: wallet, delivery, compatibility, gear ceiling only, drafts, geo locks, hidden algorithm, audiences, exact-once re-edit/payout; moderation {flaggedCount}/{samples} ({100.0 * flaggedCount / samples:F2}%); good ideas {goodCount}/{goodDraws} ({100.0 * goodCount / goodDraws:F2}%)");
     }
 
+    // Publish draws for a single good idea: breakout, viral, interest, regulars, conversion gate, conversion, churn,
+    // discovery noise, limited ads, RPM. Bad ideas skip the viral draw.
+    private static SequenceRandom Viral(double conversionGate = .5, double limitedAds = .99) =>
+        new(.5, 0, .5, .5, conversionGate, .5, .5, .5, limitedAds, .5);
+
+    private static CreatorChannel PublishViral(Wallet wallet, SequenceRandom random)
+    {
+        var channel = wallet.Open(random, null, Idea(90));
+        channel.Start("Lightning");
+        channel.Film(null, false, "Road", 0);
+        channel.Publish(1);
+        Check(channel.Career.LicensePending && channel.Career.Videos[0].Viral, "forced roll goes viral");
+        return channel;
+    }
+
+    private static (string[] Ids, string[] Bound) Actions(CreatorChannel channel)
+    {
+        var desk = (CreatorDesk)RuntimeHelpers.GetUninitializedObject(typeof(CreatorDesk));
+        typeof(CreatorDesk).GetProperty("Channel")!.SetValue(desk, channel);
+        typeof(CreatorDesk).GetProperty("Tab")!.SetValue(desk, "studio");
+        var bindings = new Dictionary<string, PresentationActionBinding>();
+        var build = typeof(PresentationCatalog).GetMethod("BuildCreatorActions", BindingFlags.NonPublic | BindingFlags.Static)!;
+        var actions = (List<GameActionDto>)build.Invoke(null, new object[] { desk, bindings })!;
+        if (channel.Career.LicensePending)
+            Check(!desk.Execute("film", null) && !desk.Execute("leave", null) && !desk.Execute("tab.shop", null),
+                "desk rejects every other command while an offer is pending");
+        return (actions.Select(a => a.ActionId).ToArray(), bindings.Keys.ToArray());
+    }
+
+    private static CreatorLicenseDto License(CreatorCareer career) => (CreatorLicenseDto)typeof(PresentationCatalog)
+        .GetMethod("BuildLicense", BindingFlags.NonPublic | BindingFlags.Static)!.Invoke(null, new object[] { career });
+
+    public static void RunViral()
+    {
+        // Only good ideas can go viral, and the boundary is the same GoodIdeaPotential used by #34.
+        var almost = new Wallet(1000).Open(new FixedRandom(0), null, Idea(CreatorChannel.GoodIdeaPotential - 1));
+        almost.Start("Almost");
+        almost.Film(null, false, "Road", 0); almost.Publish(1);
+        Check(!almost.Career.LicensePending && !almost.Career.Videos[0].Viral && almost.Career.Videos[0].Views <= 2400,
+            "a bad idea cannot go viral even on a winning roll");
+        var hit = new Wallet(1000).Open(new FixedRandom(0), null, Idea(CreatorChannel.GoodIdeaPotential));
+        hit.Start("Barely Good");
+        hit.Film(null, false, "Road", 0); hit.Publish(1);
+        Check(hit.Career.LicensePending && hit.Career.Videos[0].Viral && hit.Career.Videos[0].Views >= 200000,
+            "a good idea can go viral past the phone's 50,000 ceiling");
+
+        // Equipment never boosts or blocks a viral video: phone and cinema kit get identical outcomes.
+        var phone = PublishViral(new Wallet(10000), Viral());
+        var cinema = new Wallet(10000).Open(Viral(), null, Idea(90));
+        cinema.Start("Rented Prestige");
+        cinema.Buy("cinema", 0); cinema.ReceiveOrders(1); cinema.Equip("cinema");
+        cinema.Film(null, false, "Road", 1); cinema.Publish(2);
+        Check(phone.Career.Videos[0].Views == 400000 && cinema.Career.Videos[0].Views == 400000 &&
+            phone.Career.Subscribers == cinema.Career.Subscribers, "viral views ignore the kit ceiling and gear");
+
+        // While pending: the RPM and ad money are hidden, nothing else can happen, and no trail day is spent.
+        var held = phone.Career.Videos[0];
+        Check(held.Revenue == 0 && held.Rpm == 0 && phone.Career.Revenue == 0, "held ad money is not shown or credited early");
+        Check(phone.Career.License.Offer == 1600 && CreatorChannel.LicenseOffer(400000) == 1600, "offer is $4 per 1,000 views");
+        Check(!phone.CanFilm && !phone.CanWithdraw && phone.BuyBlock(CreatorCatalog.Gear[0]) != null &&
+            !phone.Buy(CreatorCatalog.Gear[0].Id, 1) && !phone.Reedit(held.Id, 1) && !phone.WaitForOrders() &&
+            phone.Career.DaysWorked == 1, "the offer blocks every other studio action and costs no day");
+
+        // Accept: pays road cash once, forfeits the held ads and the re-edit.
+        var accepting = new Wallet(1000);
+        var buyer = PublishViral(accepting, Viral());
+        var cashBefore = accepting.Balance;
+        Check(buyer.AcceptLicense() && !buyer.AcceptLicense() && !buyer.DeclineLicense(), "an offer settles exactly once");
+        var sold = buyer.Career.Videos[0];
+        Check(accepting.Balance == cashBefore + 1600 && accepting.Credits == 1 && buyer.Career.LicenseIncome == 1600 &&
+            buyer.Career.Revenue == 0 && sold.Licensed && sold.LicensePaid == 1600 && sold.Revenue == 0 && sold.Rpm == 5m,
+            "accepting pays the lump sum and forfeits ad revenue");
+        Check(buyer.Career.Net == 1600 - CreatorChannel.ProductionCost && buyer.CanFilm, "license income counts toward net; studio reopens");
+
+        // Decline on a monetized, clean video: exactly the normal ad receipt, released once.
+        var keeper = PublishViral(new Wallet(1000), Viral());
+        Check(keeper.Career.Monetized && keeper.DeclineLicense() && !keeper.DeclineLicense() && !keeper.AcceptLicense(),
+            "declining settles exactly once");
+        Check(keeper.Career.Revenue == 2000 && keeper.Career.Videos[0].Revenue == 2000 && keeper.Career.LicenseIncome == 0 &&
+            !keeper.Career.Videos[0].Licensed, "declining pays the normal ad rate: 400,000 views at $5.00");
+
+        // Limited ads: declining keeps the normal re-edit (half views, no new subscribers); accepting forfeits it.
+        var flagged = PublishViral(new Wallet(1000), Viral(limitedAds: .1));
+        Check(flagged.Career.Monetized && flagged.Career.Videos[0].Demonetized && flagged.Career.Videos[0].Incident != null,
+            "the limited-ads result is visible before the decision");
+        var subscribers = flagged.Career.Subscribers;
+        flagged.DeclineLicense();
+        Check(flagged.Career.Revenue == 0 && flagged.Reedit(1, 2), "declined limited-ads video earns nothing until re-edited");
+        var repaired = flagged.Career.Videos[0];
+        Check(repaired.Views == 200000 && repaired.Revenue == 1000 && flagged.Career.Subscribers == subscribers,
+            "re-edit of a declined viral video follows the normal half-view rule");
+        var flaggedSale = PublishViral(new Wallet(1000), Viral(limitedAds: .1));
+        flaggedSale.AcceptLicense();
+        Check(!flaggedSale.Reedit(1, 2) && flaggedSale.Career.Reuploads == 0, "a sold video cannot be re-edited");
+
+        // Unmonetized: declining pays nothing, so the offer is strictly better.
+        var unpaid = PublishViral(new Wallet(1000), Viral(conversionGate: .1));
+        Check(!unpaid.Career.Monetized && unpaid.Career.Subscribers == 0, "fixture: a viral video that converts nobody");
+        unpaid.DeclineLicense();
+        Check(unpaid.Career.Revenue == 0 && unpaid.Career.Net < 0, "declining as an unpartnered channel earns nothing");
+
+        // Only the two answers are advertised (and bound) while an offer is pending; neither exists otherwise.
+        var pending = PublishViral(new Wallet(1000), Viral());
+        var (ids, bound) = Actions(pending);
+        var answers = new[] { "creator.license-accept", "creator.license-decline" };
+        Check(ids.OrderBy(i => i).SequenceEqual(answers) && bound.OrderBy(i => i).SequenceEqual(answers),
+            "pending offer advertises only its two answers");
+        var dto = License(pending.Career);
+        Check(dto.Offer == 1600 && dto.Views == 400000 && dto.AdLow == 1200 && dto.AdHigh == 2800 && dto.Monetized &&
+            typeof(CreatorLicenseDto).GetProperties().All(p => p.Name is not ("Rpm" or "Revenue" or "Potential")),
+            "offer projects only public bounds, never the held RPM or revenue");
+        pending.DeclineLicense();
+        (ids, _) = Actions(pending);
+        Check(!ids.Any(i => i.StartsWith("creator.license")) && ids.Contains("creator.film") && License(pending.Career) == null,
+            "license actions vanish once answered");
+
+        // Rate: about 0.5% of good originals, and never a bad one.
+        var good = 0;
+        var goodViral = 0;
+        for (var seed = 0; seed < 2000; seed++)
+        {
+            var c = new Wallet(1000).Open(new Random(seed), null, Idea(90));
+            c.Start("Rate");
+            for (var day = 0; day < 100; day++)
+            {
+                c.Film(null, false, "Road", day); c.Publish(day);
+                good++;
+                if (c.Career.LicensePending) { goodViral++; c.DeclineLicense(); }
+            }
+        }
+        var bad = 0;
+        for (var seed = 0; seed < 500; seed++)
+        {
+            var c = new Wallet(1000).Open(new Random(seed), null, Idea(60));
+            c.Start("Rate");
+            for (var day = 0; day < 100; day++)
+            {
+                c.Film(null, false, "Road", day); c.Publish(day);
+                Check(!c.Career.LicensePending, "bad ideas never go viral");
+                bad++;
+            }
+        }
+        Check(goodViral > good * .0045 && goodViral < good * .0055, $"viral rate ~0.5% of good originals, observed {100.0 * goodViral / good:F3}%");
+        Console.WriteLine($"PASS creator viral: good-only, ceiling bypass, gear-neutral, hidden held ads, modal offer, exact-once accept/decline, re-edit forfeiture, advertised only while pending; {goodViral}/{good} good originals viral ({100.0 * goodViral / good:F3}%), 0/{bad} bad");
+    }
+
     public static void RunCatalog()
     {
         var ideas = CreatorCatalog.Ideas;
@@ -177,7 +328,8 @@ internal static class CreatorTests
         Console.WriteLine("PASS creator catalog: 200 unique scored ideas, 20 author batches, route locks, mostly weak concepts");
     }
 
-    public static void RunBalance(bool enforceTarget = true)
+    /// <param name="license">"rational" sells only when the views cannot pay; "accept" always sells; "decline" never does.</param>
+    public static void RunBalance(bool enforceTarget = true, string license = "rational")
     {
         const int samples = 10000;
         foreach (var policy in new[] { "phone-12", "light-12", "mirrorless-12", "phone-24" })
@@ -185,6 +337,12 @@ internal static class CreatorTests
             var wins = 0;
             decimal net = 0;
             var monetize = 0;
+            var viral = 0;
+            var sold = 0;
+            var viralCareers = 0;
+            // Offer vs held ad money, by what the player could see: partnered + clean, partnered + limited ads, unpartnered.
+            var cases = new Dictionary<string, (int Count, decimal Offer, decimal Ads)>
+                { ["clean"] = default, ["limited"] = default, ["unpartnered"] = default };
             for (var seed = 0; seed < samples; seed++)
             {
                 var wallet = new Wallet(5000);
@@ -200,12 +358,24 @@ internal static class CreatorTests
                 {
                     Check(c.Film(null, false, "Road", days++), "cohort can afford its production policy");
                     c.Publish(days);
+                    if (c.Career.LicensePending)
+                    {
+                        viral++;
+                        var kind = !c.Career.Monetized ? "unpartnered" : c.Career.Videos[0].Demonetized ? "limited" : "clean";
+                        var held = cases[kind];
+                        cases[kind] = (held.Count + 1, held.Offer + c.Career.License.Offer, held.Ads + c.Career.License.Revenue);
+                        // The declared player sells when the views cannot pay (no partner status or limited ads)
+                        // and gambles on ads otherwise.
+                        if (license == "accept" || license == "rational" && kind != "clean") { c.AcceptLicense(); sold++; }
+                        else c.DeclineLicense();
+                    }
                     if (c.Career.Videos[0].Demonetized) c.Reedit(c.Career.Videos[0].Id, days++);
                     if (c.CanWithdraw) c.Withdraw();
                     Check(c.Career.AlgorithmScore is >= .35 and <= 2.2, "hidden multiplier bounded");
                 }
-                Check(wallet.Balance == 5000 - c.Career.GearSpent - c.Career.ProductionSpent + c.Career.PaidOut,
-                    "entire cohort reconciles actual road cash");
+                Check(wallet.Balance == 5000 - c.Career.GearSpent - c.Career.ProductionSpent + c.Career.PaidOut +
+                    c.Career.LicenseIncome, "entire cohort reconciles actual road cash");
+                if (c.Career.ViralHits > 0) viralCareers++;
                 if (c.Career.Net > 0) wins++;
                 if (c.Career.Monetized) monetize++;
                 net += c.Career.Net;
@@ -213,7 +383,9 @@ internal static class CreatorTests
             if (enforceTarget && policy == "phone-12")
                 Check(wins >= samples * .06 && wins <= samples * .10, $"frugal12-upload net-profit target ~8%, observed {100.0 * wins / samples:F2}%");
             Check(wins > 0 && wins < samples / 4, "all declared policies retain rare upside and mostly losses");
-            Console.WriteLine($"PASS creator balance / {policy}: {wins}/{samples} net-positive ({100.0 * wins / samples:F2}%), {monetize} monetized, mean net ${net / samples:F2}");
+            Console.WriteLine($"PASS creator balance / {policy} / Viral Hog {license}: {wins}/{samples} net-positive ({100.0 * wins / samples:F2}%), {monetize} monetized, mean net ${net / samples:F2}; viral {viral} uploads in {viralCareers} careers, {sold} sold");
+            Console.WriteLine("    Viral Hog offers vs held ads: " + string.Join("; ", cases.Select(pair => pair.Value.Count == 0 ? $"{pair.Key} 0" :
+                $"{pair.Key} {pair.Value.Count}, mean offer ${pair.Value.Offer / pair.Value.Count:F0}, mean ads ${pair.Value.Ads / pair.Value.Count:F0}")));
         }
     }
 }
