@@ -546,6 +546,14 @@ namespace OregonTrailDotNet.Web
                 }
                 return actions;
             }
+            if (currentForm is Window.Travel.Hunt.HuntReady)
+            {
+                actions.Add(new GameActionDto("food.start", "Ready / Start sweep", "primary", true, false));
+                bindings["food.start"] = new PresentationActionBinding(PresentationActionKind.Submit, "y");
+                actions.Add(new GameActionDto("food.cancel", "Not now", "secondary", true, false));
+                bindings["food.cancel"] = new PresentationActionBinding(PresentationActionKind.Submit, "n");
+                return actions;
+            }
             if (currentForm is GameIntro)
             {
                 const string actionId = "setup.begin-choices";
@@ -764,6 +772,8 @@ namespace OregonTrailDotNet.Web
                 "FordRiverHelp" or "CaulkRiverHelp" or "RiverCrossHelp" => new ScreenDescriptor("river", "Crossing guide",
                     RiverDescription(userData as TravelInfo), null),
 
+                "HuntReady" => new ScreenDescriptor("dialog", "Ready for the food sweep?",
+                    "Tap Grab or press Space while the marker is inside the striped zone. You get one attempt per tray, eight trays in all. Read this first: the timer starts only when you choose Ready. Completing the sweep spends one trail day; Not now spends none.", null),
                 "Hunting" => new ScreenDescriptor("activity", "Food sweep",
                     HuntingDescription(userData as TravelInfo), input),
                 "HuntingResult" => new ScreenDescriptor("activity", "Food sweep results",

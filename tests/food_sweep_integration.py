@@ -18,9 +18,22 @@ def main():
         if chosen: client.action(chosen)
         client.settle()
     baseline = client.state
-    client.action(next(a for a in baseline['screen']['actions'] if 'grab some food' in a['label'].lower()))
+    grab = lambda: next(a for a in client.state['screen']['actions'] if 'grab some food' in a['label'].lower())
+    ids = lambda: {a['actionId'] for a in client.state['screen']['actions']}
+    client.action(grab())
+    assert client.state['foodSweep'] is None and {'food.start', 'food.cancel'} <= ids(), 'Ready screen precedes the clock'
+    time.sleep(2.7)
+    client.refresh()
+    assert client.state['foodSweep'] is None, 'Reading the instructions never starts a tray'
+    client.action(next(a for a in client.state['screen']['actions'] if a['actionId'] == 'food.cancel'))
+    client.settle()
+    assert client.state['screen']['kind'] == 'travel' and client.state['hud']['turns'] == baseline['hud']['turns'], \
+        'Not now returns to travel without spending a day'
+    client.action(grab())
+    client.action(next(a for a in client.state['screen']['actions'] if a['actionId'] == 'food.start'))
     state = client.state
-    assert state['foodSweep'] and state['screen']['input'] is None, 'Sweep opens directly without typing'
+    assert state['foodSweep'] and state['foodSweep']['round'] == 1 and state['screen']['input'] is None, \
+        'Ready starts the first tray without typing'
     rounds = set()
     while client.state.get('foodSweep'):
         sweep = client.state['foodSweep']
@@ -53,7 +66,7 @@ def main():
     assert after == before + pounds, 'Result loads food exactly once'
     assert client.state['screen']['kind'] == 'travel'
     assert client.state['hud']['turns'] == baseline['hud']['turns'] + 1
-    print('PASS direct food sweep, timing hits, replay rejection, automatic trays, one day, 100 lb settlement')
+    print('PASS food sweep ready/cancel gate, timing hits, replay rejection, automatic trays, one day, 100 lb settlement')
 
 
 if __name__ == '__main__':
