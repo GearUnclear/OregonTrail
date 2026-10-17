@@ -84,8 +84,8 @@ internal sealed class GameEngine : IGameEngine
                         : "That studio action is no longer available.", Snapshot);
             }
             else if (binding.Input != null && _game.CurrentForm is Window.MainMenu.Names.InputPlayerNames names &&
-                     names.RejectionFor(input) is { } duplicateName)
-                return Rejected("invalid-value", duplicateName, Snapshot);
+                     names.RejectionFor(input) is { } nameRejection)
+                return Rejected("invalid-value", nameRejection, Snapshot);
             else await ExecuteAsync(_game, binding, input, cancellationToken);
             // Create/restart may set the execution-local instance in the async helper's context.
             Activate();

@@ -122,15 +122,18 @@ def prepare_trip(client, vehicle='minivan', name='Driver', packing=1):
             assert packed and visited_store, 'Departure follows packing and shopping'
             return
         elif screen['input'] and screen['id'].endswith('inputplayernames'):
+            # Text with no letters or digits is refused; once a name is typed, so is a case- and space-mangled copy.
+            refused = [('!!!', 'at least one letter or number')]
             if typed_names:
-                # A typed name already in the party is refused with a clear message, ignoring case and spacing.
-                submit = next(action for action in screen['actions'] if action['enabled'])
+                refused.append((f'  {typed_names[0][:2].upper()} {typed_names[0][2:]} ', 'already in the party'))
+            submit = next(action for action in screen['actions'] if action['enabled'])
+            for text, reason in refused:
                 status, result, _ = client.request('/api/game/actions', {
                     'actionId': submit['actionId'], 'expectedRevision': state['revision'],
-                    'expectedJourneyId': state['journeyId'], 'text': f'  {typed_names[0][:2].upper()} {typed_names[0][2:]} '})
+                    'expectedJourneyId': state['journeyId'], 'text': text})
                 assert status == 400 and not result['accepted'], (status, result)
                 assert result['errorCode'] == 'invalid-value', result
-                assert 'already in the party' in result['message'], result
+                assert reason in result['message'], result
                 assert result['state']['revision'] == state['revision'], 'A refused name must not change the state'
             # The legacy input buffer keeps only letters and digits, so seat numbers are typed without spaces.
             typed_names.append(name if not typed_names else f'{name}{len(typed_names) + 1}')

@@ -122,7 +122,21 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
         /// </summary>
         internal string RejectionFor(string input)
         {
-            var match = MatchingName(UserData.PlayerNames.Take(UserData.PlayerNameIndex), input);
+            return RejectionFor(UserData.PlayerNames.Take(UserData.PlayerNameIndex), input);
+        }
+
+        /// <summary>
+        ///     Returns why a typed name cannot join a party already holding <paramref name="existingNames" />, or null when it
+        ///     can. Blank input is allowed; text with no letters or digits would be stored as an empty name, so it is refused.
+        /// </summary>
+        internal static string RejectionFor(IEnumerable<string> existingNames, string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return null;
+            if (NameKey(input).Length == 0)
+                return "Names need at least one letter or number.";
+
+            var match = MatchingName(existingNames, input);
             return match == null ? null : $"{match.Trim()} is already in the party. Choose a different name.";
         }
 
@@ -166,7 +180,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
                 return;
             }
 
-            // Refuse a name already in the party so event and death messages stay unambiguous.
+            // Refuse a name already in the party so event and death messages stay unambiguous, and one with nothing to store.
             var rejection = RejectionFor(input);
             if (rejection != null)
             {
