@@ -35,6 +35,8 @@ internal static class Program
         var app = builder.Build();
         // Only loopback proxies are trusted (the ASP.NET default). Apache sends X-Forwarded-Proto for the public HTTPS
         // scheme and X-Forwarded-Prefix for the /oregon path it strips; the prefix becomes PathBase and scopes the cookie.
+        // A prefix that is not a plain path is dropped first, so it can never reach PathBase or the cookie.
+        app.Use(SessionCookie.SanitizeForwardedPrefix);
         app.UseForwardedHeaders();
         app.UseResponseCompression();
         // index.html is served with content-hashed asset URLs and is always revalidated; see BrowserShell.

@@ -27,7 +27,9 @@ internal static class GameEndpoints
 
         api.MapGet("", async (HttpContext context, GameSession sessions, CancellationToken cancellationToken) =>
         {
-            var publication = await sessions.GetOrCreate(SessionCookie.GetOrIssue(context, sessions.SessionLifetime)).ReadAsync(cancellationToken);
+            // Page loads and the client's periodic reconciliation reads renew the cookie's Max-Age.
+            var sessionId = SessionCookie.GetOrIssue(context, sessions.SessionLifetime, renew: true);
+            var publication = await sessions.GetOrCreate(sessionId).ReadAsync(cancellationToken);
             context.Response.Headers.ETag = publication.ETag;
             return context.Request.Headers.IfNoneMatch.Contains(publication.ETag)
                 ? Results.StatusCode(StatusCodes.Status304NotModified)
@@ -53,8 +55,10 @@ internal static class GameEndpoints
 
     private static async Task StreamAsync(HttpContext context, GameSession sessions, CancellationToken cancellationToken)
     {
-        // Subscribe before sending headers so capacity errors remain normal JSON HTTP errors.
-        using var subscription = await sessions.GetOrCreate(SessionCookie.GetOrIssue(context, sessions.SessionLifetime)).SubscribeAsync(cancellationToken);
+        // Renew the cookie and subscribe before sending headers: Set-Cookie must precede the first write, and capacity
+        // errors remain normal JSON HTTP errors.
+        var sessionId = SessionCookie.GetOrIssue(context, sessions.SessionLifetime, renew: true);
+        using var subscription = await sessions.GetOrCreate(sessionId).SubscribeAsync(cancellationToken);
         context.Response.ContentType = "text/event-stream";
         context.Response.Headers.CacheControl = "private, no-cache, no-transform";
         context.Response.Headers["X-Accel-Buffering"] = "no";

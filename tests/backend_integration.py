@@ -175,9 +175,9 @@ def prepare_trip(client, vehicle='minivan', name='Driver', packing=1):
     raise AssertionError(f'Setup did not reach travel: {client.state["screen"]}')
 
 
-def raw_cookies(headers=None):
-    """Bootstrap without a cookie jar and return each Set-Cookie as (name, value, {attribute: value})."""
-    request = urllib.request.Request(BASE + '/api/game', headers=headers or {})
+def raw_cookies(headers=None, path='/api/game'):
+    """Request without a cookie jar and return each Set-Cookie as (name, value, {attribute: value})."""
+    request = urllib.request.Request(BASE + path, headers=headers or {})
     with urllib.request.urlopen(request, timeout=15) as response:
         assert response.status == 200
         cookies = []
@@ -205,7 +205,29 @@ def check_session_cookie():
     assert cookies['asphalt_trail_session']['path'] == '/', cookies
     assert cookies['asphalt_trail_session']['expires'].startswith('Thu, 01 Jan 1970'), cookies
     assert cookies['asphalt_trail_sid']['path'] == '/oregon/', cookies
-    print('PASS session cookie attributes direct and behind the trusted prefix, Max-Age, legacy cookie expiry', flush=True)
+    # A loopback sender's malformed prefix is dropped, so it can't add cookie attributes or fail the request.
+    for hostile in ('/oregon;Domain=evil.example', '/oregon%3BDomain=evil.example', '/oregon%00', '//evil',
+                    '/oregon/../', '/a, /b', '/' + 'a' * 300):
+        [(name, _, attacked)] = raw_cookies(dict(proxy, **{'X-Forwarded-Prefix': hostile}))
+        assert name == 'asphalt_trail_sid'
+        assert attacked == {'max-age': max_age, 'path': '/', 'secure': '', 'samesite': 'lax', 'httponly': ''}, (hostile, attacked)
+    # Reads and stream opens renew the existing cookie (same value, fresh Max-Age); actions don't send Set-Cookie.
+    [(_, session, _)] = raw_cookies(proxy)
+    returning = dict(proxy, Cookie='asphalt_trail_sid=' + session)
+    [(name, value, renewed)] = raw_cookies(returning)
+    assert (name, value) == ('asphalt_trail_sid', session) and renewed == proxied, renewed
+    [(name, value, streamed)] = raw_cookies(returning, '/api/game/events')
+    assert (name, value) == ('asphalt_trail_sid', session) and streamed == proxied, streamed
+    action = urllib.request.Request(BASE + '/api/game/actions', method='POST', headers=dict(returning, **{
+        'Content-Type': 'application/json'}), data=json.dumps({'actionId': 'none', 'expectedRevision': 0}).encode())
+    try:
+        with urllib.request.urlopen(action, timeout=15) as response:
+            action_headers = response.headers
+    except urllib.error.HTTPError as error:
+        action_headers = error.headers
+    assert not action_headers.get_all('Set-Cookie'), action_headers.get_all('Set-Cookie')
+    print('PASS session cookie attributes direct and behind the trusted prefix, Max-Age, renewal, hostile prefixes, '
+          'legacy cookie expiry', flush=True)
 
 
 def main():
