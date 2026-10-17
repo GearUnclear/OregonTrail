@@ -185,7 +185,7 @@
       append(el("div"), el("strong", "", data.kit.camera),
         el("p", "card-note", `${data.kit.mount || "Fixed lens"} · ${data.kit.hdmi ? "Clean HDMI output" : "No external HDMI monitor"}`)),
       ui.labeledValue("Audience ceiling", integer(data.kit.ceiling))),
-      el("p", "creator-ceiling-note", "Gear only raises this cap. It won't improve an idea or get you a single extra view. Footage keeps the kit it was shot on."));
+      el("p", "creator-ceiling-note", "Gear only raises this cap. It won't improve an idea or guarantee a single extra view. Footage keeps the kit it was shot on."));
     const cameras = el("div", "creator-camera-list");
     for (const gear of data.gear.filter(g => g.owned && g.category === "camera")) {
       const row = el("div", "creator-bag-row");

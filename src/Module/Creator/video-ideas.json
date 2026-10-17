@@ -1065,7 +1065,7 @@
   {
     "id": "video-118",
     "title": "Closed Window, Smaller World",
-    "premise": "From the same parking spot, we record the traffic with the window cracked, then closed. The world shrinks to the size of the car, which is about the size it's been for weeks.",
+    "premise": "From the same parking spot, we record the traffic with the window cracked, then closed. The world shrinks to the size of the car, which is about the size it's been since the trip started.",
     "conceptKey": "parked-window-position-ambient-sound-comparison",
     "potential": 57,
     "locations": [],
@@ -1150,7 +1150,7 @@
   {
     "id": "video-127",
     "title": "What 'We'll See' Meant to Each of Us",
-    "premise": "One traveler says 'we'll see' meaning maybe. Another hears no, because that's what it meant growing up, and the video is the conversation where they work out which one it's meant all trip.",
+    "premise": "One traveler says 'we'll see' and means maybe. Another hears no, because that's what it meant growing up, and the video is the conversation where they go back through every 'we'll see' of the trip.",
     "conceptKey": "different-family-meanings-of-well-see",
     "potential": 49,
     "locations": [],
@@ -1269,7 +1269,7 @@
   {
     "id": "video-140",
     "title": "A Routine With No Appointment Hour Still Holds the Day",
-    "premise": "A traveler starts the trip with a chart that gives every task an exact hour, and the delays turn it into a grid of crossed-out promises. They redraw it as a plain list of things to do whenever there's a pause, and for the first time in weeks something on it gets finished.",
+    "premise": "A traveler starts the trip with a chart that gives every task an exact hour, and the delays turn it into a grid of crossed-out promises. They redraw it as a plain list of things to do whenever there's a pause, and something on it finally gets finished.",
     "conceptKey": "daily-routine-chart-shifts-from-fixed-hours-to-flexible-sequence",
     "potential": 91,
     "locations": [],
