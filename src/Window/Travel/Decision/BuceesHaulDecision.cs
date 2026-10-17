@@ -67,7 +67,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
             _menu.SetOptions(new[]
             {
                 new ArrowMenuOption("1. Blow the budget on a mega-haul -- brisket, water, the good jerky", "1"),
-                new ArrowMenuOption("2. Stay disciplined -- top off the tank, one bag of jerky, back in the car", "2"),
+                new ArrowMenuOption("2. Stay disciplined -- top off the tank, a few bags of jerky, back in the car", "2"),
                 new ArrowMenuOption("3. Take the pallet gig -- haul freight to Knoxville and back", "3")
             });
             GameSimulationApp.Instance.ActiveMenu = _menu;

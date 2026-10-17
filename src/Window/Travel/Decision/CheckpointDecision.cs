@@ -212,7 +212,7 @@ namespace OregonTrailDotNet.Window.Travel.Decision
                     game.Choices.Record("checkpoint", "run", runDelta,
                         "You took a logging road around the Cascadia line and never told anyone." +
                         Environment.NewLine + "    " +
-                        "If a caravan had vouched for you, you left forty families idling at the" +
+                        "If the caravan had vouched for you, you left forty families idling at the" +
                         Environment.NewLine + "    " +
                         "barrier without so much as a honk.");
                     ClearForm();

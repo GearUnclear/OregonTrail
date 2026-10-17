@@ -72,7 +72,7 @@ namespace OregonTrailDotNet.Window.Travel.Command
 
             var options = new List<ArrowMenuOption>
             {
-                new ArrowMenuOption($"1. filling - {FoodRations.PoundsPerPerson(RationLevel.Filling):0.#} lb per person/day; nobody complains.", "1"),
+                new ArrowMenuOption($"1. filling - {FoodRations.PoundsPerPerson(RationLevel.Filling):0.#} lb per person/day; everybody eats.", "1"),
                 new ArrowMenuOption($"2. meager - {FoodRations.PoundsPerPerson(RationLevel.Meager):0.#} lb per person/day; nobody's full.", "2"),
                 new ArrowMenuOption($"3. bare bones - {FoodRations.PoundsPerPerson(RationLevel.BareBones):0.#} lb per person/day; the kids stop asking.", "3")
             };
