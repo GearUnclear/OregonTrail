@@ -67,10 +67,14 @@ namespace OregonTrailDotNet.Event.Prefab
 
             // Loop through all of the created items and add them to string builder.
             foreach (var createdItem in createdItems)
+            {
+                var gain = GameSimulationApp.Instance.Vehicle.Inventory[createdItem.Key]
+                    .DescribeQuantity(createdItem.Value);
                 if (createdItems.Last().Equals(createdItem))
-                    _eventText.Append($"{createdItem.Value:N0} {createdItem.Key}");
+                    _eventText.Append(gain);
                 else
-                    _eventText.AppendLine($"{createdItem.Value:N0} {createdItem.Key}");
+                    _eventText.AppendLine(gain);
+            }
         }
 
         /// <summary>Fired by the event prefab after the event has executed.</summary>

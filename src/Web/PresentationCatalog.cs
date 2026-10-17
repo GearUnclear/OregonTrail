@@ -1110,6 +1110,10 @@ namespace OregonTrailDotNet.Web
                 "TyphoidFever" => "Heat exhaustion",
                 "MlmHun" => "MLM roadside pitch",
                 "WolfAttack" => "Feral-hog attack",
+                "BuffaloStampede" => "Door-buster stampede",
+                "BanditsAttack" => "Highway Patrol stop",
+                "HailStorm" => "Ice storm",
+                "Thief" => "Porch pirate",
                 _ => Humanize(name)
             };
         }
