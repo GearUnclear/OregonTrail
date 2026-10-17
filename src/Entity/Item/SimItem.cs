@@ -331,6 +331,19 @@ namespace OregonTrailDotNet.Entity.Item
         }
 
         /// <summary>
+        ///     Describes an amount of this SimItem with its player-facing unit, such as "1 tire", "6 gas cans", or "$3,604 cash".
+        ///     Event reports use this instead of the <see cref="Entities" /> category, which keeps legacy identifiers.
+        /// </summary>
+        /// <param name="amount">How many units are being described.</param>
+        /// <returns>Formatted quantity and unit.</returns>
+        public string DescribeQuantity(int amount)
+        {
+            return Category == Entities.Cash
+                ? $"${amount:N0} cash"
+                : $"{amount:N0} {(amount == 1 ? DelineatingUnit : PluralForm)}";
+        }
+
+        /// <summary>
         ///     Returns a string that represents the current object.
         /// </summary>
         /// <returns>

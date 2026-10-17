@@ -20,6 +20,7 @@ TradeCapacityTests.Run();
 if (args.Contains("--creator-rules")) { CreatorTests.RunRules(); return; }
 if (args.Contains("--creator-balance")) { CreatorTests.RunBalance(false); return; }
 if (args.Contains("--food-sweep")) { FoodSweepTests.Run(); return; }
+if (args.Contains("--event-reports")) { EventReportTests.Run(); return; }
 FoodSweepTests.Run();
 if (args.Contains("--food-rules")) { FoodTests.Run(); return; }
 FoodTests.Run();
@@ -27,6 +28,7 @@ CreatorTests.RunRules();
 CreatorTests.RunCatalog();
 CreatorTests.RunBalance();
 CryptoTests.Run();
+EventReportTests.Run();
 
 var logger = NullLogger.Instance;
 var settings = new GameHostOptions { CommandCapacity = 2, MaximumStreamsPerSession = 2, DisconnectGracePeriod = TimeSpan.Zero };
