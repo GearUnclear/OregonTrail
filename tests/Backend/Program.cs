@@ -19,6 +19,8 @@ if (args.Contains("--state-registry")) { await StateRegistryTests.Run(); return;
 await StateRegistryTests.Run();
 if (args.Contains("--browser-shell")) { BrowserShellTests.Run(); return; }
 BrowserShellTests.Run();
+if (args.Contains("--session-cookie")) { await SessionCookieTests.Run(); return; }
+await SessionCookieTests.Run();
 if (args.Contains("--trade-capacity")) { TradeCapacityTests.Run(); return; }
 TradeCapacityTests.Run();
 if (args.Contains("--party-names")) { PartyNameTests.Run(); return; }

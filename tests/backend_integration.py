@@ -5,6 +5,7 @@ Run against a disposable host: python3 tests/backend_integration.py http://127.0
 import concurrent.futures
 import http.cookiejar
 import json
+import os
 import queue
 import statistics
 import sys
@@ -174,11 +175,45 @@ def prepare_trip(client, vehicle='minivan', name='Driver', packing=1):
     raise AssertionError(f'Setup did not reach travel: {client.state["screen"]}')
 
 
+def raw_cookies(headers=None):
+    """Bootstrap without a cookie jar and return each Set-Cookie as (name, value, {attribute: value})."""
+    request = urllib.request.Request(BASE + '/api/game', headers=headers or {})
+    with urllib.request.urlopen(request, timeout=15) as response:
+        assert response.status == 200
+        cookies = []
+        for header in response.headers.get_all('Set-Cookie') or []:
+            pair, *attributes = [part.strip() for part in header.split(';')]
+            name, _, value = pair.partition('=')
+            cookies.append((name, value, {k.lower(): v for k, _, v in (a.partition('=') for a in attributes)}))
+        return cookies
+
+
+def check_session_cookie():
+    # The host's SessionLifetime in seconds (default 12 hours). Set this when testing a host configured otherwise.
+    max_age = os.environ.get('EXPECT_SESSION_MAX_AGE', '43200')
+    [(name, value, direct)] = raw_cookies()
+    assert name == 'asphalt_trail_sid' and len(value) == 32, (name, value)
+    assert direct == {'max-age': max_age, 'path': '/', 'samesite': 'lax', 'httponly': ''}, direct
+    # This test connects from loopback, so the host trusts it as the proxy: Apache's prefix and scheme scope the cookie.
+    proxy = {'X-Forwarded-Proto': 'https', 'X-Forwarded-Prefix': '/oregon', 'X-Forwarded-For': '198.51.100.20'}
+    [(name, _, proxied)] = raw_cookies(proxy)
+    assert name == 'asphalt_trail_sid'
+    assert proxied == {'max-age': max_age, 'path': '/oregon/', 'secure': '', 'samesite': 'lax', 'httponly': ''}, proxied
+    # A pre-#63 browser's Path=/ cookie is expired there and replaced by one on the narrower path.
+    legacy = dict(proxy, Cookie='asphalt_trail_session=' + '0' * 32)
+    cookies = {name: attributes for name, _, attributes in raw_cookies(legacy)}
+    assert cookies['asphalt_trail_session']['path'] == '/', cookies
+    assert cookies['asphalt_trail_session']['expires'].startswith('Thu, 01 Jan 1970'), cookies
+    assert cookies['asphalt_trail_sid']['path'] == '/oregon/', cookies
+    print('PASS session cookie attributes direct and behind the trusted prefix, Max-Age, legacy cookie expiry', flush=True)
+
+
 def main():
     health = Client()
     status, _, headers = health.request('/healthz')
     assert status == 200 and 'Set-Cookie' not in headers
     assert health.request('/api/missing')[0] == 404
+    check_session_cookie()
 
     clients = [Client() for _ in range(16)]
     started = time.perf_counter()

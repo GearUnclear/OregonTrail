@@ -10,6 +10,9 @@ public sealed class GameSession(IOptions<GameHostOptions> options, ILogger<GameS
     private readonly GameHostOptions _options = options.Value;
     private bool _closing;
 
+    /// <summary>How long an idle journey lives; also the session cookie's Max-Age.</summary>
+    internal TimeSpan SessionLifetime => _options.SessionLifetime;
+
     internal JourneyWorker GetOrCreate(string sessionId)
     {
         lock (_registryGate)

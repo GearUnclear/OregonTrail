@@ -29,7 +29,7 @@ python3 tests/creator_integration.py http://127.0.0.1:18764
 python3 tests/food_sweep_integration.py http://127.0.0.1:18764
 ```
 
-These create a lot of journeys and submit actions, so never point them at production. `GET /healthz` returns `{"status":"healthy"}` without touching the session registry, so it's safe as the production health check.
+These create a lot of journeys and submit actions, so never point them at production. `GET /healthz` returns `{"status":"healthy"}` without touching the session registry, so it's safe as the production health check. `backend_integration.py` expects the default 12-hour cookie Max-Age. If the host runs with a different `SessionLifetime`, set `EXPECT_SESSION_MAX_AGE` to that lifetime in seconds.
 
 ### What ships
 
@@ -52,7 +52,11 @@ The checked-in units provide:
 - `deploy/oregon-web.service`: the app, running as the unprivileged `oregon` user. It has `StopWhenUnneeded=yes`, so it stops when the proxy exits and starts again on the next request. That stop wipes every journey, since they all live in memory.
 - `deploy/wagenhoffer-dev-le-ssl.conf`: the HTTPS virtual host with the `/oregon/` reverse proxy.
 
-Apache strips `/oregon/` before forwarding. The app doesn't know about the prefix: the browser uses relative URLs for assets, actions, and the stream, and the app sees requests at `/`. One side effect is that the `asphalt_trail_session` cookie (HttpOnly, SameSite=Lax, 12-hour Max-Age) is set with `Path=/`, which covers the whole `wagenhoffer.dev` site (#63).
+Apache strips `/oregon/` before forwarding, so the app sees requests at `/`. The browser uses relative URLs for assets, actions, and the stream, so routing never needs the prefix. Apache also sends `X-Forwarded-Prefix: /oregon`, which the app uses only to scope its session cookie.
+
+The session cookie is `asphalt_trail_sid`: HttpOnly, SameSite=Lax, and `Secure` when the request is HTTPS. Its `Max-Age` is `SessionLifetime` (12 hours by default). Its `Path` is the forwarded prefix plus a slash, `/oregon/` here, so the cookie isn't sent to the rest of `wagenhoffer.dev`. Without the header, as in a direct local run, the path is `/`. A request with no cookie, or with a malformed one, gets a new session. Requests from a browser that already has the cookie get no `Set-Cookie`.
+
+Releases before #63 used a cookie named `asphalt_trail_session` with `Path=/`. The app never reads that cookie. When a browser still sends it, the response expires it at `Path=/` and issues `asphalt_trail_sid` on the narrower path. Using a new name avoids a problem with keeping the old one: the browser would send both cookies under one name, and the `Cookie` header doesn't say which path each came from. A returning player starts a new journey, which they would anyway, since a release restarts the process.
 
 SSE uses ordinary HTTP, without a WebSocket upgrade. The stream opens with `retry: 3000`, sends the current state right away, and sends `event: heartbeat` every 15 seconds while nothing changes. The browser gives up on a stream after 40 seconds with no state or heartbeat and reconnects. Keep proxy timeouts above that, and disable compression and buffering for the event path:
 
@@ -63,13 +67,14 @@ ProxyPass        /oregon/ http://127.0.0.1:7681/ timeout=60
 ProxyPassReverse /oregon/ http://127.0.0.1:7681/
 <Location /oregon/>
     RequestHeader set X-Forwarded-Proto "https"
+    RequestHeader set X-Forwarded-Prefix "/oregon"
 </Location>
 <Location /oregon/api/game/events>
     SetEnv no-gzip 1
 </Location>
 ```
 
-The app reads `X-Forwarded-For` and `X-Forwarded-Proto` and, with ASP.NET's defaults, only trusts them from loopback. Apache and the socket proxy both connect from 127.0.0.1, so the current setup works as is. Trusted proxies aren't a configuration setting. If the proxy ever moves to another machine, add its address to `KnownProxies` or `KnownNetworks` in `src/Program.cs`. Don't use `ASPNETCORE_FORWARDEDHEADERS_ENABLED` for this, because it clears the known-proxy lists and trusts the headers from any sender. The cookie is only marked `Secure` when the app sees the request as HTTPS, so it depends on that trusted `X-Forwarded-Proto`.
+The app reads `X-Forwarded-For`, `X-Forwarded-Proto`, and `X-Forwarded-Prefix` and, with ASP.NET's defaults, only trusts them from loopback. A client can't spoof them through Apache: `RequestHeader set` replaces any value the client sent, and the app ignores these headers from any other address. Apache and the socket proxy both connect from 127.0.0.1, so the current setup works as is. Trusted proxies aren't a configuration setting. If the proxy ever moves to another machine, add its address to `KnownProxies` or `KnownNetworks` in `src/Program.cs`. Don't use `ASPNETCORE_FORWARDEDHEADERS_ENABLED` for this, because it clears the known-proxy lists and trusts the headers from any sender. The cookie is only marked `Secure` when the app sees the request as HTTPS, so it depends on that trusted `X-Forwarded-Proto`. Its path depends on the trusted `X-Forwarded-Prefix`: if Apache stops sending the header, the game still works but the cookie goes back to `Path=/`. If the public path ever changes, change the header to match the new `ProxyPass` prefix.
 
 ### Caching and compression
 
@@ -97,6 +102,12 @@ curl --fail https://wagenhoffer.dev/oregon/
 curl --fail https://wagenhoffer.dev/oregon/app.js
 ```
 
+Check the session cookie. You should see one `asphalt_trail_sid` cookie with `max-age=43200` (or your `SessionLifetime` in seconds), `path=/oregon/`, `secure`, `samesite=lax`, and `httponly`:
+
+```bash
+curl --fail -s -o /dev/null -D - https://wagenhoffer.dev/oregon/api/game | grep -i '^set-cookie'
+```
+
 Check streaming with a disposable browser session. Keep its cookie between the bootstrap request and the stream request:
 
 ```bash
@@ -118,7 +129,7 @@ These options live under `GameHost` in configuration. The repository has no `app
 | `SessionLifetime` | `12:00:00` | > 0 | A journey with no open stream and no requests for this long is removed. A sweep runs every 30 seconds. |
 | `DisconnectGracePeriod` | `00:00:30` | >= 0 | Once no stream is open, the clock stops this long after the last request or stream close. |
 
-The cookie's 12-hour Max-Age is fixed in `src/Web/GameEndpoints.cs` and doesn't follow `SessionLifetime` (#63). Request bodies are capped at 16 KB.
+The session cookie's Max-Age is `SessionLifetime`. It's set once, when the cookie is issued, and isn't renewed. The journey's expiry resets on every request, but the cookie's doesn't. So a browser that keeps playing longer than `SessionLifetime` after its first visit loses the cookie and starts a new journey. Request bodies are capped at 16 KB.
 
 One worker owns each simulation, so commands and clock ticks never overlap within a journey, and separate journeys run independently. Reads and streams share one cached copy of each snapshot. A slow stream holds at most one pending snapshot and skips to the latest. Cancelling a request releases its stream. If a journey's game logic throws, only that journey stops: the next sweep removes it, and the browser starts a new journey when it reconnects. `expectedJourneyId` keeps a command written before a restart from applying to the new journey.
 
