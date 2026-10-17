@@ -17,6 +17,8 @@ static async Task Throws<T>(Func<Task> action) where T : Exception
 
 if (args.Contains("--trade-capacity")) { TradeCapacityTests.Run(); return; }
 TradeCapacityTests.Run();
+if (args.Contains("--party-names")) { PartyNameTests.Run(); return; }
+PartyNameTests.Run();
 if (args.Contains("--creator-rules")) { CreatorTests.RunRules(); return; }
 if (args.Contains("--creator-balance")) { CreatorTests.RunBalance(false); return; }
 if (args.Contains("--food-sweep")) { FoodSweepTests.Run(); return; }
