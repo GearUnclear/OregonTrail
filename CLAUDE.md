@@ -104,6 +104,7 @@ The `RandomEvent` window's `EventExecutor` form runs `Execute → Render → OnP
 - Namespaces mirror folders under the `OregonTrailDotNet` root (e.g. `OregonTrailDotNet.Window.Travel.Store`).
 - "Windows" / "modes" in comments and method names mean these **state-machine windows, not the OS**.
 - Top-level Windows are a hardcoded whitelist (`AllowedWindows`); events self-register by reflection (`[DirectorEvent]`). Know which registration model applies before adding either.
+- WolfCurses alone discovers `[ParentWindow]` forms only in `Assembly.GetEntryAssembly()`, which is not the game under `tests/Backend` or any other host. `GameStateRegistry` registers forms (from `GameSimulationApp.Create`) and events (from `EventFactory`) out of the game assembly; keep new reflection scans on it, never `AttributeExtensions.GetTypesWith`.
 - The web interface uses a terminal and ASCII visual language. Keep gameplay in semantic responsive elements; reserve preformatted text for decorative, aria-hidden character art in `scenes.js`. Never introduce horizontal gameplay scrolling or parse terminal frames for game state.
 - Phones (≤600px) get a separate compact layout: the "Phone layout (#31)" block at the end of `styles.css` plus `compactQuery` in `app.js`, which folds the rail cards and docks the store checkout. Keep the two breakpoints identical. Change wider layouts outside that block.
 

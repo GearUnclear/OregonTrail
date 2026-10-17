@@ -15,6 +15,8 @@ static async Task Throws<T>(Func<Task> action) where T : Exception
     throw new Exception($"Expected {typeof(T).Name}");
 }
 
+if (args.Contains("--state-registry")) { await StateRegistryTests.Run(); return; }
+await StateRegistryTests.Run();
 if (args.Contains("--trade-capacity")) { TradeCapacityTests.Run(); return; }
 TradeCapacityTests.Run();
 if (args.Contains("--party-names")) { PartyNameTests.Run(); return; }

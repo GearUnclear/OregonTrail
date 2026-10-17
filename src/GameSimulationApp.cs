@@ -208,6 +208,8 @@ namespace OregonTrailDotNet
                     "Unable to create new instance of game simulation since it already exists!");
 
             Instance = new GameSimulationApp();
+            // WolfCurses only scans the entry assembly for forms; register ours wherever the game is hosted (#40).
+            GameStateRegistry.RegisterForms(Instance.WindowManager);
             Instance.OnPostCreate();
         }
 

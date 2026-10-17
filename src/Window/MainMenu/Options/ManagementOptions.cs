@@ -49,7 +49,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Options
 
             _optionsPrompt.AppendLine($"{Environment.NewLine}The Oregon Trail");
             _optionsPrompt.AppendLine(
-                $"Version: {Assembly.GetEntryAssembly().GetName().Version}{Environment.NewLine}");
+                $"Version: {typeof(GameSimulationApp).Assembly.GetName().Version}{Environment.NewLine}");
             _optionsPrompt.AppendLine($"Management Options{Environment.NewLine}");
             _optionsPrompt.Append("You may:");
         }
