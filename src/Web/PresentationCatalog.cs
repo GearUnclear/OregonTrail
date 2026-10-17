@@ -290,7 +290,7 @@ namespace OregonTrailDotNet.Web
         {
             return new GameHudDto(
                 string.Empty, 0, 0, string.Empty, string.Empty, string.Empty, string.Empty,
-                string.Empty, string.Empty, string.Empty, string.Empty, 0, 0, 0, 0, 0, null);
+                string.Empty, Health: null, string.Empty, string.Empty, 0, 0, 0, 0, 0, null);
         }
 
         private static GameScoreDto BuildScore(GameOverInfo info)
@@ -328,6 +328,9 @@ namespace OregonTrailDotNet.Web
             var location = game.Trail?.CurrentLocation;
             var foodPerDay = vehicle?.FoodPerDay ?? 0m;
             var foodQuantity = vehicle?.FoodPoundsRemaining ?? 0m;
+            // Before setup seats anyone, the rules report an empty manifest as Dead. The HUD sends no
+            // health instead so the browser never labels a party that does not exist yet.
+            HealthStatus? partyHealth = vehicle?.Passengers?.Any() == true ? vehicle.PassengerHealthStatus : null;
             return new GameHudDto(
                 game.Time?.Date?.ToString() ?? string.Empty,
                 game.TotalTurns,
@@ -337,7 +340,7 @@ namespace OregonTrailDotNet.Web
                 location?.Name ?? "Preparing route",
                 Humanize(location?.Status.ToString() ?? "Unreached"),
                 Humanize(location?.Weather.ToString() ?? string.Empty),
-                Humanize(vehicle?.PassengerHealthStatus.ToString() ?? string.Empty),
+                partyHealth.HasValue ? Humanize(partyHealth.Value.ToString()) : null,
                 Humanize(vehicle?.Pace.ToString() ?? string.Empty),
                 Humanize(vehicle?.Ration.ToString() ?? string.Empty),
                 vehicle?.CargoWeight ?? 0,
@@ -348,7 +351,7 @@ namespace OregonTrailDotNet.Web
                 vehicle?.BrokenPart?.Name,
                 model?.Choice.ToString().ToLowerInvariant(),
                 foodQuantity,
-                vehicle != null ? HealthKey(vehicle.PassengerHealthStatus) : null);
+                partyHealth.HasValue ? HealthKey(partyHealth.Value) : null);
         }
 
         private static IReadOnlyList<PartyMemberDto> BuildParty(GameSimulationApp game)
