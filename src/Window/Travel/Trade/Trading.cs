@@ -197,14 +197,12 @@ namespace OregonTrailDotNet.Window.Travel.Trade
             // Select one of the trades to use, or say there are none if none generated.
             if (_trades.Count > 0)
             {
-                // Generates the default prompt for trading that is shown if you have items to trade back or not.
-                var wrapText =
-                    $"A hun from the parking-lot MLM wants\n{_trades[_tradeIndex].WantedItem.Quantity:N0}\n{_trades[_tradeIndex].WantedItem.Name.ToLowerInvariant()}. " +
-                    $"She'll swap you {_trades[_tradeIndex].OfferedItem.Quantity:N0}\n{_trades[_tradeIndex].OfferedItem.Name.ToLowerInvariant()}, hon -- ground\nfloor, only goes up from here.";
+                // The pitch is shared with the browser (TradeCopy); the console only adds its own word-wrapping.
+                var offer = _trades[_tradeIndex];
+                var wrapText = TradeCopy.Pitch(offer.WantedItem, offer.OfferedItem);
 
                 // Depending if the player has enough of what the trader wants we change up last part of message.
                 // TradeCopy shares this wording with the browser: payment shortfall, then capacity, then generic.
-                var offer = _trades[_tradeIndex];
                 var refusal = _playerCanTrade
                     ? null
                     : TradeCopy.Refusal(GameSimulationApp.Instance.Vehicle, offer.WantedItem, offer.OfferedItem);
@@ -215,7 +213,7 @@ namespace OregonTrailDotNet.Window.Travel.Trade
             else
             {
                 // Prompt is not shown if we have no traders generated.
-                _supplyPrompt.AppendLine($"Nobody's working their downline here right now.{Environment.NewLine}");
+                _supplyPrompt.AppendLine($"{TradeCopy.NoTraders}{Environment.NewLine}");
             }
         }
 

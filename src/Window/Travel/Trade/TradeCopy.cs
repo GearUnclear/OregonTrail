@@ -9,6 +9,21 @@ namespace OregonTrailDotNet.Window.Travel.Trade
     /// </summary>
     public static class TradeCopy
     {
+        /// <summary>Shown when no trader is around at this stop.</summary>
+        public const string NoTraders = "Nobody's working their downline here right now.";
+
+        /// <summary>
+        ///     The trader's pitch for one offer, as unwrapped prose. The console word-wraps it; the browser shows it as is.
+        /// </summary>
+        public static string Pitch(SimItem wanted, SimItem offered)
+        {
+            var wantedName = wanted.Name.ToLowerInvariant();
+            var offeredName = offered.Name.ToLowerInvariant();
+            return $"A hun from the parking-lot MLM wants {wanted.Quantity:N0} {wantedName}. " +
+                   $"She'll swap you {offered.Quantity:N0} {offeredName}, hon. " +
+                   "Ground floor, only goes up from here.";
+        }
+
         /// <summary>Asked when the family can pay for the offer and has room for the reward.</summary>
         public const string AcceptPrompt = "Deal?";
 

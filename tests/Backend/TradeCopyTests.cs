@@ -37,6 +37,14 @@ internal static class TradeCopyTests
         var generic = TradeCopy.Refusal(vehicle, new SimItem(ammo, 2), new SimItem(food, 1));
         Check(generic == "You don't have the supplies for this trade.", $"generic wording: {generic}");
 
+        // The pitch is one unwrapped sentence pair; each surface applies its own wrapping.
+        var pitch = TradeCopy.Pitch(new SimItem(food, 1250), new SimItem(ammo, 3));
+        Check(pitch == $"A hun from the parking-lot MLM wants 1,250 {food.Name.ToLowerInvariant()}. " +
+                       $"She'll swap you 3 {ammoName}, hon. Ground floor, only goes up from here.",
+            $"pitch wording: {pitch}");
+        Check(!pitch.Contains('\n') && !pitch.Contains('—'), "pitch must be unwrapped plain punctuation");
+        Check(TradeCopy.NoTraders == "Nobody's working their downline here right now.", "no-trader wording");
+
         // Quantities keep the thousands separator both surfaces used before.
         food.AddQuantity(1500);
         var large = TradeCopy.Refusal(vehicle, new SimItem(food, 1800), new SimItem(ammo, 1));
