@@ -140,7 +140,22 @@ internal static class CreatorTests
             if (c.Career.Videos[0].Demonetized) flaggedCount++;
         }
         Check(flaggedCount > samples * .14 && flaggedCount < samples * .16, "moderation frequency must remain approximately15%");
-        Console.WriteLine($"PASS creator rules: wallet, delivery, compatibility, gear ceiling only, drafts, geo locks, hidden algorithm, audiences, exact-once re-edit/payout; moderation {flaggedCount}/{samples} ({100.0 * flaggedCount / samples:F2}%)");
+        var goodCount = 0;
+        var goodDraws = 0;
+        for (var seed = 0; seed < 2000; seed++)
+        {
+            var c = new Wallet(1000).Open(new Random(seed));
+            c.Start("Pitch Meeting");
+            for (var day = 0; day < 24; day++)
+            {
+                c.Film(null, false, "Road", day);
+                goodDraws++;
+                if (c.Career.Draft.Idea.Potential >= CreatorChannel.GoodIdeaPotential) goodCount++;
+                c.Discard();
+            }
+        }
+        Check(goodCount > goodDraws * .31 && goodCount < goodDraws * .33, "good ideas must remain approximately 32% of filming draws");
+        Console.WriteLine($"PASS creator rules: wallet, delivery, compatibility, gear ceiling only, drafts, geo locks, hidden algorithm, audiences, exact-once re-edit/payout; moderation {flaggedCount}/{samples} ({100.0 * flaggedCount / samples:F2}%); good ideas {goodCount}/{goodDraws} ({100.0 * goodCount / goodDraws:F2}%)");
     }
 
     public static void RunCatalog()
