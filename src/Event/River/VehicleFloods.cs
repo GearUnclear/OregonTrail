@@ -42,8 +42,10 @@ namespace OregonTrailDotNet.Event.River
             // Cast the source entity as vehicle.
             var vehicle = eventExecutor.SourceEntity as Entity.Vehicle.Vehicle;
 
-            // Reduce the total possible mileage of the vehicle this turn.
-            vehicle?.ReduceMileage(20 - 20*GameSimulationApp.Instance.Random.Next());
+            // Lose 20-40 miles. Ported from the 1978 BASIC "TOTAL_MILES=TOTAL_MILES-20-20*RND(0)", where RND is a
+            // 0-1 fraction; WolfCurses' Random.Next() is an integer in [0, 60), so the bounds are explicit.
+            // ReduceMileage ignores a parked vehicle, and a crossing parks it, so this only applies while moving.
+            vehicle?.ReduceMileage(GameSimulationApp.Instance.Random.Next(20, 41));
         }
 
         /// <summary>
