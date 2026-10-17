@@ -22,7 +22,7 @@ public sealed class CreatorDesk : Form<TravelInfo>
         var game = GameSimulationApp.Instance;
         game.ActiveMenu = null;
         if (game.Vehicle.Status == VehicleStatus.Moving) game.Vehicle.Status = VehicleStatus.Stopped;
-        Channel = new CreatorChannel(new Random(game.Random.Next()),
+        Channel = new CreatorChannel(new Random(game.NextGeneratorSeed()),
             () => game.Vehicle.Inventory[Entities.Cash].Quantity,
             delta =>
             {

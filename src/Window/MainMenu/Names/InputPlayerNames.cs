@@ -287,7 +287,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
             if (string.IsNullOrWhiteSpace(input))
             {
                 // Only fill out names for slots that are empty.
-                var random = new Random(GameSimulationApp.Instance.Random.Next());
+                var random = new Random(GameSimulationApp.Instance.NextGeneratorSeed());
                 for (var i = 0; i < GameSimulationApp.Instance.Vehicle.MaxPartySize - UserData.PlayerNameIndex; i++)
                     UserData.PlayerNames.Insert(UserData.PlayerNameIndex, GetPlayerName(UserData.PlayerNames, random));
 
