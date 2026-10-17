@@ -1208,7 +1208,7 @@ namespace OregonTrailDotNet.Web
             var source = info?.SourceEntity?.Name;
             return string.IsNullOrWhiteSpace(source)
                 ? "Something happened on the road."
-                : $"Something happened involving {source}.";
+                : $"Something happened involving {Window.MainMenu.Names.InputPlayerNames.EndSentence(source)}";
         }
 
         private static string EventDelayDescription(RandomEventInfo info)
@@ -1275,8 +1275,11 @@ namespace OregonTrailDotNet.Web
             else
                 tombstone = info?.Tombstone;
             return tombstone == null ? "A memorial on the shoulder."
-                : $"Here lies {tombstone.PlayerName}.\n\n{tombstone.Epitaph}\n\nMile {tombstone.MileMarker:N0}.";
+                : MemorialText(tombstone.PlayerName, tombstone.Epitaph, tombstone.MileMarker);
         }
+
+        internal static string MemorialText(string playerName, string epitaph, int mileMarker) =>
+            $"Here lies {Window.MainMenu.Names.InputPlayerNames.EndSentence(playerName)}\n\n{epitaph}\n\nMile {mileMarker:N0}.";
 
         /// <summary>
         ///     Stable semantic health key for client logic and styling; display labels may be reworded freely.

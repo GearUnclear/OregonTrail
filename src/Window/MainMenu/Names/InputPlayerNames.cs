@@ -29,6 +29,18 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
         /// </summary>
         internal const int RawNameMaxLength = 128;
 
+        /// <summary>
+        ///     Refusal for a name that is too long, whether the raw request text passed <see cref="RawNameMaxLength" /> or
+        ///     the stored name passed <see cref="NameMaxLength" />; the player only ever sees the advertised limit.
+        /// </summary>
+        internal static readonly string TooLongMessage = $"Names must be {NameMaxLength} characters or fewer.";
+
+        /// <summary>
+        ///     Zero-width non-joiner. Persian and several Indic scripts need it between letters to choose the right letter
+        ///     forms ("می‌خواهم"); it is the only format character a name may contain.
+        /// </summary>
+        private const int ZeroWidthNonJoiner = 0x200C;
+
         private static readonly Regex Whitespace = new Regex(@"\s+", RegexOptions.CultureInvariant);
 
         /// <summary>
@@ -160,7 +172,7 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
             if (!IsLetterOrDigit(name.EnumerateRunes().First()))
                 return "Names must start with a letter or number.";
             if (name.Length > NameMaxLength)
-                return $"Names must be {NameMaxLength} characters or fewer.";
+                return TooLongMessage;
 
             var match = MatchingName(existingNames, name);
             return match == null ? null : $"{match.Trim()} is already in the party. Choose a different name.";
@@ -180,21 +192,43 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
         /// <summary>
         ///     True when every character is a letter (any script, including ones outside the Basic Multilingual Plane), a
         ///     digit, a combining mark directly after a letter or mark (Devanagari vowel signs, accents with no composed
-        ///     form), or the space, hyphen, apostrophe or period that names commonly use. Control and format characters such
-        ///     as zero-width joiners and bidirectional overrides are refused, as are unpaired surrogates.
+        ///     form), or the space, hyphen, apostrophe or period that names commonly use. A single zero-width non-joiner is
+        ///     allowed between a letter (or the marks on it, such as a virama) and the next letter. Every other control and
+        ///     format character, such as the zero-width joiner, soft hyphen, byte order mark and bidirectional overrides and
+        ///     isolates, is refused, as are unpaired surrogates.
         /// </summary>
         internal static bool HasOnlyNameCharacters(string name)
         {
             var previousCanCarryMark = false;
+            var afterNonJoiner = false;
             foreach (var rune in name.EnumerateRunes())
             {
                 if (rune == Rune.ReplacementChar) return false;
+                if (afterNonJoiner && !Rune.IsLetter(rune)) return false;
+                afterNonJoiner = false;
+                if (rune.Value == ZeroWidthNonJoiner)
+                {
+                    if (!previousCanCarryMark) return false;
+                    afterNonJoiner = true;
+                    previousCanCarryMark = false;
+                    continue;
+                }
                 var isMark = IsCombiningMark(rune);
                 if (isMark ? !previousCanCarryMark : !IsLetterOrDigit(rune) && rune.Value is not (' ' or '-' or '\'' or '.'))
                     return false;
                 previousCanCarryMark = isMark || Rune.IsLetter(rune);
             }
-            return true;
+            return !afterNonJoiner;
+        }
+
+        /// <summary>
+        ///     Ends a sentence that closes on a party name. A name may already end in a period ("D'Angelo Jr."), and adding
+        ///     another would print "Jr.."; names cannot end in any other sentence punctuation.
+        /// </summary>
+        internal static string EndSentence(string name)
+        {
+            name ??= string.Empty;
+            return name.EndsWith('.') ? name : name + ".";
         }
 
         private static bool IsLetterOrDigit(Rune rune) => Rune.IsLetter(rune) || Rune.IsDigit(rune);
@@ -205,7 +239,9 @@ namespace OregonTrailDotNet.Window.MainMenu.Names
         /// <summary>
         ///     Reduces a name to its letters, digits and combining marks (the console input buffer keeps only letters and
         ///     digits), so "Mary Ann", "maryann" and "Mary-Ann" count as the same traveler even though the browser stores each
-        ///     with its spacing and punctuation.
+        ///     with its spacing and punctuation. The zero-width non-joiner is dropped too: it only changes how neighboring
+        ///     letters are drawn, the console cannot type it, and a name with and without it reads as the same word, so
+        ///     "می‌خواهم" and "میخواهم" are one traveler.
         /// </summary>
         internal static string NameKey(string name)
         {

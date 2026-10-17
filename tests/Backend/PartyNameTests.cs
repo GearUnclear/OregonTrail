@@ -85,6 +85,8 @@ internal static class PartyNameTests
             throw new Exception("Padding that normalizes away must not count toward length");
         if (InputPlayerNames.RejectionFor(party, longest + "a") != $"Names must be {InputPlayerNames.NameMaxLength} characters or fewer.")
             throw new Exception("Accepted an overlong name");
+        if (InputPlayerNames.TooLongMessage != InputPlayerNames.RejectionFor(party, longest + "a"))
+            throw new Exception("The raw request limit must refuse with the stored-name message");
         // Duplicates still compare letters and digits only, and the message names the traveler as they were stored.
         var spaced = new[] { "Mary Ann", "Jo-Ann" };
         foreach (var (clash, existing) in new[]
@@ -94,6 +96,41 @@ internal static class PartyNameTests
                  })
             if (InputPlayerNames.RejectionFor(spaced, clash) != $"{existing} is already in the party. Choose a different name.")
                 throw new Exception($"Accepted duplicate '{clash}' of '{existing}'");
-        Console.WriteLine("PASS 1000 seeded automatic and partial parties, case/whitespace exclusion, catalog exhaustion, typed duplicates, empty-key names, spaced/punctuated names, hidden characters, leading punctuation");
+
+        // A zero-width non-joiner may sit between two letters (Persian, or after a virama in Devanagari), and nowhere else;
+        // every other format character stays refused.
+        const string persian = "می\u200cخواهم";
+        foreach (var joined in new[] { persian, "Ali می\u200cخواهم", "क्\u200cष", "Mi\u200cna" })
+            if (InputPlayerNames.RejectionFor(party, joined) != null) throw new Exception($"Refused non-joiner between letters '{joined}'");
+        if (InputPlayerNames.NormalizeName($" {persian} ") != persian) throw new Exception("Normalization must keep a non-joiner");
+        foreach (var misplaced in new[]
+                 {
+                     "\u200cمیخواهم", "میخواهم\u200c", "می\u200c\u200cخواهم", "می \u200cخواهم", "می\u200c خواهم",
+                     "Bo\u200c-b", "R2\u200cD", "R\u200c2", "Ann.\u200cMarie", "می\u200c\u064e", "Bo\u200d\u200cb",
+                 })
+            if (InputPlayerNames.RejectionFor(party, misplaced) != "Names can use letters, numbers, spaces, hyphens, apostrophes and periods.")
+                throw new Exception($"Accepted misplaced non-joiner '{misplaced}'");
+        foreach (var format in new[] { "Bo\u200db", "Bo\u200eb", "Bo\u202ab", "Bo\u2066b", "Bo\u2069b", "Bo\ufeffb", "Bo\u00adb", "Bo\u2060b", "Bo\u061cb" })
+            if (InputPlayerNames.RejectionFor(party, format) != "Names can use letters, numbers, spaces, hyphens, apostrophes and periods.")
+                throw new Exception($"Accepted format character U+{(int)format[2]:X4}");
+        // The non-joiner only shapes the letters around it, so a name with and without it is the same traveler.
+        if (InputPlayerNames.RejectionFor(new[] { persian }, "میخواهم") != $"{persian} is already in the party. Choose a different name.")
+            throw new Exception("A name differing only by a non-joiner must clash");
+        if (InputPlayerNames.RejectionFor(new[] { "میخواهم" }, persian) == null)
+            throw new Exception("A non-joiner must not make a name distinct");
+
+        // Copy that closes a sentence on a name adds its period only when the name does not already end with one.
+        foreach (var (name, sentence) in new[]
+                 {
+                     ("Bob", "Bob."), ("D'Angelo Jr.", "D'Angelo Jr."), ("J. R.", "J. R."), ("Ike'", "Ike'."), ("Bo-", "Bo-."),
+                     (persian, persian + "."), ("", "."), (null, "."),
+                 })
+            if (InputPlayerNames.EndSentence(name) != sentence)
+                throw new Exception($"Ended '{name}' as '{InputPlayerNames.EndSentence(name)}', expected '{sentence}'");
+        if (OregonTrailDotNet.Web.PresentationCatalog.MemorialText("D'Angelo Jr.", "Drive safe", 1204) != "Here lies D'Angelo Jr.\n\nDrive safe\n\nMile 1,204.")
+            throw new Exception("Tombstone doubled the period after a name ending in one");
+        if (OregonTrailDotNet.Web.PresentationCatalog.MemorialText("Bob", "", 7) != "Here lies Bob.\n\n\n\nMile 7.")
+            throw new Exception("Tombstone lost the period after a plain name");
+        Console.WriteLine("PASS 1000 seeded automatic and partial parties, case/whitespace exclusion, catalog exhaustion, typed duplicates, empty-key names, spaced/punctuated names, hidden characters, leading punctuation, non-joiners between letters, sentence-ending names");
     }
 }
