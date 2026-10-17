@@ -19,6 +19,32 @@ internal static class PartyNameTests
         var exhausted = new List<string>();
         for (var i = 0; i < 30; i++) exhausted.Add(InputPlayerNames.GetPlayerName(exhausted, new Random(0)));
         if (exhausted.Distinct().Count() != 30) throw new Exception("Exhausted catalog repeats names");
-        Console.WriteLine("PASS 1000 seeded automatic and partial parties, case/whitespace exclusion, catalog exhaustion");
+
+        // Typed names: a name already in the party is refused regardless of case, spacing or dropped punctuation
+        // (the console buffer keeps only letters and digits); blank input still autogenerates.
+        var party = new[] { "Viva", " Mary  Ann " };
+        foreach (var duplicate in new[] { "Viva", "viva", "  VIVA  ", "\tViva\n", "Vi va", "Viva!", "mary ann", "MaryAnn", "mary-ann" })
+            if (!InputPlayerNames.IsNameTaken(party, duplicate)) throw new Exception($"Accepted duplicate '{duplicate}'");
+        foreach (var distinct in new[] { "Vivian", "Viv", "Mary", "Ann", "Viva2" })
+            if (InputPlayerNames.IsNameTaken(party, distinct)) throw new Exception($"Refused distinct name '{distinct}'");
+        foreach (var blank in new[] { "", "   ", null })
+            if (InputPlayerNames.IsNameTaken(new[] { "", " " }, blank)) throw new Exception("Blank input must stay autogenerate");
+        if (InputPlayerNames.IsNameTaken(Array.Empty<string>(), "Viva")) throw new Exception("Empty party refused a name");
+        var travelers = new List<string> { "traveler1" };
+        for (var i = 0; i < 26; i++) travelers.Add(InputPlayerNames.GetPlayerName(travelers, new Random(0)));
+        if (InputPlayerNames.GetPlayerName(travelers, new Random(0)) != "Traveler 2")
+            throw new Exception("Fallback names must skip ones already typed without spaces");
+        // Rejection messages: duplicates name the existing traveler; text with no letters or digits would store an empty
+        // name, so it is refused; blank input is never refused because it autogenerates the rest of the party.
+        if (InputPlayerNames.RejectionFor(party, " viva ") != "Viva is already in the party. Choose a different name.")
+            throw new Exception("Duplicate rejection must name the existing traveler");
+        foreach (var empty in new[] { "!!!", " - ", "?.,", "_" })
+            if (InputPlayerNames.RejectionFor(party, empty) != "Names need at least one letter or number.")
+                throw new Exception($"Accepted name without letters or digits '{empty}'");
+        foreach (var blank in new[] { "", "   ", "\t", null })
+            if (InputPlayerNames.RejectionFor(party, blank) != null) throw new Exception("Blank input must stay autogenerate");
+        foreach (var usable in new[] { "Iris", "Mary-Jo!", "R2", "José" })
+            if (InputPlayerNames.RejectionFor(party, usable) != null) throw new Exception($"Refused usable name '{usable}'");
+        Console.WriteLine("PASS 1000 seeded automatic and partial parties, case/whitespace exclusion, catalog exhaustion, typed duplicates, empty-key names");
     }
 }
