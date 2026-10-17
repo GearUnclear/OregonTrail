@@ -44,7 +44,9 @@ namespace OregonTrailDotNet.Event.River
 
             // Lose 20-40 miles. Ported from the 1978 BASIC "TOTAL_MILES=TOTAL_MILES-20-20*RND(0)", where RND is a
             // 0-1 fraction; WolfCurses' Random.Next() is an integer in [0, 60), so the bounds are explicit.
-            // ReduceMileage ignores a parked vehicle, and a crossing parks it, so this only applies while moving.
+            // NOTE: this is a no-op today. The only trigger is CrossingTick, which parks the vehicle first, and
+            // ReduceMileage ignores a parked vehicle; a crossing costs supplies, drownings, and crossing days instead.
+            // The draw is kept so the random stream (and the pinned crossing seeds) does not shift.
             vehicle?.ReduceMileage(GameSimulationApp.Instance.Random.Next(20, 41));
         }
 
