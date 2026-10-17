@@ -5,6 +5,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <!-- The host runs behind Apache on Linux; skip the IIS web.config the Web SDK would publish. -->
+    <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +16,8 @@
 
   <ItemGroup>
     <Content Remove="wwwroot/app.bc.js" />
+    <!-- The idea catalog is read from the assembly; the Web SDK would also copy it as loose content. -->
+    <Content Remove="Module/Creator/video-ideas.json" />
     <EmbeddedResource Include="Module/Creator/video-ideas.json" />
   </ItemGroup>
 
