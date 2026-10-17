@@ -21,6 +21,8 @@ if (args.Contains("--party-names")) { PartyNameTests.Run(); return; }
 PartyNameTests.Run();
 if (args.Contains("--trade-payment")) { TradePaymentTests.Run(); return; }
 TradePaymentTests.Run();
+if (args.Contains("--trade-copy")) { TradeCopyTests.Run(); return; }
+TradeCopyTests.Run();
 if (args.Contains("--checkpoint-epilogue")) { CheckpointEpilogueTests.Run(); return; }
 CheckpointEpilogueTests.Run();
 if (args.Contains("--creator-rules")) { CreatorTests.RunRules(); return; }

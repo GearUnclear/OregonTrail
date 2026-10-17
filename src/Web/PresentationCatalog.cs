@@ -1250,17 +1250,10 @@ namespace OregonTrailDotNet.Web
         private static string TradeDescription(Window.Travel.Trade.Trading trading, GameSimulationApp game)
         {
             var offer = trading?.SemanticOffer;
-            if (offer == null) return "Nobody's working their downline here right now.";
-            var held = game.Vehicle?.Inventory != null &&
-                       game.Vehicle.Inventory.TryGetValue(offer.WantedItem.Category, out var stock) ? stock.Quantity : 0;
-            return $"A hun from the parking-lot MLM wants {offer.WantedItem.Quantity:N0} {offer.WantedItem.Name.ToLowerInvariant()}. " +
-                  $"She'll swap you {offer.OfferedItem.Quantity:N0} {offer.OfferedItem.Name.ToLowerInvariant()}, hon — ground floor, only goes up from here.\n\n" +
-                  (trading.SemanticCanTrade ? "Deal?"
-                      : held < offer.WantedItem.Quantity
-                          ? $"You only have {held:N0} {offer.WantedItem.Name.ToLowerInvariant()}, so you can't cover this trade."
-                          : !trading.SemanticRewardFits
-                              ? "You don't have room for all of it, so there's no deal. Nothing changed hands."
-                              : "You don't have the supplies for this trade.");
+            if (offer == null) return Window.Travel.Trade.TradeCopy.NoTraders;
+            return Window.Travel.Trade.TradeCopy.Pitch(offer.WantedItem, offer.OfferedItem) + "\n\n" +
+                  (trading.SemanticCanTrade ? Window.Travel.Trade.TradeCopy.AcceptPrompt
+                      : Window.Travel.Trade.TradeCopy.Refusal(game.Vehicle, offer.WantedItem, offer.OfferedItem));
         }
 
         private static string TollDescription(TravelInfo info, GameSimulationApp game)

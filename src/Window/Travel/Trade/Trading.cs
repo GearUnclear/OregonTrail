@@ -197,38 +197,24 @@ namespace OregonTrailDotNet.Window.Travel.Trade
             // Select one of the trades to use, or say there are none if none generated.
             if (_trades.Count > 0)
             {
-                // Generates the default prompt for trading that is shown if you have items to trade back or not.
-                var wrapText =
-                    $"A hun from the parking-lot MLM wants\n{_trades[_tradeIndex].WantedItem.Quantity:N0}\n{_trades[_tradeIndex].WantedItem.Name.ToLowerInvariant()}. " +
-                    $"She'll swap you {_trades[_tradeIndex].OfferedItem.Quantity:N0}\n{_trades[_tradeIndex].OfferedItem.Name.ToLowerInvariant()}, hon -- ground\nfloor, only goes up from here.";
+                // The pitch is shared with the browser (TradeCopy); the console only adds its own word-wrapping.
+                var offer = _trades[_tradeIndex];
+                var wrapText = TradeCopy.Pitch(offer.WantedItem, offer.OfferedItem);
 
                 // Depending if the player has enough of what the trader wants we change up last part of message.
-                // Same order as the browser copy: a payment shortfall is reported before a capacity problem.
+                // TradeCopy shares this wording with the browser: payment shortfall, then capacity, then generic.
+                var refusal = _playerCanTrade
+                    ? null
+                    : TradeCopy.Refusal(GameSimulationApp.Instance.Vehicle, offer.WantedItem, offer.OfferedItem);
                 _supplyPrompt.Append(_playerCanTrade
-                    ? $"{wrapText.WordWrap()}{Environment.NewLine}Deal? Y/N"
-                    : $"{wrapText.WordWrap()}{Environment.NewLine}{TradeRefusal(_trades[_tradeIndex]).WordWrap()}{Environment.NewLine}{Environment.NewLine}");
+                    ? $"{wrapText.WordWrap()}{Environment.NewLine}{TradeCopy.AcceptPrompt} Y/N"
+                    : $"{wrapText.WordWrap()}{Environment.NewLine}{refusal.WordWrap()}{Environment.NewLine}{Environment.NewLine}");
             }
             else
             {
                 // Prompt is not shown if we have no traders generated.
-                _supplyPrompt.AppendLine($"Nobody's working their downline here right now.{Environment.NewLine}");
+                _supplyPrompt.AppendLine($"{TradeCopy.NoTraders}{Environment.NewLine}");
             }
-        }
-
-        /// <summary>
-        ///     Explains why an offer can't be accepted, matching the browser trade copy in PresentationCatalog.
-        /// </summary>
-        private static string TradeRefusal(TradeOffer offer)
-        {
-            var inventory = GameSimulationApp.Instance.Vehicle.Inventory;
-            var held = inventory.TryGetValue(offer.WantedItem.Category, out var stock) ? stock.Quantity : 0;
-            var wanted = offer.WantedItem.Name.ToLowerInvariant();
-            if (held < offer.WantedItem.Quantity)
-                return $"You only have {held:N0} {wanted}, so you can't cover this trade.";
-
-            return GameSimulationApp.Instance.Vehicle.CanReceiveItem(offer.OfferedItem)
-                ? "You don't have the supplies for this trade."
-                : "You don't have room for all of it, so there's no deal. Nothing changed hands.";
         }
 
         /// <summary>
