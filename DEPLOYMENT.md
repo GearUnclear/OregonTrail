@@ -33,7 +33,7 @@ These create a lot of journeys and submit actions, so never point them at produc
 
 ### What ships
 
-Everything in `src/wwwroot/` is published to `publish/wwwroot/`: the page, the scripts and stylesheets, `favicon.svg`, and the `fonts/` folder with the font license texts. Adding a file there is enough to ship it. The publish directory also contains the app (`OregonTrailDotNet.dll`, its dependencies, and a native launcher), an unused IIS `web.config`, and a loose copy of `Module/Creator/video-ideas.json`. The game reads the video ideas from a resource embedded in the dll, not from that file (#64).
+Everything in `src/wwwroot/` is published to `publish/wwwroot/`: the page, the scripts and stylesheets, `favicon.svg`, and the `fonts/` folder with the font license texts. Adding a file there is enough to ship it. The publish directory also contains the app (`OregonTrailDotNet.dll`, its dependencies, and a native launcher) and an unused IIS `web.config`. The video ideas in `src/Module/Creator/video-ideas.json` are embedded in the dll and are not published as a separate file.
 
 Deploy the whole publish directory at once to `/opt/oregon-trail-web/current`, so the server and browser code always come from the same release. The host looks for `wwwroot/index.html` next to the dll first, so the release directory serves its own assets whatever the working directory is.
 

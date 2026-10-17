@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <Content Remove="wwwroot/app.bc.js" />
+    <!-- The idea catalog is read from the assembly; the Web SDK would also copy it as loose content. -->
+    <Content Remove="Module/Creator/video-ideas.json" />
     <EmbeddedResource Include="Module/Creator/video-ideas.json" />
   </ItemGroup>
 
