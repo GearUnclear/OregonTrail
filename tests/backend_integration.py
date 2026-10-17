@@ -89,6 +89,15 @@ class Stream:
         self.response.close()
 
 
+# Seats after the leader are typed with the spacing and punctuation a player would use; the snapshot stores them trimmed
+# with inner runs of spaces collapsed, but otherwise exactly as typed.
+SEAT_NAMES = [('  Mary   Ann  ', 'Mary Ann'), ('Jo-Ann', 'Jo-Ann'), ("D\u2019Angelo Jr.", "D'Angelo Jr.")]
+
+
+def expected_party(name, size):
+    return [name] + [stored for _, stored in SEAT_NAMES][:size - 1]
+
+
 def prepare_trip(client, vehicle='minivan', name='Driver', packing=1):
     client.refresh()
     packed = False
@@ -122,10 +131,14 @@ def prepare_trip(client, vehicle='minivan', name='Driver', packing=1):
             assert packed and visited_store, 'Departure follows packing and shopping'
             return
         elif screen['input'] and screen['id'].endswith('inputplayernames'):
-            # Text with no letters or digits is refused; once a name is typed, so is a case- and space-mangled copy.
-            refused = [('!!!', 'at least one letter or number')]
+            # Text with no letters or digits is refused, as are unsupported symbols and overlong names; once a name is
+            # typed, so is a copy that differs only by case, spacing or punctuation.
+            refused = [('!!!', 'at least one letter or number'), ('Bo <b>', 'letters, numbers, spaces'),
+                       ('x' * (screen['input']['maxLength'] + 1), 'characters or fewer')]
             if typed_names:
                 refused.append((f'  {typed_names[0][:2].upper()} {typed_names[0][2:]} ', 'already in the party'))
+            if len(typed_names) > 1:
+                refused.append(('MARYANN', 'Mary Ann is already in the party'))
             submit = next(action for action in screen['actions'] if action['enabled'])
             for text, reason in refused:
                 status, result, _ = client.request('/api/game/actions', {
@@ -135,8 +148,7 @@ def prepare_trip(client, vehicle='minivan', name='Driver', packing=1):
                 assert result['errorCode'] == 'invalid-value', result
                 assert reason in result['message'], result
                 assert result['state']['revision'] == state['revision'], 'A refused name must not change the state'
-            # The legacy input buffer keeps only letters and digits, so seat numbers are typed without spaces.
-            typed_names.append(name if not typed_names else f'{name}{len(typed_names) + 1}')
+            typed_names.append(name if not typed_names else SEAT_NAMES[len(typed_names) - 1][0])
             client.action(text=typed_names[-1])
         elif screen['input']:
             client.action(text=name if screen['input']['kind'] == 'text' else None, value=0)
@@ -245,7 +257,7 @@ def main():
     for driver, vehicle in zip(drivers, vehicles):
         assert driver.state['hud']['vehicleId'] == vehicle
         names = [person['name'] for person in driver.state['party']]
-        assert names == [vehicle] + [f'{vehicle}{seat}' for seat in range(2, len(names) + 1)], names
+        assert names == expected_party(vehicle, len(names)), names
         health_keys = {'good', 'fair', 'poor', 'very-poor', 'dead'}
         assert driver.state['hud']['healthKey'] in health_keys, 'HUD carries a semantic health key'
         assert driver.state['hud']['health'], 'HUD carries a party health label once the party exists'

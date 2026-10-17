@@ -83,9 +83,12 @@ internal sealed class GameEngine : IGameEngine
                         ? "Use a channel name of 1–32 letters, numbers, spaces or simple punctuation."
                         : "That studio action is no longer available.", Snapshot);
             }
-            else if (binding.Input != null && _game.CurrentForm is Window.MainMenu.Names.InputPlayerNames names &&
-                     names.RejectionFor(input) is { } nameRejection)
-                return Rejected("invalid-value", nameRejection, Snapshot);
+            else if (binding.Input != null && _game.CurrentForm is Window.MainMenu.Names.InputPlayerNames names)
+            {
+                // Bypass the console buffer, which keeps only letters and digits, so "Mary Ann" and "Jo-Ann" stay intact.
+                if (names.SubmitName(input) is { } nameRejection)
+                    return Rejected("invalid-value", nameRejection, Snapshot);
+            }
             else await ExecuteAsync(_game, binding, input, cancellationToken);
             // Create/restart may set the execution-local instance in the async helper's context.
             Activate();
