@@ -70,10 +70,10 @@ public sealed class CreatorChannel
     // Keep six entries and the same random draw so this copy change does not alter career outcomes.
     private static readonly string[] Incidents =
     {
-        "The automated review alleged background profanity, but supplied no timestamp. Your edit may not contain what it claims.",
-        "The automated review alleged background nudity, but supplied no timestamp. The appeal form offers no way to ask where.",
-        "A copyright bot claimed an unidentified audio fragment. Its report does not say whether the clip actually contains music.",
-        "The advertiser bot alleged an offensive gesture. It declined to identify a frame, person, or gesture.",
+        "The automated review alleged background profanity. It supplied no timestamp, and nobody remembers swearing.",
+        "The automated review alleged background nudity. The appeal form offers no way to ask where.",
+        "A copyright bot claimed an unidentified audio fragment. Its report does not say whether the clip contains music.",
+        "The advertiser bot alleged an offensive gesture. It declined to identify a frame, a person, or a gesture.",
         "The review system alleged adult-service advertising. It provided neither a frame nor the supposed text.",
         "The review bot marked the clip unsuitable for advertisers. Its explanation is an explanation-shaped blank space."
     };
@@ -221,7 +221,7 @@ public sealed class CreatorChannel
         if (Career.Videos.Count > 60) Career.Videos.RemoveAt(60);
         Career.Draft = null;
         Notice($"Published “{video.Title}”: {views:N0} views; {gained:N0} new subscribers, {lost:N0} left." +
-            (demonetized ? " Limited ads: review the incident in your video library." : ""));
+            (demonetized ? " Limited ads: read the review flag in your video library." : ""));
         return true;
     }
 
@@ -243,7 +243,7 @@ public sealed class CreatorChannel
         Career.Revenue += revenue;
         Career.Videos[index] = video with { Views = views, SubscriberViews = regular, DiscoveryViews = discovery,
             PublishedDay = day, Reedited = true, Demonetized = false, Revenue = revenue,
-            Feedback = "The offending moment is gone. Half the original views returned. Subscribers were not counted twice." };
+            Feedback = "You trimmed whatever the bot might have meant, and it accepted the reupload. Half the original views returned. Subscribers were not counted twice." };
         Notice($"One day re-editing “{video.Title}”. Reupload: {views:N0} views, exactly half the original audience, rounded down.");
         return true;
     }

@@ -150,9 +150,9 @@
     if (video.reedited) append(card, el("p", "creator-reupload-note", `Original: ${integer(video.originalViews)} views. Replacement: ${integer(video.views)} views. Both count toward lifetime views. Subscriber changes shown above belong to the original upload; they are not awarded again.`));
     if (video.incident) {
       const incident = el("div", "creator-incident");
-      append(incident, el("strong", "", video.reedited ? "EDIT RESOLVED" : "AD REVIEW / FLAGGED"), el("p", "", video.incident));
+      append(incident, el("strong", "", video.reedited ? "FLAG CLEARED" : "AD REVIEW / FLAGGED"), el("p", "", video.incident));
       if (video.demonetized && !video.reedited) append(incident,
-        el("p", "card-note", `Spend one trail day removing the incident. The replacement will get exactly ${integer(Math.floor(video.originalViews / 2))} views: half the original, rounded down. One re-edit only.`),
+        el("p", "card-note", `Spend one trail day re-editing around the flag. The replacement will get exactly ${integer(Math.floor(video.originalViews / 2))} views: half the original, rounded down. One re-edit only.`),
         command(`creator.reedit.${video.id}`, ui, { className: "game-button--wide", noShortcut: !latest }));
       card.append(incident);
     }
