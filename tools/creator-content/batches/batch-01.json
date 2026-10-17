@@ -56,7 +56,7 @@
   {
     "id": "video-007",
     "title": "A Passenger's Reach Map of the Cabin",
-    "premise": "From an ordinary seated position in a parked SUV, the camera maps which everyday surfaces and controls are easy to reach without leaning. It is a modest visual tour of how the cabin was arranged for the passenger's arm.",
+    "premise": "Sitting normally in the parked SUV, a passenger maps every control they can reach without leaning. The cabin was clearly designed around somebody's arm, just not theirs.",
     "conceptKey": "parked-cabin-passenger-reach-map",
     "potential": 52,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-008",
     "title": "Getting In: Two Ways to Settle Into a Passenger Seat",
-    "premise": "At rest stops, we compare how the same traveler gets into a parked passenger seat with it set forward and set back. The small change makes the doorway feel either roomy or oddly cramped.",
+    "premise": "Same traveler, same door, passenger seat slid forward and then back. Four inches of rail decide whether getting in is a step or a negotiation.",
     "conceptKey": "passenger-seat-entry-clearance-comparison",
     "potential": 47,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-009",
     "title": "The Front Seat's Legroom Trade-Off, Seen From Behind",
-    "premise": "With the car parked, a passenger slides the front seat through its normal range while the rear seat records the knee room gained and lost. The result turns a familiar comfort compromise into a clear before-and-after.",
+    "premise": "With the car parked, the front seat slides through its range while a camera in back watches the rear passenger's knees. Every inch of comfort up front is billed to someone behind.",
     "conceptKey": "front-seat-position-rear-knee-room-tradeoff",
     "potential": 64,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-010",
     "title": "The Folding Tray That Becomes an Afternoon Desk",
-    "premise": "A passenger's simple travel sketch keeps slipping off their lap until a seatback tray gives it a steady place to grow. Filmed during a parked rest stop, the small surface becomes the only desk in the car for the afternoon.",
+    "premise": "A passenger's sketch keeps sliding off their knees until they fold down the seatback tray. By the end of the rest stop the drawing has spread across the whole tray, and the car has its only desk.",
     "conceptKey": "seatback-tray-temporary-desk-visual-arc",
     "potential": 88,
     "locations": [],

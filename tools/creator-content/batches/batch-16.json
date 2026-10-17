@@ -56,7 +56,7 @@
   {
     "id": "video-157",
     "title": "We Put the Best Frame Before the Beginning",
-    "premise": "A raw travel cut starts with several seconds of a windshield pointed at a parking line, so the editor moves a clear image of the day's detour notice to the opening before returning to the original order. The same footage becomes easier to follow once the video shows what question the next shots answer.",
+    "premise": "A raw cut opens on several seconds of windshield pointed at a parking line. The editor moves the shot of the day's detour notice to the front, and suddenly the rest of the footage has a reason to exist.",
     "conceptKey": "opening-image-reordered-to-frame-travel-sequence",
     "potential": 62,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-158",
     "title": "The Cut Sounds Continuous Only with Room Tone",
-    "premise": "Two ordinary clips from different parked pauses have a hard jump in cabin ambience. The editor lays a short strip of steady background sound beneath the picture cut, making the change feel intentional without adding music or new footage.",
+    "premise": "Two clips from different parked stops cut together with a hard jump in cabin noise. The editor lays a strip of room tone under the cut, and the seam disappears.",
     "conceptKey": "continuous-ambience-audio-bridge-under-jump-cut",
     "potential": 57,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-159",
     "title": "Where a Sentence Breaks on Screen",
-    "premise": "An accurate transcript still reads awkwardly when a sentence is split across the screen at the wrong phrase. The editor moves only the caption breaks and compares both cuts, showing how line timing can improve readability without rewriting what the traveler said.",
+    "premise": "The transcript is accurate, but the captions keep splitting sentences in the worst possible place. The editor moves only the line breaks, and the same words start making sense.",
     "conceptKey": "caption-line-breaks-follow-speech-phrases",
     "potential": 56,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-160",
     "title": "The First Take Sounds More Like a Person",
-    "premise": "The traveler records several polished versions of a simple update, each one sounding less natural than the last. In the final cut they keep the first awkward take, turning a failed narration session into an unexpectedly warm lesson about how overediting can erase the person viewers came to hear.",
+    "premise": "The traveler records a simple update eight times, each take more polished and less like a human being. The final cut uses the first one, stammer included.",
     "conceptKey": "unedited-awkward-take-beats-polished-retakes",
     "potential": 91,
     "locations": [],

@@ -51,10 +51,10 @@ public sealed class CryptoExchange
     });
     public static readonly IReadOnlyList<CryptoCampaign> Campaigns = Array.AsReadOnly(new[]
     {
-        new CryptoCampaign("memes", "Meme barrage", "Cheap reach. Attention fades fast; repetition wears people out.", 4, 4, 6, 15, -2, 4, 32),
-        new CryptoCampaign("bots", "Rent a bot army", "Big numbers, hollow conviction. Bots leave after 14 seconds.", 12, 6, 14, 32, -9, 17, 110),
-        new CryptoCampaign("influencer", "Influencer shoutout", "Expensive reach. A sponsor might bring buyers—or dump on them.", 24, 9, 20, 39, -3, 12, 160),
-        new CryptoCampaign("ama", "Parking-lot livestream", "Build trust and attract patient liquidity. Takes your full attention.", 6, 8, 12, 12, 15, -7, 42),
+        new CryptoCampaign("memes", "Meme barrage", "Cheap reach. It fades fast, and the second round is less funny.", 4, 4, 6, 15, -2, 4, 32),
+        new CryptoCampaign("bots", "Rent a bot army", "Huge numbers, almost no buyers. The bots clock out after 14 seconds.", 12, 6, 14, 32, -9, 17, 110),
+        new CryptoCampaign("influencer", "Influencer shoutout", "Expensive reach. They might bring buyers. They might sell to them.", 24, 9, 20, 39, -3, 12, 160),
+        new CryptoCampaign("ama", "Parking-lot livestream", "Live Q&A from the car. Builds trust and patient money, but it eats the clock.", 6, 8, 12, 12, 15, -7, 42),
         new CryptoCampaign("paper", "Publish a whitepaper", "A slow credibility play. The market keeps moving while you write.", 8, 12, 16, 8, 24, -12, 28),
         new CryptoCampaign("burn", "Token-burn spectacle", "A quick price jolt. The crowd starts watching the founder wallet.", 10, 5, 15, 23, -4, 10, 56)
     });
@@ -150,7 +150,7 @@ public sealed class CryptoExchange
         _candles.Add(new CryptoCandle(0, Price, Price, Price, Price, 0));
         _bestExit = ExitQuote;
         AddNews("neutral", $"{Name} launches at $0.0100. Founder allocation: {Stake / LaunchPrice:N0} tokens.");
-        AddNews("warning", $"${LaunchFee} launch fee paid. The chart is a promise; exit liquidity is cash.");
+        AddNews("warning", $"${LaunchFee} launch fee paid. The chart is a drawing. The pool is the money.");
         Burst("launch", "WE ARE SO EARLY");
         return true;
     }
@@ -188,7 +188,7 @@ public sealed class CryptoExchange
         if (ActiveCampaign != null) AddNews("warning", "Campaign abandoned. The money was already spent.");
         ActiveCampaign = null;
         CampaignRemaining = 0;
-        AddNews("warning", $"Withdrawal broadcast. Estimated ${_requestedExit}; {ExitSeconds} market ticks to settle.");
+        AddNews("warning", $"Sell order is public. Estimated ${_requestedExit}, settling in {ExitSeconds} seconds.");
         Burst("exit", "EVERYONE CAN SEE YOUR WALLET");
         return true;
     }

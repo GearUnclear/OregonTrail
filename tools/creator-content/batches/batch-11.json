@@ -56,7 +56,7 @@
   {
     "id": "video-107",
     "title": "The Manual's Maintenance Chart Has Two Columns",
-    "premise": "A parked-car tour finds the owner's manual maintenance chart and points out its time and mileage columns without interpreting any service interval. Seeing both kinds of reminder side by side makes the schedule easier to read.",
+    "premise": "A traveler finds the maintenance chart in the parked SUV's owner's manual and points out its two columns, months and miles. The SUV is behind on both, for different reasons.",
     "conceptKey": "manual-maintenance-chart-time-and-mileage-columns",
     "potential": 47,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-108",
     "title": "Turning Spare-Part Codes Into Names We Can Say",
-    "premise": "A traveler reads the printed identifiers on the carried spare parts, then adds plain-language names beside the codes in a vehicle log. The simple glossary makes the alternator, transmission part, and spare tire easier to talk about without showing how to install or repair anything.",
+    "premise": "A traveler reads the part numbers printed on the spare alternator, transmission part, and tire, then writes a plain name next to each in the vehicle log. Nobody learns how to install anything, but now they can yell the right word.",
     "conceptKey": "plain-language-glossary-for-spare-part-identifiers",
     "potential": 58,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-109",
     "title": "Two Different Sources for the Same Maintenance Reminder",
-    "premise": "A traveler compares the note on the windshield service sticker with the message on the dashboard, showing where each one came from and how each is worded. The video treats them as separate records and leaves any disagreement unresolved.",
+    "premise": "The windshield service sticker says one thing about the next oil change, and the dashboard says another. The traveler films both, explains where each came from, and declines to pick a side.",
     "conceptKey": "windshield-sticker-and-dashboard-reminder-sources",
     "potential": 63,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-110",
     "title": "A Car With a Service Schedule Gets an Unscheduled Life",
-    "premise": "The windshield sticker assigns the SUV a tidy next-service mileage while closures and detours keep scrambling the family's days. At ordinary stops, one traveler copies the current odometer beside that original note, and the growing line of numbers becomes a modest record of trying to keep one future appointment in view.",
+    "premise": "The windshield sticker says the SUV is due for service at a mileage it will pass somewhere in a flood zone. At each stop a traveler writes the current odometer under it, and the column of numbers becomes a diary of an oil change that keeps not happening.",
     "conceptKey": "service-mileage-note-tracks-unplanned-trip",
     "potential": 92,
     "locations": [],

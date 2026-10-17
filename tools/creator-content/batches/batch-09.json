@@ -11,7 +11,7 @@
   {
     "id": "video-082",
     "title": "The Raindrop That Took the Long Way Down",
-    "premise": "A parked-car close-up follows one rain bead as it takes a wandering path down the windshield and disappears at the edge. The only destination it reaches is the lower edge.",
+    "premise": "A parked-car close-up follows one raindrop as it wanders down the windshield, stalls, changes its mind twice, and exits at the bottom.",
     "conceptKey": "single-rain-bead-wandering-windshield-path",
     "potential": 28,
     "locations": [],
@@ -56,7 +56,7 @@
   {
     "id": "video-087",
     "title": "After Rain, the Windshield Holds Two Skies",
-    "premise": "From a parked car, the rain-speckled windshield briefly reflects low clouds while the same clouds remain visible beyond it. As the shower thins, the reflected sky fades before the real one, showing how wet glass can double a view of the weather.",
+    "premise": "After rain, the wet windshield reflects the low clouds while the same clouds hang beyond the glass. As it dries, the reflected sky fades first, and for a minute there are two weathers.",
     "conceptKey": "low-cloud-reflection-on-rain-speckled-windshield",
     "potential": 58,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-088",
     "title": "The Hills Return When the Clouds Lift",
-    "premise": "From a safely parked car, distant hills disappear behind low clouds and come back as the cloud base rises. The landscape has not moved closer; the weather simply changed how much of it was visible.",
+    "premise": "From a parked car, the distant hills vanish into low cloud and come back as it lifts. Nothing moves except the weather, which is the most the scenery has done all day.",
     "conceptKey": "cloud-base-lift-reveals-distant-hills",
     "potential": 55,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-089",
     "title": "The Gray Sky Opens Just Before Dusk",
-    "premise": "From a parked vehicle, a flat overcast afternoon changes by tiny degrees as a narrow gap lets a warm band of evening light across the windshield. The pause gives the day a quiet ending without pretending a cloud break fixes the trip.",
+    "premise": "A flat gray afternoon cracks open just before dusk, and a warm band of light crosses the windshield for about four minutes. Nothing about the trip is fixed. The light is nice anyway.",
     "conceptKey": "overcast-afternoon-breaks-into-evening-light",
     "potential": 47,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-090",
     "title": "The Window Clears Before the Forecast Does",
-    "premise": "On a humid morning, condensation clouds the windshield while the SUV is safely parked; as daylight changes, a clear patch spreads until the ordinary rest-stop view returns. Whoever is still making the trip shares what the blurred shapes seemed to be, and the window clears before anyone can say what the next stop will bring.",
+    "premise": "On a humid morning the windshield of the parked SUV is fogged solid, and whoever is in the car guesses what the blurry shapes outside might be. The glass clears from the bottom up, one guess at a time, until it's just the rest stop again.",
     "conceptKey": "parked-morning-condensation-clears-into-shared-view",
     "potential": 93,
     "locations": [],

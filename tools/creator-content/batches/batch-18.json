@@ -47,7 +47,7 @@
   {
     "id": "video-176",
     "title": "Can a Reflector Reflect When the Lamp Is Off?",
-    "premise": "An inconsequential investigation tests a reflector against a dark surface in a parked cabin, then searches the shot for proof that it is reflective. The light source never enters the experiment, which ends with the question technically unanswered.",
+    "premise": "A traveler tests a reflector in the dark cabin with the lamp switched off, then searches the footage for proof that it reflects. The question remains technically open.",
     "conceptKey": "reflector-reflectivity-investigation-without-light-source",
     "potential": 32,
     "locations": [],
@@ -56,7 +56,7 @@
   {
     "id": "video-177",
     "title": "A Diffusion Sheet Makes the Shadow Easier to Read",
-    "premise": "At a parked break, a traveler lights a plain travel mug with a bare LED panel, then repeats the close-up with a diffusion sheet between lamp and subject. The softened shadow gives a clear, useful look at what one small modifier changes in an otherwise ordinary product shot.",
+    "premise": "At a parked break, a travel mug gets lit with a bare LED panel, then again with a diffusion sheet in front. The shadow goes from crime scene to catalog.",
     "conceptKey": "diffusion-sheet-softens-shadow-on-travel-mug",
     "potential": 54,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-178",
     "title": "White and Silver Reflectors Give the Same Object Different Edges",
-    "premise": "A small object stays in place while a white reflector and then a silver reflector bounce light onto its shaded side. Comparing the softer and brighter fill makes a practical difference between two simple surfaces easy to see.",
+    "premise": "The same small object, lit from one side, gets fill from a white reflector and then a silver one. White is gentle. Silver makes it look like it has something to sell.",
     "conceptKey": "white-versus-silver-reflector-fill-comparison",
     "potential": 61,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-179",
     "title": "One Cheap Lamp and One Costly Panel Share a Color Card",
-    "premise": "A neutral color card is filmed under an inexpensive lamp and a costly adjustable panel, with the same framing and exposure for each. The restrained comparison shows what matching a light source can change in a close-up, without turning the price tag into a promise about the finished channel.",
+    "premise": "A gray color card gets filmed under a cheap lamp and an expensive panel with identical settings. The expensive light wins, by a margin nobody watching on a phone will ever notice.",
     "conceptKey": "budget-lamp-versus-premium-panel-color-card",
     "potential": 47,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-180",
     "title": "A Studio Made to Read One Lighting Receipt",
-    "premise": "A traveler builds an elaborate three-light setup to review the receipt for the lighting kit, covering private details before filming the total. As diffusion and reflected fill make the cramped print legible, the grand equipment showcase becomes a wry, useful lesson in how much work a clear image actually needs.",
+    "premise": "A traveler builds a three-light studio to film one thing: the receipt for the lights, with private details covered. By the time the faded print is readable, the setup has taught more about lighting than the manual and more about the purchase than anyone wanted.",
     "conceptKey": "three-light-receipt-review-turns-gear-showcase-into-lighting-lesson",
     "potential": 88,
     "locations": [],

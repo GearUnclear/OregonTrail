@@ -141,9 +141,9 @@
     append(body, stakes, append(el("div", "crypto-budget"),
       ui.labeledValue("Seed capital", money(data.stake)), ui.labeledValue("Launch fee", money(data.launchFee)),
       ui.labeledValue("Road cash after launch", money(balance - data.stake - data.launchFee))));
-    append(body, el("p", "crypto-warning", "Most launches lose money. Hype costs extra. Every launched coin costs one trail day when you return; browsing is free."),
+    append(body, el("p", "crypto-warning", "Most launches lose money. Hype costs extra. Each launch costs a trail day when you get back to the car. Looking is free."),
       actionButton(findAction("crypto.launch"), { className: "game-button--solid game-button--wide crypto-launch" }),
-      el("p", "card-note", "Your coin starts at $0.0100. You own the seed allocation; the pool determines what you can actually withdraw. Choose a campaign, watch it land, then time your exit."));
+      el("p", "card-note", "Your coin starts at $0.0100. You own the founder bag, but the pool decides what you can actually cash out. Run some hype, watch it land, and get out before everyone else does."));
     if (!findAction("crypto.launch").enabled) body.append(el("p", "crypto-negative", `You need ${money(data.stake + data.launchFee)} to launch. Choose a smaller stake or earn more cash.`));
     body.append(actionButton(findAction("crypto.leave")));
     return body;
@@ -161,7 +161,7 @@
     append(result, el("span", "eyebrow", "FINAL SETTLEMENT"), title,
       el("strong", "crypto-result__net", signed(record.net, money)),
       el("p", "card-note", ({ pulled: "Your withdrawal cleared after three market ticks.",
-        collapsed: "Liquidity vanished before you could get out.", expired: "The 120-second listing expired. The remaining position sold at a steep discount." })[record.reason]));
+        collapsed: "Liquidity vanished before you could get out.", expired: "Time ran out at 120 seconds. Your bag was dumped at a steep discount." })[record.reason]));
     const ledger = el("dl", "crypto-ledger");
     for (const [label, value] of [["Seed capital", -record.stake], ["Launch fee", -record.launchFee],
       ["Hype spending", -record.marketing], ["Cash returned (after exit costs)", record.returned]])
@@ -170,7 +170,7 @@
       labeledValue("Best quoted exit", money(record.bestExit)),
       labeledValue("Quote when you clicked", record.reason === "pulled" ? money(record.requestedExit) : "No completed pull"),
       labeledValue("Time in the market", `${record.duration}s`)),
-      el("p", "card-note", "Best quote is hindsight, not a guaranteed fill. Fees, campaigns and the settlement delay all count against your net."),
+      el("p", "card-note", "The best quote is hindsight, and nobody gets filled at hindsight. Fees, campaigns and the settlement delay all came out of your net."),
       actionButton(findAction("crypto.leave"), { className: "game-button--solid game-button--wide" }));
     return result;
   }
@@ -199,8 +199,8 @@
       if (data.phase === "live") exit.append(actionButton(findAction("crypto.pull-out"), { className: "crypto-rug-button" }));
       else exit.append(el("strong", "crypto-settling", `WITHDRAWAL PENDING · ${m.exitRemaining}s`));
       append(exit, el("p", "", data.phase === "live"
-        ? "3-second settlement. The market keeps moving. This quote includes price impact and the $3 exit fee."
-        : "Your sell is public. Other holders can get out first. The final payout can still fall."));
+        ? "Settlement takes 3 seconds, and the market won't wait. This quote already includes price impact and the $3 exit fee."
+        : "Your sell order is public. Other holders are racing you to the door, and the payout can still drop."));
       page.append(exit);
     }
     append(page, append(el("div", "crypto-stats"), labeledValue("On-paper bag", money(m.paperValue)),
@@ -216,7 +216,7 @@
         const fill = el("span", "crypto-work__fill");
         fill.style.width = `${100 * (1 - data.work.remaining / data.work.duration)}%`;
         work.append(append(el("div", "crypto-work__track"), fill));
-      } else work.append(el("span", "", data.phase === "exiting" ? "Campaign desk closed. Waiting for settlement." : "Attention is decaying. Pick a move—or take the exit."));
+      } else work.append(el("span", "", data.phase === "exiting" ? "Campaign desk closed. Waiting for settlement." : "Attention is draining. Buy more, or take the exit."));
       campaign.append(work);
       const grid = el("div", "crypto-campaign-grid");
       for (const [index, c] of data.campaigns.entries()) {
@@ -256,7 +256,7 @@
       append(el("div", "crypto-career__stats"), labeledValue("Coins launched", data.career.launches),
         labeledValue("Profitable exits", data.career.wins), labeledValue("Lifetime net", signed(data.career.net, money)),
         labeledValue("Notoriety", `${data.career.notoriety} / 40`)),
-      el("p", "card-note", "The internet remembers. Each finished launch raises suspicion at your next launch."));
+      el("p", "card-note", "Wallet watchers keep notes. Every finished launch makes the next one look more suspicious."));
     if (data.career.history.length) {
       const history = el("ul", "crypto-history");
       for (const [index, record] of data.career.history.entries()) {
@@ -270,8 +270,8 @@
     const guide = el("div", "crypto-primer");
     append(guide, el("h3", "", "Read the room"));
     for (const [heading, copy] of [
-      ["Price ≠ payout", "Your entire bag cannot sell at the last traded price. Watch the cash-back estimate."],
-      ["Timing has a cost", "Hype takes seconds to land. Repeat campaigns lose novelty. Every dollar comes out of road cash."],
+      ["Price ≠ payout", "You can't sell the whole bag at the last price. The cash-back estimate is the real number."],
+      ["Timing has a cost", "Hype takes seconds to land, and reruns land softer. Every dollar comes out of road cash."],
       ["The exit is public", "Pulling out takes three seconds. Whales, bots and panicking holders may sell first."],
       ["There is a closing bell", "At 120 seconds the listing expires and your bag is sold at a steep discount."],
     ]) append(guide, el("strong", "", heading), el("p", "card-note", copy));

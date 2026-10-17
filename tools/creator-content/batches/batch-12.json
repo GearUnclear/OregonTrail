@@ -56,7 +56,7 @@
   {
     "id": "video-117",
     "title": "Rest-Stop Ambience, with No One Quite in It",
-    "premise": "From inside a safely parked SUV, the camera records only the nonverbal layers around an ordinary rest stop: a distant rolling case, doors closing far off, and air moving through the lot. The sound gives the place a quiet texture without making any traveler its subject.",
+    "premise": "From inside the parked SUV, the microphone picks up only what's around it: a suitcase rolling somewhere, doors shutting far off, wind moving across the lot. Nobody talks, and for twelve minutes nobody needs anything.",
     "conceptKey": "rest-stop-nonverbal-ambient-soundscape",
     "potential": 49,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-118",
     "title": "Closed Window, Smaller World",
-    "premise": "From the same parked spot, a traveler records an indistinct traffic wash with the window slightly open and then closed. The sound retreats behind the glass, making a small and useful demonstration of how the cabin changes an ordinary roadside pause.",
+    "premise": "From the same parking spot, we record the traffic with the window cracked, then closed. The world shrinks to the size of the car, which is about the size it's been since the trip started.",
     "conceptKey": "parked-window-position-ambient-sound-comparison",
     "potential": 57,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-119",
     "title": "The Butter Cow's Display Hum",
-    "premise": "At the Iowa State Fair, a traveler records the low refrigeration hum beside the chilled 600-pound Butter Cow. The sculpture is silent, leaving its ordinary cooling equipment to carry the audio portrait.",
+    "premise": "At the Iowa State Fair, a traveler records the low refrigeration hum beside the chilled 600-pound Butter Cow. The cow is silent, so the cooling equipment does all the talking.",
     "conceptKey": "iowa-butter-cow-display-refrigeration-hum",
     "potential": 63,
     "locations": ["iowa-fair"],
@@ -83,7 +83,7 @@
   {
     "id": "video-120",
     "title": "The Screen Door Is the Last Sound from Home",
-    "premise": "A saved clip from the Cape Coral lanai catches the screen door closing against an otherwise ordinary evening. Set beside a current recording of the parked SUV's door and cabin quiet, that unremarkable home sound becomes a brief portrait of what the traveler had to leave.",
+    "premise": "A saved clip from the Cape Coral lanai catches the screen door slapping shut on a normal evening. Cut against the sound of the SUV door closing at a rest stop, it's the saddest thirty seconds on the channel.",
     "conceptKey": "cape-coral-screen-door-sound-memory",
     "potential": 92,
     "locations": ["cape-coral"],

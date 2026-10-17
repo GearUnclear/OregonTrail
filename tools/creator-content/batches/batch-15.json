@@ -56,7 +56,7 @@
   {
     "id": "video-147",
     "title": "The Signal Bars Are Not a Delivery Receipt",
-    "premise": "Over two ordinary parked waits, a traveler compares the phone's reception icon with whether a short clip has actually arrived. The gap shows that visible signal and confirmed delivery answer different questions.",
+    "premise": "The phone shows full bars, and the clip still hasn't sent. Over two parked waits, a traveler films the signal icon beside the upload status, and the icon keeps lying.",
     "conceptKey": "phone-reception-bars-versus-confirmed-upload-delivery",
     "potential": 52,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-148",
     "title": "Joining the Guest Network Is Only Step One",
-    "premise": "At a generic public connection, the phone joins Wi-Fi but the browser still redirects to a separate sign-in page before ordinary browsing works. Following that small sequence shows why a connected device can still be waiting for access.",
+    "premise": "The phone joins the guest Wi-Fi and announces it's connected. Then the browser bounces to a sign-in page that wants an email address and agreement to terms longer than the video.",
     "conceptKey": "guest-wifi-association-before-captive-portal-access",
     "potential": 61,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-149",
     "title": "A Loaded Page and a Live Page Part Company",
-    "premise": "While parked, an article that was already loaded remains readable after the connection drops, while a new page cannot be fetched. The contrast shows the difference between content already on the device and a live connection.",
+    "premise": "The connection drops while the SUV is parked. The article already open on the phone stays readable, every new link spins forever, and the traveler reads that one article very slowly to make it last.",
     "conceptKey": "already-loaded-webpage-versus-new-live-page-offline",
     "potential": 48,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-150",
     "title": "The Check-In Arrives After the Road Has Changed",
-    "premise": "A traveler sends a brief clip as a same-day check-in, but the upload stays queued through several ordinary stops. When it finally reaches an off-road contact, the reply refers to details from an earlier part of the trip, turning ordinary network delay into a quiet record of distance.",
+    "premise": "A traveler records a quick 'we're okay' clip for someone back home, and it sits in the upload queue for three stops. By the time it sends and the reply comes back, the reply is answering a version of the trip that's already over.",
     "conceptKey": "delayed-check-in-video-delivery-receives-outdated-reply",
     "potential": 91,
     "locations": [],

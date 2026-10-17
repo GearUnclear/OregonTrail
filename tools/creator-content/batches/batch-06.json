@@ -56,7 +56,7 @@
   {
     "id": "video-057",
     "title": "Two Shirts Dry at Different Speeds",
-    "premise": "A washed cotton shirt and a lightweight synthetic layer hang with equal space on a portable rack during the same parked break. Checking them together shows how these two fabrics dry at different rates under the same conditions.",
+    "premise": "A cotton shirt and a synthetic layer hang side by side on a portable rack during the same stop. The synthetic is dry before lunch. The cotton is still damp when it's time to go.",
     "conceptKey": "paired-fabric-drying-rate-comparison",
     "potential": 61,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-058",
     "title": "A Small Shirt Wash, From Basin to Rack",
-    "premise": "A traveler hand-washes one lightly worn shirt in a clean basin, gives it a separate rinse, and lays it neatly on a portable rack to dry. The simple sequence offers a practical way to refresh one item without turning the whole stop into laundry day.",
+    "premise": "A traveler hand-washes a single shirt in a clean basin, rinses it, and hangs it on a portable rack. Laundry day, cut down to fit a rest stop.",
     "conceptKey": "single-shirt-hand-wash-and-drying-sequence",
     "potential": 53,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-059",
     "title": "Fold Some Clothes, Hang the Rest",
-    "premise": "After a small wash, the family sorts the dry clothes into items that stack neatly and items that keep their shape better on hangers. The modest split makes the clean clothes easier to find without adding another storage system.",
+    "premise": "After a small wash, the clean clothes get split into what stacks flat and what only behaves on a hanger. It's the closest the trunk has come to having a closet.",
     "conceptKey": "sorting-clean-clothes-by-fold-or-hanger",
     "potential": 44,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-060",
     "title": "The Missing Sock Finally Catches Up at Wash Day",
-    "premise": "One clean sock sits folded in the unmatched pile through several ordinary wash days, until its partner appears in a later load. Their reunion gets a brief celebratory close-up before the family folds them together for the next day's trip.",
+    "premise": "One clean sock rides folded in the unmatched pile through several wash days. When its partner finally turns up in a later load, the reunion gets a slow close-up before they're folded together for tomorrow.",
     "conceptKey": "laundry-sock-pair-reunion-across-loads",
     "potential": 89,
     "locations": [],

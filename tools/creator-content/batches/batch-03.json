@@ -56,7 +56,7 @@
   {
     "id": "video-027",
     "title": "One Bag, Three Portion Guesses",
-    "premise": "Before opening a familiar package at a parked stop, the travelers estimate how many servings it contains from its size. The printed portion count settles their friendly disagreement and shows how package size and serving count can describe different things.",
+    "premise": "Before opening a familiar bag, everyone guesses how many servings are inside from its size alone. The printed number is lower than every guess, and the bag turns out to be mostly air.",
     "conceptKey": "package-size-versus-serving-count-guess",
     "potential": 48,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-028",
     "title": "The Wrapper's Flavor Words, Translated",
-    "premise": "The family reads a packaged snack's elaborate flavor description, then gives it plain words after everyone tries a small piece. The same flavor survives the edit, but the notes become less poetic.",
+    "premise": "The family reads the bag's flavor copy aloud, tastes a piece each, and rewrites it in plain words. 'Smoky chipotle harvest' becomes 'red, kind of.'",
     "conceptKey": "marketing-flavor-description-plain-language-review",
     "potential": 55,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-029",
     "title": "Buc-ee's Has a Serving Size for Every Pause",
-    "premise": "At Buc-ee's, we record the serving counts printed on a row of packaged snacks, without reviewing the store's food or doing an eating challenge. The aisle turns a quick stop into a small catalog of how many pieces each package calls one portion.",
+    "premise": "At Buc-ee's, we walk one snack aisle and read nothing but the serving sizes off the backs of the bags. Nobody eats anything, and the aisle becomes a catalog of what each package thinks a person is.",
     "conceptKey": "bucees-packaged-snack-serving-count-catalog",
     "potential": 62,
     "locations": ["bucees"],
@@ -83,7 +83,7 @@
   {
     "id": "video-030",
     "title": "The Snack Ranking Ends With the One Everyone Shares",
-    "premise": "We set out to rank a few familiar packaged snacks by flavor, then ask the family to choose one to share at an ordinary parked break. The favorite shifts with each vote until a plain, easy-to-divide pack wins, turning a small review into a portrait of how people negotiate the last of something without a grand speech.",
+    "premise": "We set out to rank a few snacks by flavor, then the family has to pick one bag to split at a rest stop. The rankings collapse vote by vote until the plain pack that divides evenly wins.",
     "conceptKey": "family-snack-flavor-ranking-becomes-sharing-choice",
     "potential": 91,
     "locations": [],

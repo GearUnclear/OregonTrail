@@ -56,7 +56,7 @@
   {
     "id": "video-067",
     "title": "One Address Update, Four Places to Change It",
-    "premise": "The traveler works through four ordinary forms that each ask for the household's current mailing address. Seeing the repeated field together gives a useful picture of how one move creates several small, separate errands.",
+    "premise": "A traveler fills out four separate forms that each want the household's new mailing address. Lined up side by side, they show that moving once means moving four more times on paper.",
     "conceptKey": "repeating-mailing-address-across-forms",
     "potential": 54,
     "locations": [],
@@ -65,7 +65,7 @@
   {
     "id": "video-068",
     "title": "The Mail Forwarding Form Has an End Date",
-    "premise": "A traveler reads the end date printed on a mail-forwarding form and compares it with the stack of household mail still arriving. The small deadline makes clear that forwarding buys time, not a permanent address.",
+    "premise": "A traveler reads the end date on the mail-forwarding form, then looks at the stack of mail still coming. The family has until that date to figure out where they live.",
     "conceptKey": "mail-forwarding-form-temporary-deadline",
     "potential": 47,
     "locations": [],
@@ -74,7 +74,7 @@
   {
     "id": "video-069",
     "title": "Important Papers, With the Important Parts Covered",
-    "premise": "A traveler lays out the household documents kept close and explains what each one is for while names, numbers, and account details stay covered. The plain-language tour turns a private folder into a readable portrait of what the family needed to carry forward.",
+    "premise": "A traveler walks through the folder of documents the family kept within reach, explaining each one with names and numbers covered by a thumb. The deed to an uninsurable house is filed next to the warranty for a fridge that is now underwater.",
     "conceptKey": "redacted-household-document-purpose-tour",
     "potential": 63,
     "locations": [],
@@ -83,7 +83,7 @@
   {
     "id": "video-070",
     "title": "The Cheerful Sun on the Letter That Ended an Address",
-    "premise": "An insurance letter arrives in bright, friendly stationery to say that a home is uninsurable at any premium, making devastating news look like routine correspondence. As the traveler updates forms and mail labels one field at a time, the video follows the home address from a place they left to a mailing address they can still answer, without promising that the next one solves anything.",
+    "premise": "The letter that ended the family's address came on cheerful stationery with a smiling sun, explaining that their home is uninsurable at any premium. The video follows that address as the traveler changes it form by form, from a house they left to a mailbox that still answers.",
     "conceptKey": "insurance-denial-letter-and-changing-home-address",
     "potential": 94,
     "locations": [],

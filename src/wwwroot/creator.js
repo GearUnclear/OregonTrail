@@ -90,11 +90,11 @@
     append(page, append(form, label, input, hint, submit));
     const steps = el("ol", "creator-start-steps");
     for (const [title, copy] of [
-      ["Shoot whatever happens", `One trail day + ${money(data.productionCost)}. The road supplies the idea; you find out what it is after filming.`],
+      ["Shoot whatever happens", `One trail day + ${money(data.productionCost)}. You don't pick the idea. You find out what you made after you made it.`],
       ["Publish. Refresh. Cope.", "Subscribers and passing strangers might watch. Most videos go nowhere. Ad income comes much later, if at all."],
       ["Visit Victor & Horoshilov", "Cameras, lights, batteries, lenses. More equipment raises the audience ceiling. It cannot make anyone care."],
     ]) append(steps, append(el("li"), el("strong", "", title), el("p", "card-note", copy)));
-    append(page, steps, el("p", "creator-fineprint", "Start at any point on the road. Keep your channel, gear and footage throughout this journey. Filming and re-editing spend real trail days; browsing and publishing do not."));
+    append(page, steps, el("p", "creator-fineprint", "Start anywhere on the road. The channel, gear and footage stay with you for the whole journey. Filming and re-editing cost real trail days. Browsing and publishing are free."));
     return page;
   }
 
@@ -145,9 +145,9 @@
       ui.labeledValue("Filmed", `Day ${video.filmedDay} · ${video.location}`),
       ui.labeledValue("Camera", video.camera),
       ui.labeledValue("Kit ceiling when filmed", `${integer(video.ceiling)} views`),
-      el("p", "card-note", "The kit ceiling limits reach; it does not predict or create demand.")));
+      el("p", "card-note", "The ceiling caps how far a video can travel. It doesn't make anyone want to watch.")));
     card.append(details);
-    if (video.reedited) append(card, el("p", "creator-reupload-note", `Original: ${integer(video.originalViews)} views. Replacement: ${integer(video.views)} views. Both count toward lifetime views. Subscriber changes shown above belong to the original upload; they are not awarded again.`));
+    if (video.reedited) append(card, el("p", "creator-reupload-note", `Original: ${integer(video.originalViews)} views. Replacement: ${integer(video.views)} views. Both count toward lifetime views. The subscriber change above came from the original and is not counted again.`));
     if (video.incident) {
       const incident = el("div", "creator-incident");
       append(incident, el("strong", "", video.reedited ? "FLAG CLEARED" : "AD REVIEW / FLAGGED"), el("p", "", video.incident));
@@ -173,7 +173,7 @@
       append(list, append(row, el("strong", "", order.name), el("span", "", money(order.price)),
         el("small", "", `Locker delivery · ${order.daysRemaining} trail day${order.daysRemaining === 1 ? "" : "s"} remaining`)));
     }
-    append(card, list, el("p", "card-note", "Already charged to road cash. Spend the day filming, traveling, or waiting. Delivered cameras must be selected; compatible accessories fit automatically."),
+    append(card, list, el("p", "card-note", "Already charged to road cash. It arrives after one trail day, however you spend it. New cameras have to be selected in the bag; compatible accessories fit themselves."),
       command("creator.wait-order", ui));
     return card;
   }
@@ -185,7 +185,7 @@
       append(el("div"), el("strong", "", data.kit.camera),
         el("p", "card-note", `${data.kit.mount || "Fixed lens"} · ${data.kit.hdmi ? "Clean HDMI output" : "No external HDMI monitor"}`)),
       ui.labeledValue("Audience ceiling", integer(data.kit.ceiling))),
-      el("p", "creator-ceiling-note", "More gear only raises this upper limit. It does not increase interest, improve an idea, or guarantee a single extra view. Footage keeps the kit it was filmed with."));
+      el("p", "creator-ceiling-note", "Gear only raises this cap. It won't improve an idea or guarantee a single extra view. Footage keeps the kit it was shot on."));
     const cameras = el("div", "creator-camera-list");
     for (const gear of data.gear.filter(g => g.owned && g.category === "camera")) {
       const row = el("div", "creator-bag-row");
@@ -207,7 +207,7 @@
       }
       card.append(list);
     } else card.append(el("p", "card-note", "No supporting equipment. Your phone is already a complete production department."));
-    append(card, el("p", "card-note", "The strongest compatible item in each accessory category fits automatically. Accessories do not stack within a category. Lenses need the matching mount; monitors need clean HDMI."));
+    append(card, el("p", "card-note", "The best compatible item in each accessory category fits automatically. Two of the same kind don't stack. Lenses need a matching mount; monitors need clean HDMI."));
     return card;
   }
 
@@ -222,13 +222,13 @@
         el("p", "", draft.premise), el("p", "card-note", `Filmed day ${draft.filmedDay} · ${draft.location}`),
         el("p", "card-note", `${draft.camera} · ${integer(draft.ceiling)} view ceiling`),
         append(el("div", "creator-actions"), command("creator.publish", ui, { className: "game-button--solid" }), command("creator.discard", ui)),
-        el("p", "card-note", "Publishing costs no additional time. Discarding does not return the filming day or money. Every original upload has a 15% chance of an ad restriction."));
+        el("p", "card-note", "Publishing takes no extra time. Discarding won't give back the day or the money. Every original upload has a 15% chance of limited ads."));
     } else {
       append(production, el("p", "", "Press record. The road decides what happens; the audience decides whether it cares."),
         append(el("div", "creator-production__facts"), ui.labeledValue("Filming here", data.filmingLocation),
           ui.labeledValue("Production cost", `${money(data.productionCost)} + 1 trail day`)),
         command("creator.film", ui, { className: "game-button--solid game-button--wide" }),
-        el("p", "card-note", "Ideas arrive at random after filming. Local stories require being at that stop. Filming spends a day without adding miles; your family still needs supplies."));
+        el("p", "card-note", "You find out what the video is about after you shoot it. Local stories only happen at their stop. A filming day uses up supplies and covers zero miles."));
       if (ui.balance < data.productionCost) production.append(el("p", "creator-negative", `You need ${money(data.productionCost)} in road cash to film.`));
     }
     const draftTitle = production.querySelector(".creator-draft-title");
@@ -268,7 +268,7 @@
       el("strong", "creator-shop-logo", "V&H"), append(el("div"), el("h2", "", "Victor & Horoshilov"),
         el("p", "", "PHOTO · VIDEO · ASPIRATIONAL DEBT"), el("small", "", "Since your last impulse purchase."))),
       el("p", "creator-shop-pitch", "“Your channel has potential. We accept that potential in dollars.”"),
-      el("p", "creator-ceiling-note", "Equipment raises the maximum views a video can receive. It does not raise audience demand. A $1,499 light can illuminate a video that gets 23 views."),
+      el("p", "creator-ceiling-note", "Gear raises the most views a video can get. It does nothing for how many people want to watch. A $1,499 light can beautifully illuminate a video that gets 23 views."),
       orders(data, ui));
     const filters = el("div", "creator-filters");
     filters.setAttribute("aria-label", "Filter equipment by category");
@@ -309,7 +309,7 @@
       }
       grid.append(card);
     }
-    append(page, grid, el("p", "creator-fineprint", "Supporting equipment fits automatically when compatible. Only the strongest item per category contributes. Cameras arrive in the bag; select one in Studio. Shipping is improbably free. Regret is included."));
+    append(page, grid, el("p", "creator-fineprint", "Supporting equipment fits automatically when compatible. Only the strongest item per category contributes. Cameras arrive in the bag; select one in Studio. Shipping is improbably free. Regret ships separately."));
     return page;
   }
 
@@ -319,7 +319,7 @@
     const figure = el("figure", "creator-chart");
     append(figure, append(el("div", "creator-row"), el("h3", "", "An audience, in theory"), el("span", "card-note", "LATEST 18 UPLOADS")));
     if (!videos.length) {
-      append(figure, el("p", "creator-chart__empty", "NO SIGNAL YET"), el("figcaption", "card-note", "Publish a video to begin the audience history."));
+      append(figure, el("p", "creator-chart__empty", "NO SIGNAL YET"), el("figcaption", "card-note", "Publish something and this chart will have something to say."));
       return figure;
     }
     const graph = svg("svg", { viewBox: "0 0 640 185", role: "img", "aria-label": `Views for ${videos.length} recent videos, oldest to newest. Subscriber views and non-follower views are stacked. Exact counts appear in each video's report below.` });
@@ -343,7 +343,7 @@
     }
     append(figure, graph, append(el("figcaption", "creator-chart__caption"),
       el("span", "", "● Subscriber views"), el("span", "", "● Non-follower views")),
-      el("p", "card-note", "A repaired video shows its replacement views. Lifetime totals include both the original and replacement."));
+      el("p", "card-note", "Re-edited videos show their reupload views. Lifetime totals count both."));
     return figure;
   }
 
@@ -355,10 +355,10 @@
       append(el("div", "creator-library-summary"), ui.labeledValue("Original uploads", integer(data.stats.uploads)),
         ui.labeledValue("Reuploads", integer(data.stats.reuploads)), ui.labeledValue("Days creating", integer(data.stats.daysWorked))),
       sources(data.stats.subscriberViews, data.stats.discoveryViews, ui),
-      el("p", "creator-ceiling-note", "Ad review can flag any original upload: a 15% chance, even with the expensive camera. You can repair an affected video once for a day of work and half its original views."));
+      el("p", "creator-ceiling-note", "Ad review flags 15% of original uploads, expensive camera or not. A flagged video can be re-edited once, for a day of work and half its original views."));
     for (const video of data.videos) page.append(videoCard(video, ui));
-    if (!data.videos.length) page.append(el("p", "creator-empty", "Your library is empty. Make some footage in Studio, then publish it here on the internet."));
-    if (data.stats.uploads > data.videos.length) page.append(el("p", "card-note", "Showing the latest 60 video records. Lifetime totals retain earlier uploads."));
+    if (!data.videos.length) page.append(el("p", "creator-empty", "Your library is empty. Film something in Studio, then put it on the internet."));
+    if (data.stats.uploads > data.videos.length) page.append(el("p", "card-note", "Showing the latest 60 videos. Lifetime totals still count the older ones."));
     return page;
   }
 
@@ -432,7 +432,7 @@
       ["Already paid to road", money(data.stats.paidOut), ""],
       ["Unpaid ad balance", money(data.stats.unpaid), "creator-positive"],
     ]) append(list, el("dt", "", label), el("dd", tone, value));
-    append(ledger, list, el("p", "card-note", "Net = all ad earnings minus gear and production costs. Unpaid earnings are included in net, but cannot buy fuel until transferred."));
+    append(ledger, list, el("p", "card-note", "Net is every ad dollar earned minus gear and production. It includes unpaid earnings, which can't buy gas until you transfer them."));
     if (data.started) append(ledger, command("creator.withdraw", ui, { className: "game-button--wide", noShortcut: true }),
       el("p", "card-note", `${money(data.partner.payoutMinimum)} minimum. Whole dollars transfer to road cash; cents remain here.`));
     const partner = el("section", "rail-card creator-partner");
@@ -441,15 +441,15 @@
       progress("Subscribers", data.stats.subscribers, data.partner.subscriberThreshold, ui),
       progress("Lifetime views", data.stats.totalViews, data.partner.viewThreshold, ui),
       el("p", "card-note", data.partner.monetized
-        ? "Eligible uploads earn ads. An individual video can still be demonetized. Buying equipment does not buy an audience."
-        : "Meet both thresholds to unlock ad income. Older uploads do not receive back pay. The qualifying upload can earn ads if it passes review."),
+        ? "New uploads earn ads unless review flags them. Gear still doesn't buy an audience."
+        : "Hit both numbers to unlock ads. The upload that gets you there can earn if it passes review. Nothing before it gets back pay."),
       el("p", "creator-fineprint", "These are in-game thresholds, not the real YouTube partner rules."));
     const fieldNotes = el("section", "rail-card creator-field-notes");
     append(fieldNotes, ui.panelHeading("Production notes", "Your family is still on this trip."),
       ui.labeledValue("Days spent creating", integer(data.stats.daysWorked)),
-      el("p", "card-note", "Filming and re-editing each cost a trail day. Travel and deliveries continue to matter. Your career survives closing the laptop."),
-      el("p", "card-note", "Audience taste is unpredictable. Subscribers can stay, skip an upload, or leave. Discovery can bring strangers, or absolutely nobody."),
-      el("p", "creator-fineprint", "This channel is a money trap with occasional exceptions. More equipment means more money to earn back."));
+      el("p", "card-note", "Filming and re-editing each cost a trail day. The channel stays open when you close the laptop."),
+      el("p", "card-note", "Nobody knows what the audience wants, including the audience. Subscribers stay, skip, or leave. Strangers show up, or nobody does."),
+      el("p", "creator-fineprint", "This channel is a money trap with rare exceptions. Every gear purchase is more money you have to earn back."));
     append(wrapper, ledger, partner, fieldNotes);
     return wrapper;
   }

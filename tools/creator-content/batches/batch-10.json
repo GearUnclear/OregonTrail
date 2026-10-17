@@ -58,7 +58,7 @@
   {
     "id": "video-097",
     "title": "How Long Is a Fuel Stop When Nothing Goes Wrong?",
-    "premise": "Across several ordinary refueling stops, the camera times the wait in line, the time at the pump, and the pause before pulling away. The comparison shows how much of stopping is simply standing still between those small steps.",
+    "premise": "We time every part of a fuel stop where nothing goes wrong: the line, the pump, the pause before pulling out. Most of a perfect stop is standing still.",
     "conceptKey": "time-breakdown-of-routine-refueling-stop",
     "potential": 49,
     "locations": [],
@@ -67,7 +67,7 @@
   {
     "id": "video-098",
     "title": "How Far Apart Are Our Fuel Stops, Really?",
-    "premise": "At several refueling stops, we note the vehicle's odometer at departure and arrival without naming a route or recommending a schedule. The resulting gaps vary enough to show how a route's tidy distance estimate becomes a few ordinary stretches between stations.",
+    "premise": "We log the odometer at every fuel stop. The gaps between stations are never the same twice, and none of them match the tidy number the route planner promised.",
     "conceptKey": "actual-odometer-distance-between-fuel-stops",
     "potential": 56,
     "locations": [],
@@ -76,7 +76,7 @@
   {
     "id": "video-099",
     "title": "How the Range Estimate Changes as the Tank Empties",
-    "premise": "We follow the dashboard's remaining-distance estimate at the start, middle, and end of one ordinary stretch between fuel stops, comparing each display to the miles actually traveled. The changes give a practical feel for the number as an estimate rather than a promise.",
+    "premise": "We check the dashboard's miles-to-empty at the start, middle, and end of one stretch and compare it with the miles actually driven. The number is an opinion, and it changes its mind going uphill.",
     "conceptKey": "dashboard-fuel-range-estimate-versus-miles-driven",
     "potential": 64,
     "locations": [],
@@ -85,7 +85,7 @@
   {
     "id": "video-100",
     "title": "The Tiny Arrow That Ends the Pump-Side Debate",
-    "premise": "At an ordinary refueling stop, a traveler starts the familiar walk around the SUV to find the fuel door, then notices the tiny arrow beside the fuel gauge. At later stops, the traveler checks that arrow before pulling in, turning a repeated pause into a small, reliable ritual.",
+    "premise": "At every fuel stop, a traveler walks around the SUV to find which side the gas door is on. Then they spot the tiny arrow next to the fuel gauge, and every stop after that starts with a small, smug glance at the dashboard.",
     "conceptKey": "dashboard-fuel-door-arrow-selects-pump-side",
     "potential": 87,
     "locations": [],

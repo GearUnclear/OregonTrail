@@ -56,7 +56,7 @@
   {
     "id": "video-137",
     "title": "One Tick Mark for Every Waiting Morning at Pigeon Gorge",
-    "premise": "While waiting at the I-40 Pigeon River Gorge washout, a traveler marks each morning spent waiting for the crossing to reopen. The growing row turns an uncertain delay into a simple count of days the odometer cannot show.",
+    "premise": "Stuck at the I-40 Pigeon River Gorge washout, a traveler makes one tick mark on a card for every morning the crossing stays closed. The odometer doesn't move. The tick marks do.",
     "conceptKey": "pigeon-gorge-crossing-wait-morning-calendar-tally",
     "potential": 58,
     "locations": [
@@ -67,7 +67,7 @@
   {
     "id": "video-138",
     "title": "The Clock Goes Back, the Day Keeps Its Place",
-    "premise": "As the trip moves west through time zones, the traveler resets the dashboard clock while keeping the day's small tasks in the order they happened. Paired views of the changed clock and unchanged list make the time adjustment easy to see without turning it into a route lesson.",
+    "premise": "Crossing a time zone, the traveler sets the dashboard clock back while the day's to-do list stays in the order things actually happened. The car gains an hour, and nobody can find anything to do with it.",
     "conceptKey": "time-zone-clock-reset-versus-events-order",
     "potential": 59,
     "locations": [],
@@ -76,7 +76,7 @@
   {
     "id": "video-139",
     "title": "A Calendar Mark for a Wait Is Not a Day Off",
-    "premise": "A traveler uses two different marks on a plain calendar for a planned rest day and an unexpected day spent waiting. Seeing both kinds of pause together makes the difference between choosing to stop and having the road stop you quietly clear.",
+    "premise": "A traveler marks the calendar two ways: a circle for a rest day they chose, an X for a day the road made them wait. The X's are winning.",
     "conceptKey": "calendar-distinguishes-chosen-rest-from-forced-delay",
     "potential": 47,
     "locations": [],
@@ -85,7 +85,7 @@
   {
     "id": "video-140",
     "title": "A Routine With No Appointment Hour Still Holds the Day",
-    "premise": "On the road, a traveler starts with a neat chart assigning exact hours to ordinary daily tasks; delays steadily turn the clock boxes into crossed-out promises. They redraw it as a short sequence of things that can be done in any available pause, and that second version becomes a quiet picture of finding shape in a day the road will not schedule.",
+    "premise": "A traveler starts the trip with a chart that gives every task an exact hour, and the delays turn it into a grid of crossed-out promises. They redraw it as a plain list of things to do whenever there's a pause, and something on it finally gets finished.",
     "conceptKey": "daily-routine-chart-shifts-from-fixed-hours-to-flexible-sequence",
     "potential": 91,
     "locations": [],
