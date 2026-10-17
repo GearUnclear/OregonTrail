@@ -20,8 +20,29 @@ if [[ -n "${WEB_VERIFY_PORT:-}" ]] && ((verify_port < 1 || verify_port > 65535))
   exit 2
 fi
 
-for command in dotnet curl grep sed node; do
+# WEB_VERIFY_SKIP_NODE=1 skips the tests/*.cjs browser unit tests on machines without Node.js.
+# It is an escape hatch, not a pass: the run warns loudly and must not be used to sign off a release.
+skip_node=0
+case "${WEB_VERIFY_SKIP_NODE:-}" in
+  '' | 0) ;;
+  1) skip_node=1 ;;
+  *)
+    echo "WEB_VERIFY_SKIP_NODE must be 0 or 1." >&2
+    exit 2
+    ;;
+esac
+
+required_commands=(dotnet curl grep sed)
+if ((skip_node == 0)); then
+  required_commands+=(node)
+fi
+
+for command in "${required_commands[@]}"; do
   if ! command -v "$command" >/dev/null 2>&1; then
+    if [[ "$command" == node ]]; then
+      echo "Required command is unavailable: node (set WEB_VERIFY_SKIP_NODE=1 to skip the browser unit tests)." >&2
+      exit 2
+    fi
     echo "Required command is unavailable: $command" >&2
     exit 2
   fi
@@ -32,12 +53,18 @@ host_pid=''
 
 cleanup() {
   if [[ -n "$host_pid" ]] && kill -0 "$host_pid" 2>/dev/null; then
-    kill "$host_pid" 2>/dev/null || true
+    # host_pid is the `dotnet run` wrapper; it forwards SIGTERM, but also signal the app it spawned directly.
+    local app_pids
+    app_pids=$(pgrep -P "$host_pid" 2>/dev/null || true)
+    kill "$host_pid" $app_pids 2>/dev/null || true
     wait "$host_pid" 2>/dev/null || true
   fi
   rm -rf -- "$verify_tmp"
 }
-trap cleanup EXIT INT TERM
+# Interrupts must end the run: a trap that only cleaned up would let the script continue and report a result.
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
 task_dotnet_home=${DOTNET_CLI_HOME:-"$verify_tmp/dotnet-home"}
 # Keep restored packages outside the disposable CLI home. project.assets.json points at these
@@ -105,21 +132,26 @@ if [[ ! -s "$web_app" ]]; then
   exit 1
 fi
 
-echo "Running browser unit tests..."
-shopt -s nullglob
-node_tests=("$repo_dir"/tests/*.cjs)
-shopt -u nullglob
-if ((${#node_tests[@]} == 0)); then
-  echo "No browser unit tests found in $repo_dir/tests/*.cjs." >&2
-  exit 1
-fi
-for node_test in "${node_tests[@]}"; do
-  echo "  node ${node_test#"$repo_dir"/}"
-  if ! node "$node_test"; then
-    echo "Browser unit test failed: $node_test" >&2
+if ((skip_node == 1)); then
+  echo "WARNING: WEB_VERIFY_SKIP_NODE=1 -- the tests/*.cjs browser unit tests were NOT run." >&2
+  echo "WARNING: this verification is incomplete; do not use it to approve a release." >&2
+else
+  echo "Running browser unit tests..."
+  shopt -s nullglob
+  node_tests=("$repo_dir"/tests/*.cjs)
+  shopt -u nullglob
+  if ((${#node_tests[@]} == 0)); then
+    echo "No browser unit tests found in $repo_dir/tests/*.cjs." >&2
     exit 1
   fi
-done
+  for node_test in "${node_tests[@]}"; do
+    echo "  node ${node_test#"$repo_dir"/}"
+    if ! node "$node_test"; then
+      echo "Browser unit test failed: $node_test" >&2
+      exit 1
+    fi
+  done
+fi
 
 echo "Building the .NET web host..."
 dotnet build "$project" --configuration Release --nologo ${WEB_VERIFY_NO_RESTORE:+--no-restore}
@@ -347,4 +379,8 @@ if [[ ! -s "$css_file" || ! -s "$js_file" || ! -s "$scenes_file" || ! -s "$verif
 fi
 
 assert_host_alive
+if ((skip_node == 1)); then
+  echo "Web rewrite verification passed WITHOUT the browser unit tests (WEB_VERIFY_SKIP_NODE=1)." >&2
+  exit 0
+fi
 echo "Web rewrite verification passed."
