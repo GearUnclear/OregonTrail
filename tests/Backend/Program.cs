@@ -15,7 +15,7 @@ static async Task Throws<T>(Func<Task> action) where T : Exception
     throw new Exception($"Expected {typeof(T).Name}");
 }
 
-if (args.Contains("--trade-14")) { TradeCapacityTests.Run(); return; }
+if (args.Contains("--trade-capacity")) { TradeCapacityTests.Run(); return; }
 TradeCapacityTests.Run();
 if (args.Contains("--creator-rules")) { CreatorTests.RunRules(); return; }
 if (args.Contains("--creator-balance")) { CreatorTests.RunBalance(false); return; }

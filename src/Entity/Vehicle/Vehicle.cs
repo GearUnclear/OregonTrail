@@ -898,7 +898,11 @@ namespace OregonTrailDotNet.Entity.Vehicle
                    offeredItem.Quantity <= held.MaxQuantity - held.Quantity;
         }
 
-        /// <summary>Whether inventory contains the requested item.</summary>
+        /// <summary>
+        ///     Determines if the vehicles inventory contains the inputted item in the specified quantity.
+        /// </summary>
+        /// <param name="wantedItem">Item wanted configured with desired quantity.</param>
+        /// <returns>TRUE if the vehicle has this item, FALSE if it does not have it or does but not enough quantity for trade.</returns>
         public bool ContainsItem(SimItem wantedItem)
         {
             // Loop through vehicle inventory.
