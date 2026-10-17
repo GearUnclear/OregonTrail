@@ -48,7 +48,7 @@ ProxyPassReverse /oregon/ http://127.0.0.1:7681/
 </Location>
 ```
 
-ASP.NET trusts loopback forwarded headers by default. If the proxy moves to another host, explicitly configure its trusted address before forwarding scheme/client headers. Secure cookies rely on the trusted HTTPS scheme. Dynamic state is private and not cacheable; snapshots support conditional GET with ETags. Static assets require cache revalidation and support Brotli/gzip. Event streams flush immediately and are never compressed by the host.
+ASP.NET trusts loopback forwarded headers by default. If the proxy moves to another host, explicitly configure its trusted address before forwarding scheme/client headers. Secure cookies rely on the trusted HTTPS scheme. Dynamic state is private and not cacheable; snapshots support conditional GET with ETags. `index.html` is served `no-cache` with a content hash (`?v=`) on each local CSS/JS/SVG reference, computed by the host from the published files (`src/Web/BrowserShell.cs`); a request carrying an asset's current hash is cached `public, max-age=31536000, immutable`, and every other static request (fonts, unversioned or stale `?v=`) requires revalidation. Do not hand-type `?v=` values in `index.html`. HTML, CSS, JS, and SVG support Brotli/gzip. Event streams flush immediately and are never compressed by the host.
 
 Before rollout:
 

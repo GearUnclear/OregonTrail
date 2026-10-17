@@ -17,6 +17,8 @@ static async Task Throws<T>(Func<Task> action) where T : Exception
 
 if (args.Contains("--state-registry")) { await StateRegistryTests.Run(); return; }
 await StateRegistryTests.Run();
+if (args.Contains("--browser-shell")) { BrowserShellTests.Run(); return; }
+BrowserShellTests.Run();
 if (args.Contains("--trade-capacity")) { TradeCapacityTests.Run(); return; }
 TradeCapacityTests.Run();
 if (args.Contains("--party-names")) { PartyNameTests.Run(); return; }
