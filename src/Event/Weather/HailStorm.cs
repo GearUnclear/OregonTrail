@@ -22,16 +22,10 @@ namespace OregonTrailDotNet.Event.Weather
         /// <returns>The <see cref="string" />.</returns>
         protected override string OnPostDestroyItems(IDictionary<Entities, int> destroyedItems)
         {
-            // Grab an instance of the game simulation.
-            var game = GameSimulationApp.Instance;
-
-            // Check if there are enough clothes to keep people warm, need two sets of clothes for every person.
-            // Adequate clothing prevents anyone from freezing. (The old extra "&& destroyedItems.Count < 0"
-            // clause was always false -- a count is never negative -- so this event always froze someone
-            // regardless of clothing; the clothing check alone is the intended protection.)
-            return game.Vehicle.Inventory[Entities.Clothes].Quantity >= game.Vehicle.PassengerLivingCount*2
-                ? "no loss of items."
-                : TryKillPassengers("frozen");
+            // Leggings are barter stock, not insulation, so cargo never decides who freezes. Every living passenger
+            // takes the same roll. Before, two crates per person spared the party; the default four-crate,
+            // four-person policy never reached that bar, so typical play already took this roll every time.
+            return TryKillPassengers("frozen");
         }
 
         /// <summary>

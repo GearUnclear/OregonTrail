@@ -27,11 +27,12 @@ import backend_integration
 from backend_integration import Client
 
 SEED_HEADER = 'X-Test-Seed'
-# Picked with --search. VIRAL_SEED's 32nd upload from Cape Coral goes viral and draws a Viral Hog offer (a viral
+# Picked with --search. VIRAL_SEED's 27th upload from Cape Coral goes viral and draws a Viral Hog offer (a viral
 # roll is about 0.16% per upload, and most seeds lose the party before 60 uploads). Seed 52 goes viral on its
-# first upload, but 32 filming days replay far more of the journey.
+# first upload, but 27 filming days replay far more of the journey. Re-picked after #75 changed the daily
+# illness roll; 212 (upload 25) and 221 (upload 17) also qualify.
 # RIVER_SEED gunning it through the first river crossing drowns two passengers.
-VIRAL_SEED, VIRAL_UPLOAD = 105, 32
+VIRAL_SEED, VIRAL_UPLOAD = 99, 27
 RIVER_SEED = 2
 MAX_UPLOADS = 60
 # A settled screen that a fixed (one-second) game tick can still change must hold still for longer than two ticks.

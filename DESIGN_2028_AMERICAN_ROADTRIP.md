@@ -326,6 +326,16 @@ convoy backlog is 1-3 days (was 1-9). In the strategy-sim default policy (`banke
 because riverside days had cost it food plus illness and event rolls (median winning journey 37 to
 27 days); it remains the hardest realistic plan.
 
+**Leggings are trade goods only (October 2026, issue #75):** the daily illness roll no longer reads
+the dollar value of carried leggings, and the grid-down ice storm (`HailStorm`) no longer spares a
+party holding two crates a head. Each living passenger now takes a fixed 1-in-3 baseline illness
+roll per day on top of the ration rolls. That rate is what the default four-crate policy averaged
+under the old check (about 87% of person-days at the 25% "warm" rate, the rest at 100%). In 2000
+seeds from 10001 the default Steady policy goes from 41.2% to 43.1% whole-family arrival, the
+11-leggings reference from 44.0% to 43.7%, and the no-leggings loadout from 40.8% to 42.6%;
+all three now differ by less than the sampling error. Leggings still pay river guides, stock the
+MLM hun's trades, and score points.
+
 **Also:** `RedDeadRedemption3` (ManualOnly) — a 0.02%/turn roll (`Random.Next(5000)==0`) in
 `ContinueOnTrail` deducts **$80 per living passenger** when everyone pre-orders it mid-drive.
 

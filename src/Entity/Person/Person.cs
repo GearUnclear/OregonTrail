@@ -244,24 +244,12 @@ namespace OregonTrailDotNet.Entity.Person
                      game.Random.NextBool())
                 CheckIllness();
 
-            // More chance for illness if you have no clothes (i.e. underdressed for the climate). The
-            // comparison value is the dollar value of leggings carried; Random.Next() is [0,60), so the
-            // warmth threshold sits around $140 (≈ 2 crates) and reliably "warm" is ≈ 4 crates ($300).
-            // NOTE: this used to be inverted -- the warm branch ran CheckIllness unconditionally, so more
-            // clothing made you SICKER (and the $10→$75 crate price hike amplified it). Branches swapped so
-            // adequate clothing now LOWERS illness exposure, matching the intent and making leggings worth buying.
-            var costClothes = game.Vehicle.Inventory[Entities.Clothes].TotalValue;
-            if (costClothes > 22 + 4*game.Random.Next())
-            {
-                // Adequately clothed: warmth keeps illness exposure low.
-                if (game.Random.NextBool() && game.Random.NextBool())
-                    CheckIllness();
-            }
-            else
-            {
-                // Underdressed for the climate: high chance of illness.
+            // Baseline exposure on the road: a 1-in-3 daily chance of an illness check, whatever is in the cargo.
+            // MLM leggings are barter stock only and never touch health. The 1-in-3 rate matches what
+            // the default four-crate policy averaged under the old leggings-value warmth check (about
+            // 87% of person-days at the 25% "warm" rate, the rest at 100%), so typical balance holds.
+            if (game.Random.Next(3) == 0)
                 CheckIllness();
-            }
 
             // Pushing harder than a Steady pace costs extra health, but only on real travel days.
             if (!skipDay)

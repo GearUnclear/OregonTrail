@@ -28,7 +28,7 @@ namespace OregonTrailDotNet.Entity
 
         /// <summary>
         ///     MLM leggings are hoarded by the party in unsellable crates; the only barter the sovereign-citizen river guide will
-        ///     accept. They double as the clothing slot, so running out still raises the risk of exposure on cold nights.
+        ///     accept. Trade stock only: nobody wears them, and carrying more or fewer never changes anyone's health.
         /// </summary>
         [Description("MLM leggings      @AMT@")] Clothes = 3,
 
