@@ -9,8 +9,8 @@ namespace OregonTrailDotNet.Entity.Item
     public static class Resources
     {
         /// <summary>
-        ///     Crates of MLM leggings the party hauls around; they double as the clothing that keeps party members warm when it is
-        ///     cold outside from the climate simulation, and as the only barter the river guide accepts.
+        ///     Crates of MLM leggings the party hauls around as barter: the only payment the river guide accepts, stock for the
+        ///     parking-lot hun, and points at the end. They stay sealed in the bag and do nothing for health or warmth.
         /// </summary>
         // Price: ~$75 a crate -- a case of fast-fashion athleisure leggings at 2028 retail.
         public static SimItem Clothing => new SimItem(Entities.Clothes, "MLM Leggings", "crates", "crate", 50, 75, 1, 1, 0, 2);

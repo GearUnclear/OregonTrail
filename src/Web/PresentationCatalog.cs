@@ -905,7 +905,7 @@ namespace OregonTrailDotNet.Web
         private static string StoreWelcomeDescription(object currentForm, string location)
         {
             return Field<int>(currentForm, "_adviceCount") <= 0
-                ? $"Page 1 of 2. The {location} travel center sells five-gallon gas cans, which keep the car moving, and crates of MLM leggings, which keep you warm and work as currency out here."
+                ? $"Page 1 of 2. The {location} travel center sells five-gallon gas cans, which keep the car moving, and crates of MLM leggings, which nobody wears but river guides take as payment."
                 : "Page 2 of 2. You'll also want snacks for the party, ammunition for trouble on the road, and spare tires, alternators, and transmissions for when the car breaks down.";
         }
 

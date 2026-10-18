@@ -27,6 +27,8 @@ if (args.Contains("--seed-spread")) { JourneySeedSpreadTests.Run(); return; }
 JourneySeedSpreadTests.Run();
 if (args.Contains("--mileage-events")) { MileageEventTests.Run(); return; }
 MileageEventTests.Run();
+if (args.Contains("--leggings-exposure")) { LeggingsExposureTests.Run(); return; }
+LeggingsExposureTests.Run();
 if (args.Contains("--trade-capacity")) { TradeCapacityTests.Run(); return; }
 TradeCapacityTests.Run();
 if (args.Contains("--party-names")) { PartyNameTests.Run(); return; }
