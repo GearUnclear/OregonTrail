@@ -330,11 +330,15 @@ because riverside days had cost it food plus illness and event rolls (median win
 the dollar value of carried leggings, and the grid-down ice storm (`HailStorm`) no longer spares a
 party holding two crates a head. Each living passenger now takes a fixed 1-in-3 baseline illness
 roll per day on top of the ration rolls. That rate is what the default four-crate policy averaged
-under the old check (about 87% of person-days at the 25% "warm" rate, the rest at 100%). In 2000
-seeds from 10001 the default Steady policy goes from 41.2% to 43.1% whole-family arrival, the
-11-leggings reference from 44.0% to 43.7%, and the no-leggings loadout from 40.8% to 42.6%;
-all three now differ by less than the sampling error. Leggings still pay river guides, stock the
-MLM hun's trades, and score points.
+under the old check (about 87% of person-days at the 25% "warm" rate, the rest at 100%). Pooled
+over 4000 seeds (2000 from 10001, 2000 from 30001), whole-family arrival moves from 41.5% to
+41.9% for the default Steady policy, 41.5% to 41.9% with no leggings, and 30.3% to 37.2% for
+`farmer_light`, which used to be underdressed nearly every day. The 11-leggings reference loses
+the most, 44.6% to 42.7% (Grueling 47.0% to 43.0%). It was the only loadout that often cleared
+the ice storm's two-crates-a-head bar (43% of its storms), and putting just that bar back on this
+branch raises it about 3 points on the same seeds. Ice storms come about once every four journeys and kill each passenger on a coin flip, the
+roll the default party nearly always took. Leggings still pay river guides, stock the MLM hun's
+trades, and score points.
 
 **Also:** `RedDeadRedemption3` (ManualOnly) — a 0.02%/turn roll (`Random.Next(5000)==0`) in
 `ContinueOnTrail` deducts **$80 per living passenger** when everyone pre-orders it mid-drive.
